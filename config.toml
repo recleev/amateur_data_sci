@@ -55,3 +55,6 @@ ignoreFiles             = ["\\.Rmd$", "\\.Rmarkdown$", "\\.R$", "_files$", "_cac
 [[params.social]]
     url = "https://github.com/recleev"
     icon = "github"
+    
+ [context.deploy-preview.environment]
+  HUGO_VERSION = "0.40"
