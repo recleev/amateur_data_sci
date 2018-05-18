@@ -2,7 +2,289 @@
 title: 'Hideous Progeny: Tidytext Analysis of Frankenstein'
 author: Recle Etino Vibal
 date: '2018-05-18'
-slug: hideous-progeny-tidytext-analysis-of-frankenstein
-categories: []
-tags: []
+slug: hideous-progeny-tidytext-frankenstein
+categories: ["text mining", "tidyverse"]
+tags: ["frankenstein", "literature", "sentiment analysis"]
+output:
+  blogdown::html_page:
+    toc: true
 ---
+
+```{r setup, include=FALSE}
+library(knitr)
+library(tidyverse)
+library(gutenbergr)
+library(rebus)
+library(tidytext)
+library(scales)
+library(drlib)
+library(ggthemes)
+library(ggsci)
+
+opts_chunk$set(echo = TRUE,
+               fig.align = "center",
+               fig.height = 7,
+               fig.width = 12,
+               warning = FALSE)
+
+```
+
+> And now, once again, I bid my hideous progeny go forth and prosper. 
+> --- Mary Wollstonecraft Shelley (London, 15 October 1831)
+
+# The Moden Prometheus
+
+Mary Wollstonecraft Shelley's Frankenstein (The Modern Prometheus) is one of the best stories anyone can read. If anyone was to start their journey in the wonderful world of stories, Frankenstein will always be my top recommendation. I am so excited talking about Frankenstein, I had to reread it before completing this text analysis.
+
+A lot of people know the legend of Frankenstein. I will avoid (or at least try) giving away summaries or spoilers even though I believe spoilers can do no harm to any aspiring reader of Shelley's masterpiece. Reading Frankenstein is an experience in itself. It is like a great journey into a foreign and mystical country. The traveler may share stories of her adventure, but never will the listeners understand or experience the real joy of the journey she took.
+
+# Pursuit for Frankenstein Begins
+
+Downloading any public domain book available in [Gutenberg](http://www.gutenberg.org/) is now easy thanks to `gutenbergr`. The `gutenberg_download()` function allows one to download any text in Gutenberg. In its simplest form, the only input needed in `gutenberg_download()` is the `gutenberg_id` or EBook number of the text one wants to download. In my case, I will use this [Frankenstein](http://www.gutenberg.org/files/84/84-h/84-h.htm) text with EBook #84. 
+
+```{r guternberg}
+
+frankenstein <- 
+  gutenberg_download(84)
+
+frankenstein %>% 
+  head(20) %>% 
+  kable(caption = "Sample Raw Downloaded Frankenstein Text from Guntenberg")
+
+```
+
+The downloaded text returns a tibble with two columns: `gutenberg_id` and `text`. The `text` column contains the words per line of the book. Note that with the empty spaces, this raw downloaded tibble requires a lot of cleaning.
+
+# Emptiness Filled
+
+Since Frankenstein is a novel, it will be reasonable to study it by chapter. Unfortunately, the raw downloaded file does not contain a column for chapters, so I had to extract and divide the document into chapters by hand.
+
+The simplest, easiest, most reproducible, and instinctive way to do this is by using the `fill()` function from the `dplyr` package. I first saw this method used in [Julia Silge's topic modeling of Sherlock Holmes stories](https://juliasilge.com/blog/sherlock-holmes-stm/).
+
+```{r chapters}
+
+chapter_headers <- 
+  c(str_c("Letter", 1:4, sep = " "),
+    str_c("Chapter", 1:24, sep = " "))
+
+chapters <- 
+  frankenstein %>% 
+  mutate(chapter = ifelse(str_detect(text,
+                                     str_c(START, 
+                                           chapter_headers,
+                                           END,
+                                           collapse = "|")),
+                           text,
+                           NA),
+         line_number = row_number()) %>%
+  fill(chapter) %>% 
+  drop_na() %>% 
+  filter(text != chapter, text != "")
+
+```
+
+The idea is to create a new column that will extract all the chapter headings and apply it as an identifier to all lines between chapter headings. For Frankenstein, the uniform format for chapter headings are Letter and Chapter followed by numbers. I created a new column called chapter then copied the text if it follows a chapter heading format and `NA` if it does not. I then used `fill()` to replace all `NA` cells with chapter headings above it. I then filtered out all `NA` rows, i.e. the lines above the first chapter and all empty lines in the text. I also had the help of the `stringr` and `rebus` package in creating and filtering strings. I also included a column to identify line number that will be useful when we separate the text into words.
+
+# Destruction and Creation
+
+After separating the lines of text into their appropriate chapters, I separated the Frankenstein text into words. The easiest way to do this is with the `unnest_tokens()` function from the `tidytext` package. I also removed all stop words or words that supply unnecessary information by using `anti_join()` and the `get_stopwords()` and specifying the SMART lexicon.
+
+```{r words}
+
+words <-  
+  chapters %>% 
+  mutate(chapter = factor(chapter,
+                          levels = chapter_headers)) %>% 
+  unnest_tokens(word, text) %>% 
+  anti_join(get_stopwords(source = "smart"),
+            by = "word")
+
+```
+
+`unnest_tokens()` takes a tibble as its first argument, making it easy to use `%>%`, then the name of the new column of the unnested tokens, and the name of the column we want to unnest.
+
+Now that the Frankenstein text data is tidy, we can start exploring.
+
+# Of Man, Of Life
+
+One of the very first questions I answer when I explore text data is to determine the most commonly used words.
+
+```{r most_words}
+
+words %>% 
+  count(word) %>% 
+  top_n(20, n) %>% 
+  ggplot(aes(fct_reorder(word, n),
+             n)) +
+  geom_col(fill = palette_pander(2)[2]) +
+  coord_flip() +
+  scale_y_continuous(expand = c(0.1, 0.1)) +
+  labs(title = "Most Used Words in Frankenstein",
+       x = "Word",
+       y = "Count") +
+  theme_pander()
+
+```
+
+Fellow readers of Frankenstein should not be surprised that man and life is the top two words. Frankenstein is more about the madness of one man and the monster he created. It is about humanity and the interplay of life and death (these two words also in the top 20). 
+
+There are two important fathers in the story. Elizabeth also has an important role both in the story and Victor's life.
+
+# A Big Ending
+
+After the most common words, I also ask what are the number of words per chapter.
+
+```{r most_words_chapter}
+
+n_words_median_chapter <- 
+  words %>% 
+  count(chapter) %>% 
+  with(median(n))
+  
+words %>% 
+  count(chapter) %>% 
+  ggplot(aes(fct_reorder(chapter,
+                         n),
+             n)) +
+  geom_col(fill = palette_pander(2)[2]) +
+  geom_hline(yintercept = n_words_median_chapter, 
+             color = "red3") +
+  coord_flip() +
+  scale_y_continuous(labels = comma) +
+  labs(title = "Number of Words per Chapter",
+       subtitle = sprintf("Red Line is the Median Number of Words (%s) per Chapter",
+                          comma(n_words_median_chapter)),
+       x = "Chapter",
+       y = "Number of Words") +
+  theme_pander()
+
+```
+
+It seems like Shelley could have used one or two more chapters, but maybe she was limited to only 24 chapters for her work. One of my favorite quotes is in the last chapter.
+
+We will learn more about chapters later. Time to get more insight about the novel.
+
+# Uncontrollable Feelings
+
+Sentiment analysis is another staple when working with text data. Words express emotions. Some express more negative emotions, others more positive. 
+
+```{r afinn}
+
+words %>% 
+  inner_join(get_sentiments("afinn"),
+             by = "word") %>% 
+  group_by(chapter) %>% 
+  summarise(sentiment_score = sum(score),
+            positive_net = sentiment_score >= 0) %>% 
+  ggplot(aes(chapter,
+             sentiment_score,
+             fill = positive_net,
+             label = sentiment_score)) +
+  geom_col(show.legend = FALSE) +
+  geom_hline(yintercept = 0, 
+             color = "red3") +
+  scale_fill_pander() +
+  theme_pander() +
+  theme(axis.text.x = element_text(angle = 90),
+        axis.ticks.x = element_blank()) +
+  labs(title = "Net AFINN Score per Chapter of Frankenstein",
+       x = "Chapter",
+       y = "Net Sentiment Score")
+
+```
+
+```{r my_chapter_titles}
+
+tibble(chapter_title = c("Letter 1 - Robert Walton", 
+                         "Letter 2 - Vessel and Crew", 
+                         "Letter 3 - In Haste", 
+                         "Letter 4 - Two Strangers on the Ice", 
+                         "Chapter 1 - Alphonse, Caroline, Elizabeth", 
+                         "Chapter 2 - Victor Frankenstein", 
+                         "Chapter 3 - Ingolstadt", 
+                         "Chapter 4 - Eight Feet in Height", 
+                         "Chapter 5 - Daemon", 
+                         "Chapter 6 - News from Home", 
+                         "Chapter 7 - Strangled", 
+                         "Chapter 8 - The Trial", 
+                         "Chapter 9 - Solitude in Nature", 
+                         "Chapter 10 - The Daemon's Proposal", 
+                         "Chapter 11 - Awakening", 
+                         "Chapter 12 - The Cottagers", 
+                         "Chapter 13 - Safie and the Gift of Knowledge", 
+                         "Chapter 14 - Fall of the De Laceys", 
+                         "Chaper 15 - Paradise Lost, Plutarch's Lives and Sorrows of Werter",
+                         "Chapter 16 - Burned Down", 
+                         "Chapter 17 - The Agreement", 
+                         "Chapter 18 - To England", 
+                         "Chapter 19 - Calm Before the Storm", 
+                         "Chapter 20 - The Threat", 
+                         "Chapter 21 - Accused", 
+                         "Chapter 22 - Overshadowed Marriage", 
+                         "Chapter 23 - Bridal Bier",
+                         "Chapter 24 - Unconquerable Ice")) %>% 
+  separate(chapter_title,
+           into = c("chapter",
+                    "title"),
+           sep = " - ") %>% 
+  kable(caption = "My Titles for Each Frankenstein Chapter")
+
+```
+
+# AFINN Cumulative
+
+```{r afinn_cumsum}
+
+words %>% 
+  inner_join(get_sentiments("afinn"),
+             by = "word") %>% 
+  group_by(line_number) %>% 
+  summarise(sentiment_score = sum(score)) %>% 
+  arrange(line_number) %>% 
+  mutate(cumsum_sentiment_score = cumsum(sentiment_score)) %>% 
+  ggplot(aes(line_number,
+             cumsum_sentiment_score)) +
+  geom_line(color = palette_pander(5)[5]) +
+  geom_hline(yintercept = 0,
+             color = "red3") +
+  theme(axis.text.x = element_blank()) +
+  theme_pander() +
+  labs(title = "Cumulative AFINN Score Through Frankenstein",
+       x = "Progress of Novel (Start to Finish)",
+       y = "Cumulative AFINN Score")
+
+```
+
+# NRC Chapter
+
+```{r nrc_chapter}
+
+words %>% 
+  inner_join(get_sentiments("nrc"),
+             by = "word") %>% 
+  filter(str_detect(sentiment,
+                    "positive|negative") == FALSE) %>% 
+  count(chapter, sentiment) %>% 
+  group_by(chapter) %>% 
+  mutate(percent_sentiment = n / sum(n)) %>% 
+  group_by(sentiment) %>% 
+  top_n(10, percent_sentiment) %>% 
+  ungroup() %>%  
+  ggplot(aes(reorder_within(chapter, 
+                            percent_sentiment,
+                            sentiment),
+             percent_sentiment,
+             fill = sentiment)) +
+  scale_x_reordered() +
+  scale_y_percent() +
+  geom_col() +
+  facet_wrap(~sentiment,
+             scales = "free_y",
+             ncol = 4) +
+  coord_flip() +
+  scale_fill_pander() +
+  theme_pander()
+
+```
+
+
