@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes" ?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>Literature on The Amateur Data Scientist</title>
+    <link>/tags/literature/</link>
+    <description>Recent content in Literature on The Amateur Data Scientist</description>
+    <generator>Hugo -- gohugo.io</generator>
+    <language>en-us</language>
+    <lastBuildDate>Fri, 18 May 2018 00:00:00 +0000</lastBuildDate>
+    
+	<atom:link href="/tags/literature/index.xml" rel="self" type="application/rss+xml" />
+    
+    
+    <item>
+      <title>Hideous Progeny: Tidytext Analysis of Frankenstein</title>
+      <link>/blog/hideous-progeny-tidytext-frankenstein/</link>
+      <pubDate>Fri, 18 May 2018 00:00:00 +0000</pubDate>
+      
+      <guid>/blog/hideous-progeny-tidytext-frankenstein/</guid>
+      <description>The Moden PrometheusCapture of Frankenstein (Text)Add Chapter ColumnUnnest WordsMost Common WordsAnd now, once again, I bid my hideous progeny go forth and prosper. — Mary Wollstonecraft Shelley (London, 15 October 1831)
+The Moden PrometheusMary Wollstonecraft Shelley’s Frankenstein (The Modern Prometheus) is one of the best stories any can read. If anyone was to start their journey in the wonderful world of stories, Frankenstein will always be my suggestion for first read.</description>
+    </item>
+    
+  </channel>
+</rss>

@@ -1,0 +1,341 @@
+<!DOCTYPE html>
+<html lang="en-us">
+
+<head>
+<meta charset="utf-8">
+<meta http-equiv="X-UA-Compatible" content="chrome=1">
+<meta name="HandheldFriendly" content="True">
+<meta name="MobileOptimized" content="320">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="referrer" content="no-referrer">
+<meta name="description" content="I am a beginner R User and Data Science practitioner. I love learning about R, statistics, data science and applying all this knowledge.">
+
+<base href="/">
+<title>
+
+
+     Hideous Progeny: Tidytext Analysis of Frankenstein 
+
+</title>
+<link rel="canonical" href="/blog/hideous-progeny-tidytext-frankenstein/">
+
+
+
+
+
+
+<script type="text/javascript" src="/js/jquery-3.3.1.min.js"></script>
+
+
+<link rel="stylesheet" href="/css/font-awesome.min.css">
+<link rel="stylesheet" href="/css/nunito_sans.css">
+
+
+    <link rel="stylesheet" href="css/light-style.css">
+
+
+
+
+
+
+<link rel="shortcut icon" href="img/fav.ico">
+
+
+
+
+
+
+
+</head>
+
+<body>
+
+<div class="section" id="top">
+
+    <div class="container hero fade-in one">
+    <h1 class="bold-title is-1">The Amateur Data Scientist</h1>
+    </div>
+
+
+<div class="section fade-in two">
+
+    <div class="container">
+    <hr>
+<nav class="nav nav-center">
+    <span id="nav-toggle" class="nav-toggle"  onclick="document.getElementById('nav-menu').classList.toggle('is-active');">
+      <span></span>
+      <span></span>
+      <span></span>
+    </span>
+    <div id="nav-menu" class="nav-left nav-menu">
+      <span class="nav-item">
+        <a href="/">Main</a>
+      </span>
+      <span class="nav-item">
+        <a href="/#about">About</a>
+      </span>
+      
+      <span class="nav-item">
+        <a href="/blog">Back to blog</a>
+      </span>
+      
+      <span class="nav-item">
+        <a href="/#contact">Contact</a>
+      </span>
+    
+      <span class="nav-item">
+        <a href="/index.xml"><i class="fa fa-rss"></i></a>
+      </span>
+    
+    </div>
+</nav>
+<hr>
+
+    </div>
+
+    <div class="container fade-in two">
+        <h2 class="title is-1 top-pad strong-post-title"><a href="/blog/hideous-progeny-tidytext-frankenstein/">Hideous Progeny: Tidytext Analysis of Frankenstein</a></h2>
+            <div class="post-data">
+                May 18, 2018 |
+                4 minutes read
+            </div>
+
+            
+                <div class="blog-share">
+                Share this:
+                
+                <a class="twitter-share-button" href="https://twitter.com/intent/tweet?text=Read%20Hideous%20Progeny%3a%20Tidytext%20Analysis%20of%20Frankenstein%20%2fblog%2fhideous-progeny-tidytext-frankenstein%2f"
+                onclick="window.open(this.href, 'twitter-share', 'width=550,height=235');return false;">
+                <i class="fa fa-twitter"></i>
+                <span class="hidden">Twitter</span>
+                </a>
+                
+                 
+                <a class="icon-facebook" href="https://www.facebook.com/sharer/sharer.php?u=%2fblog%2fhideous-progeny-tidytext-frankenstein%2f"
+                onclick="window.open(this.href, 'facebook-share','width=580,height=296');return false;">
+                <i class="fa fa-facebook"></i>
+                <span class="hidden">Facebook</span>
+                </a>
+                
+                
+                
+                <a class="icon-google-plus" href="https://plus.google.com/share?url=%2fblog%2fhideous-progeny-tidytext-frankenstein%2f"
+                onclick="window.open(this.href, 'google-plus-share', 'width=490,height=530');return false;">
+                <i class="fa fa-google-plus"></i>
+                <span class="hidden">Google+</span>
+                </a>
+                
+                </div>
+            
+
+    </div>
+
+    <div class="container markdown fade-in two top-pad">
+        <div id="TOC">
+<ul>
+<li><a href="#the-moden-prometheus">The Moden Prometheus</a></li>
+<li><a href="#capture-of-frankenstein-text">Capture of Frankenstein (Text)</a></li>
+<li><a href="#add-chapter-column">Add Chapter Column</a></li>
+<li><a href="#unnest-words">Unnest Words</a></li>
+<li><a href="#most-common-words">Most Common Words</a></li>
+</ul>
+</div>
+
+<blockquote>
+<p>And now, once again, I bid my hideous progeny go forth and prosper. — Mary Wollstonecraft Shelley (London, 15 October 1831)</p>
+</blockquote>
+<div id="the-moden-prometheus" class="section level1">
+<h1>The Moden Prometheus</h1>
+<p>Mary Wollstonecraft Shelley’s Frankenstein (The Modern Prometheus) is one of the best stories any can read. If anyone was to start their journey in the wonderful world of stories, Frankenstein will always be my suggestion for first read. I am so excited talking about Frankenstein, I will reread it after my current read.</p>
+<p>A lot of people know the legend of Frankenstein. I will avoid giving away summaries or spoilers here just because one really can give such things for such a great novel. Reading Frankenstein is an experience in itself. It is like a great journey into a foreign and mystical country. The traveler may share stories of her adventure, but never will the listeners understand or experience the real joy of the journey she took.</p>
+</div>
+<div id="capture-of-frankenstein-text" class="section level1">
+<h1>Capture of Frankenstein (Text)</h1>
+<p>Downloading any public domain book available in <a href="http://www.gutenberg.org/">Gutenberg</a> is now easy thanks to <code>gutenbergr</code>. The <code>gutenberg_download()</code> function allows one to download any text in Gutenberg. In its simplest form, the only input needed in <code>gutenberg_download()</code> is the <code>gutenberg_id</code> or EBook number of the text one wants to download. In my case, I will use this <a href="http://www.gutenberg.org/files/84/84-h/84-h.htm">Frankenstein</a> text with EBook #84.</p>
+<pre class="r"><code>frankenstein &lt;- 
+  gutenberg_download(84)</code></pre>
+<pre><code>## Determining mirror for Project Gutenberg from http://www.gutenberg.org/robot/harvest</code></pre>
+<pre><code>## Using mirror http://aleph.gutenberg.org</code></pre>
+<pre class="r"><code>frankenstein %&gt;% 
+  head(20) %&gt;% 
+  kable(caption = &quot;Sample Raw Downloaded Frankenstein Text from Guntenberg&quot;)</code></pre>
+<table>
+<caption><span id="tab:guternberg">Table 1: </span>Sample Raw Downloaded Frankenstein Text from Guntenberg</caption>
+<thead>
+<tr class="header">
+<th align="right">gutenberg_id</th>
+<th align="left">text</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td align="right">84</td>
+<td align="left">Frankenstein,</td>
+</tr>
+<tr class="even">
+<td align="right">84</td>
+<td align="left"></td>
+</tr>
+<tr class="odd">
+<td align="right">84</td>
+<td align="left">or the Modern Prometheus</td>
+</tr>
+<tr class="even">
+<td align="right">84</td>
+<td align="left"></td>
+</tr>
+<tr class="odd">
+<td align="right">84</td>
+<td align="left"></td>
+</tr>
+<tr class="even">
+<td align="right">84</td>
+<td align="left">by</td>
+</tr>
+<tr class="odd">
+<td align="right">84</td>
+<td align="left"></td>
+</tr>
+<tr class="even">
+<td align="right">84</td>
+<td align="left">Mary Wollstonecraft (Godwin) Shelley</td>
+</tr>
+<tr class="odd">
+<td align="right">84</td>
+<td align="left"></td>
+</tr>
+<tr class="even">
+<td align="right">84</td>
+<td align="left"></td>
+</tr>
+<tr class="odd">
+<td align="right">84</td>
+<td align="left"></td>
+</tr>
+<tr class="even">
+<td align="right">84</td>
+<td align="left"></td>
+</tr>
+<tr class="odd">
+<td align="right">84</td>
+<td align="left">Letter 1</td>
+</tr>
+<tr class="even">
+<td align="right">84</td>
+<td align="left"></td>
+</tr>
+<tr class="odd">
+<td align="right">84</td>
+<td align="left"></td>
+</tr>
+<tr class="even">
+<td align="right">84</td>
+<td align="left">St. Petersburgh, Dec. 11th, 17–</td>
+</tr>
+<tr class="odd">
+<td align="right">84</td>
+<td align="left"></td>
+</tr>
+<tr class="even">
+<td align="right">84</td>
+<td align="left">TO Mrs. Saville, England</td>
+</tr>
+<tr class="odd">
+<td align="right">84</td>
+<td align="left"></td>
+</tr>
+<tr class="even">
+<td align="right">84</td>
+<td align="left">You will rejoice to hear that no disaster has accompanied the</td>
+</tr>
+</tbody>
+</table>
+<p>The downloaded text returns a tibble with two columns: <code>gutenberg_id</code> and <code>text</code>. The <code>text</code> column contains the words per line of the book. Note that with the empty spaces, this raw downloaded tibble requires a lot of cleaning.</p>
+</div>
+<div id="add-chapter-column" class="section level1">
+<h1>Add Chapter Column</h1>
+<p>Since this Frankenstein is a novel, it will be reasonable to study it by chapter. Unfortunately, the raw downloaded file does not contain a column for novels, so I had to extract and divide the document into chapters by hand.</p>
+<p>The simplest, easiest, most reproducible, and instinctive way to do this is by using the <code>fill()</code> function from the <code>dplyr</code> package. I first saw this method used in <a href="https://juliasilge.com/blog/sherlock-holmes-stm/">Julia Silge’s topic modeling of Sherlock Holmes stories</a>.</p>
+<pre class="r"><code>chapter_headers &lt;- 
+  c(str_c(&quot;Letter&quot;, 1:4, sep = &quot; &quot;),
+    str_c(&quot;Chapter&quot;, 1:24, sep = &quot; &quot;))
+
+chapters &lt;- 
+  frankenstein %&gt;% 
+  mutate(chapter = ifelse(str_detect(text,
+                                     str_c(START, 
+                                           chapter_headers,
+                                           END,
+                                           collapse = &quot;|&quot;)),
+                           text,
+                           NA),
+         line_number = row_number()) %&gt;%
+  fill(chapter) %&gt;% 
+  drop_na() %&gt;% 
+  filter(text != chapter, text != &quot;&quot;)</code></pre>
+<p>The idea is to create a new column that will extract all the chapter headings and apply it as an identifier to all lines between chapter headings. For Frankenstein, the uniform format for chapter headings are Letter and Chapter followed by numbers. I created a new column called chapter then copied the text if it follows a chapter heading format and <code>NA</code> if it does not. I then used <code>fill()</code> to replace all <code>NA</code> cells with chapter headings above it. I then filtered out all <code>NA</code> rows, i.e. the lines above the first chapter and all empty lines in the text. I also had the help of the <code>stringr</code> and <code>rebus</code> package in creating and filtering strings. I also included a column to identify line number that will be useful when we separate the text into words.</p>
+</div>
+<div id="unnest-words" class="section level1">
+<h1>Unnest Words</h1>
+<p>After separating the lines of text into their appropriate chapters, I separated the Frankenstein text into words. The easiest way to do this is with the <code>unnest_tokens()</code> function from the <code>tidytext</code> package. I also removed all stop words or words that supply unnecessary information by using <code>anti_join()</code> and the <code>stop_words</code> data frame.</p>
+<pre class="r"><code>words &lt;-  
+  chapters %&gt;% 
+  mutate(chapter = factor(chapter,
+                          levels = chapter_headers)) %&gt;% 
+  unnest_tokens(word, text) %&gt;% 
+  anti_join(stop_words,
+            by = &quot;word&quot;)</code></pre>
+<p><code>unnest_tokens()</code> takes a tibble as its first argument, making it easy to use <code>%&gt;%</code>, then the name of the new column of the unnested tokens, and the name of the column we want to unnest.</p>
+</div>
+<div id="most-common-words" class="section level1">
+<h1>Most Common Words</h1>
+<pre class="r"><code>words %&gt;% 
+  count(word) %&gt;% 
+  top_n(20, n) %&gt;% 
+  ggplot(aes(fct_reorder(word, n),
+             n)) +
+  geom_col(fill = palette_pander(2)[2]) +
+  coord_flip() +
+  labs(title = &quot;Most Used Words in Frankenstein&quot;,
+       x = &quot;Word&quot;,
+       y = &quot;Count&quot;) +
+  theme_pander()</code></pre>
+<p><img src="/blog/2018-05-18-hideous-progeny-tidytext-analysis-of-frankenstein_files/figure-html/most%20words-1.png" width="960" style="display: block; margin: auto;" /></p>
+</div>
+
+    </div>
+
+    <div class="disqus">
+        
+    </div>
+
+<div class="container has-text-centered top-pad">
+<hr>
+<a href="/blog/hideous-progeny-tidytext-frankenstein/#top"><i class="fa fa-arrow-up"></i></a>
+<hr>
+</div>
+
+<div class="section" id="footer">
+    <div class="container has-text-centered">
+        
+        <span class="footer-text"><a href="https://github.com/hivickylai/hugo-theme-introduction" target="_blank" rel="noopener">Introduction</a> theme for <a href="http://gohugo.io/" target="_blank" rel="noopener">Hugo</a>. Made with <i class="fa fa-heart"></i> and <i class="fa fa-coffee"></i>. <a href="https://vickylai.io" target="_blank" rel="noopener">Vicky Lai</a> 2018</span>
+        
+    </div>
+</div>
+
+</div>
+</div>
+
+
+<script>
+$('a[href^="\/blog\/hideous-progeny-tidytext-frankenstein\/#"]').click(function(e) {
+    e.preventDefault();
+    var target = this.hash;
+    $('html, body').animate({
+    scrollTop: $(target).offset().top
+    }, 500);
+    return false;
+})
+</script>
+
+</body>

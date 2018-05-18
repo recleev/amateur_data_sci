@@ -1,0 +1,91 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes" ?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>The Amateur Data Scientist</title>
+    <link>/</link>
+    <description>Recent content on The Amateur Data Scientist</description>
+    <generator>Hugo -- gohugo.io</generator>
+    <language>en-us</language>
+    <lastBuildDate>Mon, 13 Nov 2017 12:21:21 -0500</lastBuildDate>
+    
+	<atom:link href="/index.xml" rel="self" type="application/rss+xml" />
+    
+    
+    <item>
+      <title>Photography</title>
+      <link>/projects/photography/</link>
+      <pubDate>Mon, 13 Nov 2017 12:21:21 -0500</pubDate>
+      
+      <guid>/projects/photography/</guid>
+      <description>Sometimes I take pictures. This project is about the pictures I take. Sometimes, they are pictures of cats.</description>
+    </item>
+    
+    <item>
+      <title>Design</title>
+      <link>/projects/design/</link>
+      <pubDate>Mon, 13 Nov 2017 12:21:16 -0500</pubDate>
+      
+      <guid>/projects/design/</guid>
+      <description>This theme was designed by Vicky Lai. Go on, explore! 💪
+If you want to use it for your website, check out the section at the bottom of the main page. 👍</description>
+    </item>
+    
+    <item>
+      <title>Writing</title>
+      <link>/projects/test/</link>
+      <pubDate>Mon, 13 Nov 2017 12:21:11 -0500</pubDate>
+      
+      <guid>/projects/test/</guid>
+      <description></description>
+    </item>
+    
+    <item>
+      <title>Writing</title>
+      <link>/projects/writing/</link>
+      <pubDate>Mon, 13 Nov 2017 12:21:11 -0500</pubDate>
+      
+      <guid>/projects/writing/</guid>
+      <description>Aromatic aroma con panna, crema so coffee robust coffee barista, café au lait trifecta that strong blue mountain cortado aftertaste. Aroma extraction french press, skinny sweet, blue mountain cup roast barista, beans, extra cappuccino mug crema strong.
+To go viennese cream to go, flavour, so mocha as, carajillo iced et a siphon froth. Aged, eu, cup, brewed aroma kopi-luwak, coffee, id viennese french press brewed grounds acerbic froth. Decaffeinated acerbic, spoon beans seasonal, french press café au lait mazagran roast chicory, pumpkin spice galão as fair trade, dark irish cup ristretto half and half whipped shop.</description>
+    </item>
+    
+    <item>
+      <title>Hideous Progeny: Tidytext Analysis of Frankenstein</title>
+      <link>/blog/hideous-progeny-tidytext-frankenstein/</link>
+      <pubDate>Fri, 18 May 2018 00:00:00 +0000</pubDate>
+      
+      <guid>/blog/hideous-progeny-tidytext-frankenstein/</guid>
+      <description>The Moden PrometheusCapture of Frankenstein (Text)Add Chapter ColumnUnnest WordsMost Common WordsAnd now, once again, I bid my hideous progeny go forth and prosper. — Mary Wollstonecraft Shelley (London, 15 October 1831)
+The Moden PrometheusMary Wollstonecraft Shelley’s Frankenstein (The Modern Prometheus) is one of the best stories any can read. If anyone was to start their journey in the wonderful world of stories, Frankenstein will always be my suggestion for first read.</description>
+    </item>
+    
+    <item>
+      <title>About</title>
+      <link>/about/</link>
+      <pubDate>Thu, 09 Mar 2017 13:23:28 +0800</pubDate>
+      
+      <guid>/about/</guid>
+      <description>An amateur&amp;hellip;is someone not quite up to par, a person not to be taken seriously, one whose performance falls short of professional standards. But originally, &amp;ldquo;amateur&amp;rdquo;, from the Latin verb amare, &amp;ldquo;to love&amp;rdquo;, referred to a person who loved what he was doing. &amp;mdash; Mihaly Cziksentmihalyi, Flow: The Psychology of Optimal Experience
+ I started learning R in December 2017. I never stopped learning it and using it since then.</description>
+    </item>
+    
+    <item>
+      <title>Contact</title>
+      <link>/contact/</link>
+      <pubDate>Thu, 09 Mar 2017 13:23:28 +0800</pubDate>
+      
+      <guid>/contact/</guid>
+      <description>Have a question about R, data science, or about me? Want to collaborate for a certain project? Do not hesistate to contact me. I prefer messages and questions via email.</description>
+    </item>
+    
+    <item>
+      <title></title>
+      <link>/about/</link>
+      <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
+      
+      <guid>/about/</guid>
+      <description>Aboutcode{white-space: pre;}pre:not([class]) {background-color: white;}if (window.hljs) {hljs.configure({languages: []});hljs.initHighlightingOnLoad();if (document.readyState &amp;&amp; document.readyState === &#34;complete&#34;) {window.setTimeout(function() { hljs.initHighlighting(); }, 0);}}h1 {font-size: 34px;}h1.title {font-size: 38px;}h2 {font-size: 30px;}h3 {font-size: 24px;}h4 {font-size: 18px;}h5 {font-size: 16px;}h6 {font-size: 12px;}.</description>
+    </item>
+    
+  </channel>
+</rss>
