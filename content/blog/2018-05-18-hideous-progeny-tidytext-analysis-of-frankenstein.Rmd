@@ -166,7 +166,16 @@ We will learn more about chapters later. Time to get more insight about the nove
 
 # Uncontrollable Feelings
 
-Sentiment analysis is another staple when working with text data. Words express emotions. Some express more negative emotions, others more positive. 
+Sentiment analysis is another staple when working with text data. Words express emotions. Some express more negative emotions, others more positive. We can determine the overall feeling or mood of a text by looking at each word and weighing which emotions dominate the text more.
+
+The `tidytext` package made sentiment analysis a bit easier with the `get_sentiments()` function and with the help of `dplyr`'s `inner_join()`.
+
+Here, I used the [AFINN](http://www2.imm.dtu.dk/pubdb/views/publication_details.php?id=6010) and [NRC](http://saifmohammad.com/WebPages/lexicons.html) lexicon. 
+
+## Waves of Emotions
+
+The AFINN lexicon scores words from -5 to 5 depending on the words emotions and intensity. I took the AFINN scores of each word in each chapter then took the total AFINN score of each chapter to determine the overall sentiment of the chapter.
+
 
 ```{r afinn}
 
@@ -192,6 +201,8 @@ words %>%
        y = "Net Sentiment Score")
 
 ```
+
+To guide people who are yet to read Frankenstein, I renamed all chapters of the novel. I think I did not give away much, but I think we can get a feel of why some chapters are positive while others are negative. Chapter 24's very negative score is also due to it being the chapter with the most words.
 
 ```{r my_chapter_titles}
 
@@ -231,7 +242,13 @@ tibble(chapter_title = c("Letter 1 - Robert Walton",
 
 ```
 
-# AFINN Cumulative
+Above are the titles I made for each chapter. I think this is enough heat for future Frankenstein readers to understand the trend. Better yet, they should read the novel and verify if this sentiment analysis holds for them.
+
+## Down the Precipice
+
+I also started wondering what kind of emotional ride Frankenstein can bring to the reader. Not that I did not feel the emotions, but I want to verify if the data will confirm what I felt.
+
+I took the total AFINN score of a line in the novel and took the cumulative sum of the scores from start to finish. I am interested if there are parts that will keep us feeling down or are there parts that will pull us back and allow us to breath the happiness air.
 
 ```{r afinn_cumsum}
 
@@ -254,6 +271,8 @@ words %>%
        y = "Cumulative AFINN Score")
 
 ```
+
+Overall, Shelley seems to keep the reader  floating on the sea of positive emotions but shocks us with a sudden push that sinks our head down into the negative emotions. In the end, we are gasping for breath at all of the negativity. I hope this convinces more readers to try Frankenstein and feel the steep climbs and the sudden drops.
 
 # NRC Chapter
 
