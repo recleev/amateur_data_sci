@@ -1,0 +1,8 @@
+---
+title: 'Hideous Progeny: Tidytext Analysis of Frankenstein'
+author: Recle Etino Vibal
+date: '2018-05-18'
+slug: hideous-progeny-tidytext-analysis-of-frankenstein
+categories: []
+tags: []
+---
