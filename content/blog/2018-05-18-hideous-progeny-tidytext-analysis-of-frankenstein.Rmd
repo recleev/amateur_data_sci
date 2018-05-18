@@ -1,7 +1,7 @@
 ---
 title: 'Hideous Progeny: Tidytext Analysis of Frankenstein'
 author: Recle Etino Vibal
-date: '2018-05-18'
+date: '2018-05-19'
 slug: hideous-progeny-tidytext-frankenstein
 categories: ["text mining", "tidyverse"]
 tags: ["frankenstein", "literature", "sentiment analysis"]
@@ -118,7 +118,6 @@ words %>%
              n)) +
   geom_col(fill = palette_pander(2)[2]) +
   coord_flip() +
-  scale_y_continuous(expand = c(0.1, 0.1)) +
   labs(title = "Most Used Words in Frankenstein",
        x = "Word",
        y = "Count") +
