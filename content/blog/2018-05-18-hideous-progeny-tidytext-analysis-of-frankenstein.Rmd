@@ -274,36 +274,38 @@ words %>%
 
 Overall, Shelley seems to keep the reader  floating on the sea of positive emotions but shocks us with a sudden push that sinks our head down into the negative emotions. In the end, we are gasping for breath at all of the negativity. I hope this convinces more readers to try Frankenstein and feel the steep climbs and the sudden drops.
 
-# NRC Chapter
+## Fear the Daemon
 
-```{r nrc_chapter}
+The NRC lexicon does not score words. Instead, it categorizes words as either positive or negative and into one of the eight basic emotions (anger, anticipation, disgust, fear, joy, sadness, surprise, trust). What is the most dominant emotion in Frankenstein?
+
+```{r nrc}
 
 words %>% 
   inner_join(get_sentiments("nrc"),
              by = "word") %>% 
   filter(str_detect(sentiment,
                     "positive|negative") == FALSE) %>% 
-  count(chapter, sentiment) %>% 
-  group_by(chapter) %>% 
+  count(sentiment) %>% 
   mutate(percent_sentiment = n / sum(n)) %>% 
-  group_by(sentiment) %>% 
-  top_n(10, percent_sentiment) %>% 
-  ungroup() %>%  
-  ggplot(aes(reorder_within(chapter, 
-                            percent_sentiment,
-                            sentiment),
+  ggplot(aes(fct_reorder(sentiment,
+                         percent_sentiment),
              percent_sentiment,
              fill = sentiment)) +
-  scale_x_reordered() +
   scale_y_percent() +
-  geom_col() +
-  facet_wrap(~sentiment,
-             scales = "free_y",
-             ncol = 4) +
+  geom_col(show.legend = FALSE) +
   coord_flip() +
   scale_fill_pander() +
-  theme_pander()
+  theme_pander() +
+  labs(title = "Frequency of the Eight Emotions in Frankenstein",
+       x = "Emotions",
+       y = "")
 
 ```
 
+Perhaps it is not surprising to the future reader that fear is the dominating emotion in the novel. However, some may wonder why trust comes second and not sadness. Fellow readers will understand why. Trust is also a central theme in the story that could have changed how the story ended at different situations.
 
+# Ice and Hearts of Fire
+
+> This ice is not made of such stuff as your hearts may be; it is mutable and cannot withstand you if you say that it shall not. --- Victor Frankenstein
+
+Alas, this tidytext analysis fails if I have not sparked any interest in you to read Frankenstein. Mary Wollstonecraft Shelley's masterpiece must continue to burn inside the hearts and minds of the people. It might be only way to caution the Victor and appease the Daemon inside us. 
