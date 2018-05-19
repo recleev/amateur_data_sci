@@ -1,4 +1,4 @@
-baseurl                 = "https://amateurdatasci.netlify.com/"   # Your domain name. Must end with "/"
+baseurl                 = "https://amateurdatasci.rbind.io/"   # Your domain name. Must end with "/"
 languageCode            = "en-us"
 title                   = "The Amateur Data Scientist"
 theme                   = "hugo-theme-introduction"
