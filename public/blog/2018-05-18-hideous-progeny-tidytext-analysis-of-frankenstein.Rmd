@@ -25,7 +25,6 @@ opts_chunk$set(echo = TRUE,
                fig.align = "center",
                fig.height = 7,
                fig.width = 12,
-               message = FALSE,
                warning = FALSE)
 
 ```
