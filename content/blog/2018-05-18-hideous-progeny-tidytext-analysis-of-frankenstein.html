@@ -1,4 +1,32 @@
+---
+title: 'Hideous Progeny: Tidytext Analysis of Frankenstein'
+author: Recle Etino Vibal
+date: '2018-05-19'
+slug: hideous-progeny-tidytext-frankenstein
+categories: ["text mining", "tidyverse"]
+tags: ["frankenstein", "literature", "sentiment analysis"]
+output:
+  blogdown::html_page:
+    toc: true
+---
 
+
+<div id="TOC">
+<ul>
+<li><a href="#the-moden-prometheus">The Moden Prometheus</a></li>
+<li><a href="#pursuit-for-frankenstein-begins">Pursuit for Frankenstein Begins</a></li>
+<li><a href="#emptiness-filled">Emptiness Filled</a></li>
+<li><a href="#destruction-and-creation">Destruction and Creation</a></li>
+<li><a href="#of-man-of-life">Of Man, Of Life</a></li>
+<li><a href="#a-big-ending">A Big Ending</a></li>
+<li><a href="#uncontrollable-feelings">Uncontrollable Feelings</a><ul>
+<li><a href="#waves-of-emotions">Waves of Emotions</a></li>
+<li><a href="#down-the-precipice">Down the Precipice</a></li>
+<li><a href="#fear-the-daemon">Fear the Daemon</a></li>
+</ul></li>
+<li><a href="#ice-and-hearts-of-fire">Ice and Hearts of Fire</a></li>
+</ul>
+</div>
 
 <blockquote>
 <p>And now, once again, I bid my hideous progeny go forth and prosper. — Mary Wollstonecraft Shelley (London, 15 October 1831)</p>
@@ -160,7 +188,7 @@ chapters &lt;-
        x = &quot;Word&quot;,
        y = &quot;Count&quot;) +
   theme_pander()</code></pre>
-<p><img src="2018-05-18-hideous-progeny-tidytext-analysis-of-frankenstein_files/figure-html/most_words-1.png" width="1152" style="display: block; margin: auto;" /></p>
+<p><img src="/blog/2018-05-18-hideous-progeny-tidytext-analysis-of-frankenstein_files/figure-html/most_words-1.png" width="1152" style="display: block; margin: auto;" /></p>
 <p>Fellow readers of Frankenstein should not be surprised that man and life is the top two words. Frankenstein is more about the madness of one man and the monster he created. It is about humanity and the interplay of life and death (these two words also in the top 20).</p>
 <p>There are two important fathers in the story. Elizabeth also has an important role both in the story and Victor’s life.</p>
 </div>
@@ -188,7 +216,7 @@ words %&gt;%
        x = &quot;Chapter&quot;,
        y = &quot;Number of Words&quot;) +
   theme_pander()</code></pre>
-<p><img src="2018-05-18-hideous-progeny-tidytext-analysis-of-frankenstein_files/figure-html/most_words_chapter-1.png" width="1152" style="display: block; margin: auto;" /></p>
+<p><img src="/blog/2018-05-18-hideous-progeny-tidytext-analysis-of-frankenstein_files/figure-html/most_words_chapter-1.png" width="1152" style="display: block; margin: auto;" /></p>
 <p>It seems like Shelley could have used one or two more chapters, but maybe she was limited to only 24 chapters for her work. One of my favorite quotes is in the last chapter.</p>
 <p>We will learn more about chapters later. Time to get more insight about the novel.</p>
 </div>
@@ -220,7 +248,7 @@ words %&gt;%
   labs(title = &quot;Net AFINN Score per Chapter of Frankenstein&quot;,
        x = &quot;Chapter&quot;,
        y = &quot;Net Sentiment Score&quot;)</code></pre>
-<p><img src="2018-05-18-hideous-progeny-tidytext-analysis-of-frankenstein_files/figure-html/afinn-1.png" width="1152" style="display: block; margin: auto;" /></p>
+<p><img src="/blog/2018-05-18-hideous-progeny-tidytext-analysis-of-frankenstein_files/figure-html/afinn-1.png" width="1152" style="display: block; margin: auto;" /></p>
 <p>To guide people who are yet to read Frankenstein, I renamed all chapters of the novel. I think I did not give away much, but I think we can get a feel of why some chapters are positive while others are negative. Chapter 24’s very negative score is also due to it being the chapter with the most words.</p>
 <pre class="r"><code>tibble(chapter_title = c(&quot;Letter 1 - Robert Walton&quot;, 
                          &quot;Letter 2 - Vessel and Crew&quot;, 
@@ -401,7 +429,7 @@ words %&gt;%
   labs(title = &quot;Cumulative AFINN Score Through Frankenstein&quot;,
        x = &quot;Progress of Novel (Start to Finish)&quot;,
        y = &quot;Cumulative AFINN Score&quot;)</code></pre>
-<p><img src="2018-05-18-hideous-progeny-tidytext-analysis-of-frankenstein_files/figure-html/afinn_cumsum-1.png" width="1152" style="display: block; margin: auto;" /></p>
+<p><img src="/blog/2018-05-18-hideous-progeny-tidytext-analysis-of-frankenstein_files/figure-html/afinn_cumsum-1.png" width="1152" style="display: block; margin: auto;" /></p>
 <p>Overall, Shelley seems to keep the reader floating on the sea of positive emotions but shocks us with a sudden push that sinks our head down into the negative emotions. In the end, we are gasping for breath at all of the negativity. I hope this convinces more readers to try Frankenstein and feel the steep climbs and the sudden drops.</p>
 </div>
 <div id="fear-the-daemon" class="section level2">
@@ -426,7 +454,7 @@ words %&gt;%
   labs(title = &quot;Frequency of the Eight Emotions in Frankenstein&quot;,
        x = &quot;Emotions&quot;,
        y = &quot;&quot;)</code></pre>
-<p><img src="2018-05-18-hideous-progeny-tidytext-analysis-of-frankenstein_files/figure-html/nrc-1.png" width="1152" style="display: block; margin: auto;" /></p>
+<p><img src="/blog/2018-05-18-hideous-progeny-tidytext-analysis-of-frankenstein_files/figure-html/nrc-1.png" width="1152" style="display: block; margin: auto;" /></p>
 <p>Perhaps it is not surprising to the future reader that fear is the dominating emotion in the novel. However, some may wonder why trust comes second and not sadness. Fellow readers will understand why. Trust is also a central theme in the story that could have changed how the story ended at different situations.</p>
 </div>
 </div>

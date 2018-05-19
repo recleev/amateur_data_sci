@@ -10,6 +10,8 @@ output:
     toc: true
 ---
 
+**(Warning: NSFW Language)**
+
 # A View of Mining Lyrics
 
 Trivium is my favorite heavy metal band. They also did a wonderful cover of *Master of Puppets*, one of my favorite Metallica songs. 
