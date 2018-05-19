@@ -6,7 +6,7 @@
     <description>Recent content in Tags on The Amateur Data Scientist</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>en-us</language>
-    <lastBuildDate>Fri, 18 May 2018 00:00:00 +0000</lastBuildDate>
+    <lastBuildDate>Sat, 19 May 2018 00:00:00 +0000</lastBuildDate>
     
 	<atom:link href="/tags/index.xml" rel="self" type="application/rss+xml" />
     
@@ -14,27 +14,63 @@
     <item>
       <title>Frankenstein</title>
       <link>/tags/frankenstein/</link>
-      <pubDate>Fri, 18 May 2018 00:00:00 +0000</pubDate>
+      <pubDate>Sat, 19 May 2018 00:00:00 +0000</pubDate>
       
       <guid>/tags/frankenstein/</guid>
       <description></description>
     </item>
     
     <item>
+      <title>Geniusr</title>
+      <link>/tags/geniusr/</link>
+      <pubDate>Sat, 19 May 2018 00:00:00 +0000</pubDate>
+      
+      <guid>/tags/geniusr/</guid>
+      <description></description>
+    </item>
+    
+    <item>
+      <title>Heavy Metal</title>
+      <link>/tags/heavy-metal/</link>
+      <pubDate>Sat, 19 May 2018 00:00:00 +0000</pubDate>
+      
+      <guid>/tags/heavy-metal/</guid>
+      <description></description>
+    </item>
+    
+    <item>
       <title>Literature</title>
       <link>/tags/literature/</link>
-      <pubDate>Fri, 18 May 2018 00:00:00 +0000</pubDate>
+      <pubDate>Sat, 19 May 2018 00:00:00 +0000</pubDate>
       
       <guid>/tags/literature/</guid>
       <description></description>
     </item>
     
     <item>
+      <title>Lyrics</title>
+      <link>/tags/lyrics/</link>
+      <pubDate>Sat, 19 May 2018 00:00:00 +0000</pubDate>
+      
+      <guid>/tags/lyrics/</guid>
+      <description></description>
+    </item>
+    
+    <item>
       <title>Sentiment Analysis</title>
       <link>/tags/sentiment-analysis/</link>
-      <pubDate>Fri, 18 May 2018 00:00:00 +0000</pubDate>
+      <pubDate>Sat, 19 May 2018 00:00:00 +0000</pubDate>
       
       <guid>/tags/sentiment-analysis/</guid>
+      <description></description>
+    </item>
+    
+    <item>
+      <title>Trivium</title>
+      <link>/tags/trivium/</link>
+      <pubDate>Sat, 19 May 2018 00:00:00 +0000</pubDate>
+      
+      <guid>/tags/trivium/</guid>
       <description></description>
     </item>
     

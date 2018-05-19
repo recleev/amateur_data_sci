@@ -8,7 +8,7 @@
 <meta name="MobileOptimized" content="320">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <meta name="referrer" content="no-referrer">
-<meta name="description" content="I am a beginner R User and Data Science practitioner. I love learning about R, statistics, data science and applying all this knowledge.">
+<meta name="description" content="I am a beginner R User and Data Sciencist. I love learning about R, statistics, data science and applying all this knowledge.">
 
 <base href="/">
 <title>
@@ -96,8 +96,8 @@
     <div class="container fade-in two">
         <h2 class="title is-1 top-pad strong-post-title"><a href="/blog/hideous-progeny-tidytext-frankenstein/">Hideous Progeny: Tidytext Analysis of Frankenstein</a></h2>
             <div class="post-data">
-                May 18, 2018 |
-                4 minutes read
+                May 19, 2018 |
+                10 minutes read
             </div>
 
             
@@ -134,10 +134,17 @@
         <div id="TOC">
 <ul>
 <li><a href="#the-moden-prometheus">The Moden Prometheus</a></li>
-<li><a href="#capture-of-frankenstein-text">Capture of Frankenstein (Text)</a></li>
-<li><a href="#add-chapter-column">Add Chapter Column</a></li>
-<li><a href="#unnest-words">Unnest Words</a></li>
-<li><a href="#most-common-words">Most Common Words</a></li>
+<li><a href="#pursuit-for-frankenstein-begins">Pursuit for Frankenstein Begins</a></li>
+<li><a href="#emptiness-filled">Emptiness Filled</a></li>
+<li><a href="#destruction-and-creation">Destruction and Creation</a></li>
+<li><a href="#of-man-of-life">Of Man, Of Life</a></li>
+<li><a href="#a-big-ending">A Big Ending</a></li>
+<li><a href="#uncontrollable-feelings">Uncontrollable Feelings</a><ul>
+<li><a href="#waves-of-emotions">Waves of Emotions</a></li>
+<li><a href="#down-the-precipice">Down the Precipice</a></li>
+<li><a href="#fear-the-daemon">Fear the Daemon</a></li>
+</ul></li>
+<li><a href="#ice-and-hearts-of-fire">Ice and Hearts of Fire</a></li>
 </ul>
 </div>
 
@@ -146,17 +153,16 @@
 </blockquote>
 <div id="the-moden-prometheus" class="section level1">
 <h1>The Moden Prometheus</h1>
-<p>Mary Wollstonecraft Shelley’s Frankenstein (The Modern Prometheus) is one of the best stories any can read. If anyone was to start their journey in the wonderful world of stories, Frankenstein will always be my suggestion for first read. I am so excited talking about Frankenstein, I will reread it after my current read.</p>
-<p>A lot of people know the legend of Frankenstein. I will avoid giving away summaries or spoilers here just because one really can give such things for such a great novel. Reading Frankenstein is an experience in itself. It is like a great journey into a foreign and mystical country. The traveler may share stories of her adventure, but never will the listeners understand or experience the real joy of the journey she took.</p>
+<p>Mary Wollstonecraft Shelley’s Frankenstein (The Modern Prometheus) is one of the best stories anyone can read. If anyone was to start their journey in the wonderful world of stories, Frankenstein will always be my top recommendation. I am so excited talking about Frankenstein, I had to reread it before completing this text analysis.</p>
+<p>A lot of people know the legend of Frankenstein. I will avoid (or at least try) giving away summaries or spoilers even though I believe spoilers can do no harm to any aspiring reader of Shelley’s masterpiece. Reading Frankenstein is an experience in itself. It is like a great journey into a foreign and mystical country. The traveler may share stories of her adventure, but never will the listeners understand or experience the real joy of the journey she took.</p>
 </div>
-<div id="capture-of-frankenstein-text" class="section level1">
-<h1>Capture of Frankenstein (Text)</h1>
+<div id="pursuit-for-frankenstein-begins" class="section level1">
+<h1>Pursuit for Frankenstein Begins</h1>
 <p>Downloading any public domain book available in <a href="http://www.gutenberg.org/">Gutenberg</a> is now easy thanks to <code>gutenbergr</code>. The <code>gutenberg_download()</code> function allows one to download any text in Gutenberg. In its simplest form, the only input needed in <code>gutenberg_download()</code> is the <code>gutenberg_id</code> or EBook number of the text one wants to download. In my case, I will use this <a href="http://www.gutenberg.org/files/84/84-h/84-h.htm">Frankenstein</a> text with EBook #84.</p>
 <pre class="r"><code>frankenstein &lt;- 
-  gutenberg_download(84)</code></pre>
-<pre><code>## Determining mirror for Project Gutenberg from http://www.gutenberg.org/robot/harvest</code></pre>
-<pre><code>## Using mirror http://aleph.gutenberg.org</code></pre>
-<pre class="r"><code>frankenstein %&gt;% 
+  gutenberg_download(84)
+
+frankenstein %&gt;% 
   head(20) %&gt;% 
   kable(caption = &quot;Sample Raw Downloaded Frankenstein Text from Guntenberg&quot;)</code></pre>
 <table>
@@ -252,9 +258,9 @@
 </table>
 <p>The downloaded text returns a tibble with two columns: <code>gutenberg_id</code> and <code>text</code>. The <code>text</code> column contains the words per line of the book. Note that with the empty spaces, this raw downloaded tibble requires a lot of cleaning.</p>
 </div>
-<div id="add-chapter-column" class="section level1">
-<h1>Add Chapter Column</h1>
-<p>Since this Frankenstein is a novel, it will be reasonable to study it by chapter. Unfortunately, the raw downloaded file does not contain a column for novels, so I had to extract and divide the document into chapters by hand.</p>
+<div id="emptiness-filled" class="section level1">
+<h1>Emptiness Filled</h1>
+<p>Since Frankenstein is a novel, it will be reasonable to study it by chapter. Unfortunately, the raw downloaded file does not contain a column for chapters, so I had to extract and divide the document into chapters by hand.</p>
 <p>The simplest, easiest, most reproducible, and instinctive way to do this is by using the <code>fill()</code> function from the <code>dplyr</code> package. I first saw this method used in <a href="https://juliasilge.com/blog/sherlock-holmes-stm/">Julia Silge’s topic modeling of Sherlock Holmes stories</a>.</p>
 <pre class="r"><code>chapter_headers &lt;- 
   c(str_c(&quot;Letter&quot;, 1:4, sep = &quot; &quot;),
@@ -275,20 +281,22 @@ chapters &lt;-
   filter(text != chapter, text != &quot;&quot;)</code></pre>
 <p>The idea is to create a new column that will extract all the chapter headings and apply it as an identifier to all lines between chapter headings. For Frankenstein, the uniform format for chapter headings are Letter and Chapter followed by numbers. I created a new column called chapter then copied the text if it follows a chapter heading format and <code>NA</code> if it does not. I then used <code>fill()</code> to replace all <code>NA</code> cells with chapter headings above it. I then filtered out all <code>NA</code> rows, i.e. the lines above the first chapter and all empty lines in the text. I also had the help of the <code>stringr</code> and <code>rebus</code> package in creating and filtering strings. I also included a column to identify line number that will be useful when we separate the text into words.</p>
 </div>
-<div id="unnest-words" class="section level1">
-<h1>Unnest Words</h1>
-<p>After separating the lines of text into their appropriate chapters, I separated the Frankenstein text into words. The easiest way to do this is with the <code>unnest_tokens()</code> function from the <code>tidytext</code> package. I also removed all stop words or words that supply unnecessary information by using <code>anti_join()</code> and the <code>stop_words</code> data frame.</p>
+<div id="destruction-and-creation" class="section level1">
+<h1>Destruction and Creation</h1>
+<p>After separating the lines of text into their appropriate chapters, I separated the Frankenstein text into words. The easiest way to do this is with the <code>unnest_tokens()</code> function from the <code>tidytext</code> package. I also removed all stop words or words that supply unnecessary information by using <code>anti_join()</code> and the <code>get_stopwords()</code> and specifying the SMART lexicon.</p>
 <pre class="r"><code>words &lt;-  
   chapters %&gt;% 
   mutate(chapter = factor(chapter,
                           levels = chapter_headers)) %&gt;% 
   unnest_tokens(word, text) %&gt;% 
-  anti_join(stop_words,
+  anti_join(get_stopwords(source = &quot;smart&quot;),
             by = &quot;word&quot;)</code></pre>
 <p><code>unnest_tokens()</code> takes a tibble as its first argument, making it easy to use <code>%&gt;%</code>, then the name of the new column of the unnested tokens, and the name of the column we want to unnest.</p>
+<p>Now that the Frankenstein text data is tidy, we can start exploring.</p>
 </div>
-<div id="most-common-words" class="section level1">
-<h1>Most Common Words</h1>
+<div id="of-man-of-life" class="section level1">
+<h1>Of Man, Of Life</h1>
+<p>One of the very first questions I answer when I explore text data is to determine the most commonly used words.</p>
 <pre class="r"><code>words %&gt;% 
   count(word) %&gt;% 
   top_n(20, n) %&gt;% 
@@ -300,7 +308,282 @@ chapters &lt;-
        x = &quot;Word&quot;,
        y = &quot;Count&quot;) +
   theme_pander()</code></pre>
-<p><img src="/blog/2018-05-18-hideous-progeny-tidytext-analysis-of-frankenstein_files/figure-html/most%20words-1.png" width="960" style="display: block; margin: auto;" /></p>
+<p><img src="/blog/2018-05-18-hideous-progeny-tidytext-analysis-of-frankenstein_files/figure-html/most_words-1.png" width="1152" style="display: block; margin: auto;" /></p>
+<p>Fellow readers of Frankenstein should not be surprised that man and life is the top two words. Frankenstein is more about the madness of one man and the monster he created. It is about humanity and the interplay of life and death (these two words also in the top 20).</p>
+<p>There are two important fathers in the story. Elizabeth also has an important role both in the story and Victor’s life.</p>
+</div>
+<div id="a-big-ending" class="section level1">
+<h1>A Big Ending</h1>
+<p>After the most common words, I also ask what are the number of words per chapter.</p>
+<pre class="r"><code>n_words_median_chapter &lt;- 
+  words %&gt;% 
+  count(chapter) %&gt;% 
+  with(median(n))
+  
+words %&gt;% 
+  count(chapter) %&gt;% 
+  ggplot(aes(fct_reorder(chapter,
+                         n),
+             n)) +
+  geom_col(fill = palette_pander(2)[2]) +
+  geom_hline(yintercept = n_words_median_chapter, 
+             color = &quot;red3&quot;) +
+  coord_flip() +
+  scale_y_continuous(labels = comma) +
+  labs(title = &quot;Number of Words per Chapter&quot;,
+       subtitle = sprintf(&quot;Red Line is the Median Number of Words (%s) per Chapter&quot;,
+                          comma(n_words_median_chapter)),
+       x = &quot;Chapter&quot;,
+       y = &quot;Number of Words&quot;) +
+  theme_pander()</code></pre>
+<p><img src="/blog/2018-05-18-hideous-progeny-tidytext-analysis-of-frankenstein_files/figure-html/most_words_chapter-1.png" width="1152" style="display: block; margin: auto;" /></p>
+<p>It seems like Shelley could have used one or two more chapters, but maybe she was limited to only 24 chapters for her work. One of my favorite quotes is in the last chapter.</p>
+<p>We will learn more about chapters later. Time to get more insight about the novel.</p>
+</div>
+<div id="uncontrollable-feelings" class="section level1">
+<h1>Uncontrollable Feelings</h1>
+<p>Sentiment analysis is another staple when working with text data. Words express emotions. Some express more negative emotions, others more positive. We can determine the overall feeling or mood of a text by looking at each word and weighing which emotions dominate the text more.</p>
+<p>The <code>tidytext</code> package made sentiment analysis a bit easier with the <code>get_sentiments()</code> function and with the help of <code>dplyr</code>’s <code>inner_join()</code>.</p>
+<p>Here, I used the <a href="http://www2.imm.dtu.dk/pubdb/views/publication_details.php?id=6010">AFINN</a> and <a href="http://saifmohammad.com/WebPages/lexicons.html">NRC</a> lexicon.</p>
+<div id="waves-of-emotions" class="section level2">
+<h2>Waves of Emotions</h2>
+<p>The AFINN lexicon scores words from -5 to 5 depending on the words emotions and intensity. I took the AFINN scores of each word in each chapter then took the total AFINN score of each chapter to determine the overall sentiment of the chapter.</p>
+<pre class="r"><code>words %&gt;% 
+  inner_join(get_sentiments(&quot;afinn&quot;),
+             by = &quot;word&quot;) %&gt;% 
+  group_by(chapter) %&gt;% 
+  summarise(sentiment_score = sum(score),
+            positive_net = sentiment_score &gt;= 0) %&gt;% 
+  ggplot(aes(chapter,
+             sentiment_score,
+             fill = positive_net,
+             label = sentiment_score)) +
+  geom_col(show.legend = FALSE) +
+  geom_hline(yintercept = 0, 
+             color = &quot;red3&quot;) +
+  scale_fill_pander() +
+  theme_pander() +
+  theme(axis.text.x = element_text(angle = 90),
+        axis.ticks.x = element_blank()) +
+  labs(title = &quot;Net AFINN Score per Chapter of Frankenstein&quot;,
+       x = &quot;Chapter&quot;,
+       y = &quot;Net Sentiment Score&quot;)</code></pre>
+<p><img src="/blog/2018-05-18-hideous-progeny-tidytext-analysis-of-frankenstein_files/figure-html/afinn-1.png" width="1152" style="display: block; margin: auto;" /></p>
+<p>To guide people who are yet to read Frankenstein, I renamed all chapters of the novel. I think I did not give away much, but I think we can get a feel of why some chapters are positive while others are negative. Chapter 24’s very negative score is also due to it being the chapter with the most words.</p>
+<pre class="r"><code>tibble(chapter_title = c(&quot;Letter 1 - Robert Walton&quot;, 
+                         &quot;Letter 2 - Vessel and Crew&quot;, 
+                         &quot;Letter 3 - In Haste&quot;, 
+                         &quot;Letter 4 - Two Strangers on the Ice&quot;, 
+                         &quot;Chapter 1 - Alphonse, Caroline, Elizabeth&quot;, 
+                         &quot;Chapter 2 - Victor Frankenstein&quot;, 
+                         &quot;Chapter 3 - Ingolstadt&quot;, 
+                         &quot;Chapter 4 - Eight Feet in Height&quot;, 
+                         &quot;Chapter 5 - Daemon&quot;, 
+                         &quot;Chapter 6 - News from Home&quot;, 
+                         &quot;Chapter 7 - Strangled&quot;, 
+                         &quot;Chapter 8 - The Trial&quot;, 
+                         &quot;Chapter 9 - Solitude in Nature&quot;, 
+                         &quot;Chapter 10 - The Daemon&#39;s Proposal&quot;, 
+                         &quot;Chapter 11 - Awakening&quot;, 
+                         &quot;Chapter 12 - The Cottagers&quot;, 
+                         &quot;Chapter 13 - Safie and the Gift of Knowledge&quot;, 
+                         &quot;Chapter 14 - Fall of the De Laceys&quot;, 
+                         &quot;Chaper 15 - Paradise Lost, Plutarch&#39;s Lives and Sorrows of Werter&quot;,
+                         &quot;Chapter 16 - Burned Down&quot;, 
+                         &quot;Chapter 17 - The Agreement&quot;, 
+                         &quot;Chapter 18 - To England&quot;, 
+                         &quot;Chapter 19 - Calm Before the Storm&quot;, 
+                         &quot;Chapter 20 - The Threat&quot;, 
+                         &quot;Chapter 21 - Accused&quot;, 
+                         &quot;Chapter 22 - Overshadowed Marriage&quot;, 
+                         &quot;Chapter 23 - Bridal Bier&quot;,
+                         &quot;Chapter 24 - Unconquerable Ice&quot;)) %&gt;% 
+  separate(chapter_title,
+           into = c(&quot;chapter&quot;,
+                    &quot;title&quot;),
+           sep = &quot; - &quot;) %&gt;% 
+  kable(caption = &quot;My Titles for Each Frankenstein Chapter&quot;)</code></pre>
+<table>
+<caption>(#tab:my_chapter_titles)My Titles for Each Frankenstein Chapter</caption>
+<thead>
+<tr class="header">
+<th align="left">chapter</th>
+<th align="left">title</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td align="left">Letter 1</td>
+<td align="left">Robert Walton</td>
+</tr>
+<tr class="even">
+<td align="left">Letter 2</td>
+<td align="left">Vessel and Crew</td>
+</tr>
+<tr class="odd">
+<td align="left">Letter 3</td>
+<td align="left">In Haste</td>
+</tr>
+<tr class="even">
+<td align="left">Letter 4</td>
+<td align="left">Two Strangers on the Ice</td>
+</tr>
+<tr class="odd">
+<td align="left">Chapter 1</td>
+<td align="left">Alphonse, Caroline, Elizabeth</td>
+</tr>
+<tr class="even">
+<td align="left">Chapter 2</td>
+<td align="left">Victor Frankenstein</td>
+</tr>
+<tr class="odd">
+<td align="left">Chapter 3</td>
+<td align="left">Ingolstadt</td>
+</tr>
+<tr class="even">
+<td align="left">Chapter 4</td>
+<td align="left">Eight Feet in Height</td>
+</tr>
+<tr class="odd">
+<td align="left">Chapter 5</td>
+<td align="left">Daemon</td>
+</tr>
+<tr class="even">
+<td align="left">Chapter 6</td>
+<td align="left">News from Home</td>
+</tr>
+<tr class="odd">
+<td align="left">Chapter 7</td>
+<td align="left">Strangled</td>
+</tr>
+<tr class="even">
+<td align="left">Chapter 8</td>
+<td align="left">The Trial</td>
+</tr>
+<tr class="odd">
+<td align="left">Chapter 9</td>
+<td align="left">Solitude in Nature</td>
+</tr>
+<tr class="even">
+<td align="left">Chapter 10</td>
+<td align="left">The Daemon’s Proposal</td>
+</tr>
+<tr class="odd">
+<td align="left">Chapter 11</td>
+<td align="left">Awakening</td>
+</tr>
+<tr class="even">
+<td align="left">Chapter 12</td>
+<td align="left">The Cottagers</td>
+</tr>
+<tr class="odd">
+<td align="left">Chapter 13</td>
+<td align="left">Safie and the Gift of Knowledge</td>
+</tr>
+<tr class="even">
+<td align="left">Chapter 14</td>
+<td align="left">Fall of the De Laceys</td>
+</tr>
+<tr class="odd">
+<td align="left">Chaper 15</td>
+<td align="left">Paradise Lost, Plutarch’s Lives and Sorrows of Werter</td>
+</tr>
+<tr class="even">
+<td align="left">Chapter 16</td>
+<td align="left">Burned Down</td>
+</tr>
+<tr class="odd">
+<td align="left">Chapter 17</td>
+<td align="left">The Agreement</td>
+</tr>
+<tr class="even">
+<td align="left">Chapter 18</td>
+<td align="left">To England</td>
+</tr>
+<tr class="odd">
+<td align="left">Chapter 19</td>
+<td align="left">Calm Before the Storm</td>
+</tr>
+<tr class="even">
+<td align="left">Chapter 20</td>
+<td align="left">The Threat</td>
+</tr>
+<tr class="odd">
+<td align="left">Chapter 21</td>
+<td align="left">Accused</td>
+</tr>
+<tr class="even">
+<td align="left">Chapter 22</td>
+<td align="left">Overshadowed Marriage</td>
+</tr>
+<tr class="odd">
+<td align="left">Chapter 23</td>
+<td align="left">Bridal Bier</td>
+</tr>
+<tr class="even">
+<td align="left">Chapter 24</td>
+<td align="left">Unconquerable Ice</td>
+</tr>
+</tbody>
+</table>
+<p>Above are the titles I made for each chapter. I think this is enough heat for future Frankenstein readers to understand the trend. Better yet, they should read the novel and verify if this sentiment analysis holds for them.</p>
+</div>
+<div id="down-the-precipice" class="section level2">
+<h2>Down the Precipice</h2>
+<p>I also started wondering what kind of emotional ride Frankenstein can bring to the reader. Not that I did not feel the emotions, but I want to verify if the data will confirm what I felt.</p>
+<p>I took the total AFINN score of a line in the novel and took the cumulative sum of the scores from start to finish. I am interested if there are parts that will keep us feeling down or are there parts that will pull us back and allow us to breath the happiness air.</p>
+<pre class="r"><code>words %&gt;% 
+  inner_join(get_sentiments(&quot;afinn&quot;),
+             by = &quot;word&quot;) %&gt;% 
+  group_by(line_number) %&gt;% 
+  summarise(sentiment_score = sum(score)) %&gt;% 
+  arrange(line_number) %&gt;% 
+  mutate(cumsum_sentiment_score = cumsum(sentiment_score)) %&gt;% 
+  ggplot(aes(line_number,
+             cumsum_sentiment_score)) +
+  geom_line(color = palette_pander(5)[5]) +
+  geom_hline(yintercept = 0,
+             color = &quot;red3&quot;) +
+  theme(axis.text.x = element_blank()) +
+  theme_pander() +
+  labs(title = &quot;Cumulative AFINN Score Through Frankenstein&quot;,
+       x = &quot;Progress of Novel (Start to Finish)&quot;,
+       y = &quot;Cumulative AFINN Score&quot;)</code></pre>
+<p><img src="/blog/2018-05-18-hideous-progeny-tidytext-analysis-of-frankenstein_files/figure-html/afinn_cumsum-1.png" width="1152" style="display: block; margin: auto;" /></p>
+<p>Overall, Shelley seems to keep the reader floating on the sea of positive emotions but shocks us with a sudden push that sinks our head down into the negative emotions. In the end, we are gasping for breath at all of the negativity. I hope this convinces more readers to try Frankenstein and feel the steep climbs and the sudden drops.</p>
+</div>
+<div id="fear-the-daemon" class="section level2">
+<h2>Fear the Daemon</h2>
+<p>The NRC lexicon does not score words. Instead, it categorizes words as either positive or negative and into one of the eight basic emotions (anger, anticipation, disgust, fear, joy, sadness, surprise, trust). What is the most dominant emotion in Frankenstein?</p>
+<pre class="r"><code>words %&gt;% 
+  inner_join(get_sentiments(&quot;nrc&quot;),
+             by = &quot;word&quot;) %&gt;% 
+  filter(str_detect(sentiment,
+                    &quot;positive|negative&quot;) == FALSE) %&gt;% 
+  count(sentiment) %&gt;% 
+  mutate(percent_sentiment = n / sum(n)) %&gt;% 
+  ggplot(aes(fct_reorder(sentiment,
+                         percent_sentiment),
+             percent_sentiment,
+             fill = sentiment)) +
+  scale_y_percent() +
+  geom_col(show.legend = FALSE) +
+  coord_flip() +
+  scale_fill_pander() +
+  theme_pander() +
+  labs(title = &quot;Frequency of the Eight Emotions in Frankenstein&quot;,
+       x = &quot;Emotions&quot;,
+       y = &quot;&quot;)</code></pre>
+<p><img src="/blog/2018-05-18-hideous-progeny-tidytext-analysis-of-frankenstein_files/figure-html/nrc-1.png" width="1152" style="display: block; margin: auto;" /></p>
+<p>Perhaps it is not surprising to the future reader that fear is the dominating emotion in the novel. However, some may wonder why trust comes second and not sadness. Fellow readers will understand why. Trust is also a central theme in the story that could have changed how the story ended at different situations.</p>
+</div>
+</div>
+<div id="ice-and-hearts-of-fire" class="section level1">
+<h1>Ice and Hearts of Fire</h1>
+<blockquote>
+<p>This ice is not made of such stuff as your hearts may be; it is mutable and cannot withstand you if you say that it shall not. — Victor Frankenstein</p>
+</blockquote>
+<p>Alas, this tidytext analysis fails if I have not sparked any interest in you to read Frankenstein. Mary Wollstonecraft Shelley’s masterpiece must continue to burn inside the hearts and minds of the people. It might be only way to caution the Victor and appease the Daemon inside us.</p>
 </div>
 
     </div>
