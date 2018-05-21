@@ -7,7 +7,7 @@ builddrafts             = false                             # Include pages with
 canonifyurls            = true                              # Turns relative urls into absolute urls
 ignoreFiles             = ["\\.Rmd$", "\\.Rmarkdown$", "\\.R$", "_files$", "_cache$"]
 # disqusshortname       = "xxx"                             # Enable Disqus for comments
-# googleAnalytics       = "xxx"
+googleAnalytics         = "UA-119602814-1"
 
 [params]    
     blogHead            = "The Amateur Data Scientist"                            # Full name shows on blog post pages
