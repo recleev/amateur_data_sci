@@ -6,7 +6,7 @@ enforce_ssl             = false
 builddrafts             = false                             # Include pages with draft status of true
 canonifyurls            = true                              # Turns relative urls into absolute urls
 ignoreFiles             = ["\\.Rmd$", "\\.Rmarkdown$", "\\.R$", "_files$", "_cache$"]
-# disqusshortname       = "xxx"                             # Enable Disqus for comments
+disqusshortname         = "the-amateur-data-scientist"                             # Enable Disqus for comments
 googleAnalytics         = "UA-119602814-1"
 
 [params]    
