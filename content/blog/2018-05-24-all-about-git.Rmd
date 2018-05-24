@@ -1,0 +1,76 @@
+---
+title: 'All About Git and Github in RStudio: A Step-by-Step Guide for Beginners Like
+  Me (With Pictures!)'
+author: Recle Etino Vibal
+date: '2018-05-24'
+slug: all-about-git
+categories:
+  - lessons
+tags:
+  - git
+  - github
+  - rstudio
+  - version control
+output:
+  blogdown::html_page:
+    toc: true
+---
+
+# Git Newbie
+
+As a novice programmer, I realized that code can go from bad to worse just because of minimal changes. At some point, we may create a line of code or feature that we think is essential or necessary to our project. However, once the adrenalin rush subsides and we review our code, we discover that we might have been drank when we added those ugly codes. Sometimes we can solve the problem by just deleting the ugly code. Most of the time we have to go back, remove what is ugly, and hope we remember what we have deleted. In the worst cases, we breakdown and cry and wish we could turn back the hands of time.
+Thank goodness we have git.
+
+Git is a version control system. It allows us to save versions of our project, track the changes, and revert to any version in our timeline. This means that we can delete whatever we want, add whatever we want, and if we discover we did not want what we did, we can always go back to the version that we best liked. Of course, given that we remember to commit our versions in git.
+
+# Commit, Push, and Pull
+
+When we want to save a version of our project, we commit on git. Everytime we make changes, we must commit. What I like about git and commit is the commit message that tells me why I made such changes. Future me will thank past me with these helpful comments if ever future me wants to go back to a previous version.
+
+Git hosting services like Github, are useful when we want to have another home or repository for our work. Using Github also allows us to share our code with other people and collaborate on our projects.
+When using git hosting services, we must push and pull. Pushing is moving a version of our work from our PC to the repository. When we update our work in our PC, we must update the work in our online repository, so other people and our collaborators will see the newest version always. When other people or our collaborators push changes to our repository, then we must pull the changes they made. Pulling ensures that we are always working with the newest version of the work in the repository.
+Branches are not only found on trees, there are also branches or branching in git hosting services.  The idea about branches is that there can only be one official version, but there can be multiple versions that are based on the main version. I will not discuss step-by-step guides on branching because I have not used it yet. 
+
+# Let's Git It On!
+
+I always have trouble using git and Github. I usually forget the commands and steps when setting up, commiting, pushing, and pulling. There are helpful resources online, but I often skim at least three articles to finally find what I need. I also want to help my fellow novices in programming the opportunity to wield the power of git.
+
+In case it was not clear from the title, am an R user and I only do my projects in R Studio, so my discussion with git and Github will focus on R Studio.
+
+## Create an account in Github
+
+This should be the easy part.
+
+## Once we have an account, we can immediately create a repository.
+
+Go to profile. Select the `Repositories` tab. Click `New` for a new repository.
+You should get to this page. The only thing required is the repository name. A github repo is public by default. As far as I know, you have to pay to make a repo private. No need to add .gitignore, license, or README for now. In practice, I always want an empty repository. I can add everything I need or want later.
+
+We now have an empty Github repository. We can start using version control. Before that...
+
+## Configure Git in R Studio
+
+I am not sure if there is an easier way to do this, but I think this method is easy enough.
+Open R Studio and go to the terminal and type the following commands,
+
+```git config --global user.name "your_username"
+
+git config --global user.email "your_email@email.com"```
+
+I am not sure if this should be the same as your Github username and email, but I think it would be better if they are for consistency.
+
+If everything works well we can start using git.
+
+## Create new project with version control
+
+In R Studio, select File > New Project > Version Control
+
+Choose Git. I have not used SVN yet.
+
+## Copy Repository URL and Create Project
+
+Go back to the empty repository and copy the repository URL.
+
+Paste repository URL in top field. R Studio has a nice feature that it autotypes the directory name base don the repository URL. Click create project. We now have an R Project in R Studio connected to our Github repository.
+
+You will noptice that the new project already comes with a .gitignore file. The general idea with .gitignore is that it tells git which files to ignore. We can specify and add files to ignore later.
