@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes" ?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>Rstudio on The Amateur Data Scientist</title>
+    <link>/tags/rstudio/</link>
+    <description>Recent content in Rstudio on The Amateur Data Scientist</description>
+    <generator>Hugo -- gohugo.io</generator>
+    <language>en-us</language>
+    <lastBuildDate>Thu, 24 May 2018 00:00:00 +0000</lastBuildDate>
+    
+	<atom:link href="/tags/rstudio/index.xml" rel="self" type="application/rss+xml" />
+    
+    
+    <item>
+      <title>All About Git and Github in RStudio: A Step-by-Step Guide for Beginners Like Me (With Pictures!)</title>
+      <link>/blog/all-about-git/</link>
+      <pubDate>Thu, 24 May 2018 00:00:00 +0000</pubDate>
+      
+      <guid>/blog/all-about-git/</guid>
+      <description>Git NewbieCommit, Push, and PullLet’s Git It On!Create an account in GithubOnce we have an account, we can immediately create a repository.Configure Git in R StudioCreate new project with version controlCopy Repository URL and Create ProjectGit Up, Git DownR Studio’s Easy Git Interface.First CommitPush the ChangesMake changes in the RepositoryPull the ChangesCreate README FileSame StepsGit NewbieAs a novice programmer, I realized that code can go from bad to worse just because of minimal changes.</description>
+    </item>
+    
+  </channel>
+</rss>
