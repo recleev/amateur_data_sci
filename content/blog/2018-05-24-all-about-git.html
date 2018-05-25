@@ -59,7 +59,7 @@ output:
 <h2>Create an account in Github</h2>
 <p>This should be the easy part.</p>
 <div class="figure">
-<img src="/blog/2018-05-24-all-about-git_files/github_sign_up.PNG" alt="Sign Up in Github" />
+<img src="/blog/2018-05-24-all-about-git-files/github-sign-up.jpg" alt="Sign Up in Github" />
 <p class="caption">Sign Up in Github</p>
 </div>
 </div>
@@ -67,12 +67,12 @@ output:
 <h2>Once we have an account, we can immediately create a repository.</h2>
 <p>Go to profile. Select the Repositories tab. Click New.</p>
 <div class="figure">
-<img src="/blog/2018-05-24-all-about-git_files/new_repo.PNG" alt="Create New Repository" />
+<img src="/blog/2018-05-24-all-about-git-files/new-repo.jpg" alt="Create New Repository" />
 <p class="caption">Create New Repository</p>
 </div>
 <p>You should get to this page.</p>
 <div class="figure">
-<img src="/blog/2018-05-24-all-about-git_files/new_repo_form.PNG" alt="New Repository Form" />
+<img src="/blog/2018-05-24-all-about-git-files/new-repo-form.jpg" alt="New Repository Form" />
 <p class="caption">New Repository Form</p>
 </div>
 <p>The only thing required is the repository name. A Github repository is public by default. As far as I know, you have to pay to make a repository private. No need to add .gitignore, license, or README for now. In practice, I always want an empty repository. I can add everything I need or want later.</p>
@@ -92,12 +92,12 @@ git config --global user.email &quot;your_email@email.com&quot;
 <h2>Create new project with version control</h2>
 <p>In R Studio, select File &gt; New Project &gt; Version Control.</p>
 <div class="figure">
-<img src="/blog/2018-05-24-all-about-git_files/project_version_control.PNG" alt="Create Project with Git in R Studio" />
+<img src="/blog/2018-05-24-all-about-git-files/project-version-control.jpg" alt="Create Project with Git in R Studio" />
 <p class="caption">Create Project with Git in R Studio</p>
 </div>
 <p>Choose Git. I have not used SVN yet.</p>
 <div class="figure">
-<img src="/blog/2018-05-24-all-about-git_files/choose_git.PNG" alt="Choose Git" />
+<img src="/blog/2018-05-24-all-about-git-files/choose-git.jpg" alt="Choose Git" />
 <p class="caption">Choose Git</p>
 </div>
 </div>
@@ -105,12 +105,12 @@ git config --global user.email &quot;your_email@email.com&quot;
 <h2>Copy Repository URL and Create Project</h2>
 <p>Go back to the empty repository and copy the repository URL.</p>
 <div class="figure">
-<img src="/blog/2018-05-24-all-about-git_files/repo_url.PNG" alt="Repository URL" />
+<img src="/blog/2018-05-24-all-about-git-files/repo-url.jpg" alt="Repository URL" />
 <p class="caption">Repository URL</p>
 </div>
 <p>Paste repository URL in top field. R Studio has a nice feature that it autotypes the directory name base don the repository URL. Click create project. We now have an R Project in R Studio connected to our Github repository.</p>
 <div class="figure">
-<img src="/blog/2018-05-24-all-about-git_files/project_with_gitignore.PNG" alt="Project with .gitignore" />
+<img src="/blog/2018-05-24-all-about-git-files/project-with-gitignore.jpg" alt="Project with .gitignore" />
 <p class="caption">Project with .gitignore</p>
 </div>
 <p>You will notice that the new project already comes with a .gitignore file. The general idea with .gitignore is that it tells git which files to ignore. We can specify and add files to ignore later.</p>
@@ -123,7 +123,7 @@ git config --global user.email &quot;your_email@email.com&quot;
 <h2>R Studio’s Easy Git Interface.</h2>
 <p>R Studio makes it easy to use version control and git with the git tab. All we need for version, commit, pull, and push are all here.</p>
 <div class="figure">
-<img src="/blog/2018-05-24-all-about-git_files/git_tab.PNG" alt="Git Tab in R Studio" />
+<img src="/blog/2018-05-24-all-about-git-files/git-tab.jpg" alt="Git Tab in R Studio" />
 <p class="caption">Git Tab in R Studio</p>
 </div>
 </div>
@@ -131,7 +131,7 @@ git config --global user.email &quot;your_email@email.com&quot;
 <h2>First Commit</h2>
 <p>Let’s commit our project first. Just click commit and a window should open.</p>
 <div class="figure">
-<img src="/blog/2018-05-24-all-about-git_files/commit_window.PNG" alt="R Studio’s Commit Window" />
+<img src="/blog/2018-05-24-all-about-git-files/commit-window.jpg" alt="R Studio’s Commit Window" />
 <p class="caption">R Studio’s Commit Window</p>
 </div>
 <p>R Studio’s commit window shows the files that were added or changed. Make sure you only check the changes you want to include in this commit. There is also a box for the commit messages. Remember to keep commit messages short and clear. If it can tell us why we made the changes the better.</p>
@@ -148,7 +148,7 @@ git config --global user.email &quot;your_email@email.com&quot;
 <p>If anyone can explain to me what happened, please leave it in the comments below.</p>
 <p>After changing the config, I was able to push successfully. We now have the project in our repository.</p>
 <div class="figure">
-<img src="/blog/2018-05-24-all-about-git_files/new_project_in_repo.PNG" alt="Project in Repository" />
+<img src="/blog/2018-05-24-all-about-git-files/new-project-in-repo.jpg" alt="Project in Repository" />
 <p class="caption">Project in Repository</p>
 </div>
 </div>
@@ -157,12 +157,12 @@ git config --global user.email &quot;your_email@email.com&quot;
 <p>Now that we know how to push, let’s learn how to pull.</p>
 <p>First, let’s make a new file in our Github repository. We don’t have a license yet, so let’s add a license to this project. Go to the repository. Create new file. Type license as file name. Github will show a list of default licenses.</p>
 <div class="figure">
-<img src="/blog/2018-05-24-all-about-git_files/license.PNG" alt="Add License" />
+<img src="/blog/2018-05-24-all-about-git-files/license.jpg" alt="Add License" />
 <p class="caption">Add License</p>
 </div>
 <p>Choose a license template. Check the details then review and submit. Commit the changes in the repository. Add a short title (or Github will add a default) and a short message. Remember that the reason of the commit in the changes are better. Make sure to commit to the master branch. I made a mistake and created a new branch. Commit the new file.</p>
 <div class="figure">
-<img src="/blog/2018-05-24-all-about-git_files/commit_license.PNG" alt="Commit License" />
+<img src="/blog/2018-05-24-all-about-git-files/commit-license.jpg" alt="Commit License" />
 <p class="caption">Commit License</p>
 </div>
 </div>
@@ -170,7 +170,7 @@ git config --global user.email &quot;your_email@email.com&quot;
 <h2>Pull the Changes</h2>
 <p>Since we made changes in our Github repository, we have to pull the changes and make sure our project is updated. Go to R Studio’s git tab and pull branches. Our project should now have a license.</p>
 <div class="figure">
-<img src="/blog/2018-05-24-all-about-git_files/updated_project.PNG" alt="Project with License" />
+<img src="/blog/2018-05-24-all-about-git-files/updated-project.jpg" alt="Project with License" />
 <p class="caption">Project with License</p>
 </div>
 </div>
@@ -178,12 +178,12 @@ git config --global user.email &quot;your_email@email.com&quot;
 <h2>Create README File</h2>
 <p>Let’s do another push by making a README file using Rmarkdown with output as <code>github_document</code>.</p>
 <div class="figure">
-<img src="/blog/2018-05-24-all-about-git_files/README.PNG" alt="Add README with RMarkdown" />
+<img src="/blog/2018-05-24-all-about-git-files/README.jpg" alt="Add README with RMarkdown" />
 <p class="caption">Add README with RMarkdown</p>
 </div>
 <p>After knitting the README file, we first commit the changes, then push to our repository.</p>
 <div class="figure">
-<img src="/blog/2018-05-24-all-about-git_files/commit_README.PNG" alt="README in Repository" />
+<img src="/blog/2018-05-24-all-about-git-files/commit-README.jpg" alt="README in Repository" />
 <p class="caption">README in Repository</p>
 </div>
 </div>
@@ -191,5 +191,5 @@ git config --global user.email &quot;your_email@email.com&quot;
 <div id="same-steps" class="section level1">
 <h1>Same Steps</h1>
 <p>I outlined here a short example of how we work with version control using git, Github, and R Studio. All projects should follow the same work flow.</p>
-<p>Did this post help you working your way to git? Did I miss anything? Did I say something wrong? Please share your ideas and comments on working with git in the comments below.</p>
+<p>Did this post help you working your way to git? Did I miss anything? Did I say something wrong? Please share your ideas and experiences on working with git in the comments below.</p>
 </div>

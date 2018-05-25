@@ -42,17 +42,17 @@ In case it was not clear from the title, am an R user and I only do my projects 
 
 This should be the easy part.
 
-![Sign Up in Github](/blog/2018-05-24-all-about-git_files/github_sign_up.PNG)
+![Sign Up in Github](/blog/2018-05-24-all-about-git-files/github-sign-up.jpg)
 
 ## Once we have an account, we can immediately create a repository.
 
 Go to profile. Select the Repositories tab. Click New.
 
-![Create New Repository](/blog/2018-05-24-all-about-git_files/new_repo.PNG)
+![Create New Repository](/blog/2018-05-24-all-about-git-files/new-repo.jpg)
 
 You should get to this page.
 
-![New Repository Form](/blog/2018-05-24-all-about-git_files/new_repo_form.PNG)
+![New Repository Form](/blog/2018-05-24-all-about-git-files/new-repo-form.jpg)
 
 The only thing required is the repository name. A Github repository is public by default. As far as I know, you have to pay to make a repository private. No need to add .gitignore, license, or README for now. In practice, I always want an empty repository. I can add everything I need or want later.
 
@@ -78,21 +78,21 @@ If everything works well, we can start using git.
 
 In R Studio, select File > New Project > Version Control.
 
-![Create Project with Git in R Studio](/blog/2018-05-24-all-about-git_files/project_version_control.PNG)
+![Create Project with Git in R Studio](/blog/2018-05-24-all-about-git-files/project-version-control.jpg)
 
 Choose Git. I have not used SVN yet.
 
-![Choose Git](/blog/2018-05-24-all-about-git_files/choose_git.PNG)
+![Choose Git](/blog/2018-05-24-all-about-git-files/choose-git.jpg)
 
 ## Copy Repository URL and Create Project
 
 Go back to the empty repository and copy the repository URL.
 
-![Repository URL](/blog/2018-05-24-all-about-git_files/repo_url.PNG)
+![Repository URL](/blog/2018-05-24-all-about-git-files/repo-url.jpg)
 
 Paste repository URL in top field. R Studio has a nice feature that it autotypes the directory name base don the repository URL. Click create project. We now have an R Project in R Studio connected to our Github repository.
 
-![Project with .gitignore](/blog/2018-05-24-all-about-git_files/project_with_gitignore.PNG)
+![Project with .gitignore](/blog/2018-05-24-all-about-git-files/project-with-gitignore.jpg)
 
 You will notice that the new project already comes with a .gitignore file. The general idea with .gitignore is that it tells git which files to ignore. We can specify and add files to ignore later.
 
@@ -104,13 +104,13 @@ Now that we have a Github account, a repository, and a project monitored by vers
 
 R Studio makes it easy to use version control and git with the git tab. All we need for version, commit, pull, and push are all here.
 
-![Git Tab in R Studio](/blog/2018-05-24-all-about-git_files/git_tab.PNG)
+![Git Tab in R Studio](/blog/2018-05-24-all-about-git-files/git-tab.jpg)
 
 ## First Commit
 
 Let's commit our project first. Just click commit and a window should open.
 
-![R Studio's Commit Window](/blog/2018-05-24-all-about-git_files/commit_window.PNG)
+![R Studio's Commit Window](/blog/2018-05-24-all-about-git-files/commit-window.jpg)
 
 R Studio's commit window shows the files that were added or changed. Make sure you only check the changes you want to include in this commit. There is also a box for the commit messages. Remember to keep commit messages short and clear. If it can tell us why we made the changes the better.
 
@@ -136,7 +136,7 @@ If anyone can explain to me what happened, please leave it in the comments below
 
 After changing the config, I was able to push successfully. We now have the project in our repository.
 
-![Project in Repository](/blog/2018-05-24-all-about-git_files/new_project_in_repo.PNG)
+![Project in Repository](/blog/2018-05-24-all-about-git-files/new-project-in-repo.jpg)
 
 ## Make changes in the Repository
 
@@ -144,30 +144,30 @@ Now that we know how to push, let's learn how to pull.
 
 First, let's make a new file in our Github repository. We don't have a license yet, so let's add a license to this project. Go to the repository. Create new file. Type license as file name. Github will show a list of default licenses. 
 
-![Add License](/blog/2018-05-24-all-about-git_files/license.PNG)
+![Add License](/blog/2018-05-24-all-about-git-files/license.jpg)
 
 Choose a license template. Check the details then review and submit. Commit the changes in the repository. Add a short title (or Github will add a default) and a short message. Remember that the reason of the commit in the changes are better. Make sure to commit to the master branch. I made a mistake and created a new branch. Commit the new file.
 
-![Commit License](/blog/2018-05-24-all-about-git_files/commit_license.PNG)
+![Commit License](/blog/2018-05-24-all-about-git-files/commit-license.jpg)
 
 ## Pull the Changes
 
 Since we made changes in our Github repository, we have to pull the changes and make sure our project is updated. Go to R Studio's git tab and pull branches. Our project should now have a license.
 
-![Project with License](/blog/2018-05-24-all-about-git_files/updated_project.PNG)
+![Project with License](/blog/2018-05-24-all-about-git-files/updated-project.jpg)
 
 ## Create README File
 
 Let's do another push by making a README file using Rmarkdown with output as `github_document`.
 
-![Add README with RMarkdown](/blog/2018-05-24-all-about-git_files/README.PNG)
+![Add README with RMarkdown](/blog/2018-05-24-all-about-git-files/README.jpg)
 
 After knitting the README file, we first commit the changes, then push to our repository.
 
-![README in Repository](/blog/2018-05-24-all-about-git_files/commit_README.PNG)
+![README in Repository](/blog/2018-05-24-all-about-git-files/commit-README.jpg)
 
 # Same Steps
 
 I outlined here a short example of how we work with version control using git, Github, and R Studio. All projects should follow the same work flow.
 
-Did this post help you working your way to git? Did I miss anything? Did I say something wrong? Please share your ideas and comments on working with git in the comments below.
+Did this post help you working your way to git? Did I miss anything? Did I say something wrong? Please share your ideas and experiences on working with git in the comments below.
