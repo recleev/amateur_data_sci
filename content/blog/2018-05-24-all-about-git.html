@@ -1,0 +1,177 @@
+
+<div id="TOC">
+<ul>
+<li><a href="#git-newbie">Git Newbie</a></li>
+<li><a href="#commit-push-and-pull">Commit, Push, and Pull</a></li>
+<li><a href="#lets-git-it-on">Let’s Git It On!</a><ul>
+<li><a href="#create-an-account-in-github">Create an account in Github</a></li>
+<li><a href="#once-we-have-an-account-we-can-immediately-create-a-repository.">Once we have an account, we can immediately create a repository.</a></li>
+<li><a href="#configure-git-in-r-studio">Configure Git in R Studio</a></li>
+<li><a href="#create-new-project-with-version-control">Create new project with version control</a></li>
+<li><a href="#copy-repository-url-and-create-project">Copy Repository URL and Create Project</a></li>
+</ul></li>
+<li><a href="#git-up-git-down">Git Up, Git Down</a><ul>
+<li><a href="#r-studios-easy-git-interface.">R Studio’s Easy Git Interface.</a></li>
+<li><a href="#first-commit">First Commit</a></li>
+<li><a href="#push-the-changes">Push the Changes</a></li>
+<li><a href="#make-changes-in-the-repository">Make changes in the Repository</a></li>
+<li><a href="#pull-the-changes">Pull the Changes</a></li>
+<li><a href="#create-readme-file">Create README File</a></li>
+</ul></li>
+<li><a href="#same-steps">Same Steps</a></li>
+</ul>
+</div>
+
+<div id="git-newbie" class="section level1">
+<h1>Git Newbie</h1>
+<p>As a novice programmer, I realized that code can go from bad to worse just because of minimal changes. At some point, we may create a line of code or feature that we think is essential or necessary to our project. However, once the adrenalin rush subsides and we review our code, we discover that we might have been drank when we added those ugly codes. Sometimes we can solve the problem by just deleting the ugly code. Most of the time we have to go back, remove what is ugly, and hope we remember what we have deleted. In the worst cases, we breakdown and cry and wish we could turn back the hands of time. Thank goodness we have git.</p>
+<p>Git is a version control system. It allows us to save versions of our project, track the changes, and revert to any version in our timeline. This means that we can delete whatever we want, add whatever we want, and if we discover we did not want what we did, we can always go back to the version that we best liked. Of course, given that we remember to commit our versions in git.</p>
+</div>
+<div id="commit-push-and-pull" class="section level1">
+<h1>Commit, Push, and Pull</h1>
+<p>When we want to save a version of our project, we commit on git. Every time we make changes, we must commit. What I like about git and commit is the commit message that tells me why I made such changes. Future me will thank past me with these helpful comments if ever future me wants to go back to a previous version.</p>
+<p>Git hosting services like Github, are useful when we want to have another home or repository for our work. Using Github also allows us to share our code with other people and collaborate on our projects.</p>
+<p>When using git hosting services, we must push and pull. Pushing is moving a version of our work from our PC to the repository. When we update our work in our PC, we must update the work in our online repository, so other people and our collaborators will see the newest version always. When other people or our collaborators push changes to our repository, then we must pull the changes they made. Pulling ensures that we are always working with the newest version of the work in the repository. Branches are not only found on trees, there are also branches or branching in git hosting services. The idea about branches is that there can only be one official version, but there can be multiple versions that are based on the main version. I will not discuss step-by-step guides on branching because I have not used it yet.</p>
+</div>
+<div id="lets-git-it-on" class="section level1">
+<h1>Let’s Git It On!</h1>
+<p>I always have trouble using git and Github. I usually forget the commands and steps when setting up, commiting, pushing, and pulling. There are helpful resources online, but I often skim at least three articles to finally find what I need. I also want to help my fellow novices in programming the opportunity to wield the power of git.</p>
+<p>In case it was not clear from the title, am an R user and I only do my projects in R Studio, so my discussion with git and Github will focus on R Studio.</p>
+<div id="create-an-account-in-github" class="section level2">
+<h2>Create an account in Github</h2>
+<p>This should be the easy part.</p>
+<div class="figure">
+<img src="/blog/2018-05-24-all-about-git_files/github_sign_up.PNG" alt="Sign Up in Github" />
+<p class="caption">Sign Up in Github</p>
+</div>
+</div>
+<div id="once-we-have-an-account-we-can-immediately-create-a-repository." class="section level2">
+<h2>Once we have an account, we can immediately create a repository.</h2>
+<p>Go to profile. Select the Repositories tab. Click New.</p>
+<div class="figure">
+<img src="/blog/2018-05-24-all-about-git_files/new_repo.PNG" alt="Create New Repository" />
+<p class="caption">Create New Repository</p>
+</div>
+<p>You should get to this page.</p>
+<div class="figure">
+<img src="/blog/2018-05-24-all-about-git_files/new_repo_form.PNG" alt="New Repository Form" />
+<p class="caption">New Repository Form</p>
+</div>
+<p>The only thing required is the repository name. A Github repository is public by default. As far as I know, you have to pay to make a repository private. No need to add .gitignore, license, or README for now. In practice, I always want an empty repository. I can add everything I need or want later.</p>
+<p>We now have an empty Github repository. We can start using version control. Before that…</p>
+</div>
+<div id="configure-git-in-r-studio" class="section level2">
+<h2>Configure Git in R Studio</h2>
+<p>There might be an easier way to do this, but I think this method is easy enough. Open R Studio and go to the terminal and type the following commands,</p>
+<pre><code>
+git config --global user.name &quot;your_username&quot;
+git config --global user.email &quot;your_email@email.com&quot;
+</code></pre>
+<p>I am not sure if this should be the same as your Github username and email, but I think it would be better if they are for consistency.</p>
+<p>If everything works well, we can start using git.</p>
+</div>
+<div id="create-new-project-with-version-control" class="section level2">
+<h2>Create new project with version control</h2>
+<p>In R Studio, select File &gt; New Project &gt; Version Control.</p>
+<div class="figure">
+<img src="/blog/2018-05-24-all-about-git_files/project_version_control.PNG" alt="Create Project with Git in R Studio" />
+<p class="caption">Create Project with Git in R Studio</p>
+</div>
+<p>Choose Git. I have not used SVN yet.</p>
+<div class="figure">
+<img src="/blog/2018-05-24-all-about-git_files/choose_git.PNG" alt="Choose Git" />
+<p class="caption">Choose Git</p>
+</div>
+</div>
+<div id="copy-repository-url-and-create-project" class="section level2">
+<h2>Copy Repository URL and Create Project</h2>
+<p>Go back to the empty repository and copy the repository URL.</p>
+<div class="figure">
+<img src="/blog/2018-05-24-all-about-git_files/repo_url.PNG" alt="Repository URL" />
+<p class="caption">Repository URL</p>
+</div>
+<p>Paste repository URL in top field. R Studio has a nice feature that it autotypes the directory name base don the repository URL. Click create project. We now have an R Project in R Studio connected to our Github repository.</p>
+<div class="figure">
+<img src="/blog/2018-05-24-all-about-git_files/project_with_gitignore.PNG" alt="Project with .gitignore" />
+<p class="caption">Project with .gitignore</p>
+</div>
+<p>You will notice that the new project already comes with a .gitignore file. The general idea with .gitignore is that it tells git which files to ignore. We can specify and add files to ignore later.</p>
+</div>
+</div>
+<div id="git-up-git-down" class="section level1">
+<h1>Git Up, Git Down</h1>
+<p>Now that we have a Github account, a repository, and a project monitored by version control, we can commit, push, and pull.</p>
+<div id="r-studios-easy-git-interface." class="section level2">
+<h2>R Studio’s Easy Git Interface.</h2>
+<p>R Studio makes it easy to use version control and git with the git tab. All we need for version, commit, pull, and push are all here.</p>
+<div class="figure">
+<img src="/blog/2018-05-24-all-about-git_files/git_tab.PNG" alt="Git Tab in R Studio" />
+<p class="caption">Git Tab in R Studio</p>
+</div>
+</div>
+<div id="first-commit" class="section level2">
+<h2>First Commit</h2>
+<p>Let’s commit our project first. Just click commit and a window should open.</p>
+<div class="figure">
+<img src="/blog/2018-05-24-all-about-git_files/commit_window.PNG" alt="R Studio’s Commit Window" />
+<p class="caption">R Studio’s Commit Window</p>
+</div>
+<p>R Studio’s commit window shows the files that were added or changed. Make sure you only check the changes you want to include in this commit. There is also a box for the commit messages. Remember to keep commit messages short and clear. If it can tell us why we made the changes the better.</p>
+<p>Commit and close when finished. The changes that we commited should disappear.</p>
+</div>
+<div id="push-the-changes" class="section level2">
+<h2>Push the Changes</h2>
+<p>Time to push. Go back to the git tab and click push to branches.</p>
+<p>I encountered an error for my first push.</p>
+<pre><code>SSL certificate problem: self signed certificate in certificate chain</code></pre>
+<p>I did a quick search and <a href="https://stackoverflow.com/questions/11621768/how-can-i-make-git-accept-a-self-signed-certificate?utm_medium=organic&amp;utm_source=google_rich_qa&amp;utm_campaign=google_rich_qa">found this</a>. I had to change my git config in the terminal.</p>
+<pre><code>git config http.sslVerify false
+</code></pre>
+<p>If anyone can explain to me what happened, please leave it in the comments below.</p>
+<p>After changing the config, I was able to push successfully. We now have the project in our repository.</p>
+<div class="figure">
+<img src="/blog/2018-05-24-all-about-git_files/new_project_in_repo.PNG" alt="Project in Repository" />
+<p class="caption">Project in Repository</p>
+</div>
+</div>
+<div id="make-changes-in-the-repository" class="section level2">
+<h2>Make changes in the Repository</h2>
+<p>Now that we know how to push, let’s learn how to pull.</p>
+<p>First, let’s make a new file in our Github repository. We don’t have a license yet, so let’s add a license to this project. Go to the repository. Create new file. Type license as file name. Github will show a list of default licenses.</p>
+<div class="figure">
+<img src="/blog/2018-05-24-all-about-git_files/license.PNG" alt="Add License" />
+<p class="caption">Add License</p>
+</div>
+<p>Choose a license template. Check the details then review and submit. Commit the changes in the repository. Add a short title (or Github will add a default) and a short message. Remember that the reason of the commit in the changes are better. Make sure to commit to the master branch. I made a mistake and created a new branch. Commit the new file.</p>
+<div class="figure">
+<img src="/blog/2018-05-24-all-about-git_files/commit_license.PNG" alt="Commit License" />
+<p class="caption">Commit License</p>
+</div>
+</div>
+<div id="pull-the-changes" class="section level2">
+<h2>Pull the Changes</h2>
+<p>Since we made changes in our Github repository, we have to pull the changes and make sure our project is updated. Go to R Studio’s git tab and pull branches. Our project should now have a license.</p>
+<div class="figure">
+<img src="/blog/2018-05-24-all-about-git_files/updated_project.PNG" alt="Project with License" />
+<p class="caption">Project with License</p>
+</div>
+</div>
+<div id="create-readme-file" class="section level2">
+<h2>Create README File</h2>
+<p>Let’s do another push by making a README file using Rmarkdown with output as <code>github_document</code>.</p>
+<div class="figure">
+<img src="/blog/2018-05-24-all-about-git_files/README.PNG" alt="Add README with RMarkdown" />
+<p class="caption">Add README with RMarkdown</p>
+</div>
+<p>After knitting the README file, we first commit the changes, then push to our repository.</p>
+<div class="figure">
+<img src="/blog/2018-05-24-all-about-git_files/commit_README.PNG" alt="README in Repository" />
+<p class="caption">README in Repository</p>
+</div>
+</div>
+</div>
+<div id="same-steps" class="section level1">
+<h1>Same Steps</h1>
+<p>I outlined here a short example of how we work with version control using git, Github, and R Studio. All projects should follow the same work flow.</p>
+<p>Did this post help you working your way to git? Did I miss anything? Did I say something wrong? Please share your ideas and comments on working with git in the comments below.</p>
+</div>
