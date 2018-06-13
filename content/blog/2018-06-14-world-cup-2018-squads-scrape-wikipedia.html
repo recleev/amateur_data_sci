@@ -2,16 +2,16 @@
 title: 'Gathering the Wolf Packs: Scraping World Cup 2018 Squads from Wikipedia'
 author: Recle Etino Vibal
 date: '2018-06-14'
+slug: world-cup-2018-squads-scrape-wikipedia
 categories:
   - lessons
   - sports
 tags:
   - rebus
   - rvest
+  - world cup 2018
   - tidytext
   - web scraping
-  - world cup 2018
-slug: world-cup-2018-squads-scrape-wikipedia
 output:
   blogdown::html_page:
     toc: yes
@@ -72,25 +72,25 @@ opts_chunk$set(
 <h2>Inspect Element</h2>
 <p>To get the necessary links and details of the tables we want to scrape, we need to inspect the page’s element first. In Chrome, it is only a matter of right clicking on the page and selecting the page.</p>
 <div class="figure">
-<img src="C:/blog/2018-06-14-world-cup-2018-squads-group-wikipedia_files/inspect-wikipage.jpg" alt="Inspect Page" />
+<img src="/blog/2018-06-14-world-cup-2018-squads-scrape-wikipedia_files/inspect-wikipage.jpg" alt="Inspect Page" />
 <p class="caption">Inspect Page</p>
 </div>
 <p>Chrome should open a sidebar that will show the page’s elements.</p>
 <div class="figure">
-<img src="C:/blog/2018-06-14-world-cup-2018-squads-group-wikipedia_files/inspect-element-page.jpg" alt="Page ELement Source" />
-<p class="caption">Page ELement Source</p>
+<img src="/blog/2018-06-14-world-cup-2018-squads-scrape-wikipedia_files/inspect-element-page.jpg" alt="Page Element Source" />
+<p class="caption">Page Element Source</p>
 </div>
 </div>
 <div id="find-and-copy-the-xpath" class="section level2">
 <h2>Find and Copy the XPath</h2>
 <p>The XPath is the necessary link we need to scrape a table from a webpage. First, locate the line in the element window that will highlight the table wanted.</p>
 <div class="figure">
-<img src="C:/blog/2018-06-14-world-cup-2018-squads-group-wikipedia_files/find-table-line.jpg" alt="Find Table Element" />
+<img src="/blog/2018-06-14-world-cup-2018-squads-scrape-wikipedia_files/find-table-line.jpg" alt="Find Table Element" />
 <p class="caption">Find Table Element</p>
 </div>
 <p>After locating the table’s code, right click and copy XPath.</p>
 <div class="figure">
-<img src="/blog/2018-06-14-world-cup-2018-squads-group-wikipedia_files/copy-xpath.jpg" alt="Copy Table’s XPath" />
+<img src="/blog/2018-06-14-world-cup-2018-squads-scrape-wikipedia_files/copy-xpath.jpg" alt="Copy Table’s XPath" />
 <p class="caption">Copy Table’s XPath</p>
 </div>
 <p>Now that we have the XPath, we can proceed to scraping the table from Wikipedia.</p>
@@ -123,7 +123,7 @@ opts_chunk$set(
 <h2>National Teams and Groupings</h2>
 <p>First, we need to make a table for all the national teams and their groups. I am not sure if there is a table online that makes this easier, but I used Wikipedia’s table of contents to make this.</p>
 <div class="figure">
-<img src="/blog/2018-06-14-world-cup-2018-squads-group-wikipedia_files/toc-wiki-wc-squads.jpg" alt="Wikipedia’s World Cup 2018 Squads and Groups" />
+<img src="/blog/2018-06-14-world-cup-2018-squads-scrape-wikipedia_files/toc-wiki-wc-squads.jpg" alt="Wikipedia’s World Cup 2018 Squads and Groups" />
 <p class="caption">Wikipedia’s World Cup 2018 Squads and Groups</p>
 </div>
 <pre class="r"><code># Somehow direct assignment with &lt;- does not work in code chunks for texts with
