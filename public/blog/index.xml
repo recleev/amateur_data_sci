@@ -6,19 +6,47 @@
     <description>Recent content in Blogs on The Amateur Data Scientist</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>en-us</language>
-    <lastBuildDate>Fri, 18 May 2018 00:00:00 +0000</lastBuildDate>
+    <lastBuildDate>Thu, 14 Jun 2018 00:00:00 +0000</lastBuildDate>
     
 	<atom:link href="/blog/index.xml" rel="self" type="application/rss+xml" />
     
     
     <item>
+      <title>Gathering the Wolf Packs: Scraping World Cup 2018 Squads from Wikipedia</title>
+      <link>/blog/world-cup-2018-squads-scrape-wikipedia/</link>
+      <pubDate>Thu, 14 Jun 2018 00:00:00 +0000</pubDate>
+      
+      <guid>/blog/world-cup-2018-squads-scrape-wikipedia/</guid>
+      <description>The Hunt for a Decent List of World Cup 2018 SquadsA Template for Scraping Tables from WikipediaInspect ElementFind and Copy the XPathScrape Tables with rvestScraping World Cup 2018 Squads All at OnceNational Teams and GroupingsThe Scraping FunctionGather All the SquadsTidying the World Cup SquadsWorld Cup 2018 Squads and GroupThe Hunt for a Decent List of World Cup 2018 SquadsWith World Cup 2018 to kick off today, I was in search for the past days for a list all the players that will represent their country in the tournament.</description>
+    </item>
+    
+    <item>
+      <title>All About Git and Github in RStudio: A Step-by-Step Guide for Beginners Like Me (With Pictures!)</title>
+      <link>/blog/all-about-git/</link>
+      <pubDate>Thu, 24 May 2018 00:00:00 +0000</pubDate>
+      
+      <guid>/blog/all-about-git/</guid>
+      <description>Git NewbieCommit, Push, and PullLet’s Git It On!Create an account in GithubOnce we have an account, we can immediately create a repository.Configure Git in R StudioCreate new project with version controlCopy Repository URL and Create ProjectGit Up, Git DownR Studio’s Easy Git Interface.First CommitPush the ChangesMake changes in the RepositoryPull the ChangesCreate README FileSame StepsGit NewbieAs a novice programmer, I realized that code can go from bad to worse just because of minimal changes.</description>
+    </item>
+    
+    <item>
       <title>Hideous Progeny: Tidytext Analysis of Frankenstein</title>
       <link>/blog/hideous-progeny-tidytext-frankenstein/</link>
-      <pubDate>Fri, 18 May 2018 00:00:00 +0000</pubDate>
+      <pubDate>Sat, 19 May 2018 00:00:00 +0000</pubDate>
       
       <guid>/blog/hideous-progeny-tidytext-frankenstein/</guid>
-      <description>The Moden PrometheusCapture of Frankenstein (Text)Add Chapter ColumnUnnest WordsMost Common WordsAnd now, once again, I bid my hideous progeny go forth and prosper. — Mary Wollstonecraft Shelley (London, 15 October 1831)
-The Moden PrometheusMary Wollstonecraft Shelley’s Frankenstein (The Modern Prometheus) is one of the best stories any can read. If anyone was to start their journey in the wonderful world of stories, Frankenstein will always be my suggestion for first read.</description>
+      <description>The Moden PrometheusPursuit for Frankenstein BeginsEmptiness FilledDestruction and CreationOf Man, Of LifeA Big EndingUncontrollable FeelingsWaves of EmotionsDown the PrecipiceFear the DaemonIce and Hearts of FireAnd now, once again, I bid my hideous progeny go forth and prosper. — Mary Wollstonecraft Shelley (London, 15 October 1831)
+The Moden PrometheusMary Wollstonecraft Shelley’s Frankenstein (The Modern Prometheus) is one of the best stories anyone can read.</description>
+    </item>
+    
+    <item>
+      <title>The Crusade: Text Mining Trivium Songs</title>
+      <link>/blog/trivium-songs/</link>
+      <pubDate>Sat, 19 May 2018 00:00:00 +0000</pubDate>
+      
+      <guid>/blog/trivium-songs/</guid>
+      <description>A View of Mining LyricsInto the Mouth of R We MarchPull Harder on the Strings of Lyrics with geniusRText DismantledAnthem (We are the Functions)Album That Spawned the Most WordsTread the WordsTorn Between Term Frequency and Inverse Document FrequencyNegativity ThrivesThese Sentiments Can’t Tear Us Apart(Warning: NSFW Language)
+A View of Mining LyricsTrivium is my favorite heavy metal band.</description>
     </item>
     
   </channel>
