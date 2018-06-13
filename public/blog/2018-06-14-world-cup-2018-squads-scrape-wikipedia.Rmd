@@ -1,0 +1,370 @@
+---
+title: 'Gathering the Wolf Packs: Scraping World Cup 2018 Squads from Wikipedia'
+author: Recle Etino Vibal
+date: '2018-06-14'
+slug: world-cup-2018-squads-scrape-wikipedia
+categories:
+  - lessons
+  - sports
+tags:
+  - rebus
+  - rvest
+  - world cup 2018
+  - tidytext
+  - web scraping
+output:
+  blogdown::html_page:
+    toc: yes
+---
+
+# The Hunt for a Decent List of World Cup 2018 Squads
+
+With [World Cup 2018](https://www.fifa.com/worldcup/) to kick off today, I was in search for the past days for a list all the players that will represent their country in the tournament. I could not find an easy-to-scrape list from the [official site](https://www.fifa.com/worldcup/teams/), and it did not seem it has some interesting data I could use.
+
+Wikipedia's World Cup 2018 Squads page is in a simple format and has the caps and goals of each player for their national team. I have not scraped a table from Wikipedia.
+
+```{r set_up, include=TRUE, message=FALSE, warning=FALSE}
+
+library(knitr)
+library(tidyverse)
+library(magrittr)
+library(rvest)
+library(tidytext)
+library(rebus)
+library(janitor)
+library(lubridate)
+library(DT)
+
+opts_chunk$set(
+  echo = TRUE,
+  message = FALSE,
+  warning = FALSE
+)
+
+```
+
+# A Template for Scraping Tables from Wikipedia
+
+Web scraping tables from websites like Wikipedia can be done using the `rvest` package. Before we can proceed with the codes we need to inspect the webpage first for necessary elements and links.
+
+## Inspect Element
+
+To get the necessary links and details of the tables we want to scrape, we need to inspect the page's element first. In Chrome, it is only a matter of right clicking on the page and selecting the page.
+
+![Inspect Page](/blog/2018-06-14-world-cup-2018-squads-scrape-wikipedia_files/inspect-wikipage.jpg)
+
+Chrome should open a sidebar that will show the page's elements.
+
+![Page Element Source](/blog/2018-06-14-world-cup-2018-squads-scrape-wikipedia_files/inspect-element-page.jpg)
+
+## Find and Copy the XPath
+
+The XPath is the necessary link we need to scrape a table from a webpage. First, locate the line in the element window that will highlight the table wanted.
+
+![Find Table Element](/blog/2018-06-14-world-cup-2018-squads-scrape-wikipedia_files/find-table-line.jpg)
+
+After locating the table's code, right click and copy XPath.
+
+![Copy Table's XPath](/blog/2018-06-14-world-cup-2018-squads-scrape-wikipedia_files/copy-xpath.jpg)
+
+Now that we have the XPath, we can proceed to scraping the table from Wikipedia.
+
+## Scrape Tables with `rvest`
+
+The basic workflow for extracting a table from an html page is as follows,
+
+1. Read page URL.
+2. Extract node with from XPath.
+3. Extract table from html.
+4. Extract table from list.
+
+```{r scrape_sample_table}
+
+"https://en.wikipedia.org/wiki/2018_FIFA_World_Cup_squads" %>% 
+  read_html() %>% 
+  html_nodes(xpath = '//*[@id="mw-content-text"]/div/table[1]') %>% 
+  html_table() %>% 
+  extract2(1) %>% 
+  datatable()
+
+```
+
+Note the use of single quotes for the XPath because it already uses double quotation marks. I also used `magrittr::extract2()` function to extract the data frame from the list. I prefer using `magrittr` for extracting elements from a list. I also used a standard `DT::datatable()` for a cleaner a more user-friendly presentation.
+
+Unfortunately, that is only for one National team squad. World Cup 2018 has 32 national teams, so doing this 32 times can be laborious. Another problem is that these tables do not indicate which country this squad is for and in what group does the national team play in the group stage.
+
+We will solve these issues using `purrr:map`.
+
+# Scraping World Cup 2018 Squads All at Once
+
+## National Teams and Groupings
+
+First, we need to make a table for all the national teams and their groups. I am not sure if there is a table online that makes this easier, but I used Wikipedia's table of contents to make this.
+
+![Wikipedia's World Cup 2018 Squads and Groups](/blog/2018-06-14-world-cup-2018-squads-scrape-wikipedia_files/toc-wiki-wc-squads.jpg)
+
+```{r create_squad_group_table}
+
+# Somehow direct assignment with <- does not work in code chunks for texts with
+# line breaks. Using assign() works.
+assign(
+  "wc_squad_wiki_toc",
+    "Group A
+
+1.1 Egypt
+1.2 Russia
+1.3 Saudi Arabia
+1.4 Uruguay
+
+2 Group B
+
+2.1 Iran
+2.2 Morocco
+2.3 Portugal
+2.4 Spain
+
+3 Group C
+
+3.1 Australia
+3.2 Denmark
+3.3 France
+3.4 Peru
+
+4 Group D
+
+4.1 Argentina
+4.2 Croatia
+4.3 Iceland
+4.4 Nigeria
+
+5 Group E
+
+5.1 Brazil
+5.2 Costa Rica
+5.3 Serbia
+5.4 Switzerland
+
+6 Group F
+
+6.1 Germany
+6.2 Mexico
+6.3 South Korea
+6.4 Sweden
+
+7 Group G
+
+7.1 Belgium
+7.2 England
+7.3 Panama
+7.4 Tunisia
+
+8 Group H
+
+8.1 Colombia
+8.2 Japan
+8.3 Poland
+8.4 Senegal"
+    )
+
+wc_team_group <- 
+   wc_squad_wiki_toc %>% 
+  # Turn copied text into a single cell tibble
+  as_tibble() %>% 
+  # Add column name for easier calling
+  set_colnames("raw_text") %>% 
+  # Separate cell by lines
+  unnest_tokens(wc_team, raw_text, token = "lines") %>% 
+  mutate(
+    # Extract only the team names made up of only alphabets. The inclusion of
+    # the space followed by another set of alphabets are for countries like
+    # South Korea, Saudi Arabia, and Costa Rica.
+    wc_team = str_extract(
+      wc_team,
+      one_or_more(ALPHA) %R% 
+        zero_or_more(
+          SPC %R%
+            one_or_more(ALPHA)
+        ) %R% END
+    ),
+    # Create a column that extracts the group and produces NA when the column
+    # does not include a group. Remove group later and fill these with the
+    # grouping. Remove columns with group to keep the squads only.
+    wc_group = str_extract(
+      wc_team,
+      "group " %R% ALPHA
+    ),
+    wc_group = str_remove(wc_group, "group ")
+  ) %>% 
+  fill(wc_group) %>% 
+  filter(
+    str_detect(
+      wc_team,
+      "group"
+    ) == FALSE
+  ) %>% 
+  # Add index for mapping to scraping function later. This works because team
+  # tables from 1 to 32 as listed in the table of contents.
+  mutate(
+    wc_team_index = row_number(),
+    # Make national team names and grouping more presentable,
+    wc_team = str_to_title(wc_team),
+    wc_group = str_to_upper(wc_group)
+  )
+
+```
+
+My thought process in creating the tibble of National teams and grouping are in the comments of the code chunk above. Special mention to `tidytext::unnest_tokens()` which defaults to splitting a text into words. In this instance, however, the table of contents are separated by line, so unnesting by line just makes more sense and easier cleaning down the line.
+
+```{r wc_squad_group_DT}
+
+wc_team_group %>% 
+  datatable(
+    options = list(
+      pageLength = 16,
+      columnDefs = list(
+        list(
+          className = 'dt-center', 
+          targets = 1:ncol(wc_team_group)
+        )
+      )
+    )
+  )
+
+```
+
+## The Scraping Function
+
+If we want to pull all the tables in one go, we need to make a function first. We will use the code above for extracting a single table as template.
+
+Note that this works because all squad tables have the same XPath except for the index of the table (1 to 32). Since the table of contents arranges the teams the same as the tables, extracting the tables by index is easier.
+
+```{r scraping_function}
+
+scrape_wc_squad <- function(squad_index) {
+  wc_squads_url <- 'https://en.wikipedia.org/wiki/2018_FIFA_World_Cup_squads'
+  
+  table_xpath <- sprintf(
+    '/html/body/div[3]/div[3]/div[4]/div/table[%s]',
+    squad_index
+  )
+  
+  wc_squads_url %>% 
+    read_html() %>% 
+    html_nodes(xpath = table_xpath) %>% 
+    html_table() %>% 
+    extract2(1)
+}
+
+```
+
+The scrape function only has one argument, the National team's index. With this function and the tibble of National teams and grouping we made earlier, we can now pull all the squads in one go.
+
+## Gather All the Squads
+
+I have always applied a function over a vector of arguments using `purrr::map()`. There might be other ways to accomplish this, but I think the `purrr` package offers the most neat and understandable workflow for such tasks. 
+
+All `purrr` functions can be read as map or use these arguments in this function with this optional extra arguments. Once I got the hang of that sentence, `purrr` has always been my go to package.
+
+```{r wc_squads}
+
+wc_squads <- 
+  wc_team_group %>% 
+  mutate(wc_squad = map(
+    # Map the National Team indices to scrape_wc_squad(). This will give a
+    # nested tibble, whch makes unnesting needed later.
+    wc_team_index,
+    scrape_wc_squad
+  )) %>% 
+  unnest()
+
+```
+
+The scraping takes a while in my laptop, but it gets the job done in one and easy pull in just a few lines of codes.
+
+```{r wc_squads_DT}
+
+wc_squads %>% 
+  datatable(
+    options = list(
+      pageLength = 23,
+      columnDefs = list(
+        list(
+          className = 'dt-center', 
+          targets = 1:ncol(wc_squads)
+        )
+      )
+    )
+  )
+
+```
+
+The table already looks good, but I think we can still make it better. The column with date of birth and age looks redundant. The position also looks redundant. Some player names have a captain tag to them. I think a captain tag should be in a separate column.
+
+Let's clean this table.
+
+# Tidying the World Cup Squads
+
+```{r tidy_wc_squads}
+
+tidy_wc_squads <- 
+  wc_squads %>% 
+  # make column names follow tidy format
+  clean_names() %>% 
+  rename(number = no) %>% 
+  mutate(
+    is_captain = str_detect(
+      player, 
+      OPEN_PAREN %R% 
+        "captain" %R% 
+        CLOSE_PAREN
+    ),
+    player = str_remove(
+      player,
+      # space is also necessary to remove after along with the captain tag
+      SPC %R%
+      OPEN_PAREN %R% 
+        "captain" %R% 
+        CLOSE_PAREN
+    ),
+    # Extract birth date using rebus::YMD
+    birth_date = str_extract(date_of_birth_age, YMD),
+    birth_date = ymd(birth_date),
+    age_as_of_2018_06_13 = floor(
+      interval(
+        birth_date,
+        "2018-06-13"
+      ) / years(1)
+    ),
+    # Remove redundancy of position and convert to factors
+    position = str_remove(pos, DGT),
+    position = factor(
+      position,
+      levels = c("GK", "DF", "MF", "FW")
+    )
+  ) %>% 
+  select(-date_of_birth_age, -pos)
+
+```
+
+My thought process in tidying the data is documented within the code chunks. My favorite here is on extracting the birth date string using `rebus::YMD`, a regex short cut for most of the standard ymd formats.
+
+# World Cup 2018 Squads and Group
+
+```{r tidy_wc_squads_DT}
+
+tidy_wc_squads %>% 
+  datatable(
+    options = list(
+      pageLength = 23,
+      columnDefs = list(
+        list(
+          className = 'dt-center', 
+          targets = 1:ncol(tidy_wc_squads)
+        )
+      )
+    )
+  )
+
+```
+
+Making this table has given me opportunity to study web scraping from html pages using `rvest`, learning the basics of `DT`, and reviewing my knowledge on `tidytext` and `rebus`. Other than that, I was thinking about using this to create a simple method to build my [FIFA World Cup Bracket Challenge](https://bracketchallenge.fifa.com/), but that is for another post.
