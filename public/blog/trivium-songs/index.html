@@ -189,7 +189,7 @@ opts_chunk$set(message = FALSE,
 
 genius_album(&quot;Trivium&quot;,
              &quot;Silence in the snow&quot;)</code></pre>
-<pre><code>## # A tibble: 458 x 3
+<pre><code>## # A tibble: 463 x 3
 ##    title               track_n text                                       
 ##    &lt;chr&gt;                 &lt;int&gt; &lt;chr&gt;                                      
 ##  1 Silence In The Snow       2 Here we all stand on this canvas of white  
@@ -202,7 +202,7 @@ genius_album(&quot;Trivium&quot;,
 ##  8 Silence In The Snow       2 We must fight till they all die            
 ##  9 Silence In The Snow       2 In their cold blood                        
 ## 10 Silence In The Snow       2 Silence in the snow                        
-## # ... with 448 more rows</code></pre>
+## # ... with 453 more rows</code></pre>
 <p>Since Snøfall is an instrumental track, I decided to get the tracklist of Silence in the Snow first using <code>genius_tracklist()</code>, then filter out Snøfall before downloading the lyrics with <code>genius_lyrics()</code> and the help of <code>map()</code> from the <code>purrr</code> package.</p>
 <pre class="r"><code>genius_tracklist(&quot;Trivium&quot;,
                    &quot;Silence in the snow&quot;) %&gt;% 
@@ -665,7 +665,7 @@ trivium_bing %&gt;%
 </tr>
 </tbody>
 </table>
-<p>First, I will look into the <a href="https://www.cs.uic.edu/~liub/FBS/sentiment-analysis.html">Bing</a> lexicon. Note that while the Bing lexicon categorizes 6788 words into negative and positive sentiments, only 2707 lyrics out of 9864 were categorized.</p>
+<p>First, I will look into the <a href="https://www.cs.uic.edu/~liub/FBS/sentiment-analysis.html">Bing</a> lexicon. Note that while the Bing lexicon categorizes 6788 words into negative and positive sentiments, only 2711 lyrics out of 9880 were categorized.</p>
 <pre class="r"><code>trivium_bing %&gt;% 
   count(album,
         sentiment) %&gt;% 
@@ -941,7 +941,7 @@ trivium_afinn %&gt;%
 </tr>
 </tbody>
 </table>
-<p>The <a href="http://www2.imm.dtu.dk/pubdb/views/publication_details.php?id=6010">AFINN</a> lexicon in the <code>sentiments</code> data frame gives integer sentiment scores from -5 to +5 for 2476 words. Note again that AFINN scored only 2261 words out of 9864 Trivium lyrics.</p>
+<p>The <a href="http://www2.imm.dtu.dk/pubdb/views/publication_details.php?id=6010">AFINN</a> lexicon in the <code>sentiments</code> data frame gives integer sentiment scores from -5 to +5 for 2476 words. Note again that AFINN scored only 2264 words out of 9880 Trivium lyrics.</p>
 <pre class="r"><code>trivium_afinn %&gt;% 
   group_by(album) %&gt;% 
   summarise(total_score = sum(score,
