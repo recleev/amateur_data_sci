@@ -1,0 +1,76 @@
+---
+title: 'Three Decades of the Philippine Stock Exchange Index: Closing Prices, Returns,
+  and a Naive Simulation'
+author: Recle Etino Vibal
+date: '2018-07-17'
+slug: three-decades-psei-prices-returns-naive-simulation
+categories:
+  - time series
+  - finance
+  - economics
+tags:
+  - stocks
+  - psei
+  - returns
+  - portfolio
+  - investment
+output:
+  blogdown::html_page:
+    toc: yes
+---
+
+```{r libraries-opts}
+
+library(knitr)
+library(tidyverse)
+library(quantmod)
+library(magrittr)
+library(janitor)
+library(ggthemes)
+library(ggsci)
+library(drlib)
+library(lubridate)
+library(scales)
+
+opts_chunk$set(
+  message = FALSE,
+  warning = FALSE,
+  echo = TRUE,
+  fig.align = "center",
+  fig.width = 12,
+  fig.height = 8
+)
+
+
+```
+
+
+# Rise and Fall of Stocks
+
+I recently regained my interest in stocks after news of a bearish Philippine stock market was speculated in 2018 June. Stock prices go up and down on a regular basis and some people cannot live with that kind of volatility on a daily basis. The most appealing stocks investment strategy for me is the buy and hold because it requires the least amount of monitoring of stock prices and therefore less stress. Which led me to ask: If we follow a buy and hold strategy for the [Philippine Stock Exchange Index](http://www.pse.com.ph/stockMarket/marketInfo-marketActivity.html?tab=1&indexName=PSEi) for the last 30 years, what would have been our earnings/loss from such an investment?
+
+# Thirty Years of PSEi Prices
+
+Before I can answer my question, I must have PSEi data first. Luckily, (1) `Yahoo!` keeps PSEi data, and (2) `quantmod::getSymbols()` allows us to retrieve the PSEi historical prices from `Yahoo!` via `R`.
+
+```{r get_psei_data}
+
+psei_historical_data <- 
+  # obtain historical psei data from yahoo; I am only interested on closing
+  # prices from 1987 Jun to 2018 Jun; yahoo has psei up to 1987 Jan I think
+  getSymbols(
+    "PSEI.PS", 
+    from = "1987-06-01", 
+    auto.assign = FALSE
+  ) %>% 
+  # convert to tibble for tidy analysis
+  as_tibble() %>% 
+  # convert rownames of dates to a column of dates, because tibbles do not
+  # support rownames
+  rownames_to_column("trading_date")
+
+```
+
+Note the added steps I did after retrieving the historical PSEi prices. The output of `getSymbols()` is a time series object. I am not that versed yet with time series like `zoo` and `xts`, and I also prefer working with tidy data in general even if I have to work with time. [tibbletime](https://cran.r-project.org/web/packages/tibbletime/index.html) comes to mind when talking about time series and tibbles, but I am not yet familiar with its functionalities, so I chose to avoid it for now and just work with what I know with `{dplyr}`.
+
+After converting to a tibble, I had to use `tibble::rownames_to_column()` because `xts` and `zoo` objects are matrices with time index as rownames. Again, I prefer tibbles, and since [tibbles do not support rownames](https://adv-r.hadley.nz/vectors-chap.html#rownames), this is a necessary step.
