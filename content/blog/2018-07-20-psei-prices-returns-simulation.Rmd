@@ -2,22 +2,22 @@
 title: 'Three Decades of the Philippine Stock Exchange Index: Closing Prices, Returns,
   and a Naive Simulation'
 author: Recle Etino Vibal
-date: '2018-07-17'
-slug: three-decades-psei-prices-returns-naive-simulation
+date: '2018-07-20'
 categories:
-  - time series
-  - finance
   - economics
+  - finance
+  - time series
 tags:
-  - stocks
+  - investment
+  - portfolio
   - psei
   - returns
-  - portfolio
-  - investment
+  - stocks
+slug: three-decades-psei-prices-returns-naive-simulation
 output:
   blogdown::html_page:
     toc: yes
-editor_options: 
+editor_options:
   chunk_output_type: console
 ---
 
