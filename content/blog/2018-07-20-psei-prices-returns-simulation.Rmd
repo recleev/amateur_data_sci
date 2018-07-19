@@ -338,9 +338,9 @@ I had to revisit the annuity equation:
 
 $$FV=A\frac{(1+i)^n - 1}{i}$$
 
-FV is the future value or the money we have after a certain period. A is the annuity or the regular payment per period; i is the interest rate, and n is the number of interest periods. The equation is easy to use when we want to find FV, A, or n. Finding I needs a bit of iteration. However, this equation gave me problems when working with years with negative interest. My solution was to go back to the definition of an annuity, i.e. a series of compound interest of periodic payments with fixed rate, and work on that definition to iterate the interest rate. The simulation takes longer because of this method, so if anyone has a better way to determine this, I am willing to listen.
+FV is the future value or the money we have after a certain period. A is the annuity or the regular payment per period; i is the interest rate, and n is the number of interest periods. The equation is easy to use when we want to find FV, A, or n. Finding I needs a bit of iteration. However, this equation gave me problems when working with years with negative interest. My solution was to go back to the definition of an annuity, i.e. a series of compound interest of periodic payments with fixed rate, and work on that definition to iterate the interest rate. The simulation takes longer because of this method, so if anyone has a better way to determine this, I am willing to listen. 
 
-```{r iterate_interest}
+```{r annuity_rate_function}
 
 compute_interest_rate_annuity <- function(
   future_value, 
@@ -348,16 +348,56 @@ compute_interest_rate_annuity <- function(
   period_annuity
 ) {
   
-  interest_rate <- (future_value / annuity)^(1/period_annuity) - 1
+  # the choice of -0.15 as a starting point is arbitrary and what is only the
+  # best for this report given the pattern; for general purposes I think the
+  # best starting point is -1 to account for negative interest and assuming that
+  # one only loses money and will not go into debt
+  interest_rate <- -0.15
   
   while (
-    (annuity * ((1 + interest_rate) ^ period_annuity - 1) / interest_rate) < future_value
+    # this is the definition of annuity
+    sum((annuity * (1 + interest_rate) ^ (period_annuity:1))) < future_value
   ) {
-    interest_rate <- interest_rate + 0.0000001
+    interest_rate <- interest_rate + 0.000001
   }
   
   interest_rate
 }
 
 ```
+
+*Note: The equation above has the assumption that annuity starts at the end of year one, like the case in this investment simulation, and the future value is at a year after the nth year, not like this simulation. This investment simulation takes the future value at the end of the nth year, so the last annuity does not gain interest. For my simulation and the equation above to be consistent, find the future value using the interest at any year n, then pull back an interest* ($FV / (1+ i)$).
+
+```{r iterate_annuity_rate}
+
+annual_interest_rate_estimated <- 
+  invest_psei_simulation %>%
+  # select only Dec because the full payment of 12k was made on Dec and will
+  # mature on Dec the following period
+  dplyr::filter(month(trading_date) == 12) %>%
+  arrange(trading_date) %>% 
+  # this number of year/s is the end of the year investment was made; the
+  # implication is future value at the end of year one is equal to the portfolio
+  # value at the end of year one
+  mutate(n_years = row_number()) %>%
+  dplyr::filter(n_years > 0) %>% 
+  mutate(
+    avg_interest_rate = map2_dbl(
+      # note that this keeps that assumption that end of year investments are
+      # part of the portfolio value; i.e. annuity is a part of the future value
+      # at the end of the year
+      buy_hold, 
+      n_years,
+      # possibly ensures that any error will not stop the simulation, just to be
+      # safe :)
+      possibly(compute_interest_rate_annuity, NA),
+      # 12000 is the yearly annuity for a 6000 annuity every six months
+      annuity = 12000
+    )
+  )
+
+```
+
+The interests estimated here are the equivalent growth rate of the investment at certain years. Given the current portfolio value, the annual `r peso(12000)` investment after n years will have an equivalent of i growth / decay rate.
+
 
