@@ -334,7 +334,7 @@ Our hypothetical investor breaches the ` r peso(1000000)` mark long before the e
 
 Our hypothetical investor reached a million, but is it worth it to risk money in the stock market when one can just save in the bank. In the Philippines, if we save `r peso(6000)` every six months for 30 years, I think the best interest rate we can get is 0.75% per annum. What is the annual and final interest rate of our hypothetical buy and hold investor of the PSEi?
 
-I had to revisit the annuity equation:
+I had to revisit the equation for ordinary annuity:
 
 $$FV=A\frac{(1+i)^n - 1}{i}$$
 
@@ -366,7 +366,7 @@ compute_interest_rate_annuity <- function(
 
 ```
 
-*Note: The equation above has the assumption that annuity starts at the end of year one, like the case in this investment simulation, and the future value is at a year after the nth year, not like this simulation. This investment simulation takes the future value at the end of the nth year, so the last annuity does not gain interest. For my simulation and the equation above to be consistent, find the future value using the interest at any year n, then pull back an interest* ($FV / (1+ i)$).
+*Note: The equation above has the assumption that the ordinary annuity starts at the end of year one, like the case in this investment simulation, and the future value also at year n, seemingly like this simulation. However, the protfolio value after the investment already incurs a gain / loss because of price differences. This makes this investment schedule act like an annuity due where the future value is at a year ahead of the last annuity period. For my simulation and the equation above to be consistent, find the future value using the interest at any year n using ordinary annuity, then add an interest, i.e.* ($FV * (1 + i)$).
 
 ```{r iterate_annuity_rate}
 
@@ -398,6 +398,70 @@ annual_interest_rate_estimated <-
 
 ```
 
-The interests estimated here are the equivalent growth rate of the investment at certain years. Given the current portfolio value, the annual `r peso(12000)` investment after n years will have an equivalent of i growth / decay rate.
+The interests estimated here are the equivalent growth rate of the investment at certain years. Given the current portfolio value, the annual `r peso(12000)` investment after n years will have an equivalent of i growth / decay rate. This redistributes the protfolio value's increase or decrease equally in terms of interest every year despite the variabilty of PSEi's price in those years.
 
+```{r plot_annual_interest}
+
+annual_interest_rate_estimated %>% 
+  ggplot(aes(
+    trading_date, 
+    avg_interest_rate,
+    label = percent(avg_interest_rate),
+    vjust = if_else(
+      avg_interest_rate > 0,
+      -0.5, 1
+    ),
+    fill = avg_interest_rate > 0
+  )) +
+  geom_col(show.legend = FALSE) +
+  geom_text(position = position_dodge(0.9), size = 3) +
+  geom_hline(
+    yintercept = 0, 
+    color = palette_pander(5)[5],
+    linetype = 2,
+    size = 1
+  ) +
+  scale_y_percent() +
+  scale_x_date(date_breaks = "2 years", date_labels = "%Y") +
+  theme_pander(gl = 0) +
+  scale_fill_pander() +
+  labs(
+    title = "Estimated Annual Interest Rate of PSEi Investment",
+    subtitle = sprintf(
+      "%s Investments Every Six Months from %s to %s",
+      peso(6000),
+      format(start_date, format = "%Y %b %d"),
+      format(end_date, format = "%Y %b %d")
+    ),
+    x = "Year",
+    y = "Interest Rate"
+  )
+
+min_rate <-
+  annual_interest_rate_estimated %>% 
+  filter(avg_interest_rate == min(avg_interest_rate)) %>% 
+  pull(avg_interest_rate)
+
+min_rate_year <- 
+  annual_interest_rate_estimated %>% 
+  filter(avg_interest_rate == min_rate) %>% 
+  pull(trading_date) %>% 
+  year()
+
+max_rate <- 
+  annual_interest_rate_estimated %>% 
+  filter(avg_interest_rate == max(avg_interest_rate)) %>% 
+  pull(avg_interest_rate)
+
+max_rate_year <- 
+  annual_interest_rate_estimated %>% 
+  filter(avg_interest_rate == max_rate) %>% 
+  pull(trading_date) %>% 
+  year()
+
+```
+
+The PSEi was not consistently profitable in the past three decades, but it seems like if one stayed with it for the long run, i.e. buy and hold, then one can expect a rate of `r filter(annual_interest_rate_estimated, n_years == max(n_years)) %>% pull(avg_interest_rate) %>% percent()` after waiting patiently for `r min_rate_year` years. If a bank account with an annual interest rate of more than `r filter(annual_interest_rate_estimated, n_years == max(n_years)) %>% pull(avg_interest_rate) %>% percent()` existed in the past three decades, then saving in that account would have been better than risking money in the PSEi. Please inform me of a bank that offers this kind of saving interest rate.
+
+Impatience and early panicking cost. If one panicked and gaved up with PSEi after experiencing a net decay rate of `r min_rate %>% percent()` at the end of `r min_rate_year` then one would have missed the `r max_rate %>% percent()` at the end of `r max_rate_year`. However, buying out at the maximum rate would only gain our hypothetical investor `r filter(annual_interest_rate_estimated, avg_interest_rate == max_rate) %>% mutate(gain = buy_hold - cumulative_cost) %>% pull(gain) %>% peso()` and miss the `r filter(annual_interest_rate_estimated, n_years == max(n_years)) %>% mutate(gain = buy_hold - cumulative_cost) %>% pull(gain) %>% peso()` 
 
