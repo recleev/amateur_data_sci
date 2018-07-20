@@ -74,7 +74,7 @@ psei_historical_data <-
 
 Note the added steps I did after retrieving the historical PSEi prices. The output of `getSymbols()` is a time series object. I am not that versed yet with time series like `zoo` and `xts`, and I also prefer working with tidy data in general even if I have to work with time. [tibbletime](https://cran.r-project.org/web/packages/tibbletime/index.html) comes to mind when talking about time series and tibbles, but I am not yet familiar with its functions, so I chose to avoid it for now and just work with what I know with `{dplyr}`.
 
-After converting to a tibble, I had to use `tibble::rownames_to_column()` because `xts` and `zoo` objects are matrices with time index as row names. Again, I prefer tibbles, and since [tibbles do not support rownames](https://adv-r.hadley.nz/vectors-chap.html#rownames), this is a necessary step.
+After converting to a tibble, I had to use `tibble::rownames_to_column()` because `xts` and `zoo` objects are matrices with time index as row names. Again, I prefer tibbles, and since [tibbles do not support row names](https://adv-r.hadley.nz/vectors-chap.html#rownames), this is a necessary step.
 
 Next is to select only the end-of-month closing prices. The logic behind my code is in the chunk.
 
@@ -159,7 +159,7 @@ min_price_date <-
 
 ```
 
-# Ups and Downs but GOing Up
+# Ups and Downs but Going Up
 
 ```{r plot_psei_monthly}
 
@@ -187,7 +187,7 @@ monthly_psei %>%
 
 ```
 
-Since `r start_date`, PSEi end-of-month closing price shows a typical stock behavior. The price goes up sometimes, then goes down, but after 31 years, the overall trend is up. It seems that if we invested money on PSEi on `r start_date`, we would have a very good amount by `r end_date`.
+Since `r start_date`, the historical PSEi end-of-month closing prices show a typical stock behavior. The price goes up sometimes, then goes down, but after 31 years, the overall trend is up. It seems that if we invested money on PSEi on `r start_date`, we would have a very good amount by `r end_date`.
 
 **Trivia**: The lowest end-of-month closing price of PSEi was at `r min_price` on `r min_price_date`, and the highest was at `r max_price` on `r max_price_date`.
 
@@ -228,7 +228,7 @@ min_return_date <-
 
 ```
 
-A stock's return is the gain or loss of the current price relative to the previous price. We want to know if we buy a stock now at a certain price, will we gain or lose money if we sell it at the next available price after a period.
+A stock's return is the gain or loss of the current price relative to the previous price. We want to know if we buy a stock now, will we gain or lose money if we sell it at the next available price after a period.
 
 ```{r plot_psei_earnings}
 
@@ -255,7 +255,7 @@ returns_monthly %>%
 
 ```
 
-The PSEi's returns over time emphasizes a stock's price volatility and randomness. Once we buy a stock, we cannot be sure if the next price will give us profits. It becomes more stressful if we wonder if we can wait for a bigger return at the risk of waiting longer if the next set of prices would all give us a loss.
+The PSEi's returns over time emphasizes a stock's price volatility and randomness. Once we buy a stock, we cannot be sure if the next price will give us profits. It becomes more stressful if we keep seeing negative returns and wonder if we can wait for a positive return. That is assuming the price will be positive at some time in the future.
 
 **Trivia**: The biggest monthly return of PSEi was `r max_return` on `r max_return_date` and the lowest monthly return was `r min_return` on `r min_return_date`.
 
@@ -263,9 +263,9 @@ The PSEi's returns over time emphasizes a stock's price volatility and randomnes
 
 The randomness of stock prices are usually enough to push away people from investing in the stock market. Monitoring prices can be very stressful when you see the market and the stocks in your portfolio all going down.
 
-There are different opinions and strategies on how invest in stocks and to ensure low risk and decent rewards. My favorite strategy is the *buy and hold*, buy a stock, hold it for the long run. I like this strategy because it is less stressful than watching the prices everyday then buying/selling at opportune moments.
+There are different opinions and strategies on how to invest in stocks and to ensure low risks and decent rewards. My favorite strategy is the *buy and hold*, buy a stock, hold it for the long run. I like this strategy because it is less stressful than watching the prices everyday and buying/selling at opportune moments.
 
-Another strategy I like with stocks is regular buying of stocks at fixed intervals with a fixed budget. For example, we can promise ourselves that we will invest `r peso(6000)` every six months on the stock market. When the price of our portfolio is up, we buy less. When the price of our portfolio is down, we buy more. Then we hold.
+Another strategy I like with stocks is the regular buying of stocks at fixed intervals with a fixed budget. For example, we can promise ourselves that we will invest `r peso(6000)` every six months on the stock market. When the price of our portfolio is up, we buy less. When the price of our portfolio is down, we buy more. Then we hold.
 
 Buy and hold is not a sure way to win in the stock market. If the market goes down, and stays down for 100 years, then buy and hold will fail for the investor who wants to benefit from the investment. However, I think this is the simplest, easiest, and less stressful strategy one can adopt.
 
@@ -328,17 +328,19 @@ invest_psei_simulation %>%
 
 ```
 
-Our hypothetical investor breaches the ` r peso(1000000)` mark long before the end of the simulation. The final value of the buy and hold portfolio is `r invest_psei_simulation %>% filter(trading_date == max(trading_date)) %>% pull(buy_hold) %>% peso()`.
+Our hypothetical investor breaches the `r peso(1000000)` mark long before the end of the simulation. The final value of the buy and hold portfolio is `r invest_psei_simulation %>% filter(trading_date == max(trading_date)) %>% pull(buy_hold) %>% peso()`.
 
 # Bank Deposit vs Buy and Hold Investment
 
-Our hypothetical investor reached a million, but is it worth it to risk money in the stock market when one can just save in the bank. In the Philippines, if we save `r peso(6000)` every six months for 30 years, I think the best interest rate we can get is 0.75% per annum. What is the annual and final interest rate of our hypothetical buy and hold investor of the PSEi?
+Our hypothetical investor reached a million, but is it worth risking money in the stock market when one can just save in the bank. In the Philippines, if we save `r peso(6000)` every six months for 30 years, I think the best interest rate we can get is 0.75% per annum. What is the annual and final interest rate of our hypothetical buy and hold investment in the PSEi?
 
 I had to revisit the equation for ordinary annuity:
 
 $$FV=A\frac{(1+i)^n - 1}{i}$$
 
-FV is the future value or the money we have after a certain period. A is the annuity or the regular payment per period; i is the interest rate, and n is the number of interest periods. The equation is easy to use when we want to find FV, A, or n. Finding I needs a bit of iteration. However, this equation gave me problems when working with years with negative interest. My solution was to go back to the definition of an annuity, i.e. a series of compound interest of periodic payments with fixed rate, and work on that definition to iterate the interest rate. The simulation takes longer because of this method, so if anyone has a better way to determine this, I am willing to listen. 
+$FV$ is the future value or the money we have after a certain period, $A$ is the annuity or the regular payment per period, $i$ is the interest rate, and $n$ is the number of interest periods. The equation is easy to use when we want to find $FV$, $A$, or $n$. Finding $i$ needs a bit of iteration. 
+
+However, this equation gave me problems when working with years with negative interest. My solution was to go back to the definition of an annuity, i.e. a series of compound interest of periodic payments with fixed rate, and work on that definition to iterate the interest rate. The simulation takes longer because of this method, so if anyone has a better way to determine this, I am willing to listen. 
 
 ```{r annuity_rate_function}
 
@@ -366,7 +368,7 @@ compute_interest_rate_annuity <- function(
 
 ```
 
-*Note: The equation above has the assumption that the ordinary annuity starts at the end of year one, like the case in this investment simulation, and the future value also at year n, seemingly like this simulation. However, the protfolio value after the investment already incurs a gain / loss because of price differences. This makes this investment schedule act like an annuity due where the future value is at a year ahead of the last annuity period. For my simulation and the equation above to be consistent, find the future value using the interest at any year n using ordinary annuity, then add an interest, i.e.* ($FV * (1 + i)$).
+*Note: The equation above has the assumption that the ordinary annuity starts at the end of year one, like the case in this investment simulation, and the future value also at year n, seemingly like this simulation. However, the protfolio value after the investment already incurs a gain / loss because of price differences. This makes this investment schedule act like an annuity due where the future value is at a year ahead of the last annuity period. For my simulation and the equation above to be consistent, find the future value using the interest at any year n using ordinary annuity, then add an interest, i.e.* $FV * (1 + i)$.
 
 ```{r iterate_annuity_rate}
 
@@ -398,7 +400,7 @@ annual_interest_rate_estimated <-
 
 ```
 
-The interests estimated here are the equivalent growth rate of the investment at certain years. Given the current portfolio value, the annual `r peso(12000)` investment after n years will have an equivalent of i growth / decay rate. This redistributes the portfolio value's increase or decrease equally in terms of interest every year despite the variability of PSEi's price in those years.
+The interests estimated here are the equivalent growth rate of the investment at certain years. Given the current portfolio value, the annual `r peso(12000)` investment after $n$ years will have an equivalent of $i$ growth / decay rate. This redistributes the portfolio value's increase or decrease equally in terms of interest every year despite the variability of PSEi's price in those years.
 
 ```{r plot_annual_interest}
 
@@ -461,7 +463,7 @@ max_rate_year <-
 
 ```
 
-The PSEi was not consistently profitable in the past three decades, but it seems like if one stayed with it for the long run, i.e. buy and hold, then one can expect a rate of `r filter(annual_interest_rate_estimated, n_years == max(n_years)) %>% pull(avg_interest_rate) %>% percent()` after waiting patiently for `r min_rate_year` years. If a bank account with an annual interest rate of more than `r filter(annual_interest_rate_estimated, n_years == max(n_years)) %>% pull(avg_interest_rate) %>% percent()` existed in the past three decades, then saving in that account would have been better than risking money in the PSEi. Please inform me of a bank that offers this kind of saving interest rate.
+The PSEi was not consistently profitable in the past three decades, but it seems like if one stayed with it for the long run, i.e. buy and hold, then one can expect a rate of `r filter(annual_interest_rate_estimated, n_years == max(n_years)) %>% pull(avg_interest_rate) %>% percent()` after waiting patiently for `r annual_interest_rate_estimated %>% nrow()` years. If a bank account with an annual interest rate of more than `r filter(annual_interest_rate_estimated, n_years == max(n_years)) %>% pull(avg_interest_rate) %>% percent()` existed in the past three decades, then saving in that account would have been better than risking money in the PSEi. Please inform me of a bank that offers this kind of saving interest rate.
 
 Impatience and early panicking cost. If one panicked and gave up with PSEi after experiencing a net decay rate of `r min_rate %>% percent()` at the end of `r min_rate_year` then one would have missed the `r max_rate %>% percent()` at the end of `r max_rate_year`. However, buying out at the maximum rate would only gain our hypothetical investor `r filter(annual_interest_rate_estimated, avg_interest_rate == max_rate) %>% mutate(gain = buy_hold - cumulative_cost) %>% pull(gain) %>% peso()` and miss the `r filter(annual_interest_rate_estimated, n_years == max(n_years)) %>% mutate(gain = buy_hold - cumulative_cost) %>% pull(gain) %>% peso()` after three decades of patience.
 

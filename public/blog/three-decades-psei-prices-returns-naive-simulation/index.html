@@ -142,7 +142,7 @@ ga('send', 'pageview');
 <ul>
 <li><a href="#rise-and-fall-of-stocks">Rise and Fall of Stocks</a></li>
 <li><a href="#thirty-years-of-psei-prices">Thirty Years of PSEi Prices</a></li>
-<li><a href="#ups-and-downs-but-going-up">Ups and Downs but GOing Up</a></li>
+<li><a href="#ups-and-downs-but-going-up">Ups and Downs but Going Up</a></li>
 <li><a href="#month-to-month-returns">Month-to-Month Returns</a></li>
 <li><a href="#buy-and-hold">Buy and Hold</a><ul>
 <li><a href="#simulating-buy-and-hold-over-three-decades-of-psei">Simulating Buy and Hold Over Three Decades of PSEi</a></li>
@@ -193,7 +193,7 @@ opts_chunk$set(
   # support rownames
   rownames_to_column(&quot;trading_date&quot;)</code></pre>
 <p>Note the added steps I did after retrieving the historical PSEi prices. The output of <code>getSymbols()</code> is a time series object. I am not that versed yet with time series like <code>zoo</code> and <code>xts</code>, and I also prefer working with tidy data in general even if I have to work with time. <a href="https://cran.r-project.org/web/packages/tibbletime/index.html">tibbletime</a> comes to mind when talking about time series and tibbles, but I am not yet familiar with its functions, so I chose to avoid it for now and just work with what I know with <code>{dplyr}</code>.</p>
-<p>After converting to a tibble, I had to use <code>tibble::rownames_to_column()</code> because <code>xts</code> and <code>zoo</code> objects are matrices with time index as row names. Again, I prefer tibbles, and since <a href="https://adv-r.hadley.nz/vectors-chap.html#rownames">tibbles do not support rownames</a>, this is a necessary step.</p>
+<p>After converting to a tibble, I had to use <code>tibble::rownames_to_column()</code> because <code>xts</code> and <code>zoo</code> objects are matrices with time index as row names. Again, I prefer tibbles, and since <a href="https://adv-r.hadley.nz/vectors-chap.html#rownames">tibbles do not support row names</a>, this is a necessary step.</p>
 <p>Next is to select only the end-of-month closing prices. The logic behind my code is in the chunk.</p>
 <pre class="r"><code># convert daily data to monthly data
 monthly_psei &lt;- 
@@ -273,7 +273,7 @@ min_price_date &lt;-
   format(format = &quot;%Y %b %d&quot;)</code></pre>
 </div>
 <div id="ups-and-downs-but-going-up" class="section level1">
-<h1>Ups and Downs but GOing Up</h1>
+<h1>Ups and Downs but Going Up</h1>
 <pre class="r"><code>monthly_psei %&gt;% 
   ggplot(aes(trading_date, psei_ps_close)) +
   geom_line(color = palette_pander(1), size = 1) +
@@ -296,7 +296,7 @@ min_price_date &lt;-
     caption = date_caption
   )</code></pre>
 <p><img src="/blog/2018-07-20-psei-prices-returns-simulation_files/figure-html/plot_psei_monthly-1.png" width="1152" style="display: block; margin: auto;" /></p>
-<p>Since 1987 Jun 30, PSEi end-of-month closing price shows a typical stock behavior. The price goes up sometimes, then goes down, but after 31 years, the overall trend is up. It seems that if we invested money on PSEi on 1987 Jun 30, we would have a very good amount by 2018 Jun 29.</p>
+<p>Since 1987 Jun 30, the historical PSEi end-of-month closing prices show a typical stock behavior. The price goes up sometimes, then goes down, but after 31 years, the overall trend is up. It seems that if we invested money on PSEi on 1987 Jun 30, we would have a very good amount by 2018 Jun 29.</p>
 <p><strong>Trivia</strong>: The lowest end-of-month closing price of PSEi was at ₱516.21 on 1990 Oct 05, and the highest was at ₱9,058.62 on 2018 Jan 29.</p>
 </div>
 <div id="month-to-month-returns" class="section level1">
@@ -331,7 +331,7 @@ min_return_date &lt;-
   dplyr::filter(psei_returns == min(psei_returns, na.rm = TRUE)) %&gt;% 
   pull(trading_date) %&gt;% 
   format(format = &quot;%Y %b %d&quot;)</code></pre>
-<p>A stock’s return is the gain or loss of the current price relative to the previous price. We want to know if we buy a stock now at a certain price, will we gain or lose money if we sell it at the next available price after a period.</p>
+<p>A stock’s return is the gain or loss of the current price relative to the previous price. We want to know if we buy a stock now, will we gain or lose money if we sell it at the next available price after a period.</p>
 <pre class="r"><code>returns_monthly %&gt;%
   ggplot(aes(trading_date, psei_returns)) +
   geom_line(color = palette_pander(2)[2], size = 1) +
@@ -353,14 +353,14 @@ min_return_date &lt;-
     caption = date_caption
   )</code></pre>
 <p><img src="/blog/2018-07-20-psei-prices-returns-simulation_files/figure-html/plot_psei_earnings-1.png" width="1152" style="display: block; margin: auto;" /></p>
-<p>The PSEi’s returns over time emphasizes a stock’s price volatility and randomness. Once we buy a stock, we cannot be sure if the next price will give us profits. It becomes more stressful if we wonder if we can wait for a bigger return at the risk of waiting longer if the next set of prices would all give us a loss.</p>
+<p>The PSEi’s returns over time emphasizes a stock’s price volatility and randomness. Once we buy a stock, we cannot be sure if the next price will give us profits. It becomes more stressful if we keep seeing negative returns and wonder if we can wait for a positive return. That is assuming the price will be positive at some time in the future.</p>
 <p><strong>Trivia</strong>: The biggest monthly return of PSEi was 39.3% on 1998 Oct 30 and the lowest monthly return was -31.5% on 1987 Sep 30.</p>
 </div>
 <div id="buy-and-hold" class="section level1">
 <h1>Buy and Hold</h1>
 <p>The randomness of stock prices are usually enough to push away people from investing in the stock market. Monitoring prices can be very stressful when you see the market and the stocks in your portfolio all going down.</p>
-<p>There are different opinions and strategies on how invest in stocks and to ensure low risk and decent rewards. My favorite strategy is the <em>buy and hold</em>, buy a stock, hold it for the long run. I like this strategy because it is less stressful than watching the prices everyday then buying/selling at opportune moments.</p>
-<p>Another strategy I like with stocks is regular buying of stocks at fixed intervals with a fixed budget. For example, we can promise ourselves that we will invest ₱6,000 every six months on the stock market. When the price of our portfolio is up, we buy less. When the price of our portfolio is down, we buy more. Then we hold.</p>
+<p>There are different opinions and strategies on how to invest in stocks and to ensure low risks and decent rewards. My favorite strategy is the <em>buy and hold</em>, buy a stock, hold it for the long run. I like this strategy because it is less stressful than watching the prices everyday and buying/selling at opportune moments.</p>
+<p>Another strategy I like with stocks is the regular buying of stocks at fixed intervals with a fixed budget. For example, we can promise ourselves that we will invest ₱6,000 every six months on the stock market. When the price of our portfolio is up, we buy less. When the price of our portfolio is down, we buy more. Then we hold.</p>
 <p>Buy and hold is not a sure way to win in the stock market. If the market goes down, and stays down for 100 years, then buy and hold will fail for the investor who wants to benefit from the investment. However, I think this is the simplest, easiest, and less stressful strategy one can adopt.</p>
 <p>To illustrate buy and hold, I will simulate the strategy over the PSEi data.</p>
 <p><em>Note: This is only for illustration purposes. I am only using PSEi as a representative stock. One cannot really buy PSEi as a stock and not as fractions of stocks either. Investing a fixed amount on stocks and indices is a little bit more complicated than what I am about to do here.</em></p>
@@ -410,15 +410,16 @@ min_return_date &lt;-
     y = &quot;Portfolio Value&quot;
   )</code></pre>
 <p><img src="/blog/2018-07-20-psei-prices-returns-simulation_files/figure-html/plot_buy_hold_simul-1.png" width="1152" style="display: block; margin: auto;" /></p>
-<p>Our hypothetical investor breaches the <code>r peso(1000000)</code> mark long before the end of the simulation. The final value of the buy and hold portfolio is ₱1,410,142.</p>
+<p>Our hypothetical investor breaches the ₱1,000,000 mark long before the end of the simulation. The final value of the buy and hold portfolio is ₱1,410,142.</p>
 </div>
 </div>
 <div id="bank-deposit-vs-buy-and-hold-investment" class="section level1">
 <h1>Bank Deposit vs Buy and Hold Investment</h1>
-<p>Our hypothetical investor reached a million, but is it worth it to risk money in the stock market when one can just save in the bank. In the Philippines, if we save ₱6,000 every six months for 30 years, I think the best interest rate we can get is 0.75% per annum. What is the annual and final interest rate of our hypothetical buy and hold investor of the PSEi?</p>
+<p>Our hypothetical investor reached a million, but is it worth risking money in the stock market when one can just save in the bank. In the Philippines, if we save ₱6,000 every six months for 30 years, I think the best interest rate we can get is 0.75% per annum. What is the annual and final interest rate of our hypothetical buy and hold investment in the PSEi?</p>
 <p>I had to revisit the equation for ordinary annuity:</p>
 <p><span class="math display">\[FV=A\frac{(1+i)^n - 1}{i}\]</span></p>
-<p>FV is the future value or the money we have after a certain period. A is the annuity or the regular payment per period; i is the interest rate, and n is the number of interest periods. The equation is easy to use when we want to find FV, A, or n. Finding I needs a bit of iteration. However, this equation gave me problems when working with years with negative interest. My solution was to go back to the definition of an annuity, i.e. a series of compound interest of periodic payments with fixed rate, and work on that definition to iterate the interest rate. The simulation takes longer because of this method, so if anyone has a better way to determine this, I am willing to listen.</p>
+<p><span class="math inline">\(FV\)</span> is the future value or the money we have after a certain period, <span class="math inline">\(A\)</span> is the annuity or the regular payment per period, <span class="math inline">\(i\)</span> is the interest rate, and <span class="math inline">\(n\)</span> is the number of interest periods. The equation is easy to use when we want to find <span class="math inline">\(FV\)</span>, <span class="math inline">\(A\)</span>, or <span class="math inline">\(n\)</span>. Finding <span class="math inline">\(i\)</span> needs a bit of iteration.</p>
+<p>However, this equation gave me problems when working with years with negative interest. My solution was to go back to the definition of an annuity, i.e. a series of compound interest of periodic payments with fixed rate, and work on that definition to iterate the interest rate. The simulation takes longer because of this method, so if anyone has a better way to determine this, I am willing to listen.</p>
 <pre class="r"><code>compute_interest_rate_annuity &lt;- function(
   future_value, 
   annuity, 
@@ -440,7 +441,7 @@ min_return_date &lt;-
   
   interest_rate
 }</code></pre>
-<p><em>Note: The equation above has the assumption that the ordinary annuity starts at the end of year one, like the case in this investment simulation, and the future value also at year n, seemingly like this simulation. However, the protfolio value after the investment already incurs a gain / loss because of price differences. This makes this investment schedule act like an annuity due where the future value is at a year ahead of the last annuity period. For my simulation and the equation above to be consistent, find the future value using the interest at any year n using ordinary annuity, then add an interest, i.e.</em> (<span class="math inline">\(FV * (1 + i)\)</span>).</p>
+<p><em>Note: The equation above has the assumption that the ordinary annuity starts at the end of year one, like the case in this investment simulation, and the future value also at year n, seemingly like this simulation. However, the protfolio value after the investment already incurs a gain / loss because of price differences. This makes this investment schedule act like an annuity due where the future value is at a year ahead of the last annuity period. For my simulation and the equation above to be consistent, find the future value using the interest at any year n using ordinary annuity, then add an interest, i.e.</em> <span class="math inline">\(FV * (1 + i)\)</span>.</p>
 <pre class="r"><code>annual_interest_rate_estimated &lt;- 
   invest_psei_simulation %&gt;%
   # select only Dec because the full payment of 12k was made on Dec and will
@@ -466,7 +467,7 @@ min_return_date &lt;-
       annuity = 12000
     )
   )</code></pre>
-<p>The interests estimated here are the equivalent growth rate of the investment at certain years. Given the current portfolio value, the annual ₱12,000 investment after n years will have an equivalent of i growth / decay rate. This redistributes the portfolio value’s increase or decrease equally in terms of interest every year despite the variability of PSEi’s price in those years.</p>
+<p>The interests estimated here are the equivalent growth rate of the investment at certain years. Given the current portfolio value, the annual ₱12,000 investment after <span class="math inline">\(n\)</span> years will have an equivalent of <span class="math inline">\(i\)</span> growth / decay rate. This redistributes the portfolio value’s increase or decrease equally in terms of interest every year despite the variability of PSEi’s price in those years.</p>
 <pre class="r"><code>annual_interest_rate_estimated %&gt;% 
   ggplot(aes(
     trading_date, 
@@ -523,7 +524,7 @@ max_rate_year &lt;-
   filter(avg_interest_rate == max_rate) %&gt;% 
   pull(trading_date) %&gt;% 
   year()</code></pre>
-<p>The PSEi was not consistently profitable in the past three decades, but it seems like if one stayed with it for the long run, i.e. buy and hold, then one can expect a rate of 8.22% after waiting patiently for 1990 years. If a bank account with an annual interest rate of more than 8.22% existed in the past three decades, then saving in that account would have been better than risking money in the PSEi. Please inform me of a bank that offers this kind of saving interest rate.</p>
+<p>The PSEi was not consistently profitable in the past three decades, but it seems like if one stayed with it for the long run, i.e. buy and hold, then one can expect a rate of 8.22% after waiting patiently for 31 years. If a bank account with an annual interest rate of more than 8.22% existed in the past three decades, then saving in that account would have been better than risking money in the PSEi. Please inform me of a bank that offers this kind of saving interest rate.</p>
 <p>Impatience and early panicking cost. If one panicked and gave up with PSEi after experiencing a net decay rate of -11% at the end of 1990 then one would have missed the 28.7% at the end of 1993. However, buying out at the maximum rate would only gain our hypothetical investor ₱176,613 and miss the ₱1,298,527 after three decades of patience.</p>
 </div>
 <div id="next-thirty-years-another-million" class="section level1">
@@ -572,31 +573,10 @@ max_rate_year &lt;-
 </div>
 
 
-    
-    <script src="//cdnjs.cloudflare.com/ajax/libs/highlight.js//highlight.min.js"></script>
-    
-    <script>hljs.configure({languages: []}); hljs.initHighlightingOnLoad();</script>
-    
-    <script type="text/x-mathjax-config">
-    MathJax.Hub.Config({
-      tex2jax: {
-        skipTags: ['script', 'noscript', 'style', 'textarea', 'pre']
-      }
-    });
-    </script>
-    <script type="text/javascript"
-      src="https://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML">
-    </script>
-    
-<script>
-(function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
-(i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
-m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
-})(window,document,'script','https://www.google-analytics.com/analytics.js','ga');
+<script src="/js/math-code.js"></script>
+<script async src="//cdn.bootcss.com/mathjax/2.7.1/MathJax.js?config=TeX-MML-AM_CHTML"></script>
 
-ga('create', 'UA-119602814-1', 'auto');
-ga('send', 'pageview');
-</script>
+
 
   </body>
 </html>
