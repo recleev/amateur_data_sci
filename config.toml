@@ -28,7 +28,7 @@ googleAnalytics         = "UA-119602814-1"
     pygmentsStyle       = "monokai"                         # https://help.farbox.com/pygments.html
     pygmentsCodefences  = true
     footerText          = ""                                # Text to show in footer (overrides default text)
-    fadeIn              = true                              # Turn on/off the fade-in effect
+    fadeIn              = false                              # Turn on/off the fade-in effect
     customCSS           = []                                # Include custom css files e.g. ["css/foo.css", "css/bar.css"]
 
     showBlog            = true                              # Show Blog section on home page
