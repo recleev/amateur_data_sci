@@ -1,0 +1,618 @@
+<!DOCTYPE html>
+<html lang="en-us">
+
+<head>
+<meta charset="utf-8">
+<meta http-equiv="X-UA-Compatible" content="chrome=1">
+<meta name="HandheldFriendly" content="True">
+<meta name="MobileOptimized" content="320">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="referrer" content="no-referrer">
+<meta name="description" content="I am a beginner R User and Data Sciencist. I love learning about R, statistics, data science and applying all this knowledge.">
+
+<base href="/">
+<title>
+
+
+     Three Decades of the Philippine Stock Exchange Index: Closing Prices, Returns, and a Naive Simulation 
+
+</title>
+<link rel="canonical" href="/blog/three-decades-psei-prices-returns-naive-simulation/">
+
+
+
+
+
+
+<script type="text/javascript" src="/js/jquery-3.3.1.min.js"></script>
+
+
+<link rel="stylesheet" href="/css/font-awesome.min.css">
+<link rel="stylesheet" href="/css/nunito_sans.css">
+
+
+    <link rel="stylesheet" href="css/light-style.css">
+
+
+
+
+
+
+<link rel="shortcut icon" href="img/fav.ico">
+
+
+
+<script>
+window.ga=window.ga||function(){(ga.q=ga.q||[]).push(arguments)};ga.l=+new Date;
+ga('create', 'UA-119602814-1', 'auto');
+ga('send', 'pageview');
+</script>
+<script async src='//www.google-analytics.com/analytics.js'></script>
+
+
+
+
+
+</head>
+
+<body>
+
+<div class="section" id="top">
+
+    <div class="container hero fade-in one">
+    <h1 class="bold-title is-1">The Amateur Data Scientist</h1>
+    </div>
+
+
+<div class="section fade-in two">
+
+    <div class="container">
+    <hr>
+<nav class="nav nav-center">
+    <span id="nav-toggle" class="nav-toggle"  onclick="document.getElementById('nav-menu').classList.toggle('is-active');">
+      <span></span>
+      <span></span>
+      <span></span>
+    </span>
+    <div id="nav-menu" class="nav-left nav-menu">
+      <span class="nav-item">
+        <a href="/">Main</a>
+      </span>
+      <span class="nav-item">
+        <a href="/#about">About</a>
+      </span>
+      
+      <span class="nav-item">
+        <a href="/blog">Back to blog</a>
+      </span>
+      
+      <span class="nav-item">
+        <a href="/#contact">Contact</a>
+      </span>
+    
+      <span class="nav-item">
+        <a href="/index.xml"><i class="fa fa-rss"></i></a>
+      </span>
+    
+    </div>
+</nav>
+<hr>
+
+    </div>
+
+    <div class="container fade-in two">
+        <h2 class="title is-1 top-pad strong-post-title"><a href="/blog/three-decades-psei-prices-returns-naive-simulation/">Three Decades of the Philippine Stock Exchange Index: Closing Prices, Returns, and a Naive Simulation</a></h2>
+            <div class="post-data">
+                Jul 20, 2018 |
+                14 minutes read
+            </div>
+
+            
+                <div class="blog-share">
+                Share this:
+                
+                <a class="twitter-share-button" href="https://twitter.com/intent/tweet?text=Read%20Three%20Decades%20of%20the%20Philippine%20Stock%20Exchange%20Index%3a%20Closing%20Prices%2c%20Returns%2c%20and%20a%20Naive%20Simulation%20%2fblog%2fthree-decades-psei-prices-returns-naive-simulation%2f"
+                onclick="window.open(this.href, 'twitter-share', 'width=550,height=235');return false;">
+                <i class="fa fa-twitter"></i>
+                <span class="hidden">Twitter</span>
+                </a>
+                
+                 
+                <a class="icon-facebook" href="https://www.facebook.com/sharer/sharer.php?u=%2fblog%2fthree-decades-psei-prices-returns-naive-simulation%2f"
+                onclick="window.open(this.href, 'facebook-share','width=580,height=296');return false;">
+                <i class="fa fa-facebook"></i>
+                <span class="hidden">Facebook</span>
+                </a>
+                
+                
+                
+                <a class="icon-google-plus" href="https://plus.google.com/share?url=%2fblog%2fthree-decades-psei-prices-returns-naive-simulation%2f"
+                onclick="window.open(this.href, 'google-plus-share', 'width=490,height=530');return false;">
+                <i class="fa fa-google-plus"></i>
+                <span class="hidden">Google+</span>
+                </a>
+                
+                </div>
+            
+
+    </div>
+
+    <div class="container markdown fade-in two top-pad">
+        <div id="TOC">
+<ul>
+<li><a href="#rise-and-fall-of-stocks">Rise and Fall of Stocks</a></li>
+<li><a href="#thirty-years-of-psei-prices">Thirty Years of PSEi Prices</a></li>
+<li><a href="#ups-and-downs-but-going-up">Ups and Downs but GOing Up</a></li>
+<li><a href="#month-to-month-returns">Month-to-Month Returns</a></li>
+<li><a href="#buy-and-hold">Buy and Hold</a><ul>
+<li><a href="#simulating-buy-and-hold-over-three-decades-of-psei">Simulating Buy and Hold Over Three Decades of PSEi</a></li>
+<li><a href="#more-than-a-million">More Than a Million</a></li>
+</ul></li>
+<li><a href="#bank-deposit-vs-buy-and-hold-investment">Bank Deposit vs Buy and Hold Investment</a></li>
+<li><a href="#next-thirty-years-another-million">Next Thirty Years: Another Million?</a></li>
+</ul>
+</div>
+
+<pre class="r"><code>library(knitr)
+library(tidyverse)
+library(quantmod)
+library(magrittr)
+library(janitor)
+library(ggthemes)
+library(ggsci)
+library(drlib)
+library(lubridate)
+library(scales)
+
+opts_chunk$set(
+  message = FALSE,
+  warning = FALSE,
+  echo = TRUE,
+  fig.align = &quot;center&quot;,
+  fig.width = 12,
+  fig.height = 8
+)</code></pre>
+<div id="rise-and-fall-of-stocks" class="section level1">
+<h1>Rise and Fall of Stocks</h1>
+<p>I recently regained my interest in stocks after news of a bearish Philippine stock market was speculated in 2018 June. Stock prices go up and down on a regular basis and some people cannot live with that kind of volatility on a daily basis. The most appealing stocks investment strategy for me is the buy and hold because it requires the least amount of monitoring of stock prices and therefore less stress. Which led me to ask: If we follow a buy and hold strategy for the <a href="http://www.pse.com.ph/stockMarket/marketInfo-marketActivity.html?tab=1&amp;indexName=PSEi">Philippine Stock Exchange Index</a> for the last 30 years, what would have been our earnings/loss from such an investment?</p>
+</div>
+<div id="thirty-years-of-psei-prices" class="section level1">
+<h1>Thirty Years of PSEi Prices</h1>
+<p>Before I can answer my question, I must have PSEi data first. Luckily, (1) <code>Yahoo!</code> keeps PSEi data, and (2) <code>quantmod::getSymbols()</code> allows us to retrieve the PSEi historical prices from <code>Yahoo!</code> via <code>R</code>.</p>
+<pre class="r"><code>psei_historical_data &lt;- 
+  # obtain historical psei data from yahoo; I am only interested on closing
+  # prices from 1987 Jun to 2018 Jun; yahoo has psei up to 1987 Jan I think
+  getSymbols(
+    &quot;PSEI.PS&quot;, 
+    from = &quot;1987-06-01&quot;, 
+    auto.assign = FALSE
+  ) %&gt;% 
+  # convert to tibble for tidy analysis
+  as_tibble() %&gt;% 
+  # convert rownames of dates to a column of dates, because tibbles do not
+  # support rownames
+  rownames_to_column(&quot;trading_date&quot;)</code></pre>
+<p>Note the added steps I did after retrieving the historical PSEi prices. The output of <code>getSymbols()</code> is a time series object. I am not that versed yet with time series like <code>zoo</code> and <code>xts</code>, and I also prefer working with tidy data in general even if I have to work with time. <a href="https://cran.r-project.org/web/packages/tibbletime/index.html">tibbletime</a> comes to mind when talking about time series and tibbles, but I am not yet familiar with its functions, so I chose to avoid it for now and just work with what I know with <code>{dplyr}</code>.</p>
+<p>After converting to a tibble, I had to use <code>tibble::rownames_to_column()</code> because <code>xts</code> and <code>zoo</code> objects are matrices with time index as row names. Again, I prefer tibbles, and since <a href="https://adv-r.hadley.nz/vectors-chap.html#rownames">tibbles do not support rownames</a>, this is a necessary step.</p>
+<p>Next is to select only the end-of-month closing prices. The logic behind my code is in the chunk.</p>
+<pre class="r"><code># convert daily data to monthly data
+monthly_psei &lt;- 
+  psei_historical_data %&gt;%
+  # choose only the relevant date and closing prices
+  select(trading_date, PSEI.PS.Close) %&gt;% 
+  # convert date string column to date and create a new column to tag year
+  # dates; this step is necessary in selecting only the closing prices at the
+  # end of the month
+  mutate(
+    trading_date = ymd(trading_date),
+    year_month_trading_psei = make_date(
+      year(trading_date), 
+      month(trading_date)
+    )
+  ) %&gt;% 
+  # yahoo somehow has missing closing prices on some dates; I am not sure why,
+  # but I think it is safe to remove for this casual study
+  drop_na(PSEI.PS.Close) %&gt;%
+  # remove dates after 2018 Jul
+  dplyr::filter(trading_date &lt; ymd(&quot;2018-07-01&quot;)) %&gt;% 
+  # select only end-of-month closing prices by taking only the max day on every
+  # year month; ungroup for good measure and clean names for tidy column names
+  group_by(year_month_trading_psei) %&gt;% 
+  dplyr::filter(trading_date == max(trading_date)) %&gt;% 
+  ungroup() %&gt;%
+  clean_names()
+
+# I will be using this date caption in the plots
+start_date &lt;- 
+  monthly_psei %$%
+  min(trading_date) %&gt;% 
+  ymd() %&gt;% 
+  format(format = &quot;%Y %b %d&quot;)
+
+end_date &lt;- 
+  monthly_psei %$%
+  max(trading_date) %&gt;% 
+  ymd() %&gt;% 
+  format(format = &quot;%Y %b %d&quot;)
+
+date_caption &lt;- 
+  sprintf(
+    &quot;Data from %s to %s&quot;,
+    start_date,
+    end_date
+  )
+
+# Create Peso Formater ----------------------------------------------------
+
+# this is for the labels of graphs later
+peso &lt;- 
+  dollar_format(prefix = &quot;\u20B1&quot;)
+
+max_price &lt;- 
+  psei_historical_data %$%
+  max(PSEI.PS.Close, na.rm = TRUE) %&gt;% 
+  peso()
+
+max_price_date &lt;- 
+  psei_historical_data %&gt;% 
+  dplyr::filter(PSEI.PS.Close == max(PSEI.PS.Close, na.rm = TRUE)) %&gt;% 
+  pull(trading_date) %&gt;% 
+  ymd() %&gt;% 
+  format(format = &quot;%Y %b %d&quot;)
+
+min_price &lt;- 
+  psei_historical_data %$%
+  min(PSEI.PS.Close, na.rm = TRUE) %&gt;% 
+  peso()
+
+min_price_date &lt;- 
+  psei_historical_data %&gt;% 
+  dplyr::filter(PSEI.PS.Close == min(PSEI.PS.Close, na.rm = TRUE)) %&gt;% 
+  pull(trading_date) %&gt;% 
+  ymd() %&gt;% 
+  format(format = &quot;%Y %b %d&quot;)</code></pre>
+</div>
+<div id="ups-and-downs-but-going-up" class="section level1">
+<h1>Ups and Downs but GOing Up</h1>
+<pre class="r"><code>monthly_psei %&gt;% 
+  ggplot(aes(trading_date, psei_ps_close)) +
+  geom_line(color = palette_pander(1), size = 1) +
+  # this is a nice way to handle date breaks and labels; expand is just to
+  # ensure that no label is outside the boundaries of the plot
+  scale_x_date(
+    date_breaks = &quot;4 years&quot;, 
+    date_labels = &quot;%Y&quot;,
+    expand = c(0.03, 0.03)
+  ) +
+  # peso currency needed for clarity
+  scale_y_continuous(labels = peso) +
+  # gl = 0 removes the grid lines from the plot; I just don&#39;t think the lines
+  # are necessary
+  theme_pander(gl = 0) +
+  labs(
+    title = &quot;Historical Monthly Closing Prices of PSEi&quot;,
+    x = &quot;Year&quot;,
+    y = &quot;Monthly Closing Price&quot;,
+    caption = date_caption
+  )</code></pre>
+<p><img src="/blog/2018-07-20-psei-prices-returns-simulation_files/figure-html/plot_psei_monthly-1.png" width="1152" style="display: block; margin: auto;" /></p>
+<p>Since 1987 Jun 30, PSEi end-of-month closing price shows a typical stock behavior. The price goes up sometimes, then goes down, but after 31 years, the overall trend is up. It seems that if we invested money on PSEi on 1987 Jun 30, we would have a very good amount by 2018 Jun 29.</p>
+<p><strong>Trivia</strong>: The lowest end-of-month closing price of PSEi was at ₱516.21 on 1990 Oct 05, and the highest was at ₱9,058.62 on 2018 Jan 29.</p>
+</div>
+<div id="month-to-month-returns" class="section level1">
+<h1>Month-to-Month Returns</h1>
+<pre class="r"><code>returns_monthly &lt;- 
+  monthly_psei %&gt;%
+  # returns is just the net change of the current price from the previous price;
+  # an increase in price is a positive return; otherwise, it is a negative
+  # return
+  mutate(
+    psei_returns = (psei_ps_close - dplyr::lag(psei_ps_close)) / dplyr::lag(psei_ps_close)
+  )
+
+max_return &lt;- 
+  returns_monthly %$%
+  max(psei_returns, na.rm = TRUE) %&gt;% 
+  percent()
+
+max_return_date &lt;- 
+  returns_monthly %&gt;% 
+  dplyr::filter(psei_returns == max(psei_returns, na.rm = TRUE)) %&gt;% 
+  pull(trading_date) %&gt;% 
+  format(format = &quot;%Y %b %d&quot;)
+
+min_return &lt;- 
+  returns_monthly %$%
+  min(psei_returns, na.rm = TRUE) %&gt;% 
+  percent()
+
+min_return_date &lt;- 
+  returns_monthly %&gt;% 
+  dplyr::filter(psei_returns == min(psei_returns, na.rm = TRUE)) %&gt;% 
+  pull(trading_date) %&gt;% 
+  format(format = &quot;%Y %b %d&quot;)</code></pre>
+<p>A stock’s return is the gain or loss of the current price relative to the previous price. We want to know if we buy a stock now at a certain price, will we gain or lose money if we sell it at the next available price after a period.</p>
+<pre class="r"><code>returns_monthly %&gt;%
+  ggplot(aes(trading_date, psei_returns)) +
+  geom_line(color = palette_pander(2)[2], size = 1) +
+  # add a reference for the zero return to emphasize the gains and losses;
+  # linetype = 2 is to make the line dashed
+  geom_hline(
+    yintercept = 0, 
+    color = palette_pander(5)[5],
+    linetype = 2,
+    size = 1
+  ) +
+  scale_y_percent() +
+  scale_x_date(date_breaks = &quot;3 years&quot;, date_labels = &quot;%Y&quot;) +
+  theme_pander(gl = 0) +
+  labs(
+    title = &quot;Percent Monthly Returns of PSEi&quot;,
+    x = &quot;Year&quot;,
+    y = &quot;Percent Return&quot;,
+    caption = date_caption
+  )</code></pre>
+<p><img src="/blog/2018-07-20-psei-prices-returns-simulation_files/figure-html/plot_psei_earnings-1.png" width="1152" style="display: block; margin: auto;" /></p>
+<p>The PSEi’s returns over time emphasizes a stock’s price volatility and randomness. Once we buy a stock, we cannot be sure if the next price will give us profits. It becomes more stressful if we wonder if we can wait for a bigger return at the risk of waiting longer if the next set of prices would all give us a loss.</p>
+<p><strong>Trivia</strong>: The biggest monthly return of PSEi was 39.3% on 1998 Oct 30 and the lowest monthly return was -31.5% on 1987 Sep 30.</p>
+</div>
+<div id="buy-and-hold" class="section level1">
+<h1>Buy and Hold</h1>
+<p>The randomness of stock prices are usually enough to push away people from investing in the stock market. Monitoring prices can be very stressful when you see the market and the stocks in your portfolio all going down.</p>
+<p>There are different opinions and strategies on how invest in stocks and to ensure low risk and decent rewards. My favorite strategy is the <em>buy and hold</em>, buy a stock, hold it for the long run. I like this strategy because it is less stressful than watching the prices everyday then buying/selling at opportune moments.</p>
+<p>Another strategy I like with stocks is regular buying of stocks at fixed intervals with a fixed budget. For example, we can promise ourselves that we will invest ₱6,000 every six months on the stock market. When the price of our portfolio is up, we buy less. When the price of our portfolio is down, we buy more. Then we hold.</p>
+<p>Buy and hold is not a sure way to win in the stock market. If the market goes down, and stays down for 100 years, then buy and hold will fail for the investor who wants to benefit from the investment. However, I think this is the simplest, easiest, and less stressful strategy one can adopt.</p>
+<p>To illustrate buy and hold, I will simulate the strategy over the PSEi data.</p>
+<p><em>Note: This is only for illustration purposes. I am only using PSEi as a representative stock. One cannot really buy PSEi as a stock and not as fractions of stocks either. Investing a fixed amount on stocks and indices is a little bit more complicated than what I am about to do here.</em></p>
+<div id="simulating-buy-and-hold-over-three-decades-of-psei" class="section level2">
+<h2>Simulating Buy and Hold Over Three Decades of PSEi</h2>
+<pre class="r"><code>invest_psei_simulation &lt;-
+  monthly_psei %&gt;% 
+  # choose only Jun and Dec
+  dplyr::filter(month(trading_date) %in% c(6, 12)) %&gt;% 
+  arrange(trading_date) %&gt;%
+  mutate(
+    budget = 6000,
+    stocks_bought = budget / psei_ps_close,
+    cumulative_cost = cumsum(budget),
+    buy_hold_stocks = cumsum(stocks_bought),
+    buy_hold = buy_hold_stocks * psei_ps_close
+  )</code></pre>
+<p>The simulation is as follows: Starting 1987 Jun 30, the hypothetical investor uses ₱6,000 to buy PSEi stocks every six months until 2018 Jun 29. The hypothetical investor will accumulate a ₱378,000 over this period.</p>
+</div>
+<div id="more-than-a-million" class="section level2">
+<h2>More Than a Million</h2>
+<pre class="r"><code>invest_psei_simulation %&gt;% 
+   ggplot(aes(
+    trading_date,
+    buy_hold
+   )) +
+   geom_line(color = palette_pander(6)[6], size = 1) +
+   geom_hline(
+     yintercept = 10^6, 
+     color = palette_pander(4)[4],
+     linetype = 2,
+     size = 1
+   ) +
+   scale_x_date(date_breaks = &quot;3 years&quot;, date_labels = &quot;%Y&quot;) +
+   scale_color_pander() +
+   scale_y_continuous(labels = peso) +
+   theme_pander(gl = 0) +
+  labs(
+    title = &quot;Simulated Portfolio Value of a PSEi Investment&quot;,
+    subtitle = sprintf(
+      &quot;%s Investment Every Six Months from %s to %s&quot;,
+      peso(6000),
+      format(start_date, format = &quot;%Y %b %d&quot;),
+      format(end_date, format = &quot;%Y %b %d&quot;)
+    ),
+    x = &quot;Year&quot;,
+    y = &quot;Portfolio Value&quot;
+  )</code></pre>
+<p><img src="/blog/2018-07-20-psei-prices-returns-simulation_files/figure-html/plot_buy_hold_simul-1.png" width="1152" style="display: block; margin: auto;" /></p>
+<p>Our hypothetical investor breaches the <code>r peso(1000000)</code> mark long before the end of the simulation. The final value of the buy and hold portfolio is ₱1,410,142.</p>
+</div>
+</div>
+<div id="bank-deposit-vs-buy-and-hold-investment" class="section level1">
+<h1>Bank Deposit vs Buy and Hold Investment</h1>
+<p>Our hypothetical investor reached a million, but is it worth it to risk money in the stock market when one can just save in the bank. In the Philippines, if we save ₱6,000 every six months for 30 years, I think the best interest rate we can get is 0.75% per annum. What is the annual and final interest rate of our hypothetical buy and hold investor of the PSEi?</p>
+<p>I had to revisit the equation for ordinary annuity:</p>
+<p><span class="math display">\[FV=A\frac{(1+i)^n - 1}{i}\]</span></p>
+<p>FV is the future value or the money we have after a certain period. A is the annuity or the regular payment per period; i is the interest rate, and n is the number of interest periods. The equation is easy to use when we want to find FV, A, or n. Finding I needs a bit of iteration. However, this equation gave me problems when working with years with negative interest. My solution was to go back to the definition of an annuity, i.e. a series of compound interest of periodic payments with fixed rate, and work on that definition to iterate the interest rate. The simulation takes longer because of this method, so if anyone has a better way to determine this, I am willing to listen.</p>
+<pre class="r"><code>compute_interest_rate_annuity &lt;- function(
+  future_value, 
+  annuity, 
+  period_annuity
+) {
+  
+  # the choice of -0.15 as a starting point is arbitrary and what is only the
+  # best for this report given the pattern; for general purposes I think the
+  # best starting point is -1 to account for negative interest and assuming that
+  # one only loses money and will not go into debt
+  interest_rate &lt;- -0.15
+  
+  while (
+    # this is the definition of annuity
+    sum((annuity * (1 + interest_rate) ^ (period_annuity:1))) &lt; future_value
+  ) {
+    interest_rate &lt;- interest_rate + 0.000001
+  }
+  
+  interest_rate
+}</code></pre>
+<p><em>Note: The equation above has the assumption that the ordinary annuity starts at the end of year one, like the case in this investment simulation, and the future value also at year n, seemingly like this simulation. However, the protfolio value after the investment already incurs a gain / loss because of price differences. This makes this investment schedule act like an annuity due where the future value is at a year ahead of the last annuity period. For my simulation and the equation above to be consistent, find the future value using the interest at any year n using ordinary annuity, then add an interest, i.e.</em> (<span class="math inline">\(FV * (1 + i)\)</span>).</p>
+<pre class="r"><code>annual_interest_rate_estimated &lt;- 
+  invest_psei_simulation %&gt;%
+  # select only Dec because the full payment of 12k was made on Dec and will
+  # mature on Dec the following period
+  dplyr::filter(month(trading_date) == 12) %&gt;%
+  arrange(trading_date) %&gt;% 
+  # this number of year/s is the end of the year investment was made; the
+  # implication is future value at the end of year one is equal to the portfolio
+  # value at the end of year one
+  mutate(n_years = row_number()) %&gt;%
+  dplyr::filter(n_years &gt; 0) %&gt;% 
+  mutate(
+    avg_interest_rate = map2_dbl(
+      # note that this keeps that assumption that end of year investments are
+      # part of the portfolio value; i.e. annuity is a part of the future value
+      # at the end of the year
+      buy_hold, 
+      n_years,
+      # possibly ensures that any error will not stop the simulation, just to be
+      # safe :)
+      possibly(compute_interest_rate_annuity, NA),
+      # 12000 is the yearly annuity for a 6000 annuity every six months
+      annuity = 12000
+    )
+  )</code></pre>
+<p>The interests estimated here are the equivalent growth rate of the investment at certain years. Given the current portfolio value, the annual ₱12,000 investment after n years will have an equivalent of i growth / decay rate. This redistributes the portfolio value’s increase or decrease equally in terms of interest every year despite the variability of PSEi’s price in those years.</p>
+<pre class="r"><code>annual_interest_rate_estimated %&gt;% 
+  ggplot(aes(
+    trading_date, 
+    avg_interest_rate,
+    label = percent(avg_interest_rate),
+    vjust = if_else(
+      avg_interest_rate &gt; 0,
+      -0.5, 1
+    ),
+    fill = avg_interest_rate &gt; 0
+  )) +
+  geom_col(show.legend = FALSE) +
+  geom_text(position = position_dodge(0.9), size = 3) +
+  geom_hline(
+    yintercept = 0, 
+    color = palette_pander(5)[5],
+    linetype = 2,
+    size = 1
+  ) +
+  scale_y_percent() +
+  scale_x_date(date_breaks = &quot;2 years&quot;, date_labels = &quot;%Y&quot;) +
+  theme_pander(gl = 0) +
+  scale_fill_pander() +
+  labs(
+    title = &quot;Estimated Annual Interest Rate of PSEi Investment&quot;,
+    subtitle = sprintf(
+      &quot;%s Investments Every Six Months from %s to %s&quot;,
+      peso(6000),
+      format(start_date, format = &quot;%Y %b %d&quot;),
+      format(end_date, format = &quot;%Y %b %d&quot;)
+    ),
+    x = &quot;Year&quot;,
+    y = &quot;Interest Rate&quot;
+  )</code></pre>
+<p><img src="/blog/2018-07-20-psei-prices-returns-simulation_files/figure-html/plot_annual_interest-1.png" width="1152" style="display: block; margin: auto;" /></p>
+<pre class="r"><code>min_rate &lt;-
+  annual_interest_rate_estimated %&gt;% 
+  filter(avg_interest_rate == min(avg_interest_rate)) %&gt;% 
+  pull(avg_interest_rate)
+
+min_rate_year &lt;- 
+  annual_interest_rate_estimated %&gt;% 
+  filter(avg_interest_rate == min_rate) %&gt;% 
+  pull(trading_date) %&gt;% 
+  year()
+
+max_rate &lt;- 
+  annual_interest_rate_estimated %&gt;% 
+  filter(avg_interest_rate == max(avg_interest_rate)) %&gt;% 
+  pull(avg_interest_rate)
+
+max_rate_year &lt;- 
+  annual_interest_rate_estimated %&gt;% 
+  filter(avg_interest_rate == max_rate) %&gt;% 
+  pull(trading_date) %&gt;% 
+  year()</code></pre>
+<p>The PSEi was not consistently profitable in the past three decades, but it seems like if one stayed with it for the long run, i.e. buy and hold, then one can expect a rate of 8.22% after waiting patiently for 1990 years. If a bank account with an annual interest rate of more than 8.22% existed in the past three decades, then saving in that account would have been better than risking money in the PSEi. Please inform me of a bank that offers this kind of saving interest rate.</p>
+<p>Impatience and early panicking cost. If one panicked and gave up with PSEi after experiencing a net decay rate of -11% at the end of 1990 then one would have missed the 28.7% at the end of 1993. However, buying out at the maximum rate would only gain our hypothetical investor ₱176,613 and miss the ₱1,298,527 after three decades of patience.</p>
+</div>
+<div id="next-thirty-years-another-million" class="section level1">
+<h1>Next Thirty Years: Another Million?</h1>
+<p>Not really. While PSEi seems like a good investment for the past three decades, this does not ensure that it will be profitable for the next thirty years. Just to be clear, I am not saying that that investing in stocks is a sure way to get a million pesos in your retirement fund. It is always the best to go into an investment thinking that it will fail. If you want to invest in stocks, I suggest investing the amount you are willing or financially capable to lose anyway. In case the stocks you are buying plunges to zero, it will not hurt because you can afford to lose it anyway. If you gain money from stocks, just shrug, think buy and hold, and do not buy out until you need to, if there is anything to buy out.</p>
+<p>That being said, I do not think I am the best financial adviser when it comes to stock market investments.</p>
+</div>
+
+    </div>
+
+    <div class="disqus">
+        <div id="disqus_thread"></div>
+<script>
+    var disqus_config = function () {
+    
+    
+    
+    };
+    (function() {
+        if (["localhost", "127.0.0.1"].indexOf(window.location.hostname) != -1) {
+            document.getElementById('disqus_thread').innerHTML = 'Disqus comments not available by default when the website is previewed locally.';
+            return;
+        }
+        var d = document, s = d.createElement('script'); s.async = true;
+        s.src = '//' + "the-amateur-data-scientist" + '.disqus.com/embed.js';
+        s.setAttribute('data-timestamp', +new Date());
+        (d.head || d.body).appendChild(s);
+    })();
+</script>
+<noscript>Please enable JavaScript to view the <a href="https://disqus.com/?ref_noscript">comments powered by Disqus.</a></noscript>
+<a href="https://disqus.com" class="dsq-brlink">comments powered by <span class="logo-disqus">Disqus</span></a>
+    </div>
+
+<div class="container has-text-centered top-pad">
+<hr>
+<a href="/blog/three-decades-psei-prices-returns-naive-simulation/#top"><i class="fa fa-arrow-up"></i></a>
+<hr>
+</div>
+
+<div class="section" id="footer">
+    <div class="container has-text-centered">
+        
+        <span class="footer-text"><a href="https://github.com/hivickylai/hugo-theme-introduction" target="_blank" rel="noopener">Introduction</a> theme for <a href="http://gohugo.io/" target="_blank" rel="noopener">Hugo</a>. Made with <i class="fa fa-heart"></i> and <i class="fa fa-coffee"></i>. <a href="https://vickylai.io" target="_blank" rel="noopener">Vicky Lai</a> 2018</span>
+        
+    </div>
+</div>
+
+
+    
+    <script src="//cdnjs.cloudflare.com/ajax/libs/highlight.js//highlight.min.js"></script>
+    
+    <script>hljs.configure({languages: []}); hljs.initHighlightingOnLoad();</script>
+    
+    <script type="text/x-mathjax-config">
+    MathJax.Hub.Config({
+      tex2jax: {
+        skipTags: ['script', 'noscript', 'style', 'textarea', 'pre']
+      }
+    });
+    </script>
+    <script type="text/javascript"
+      src="https://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML">
+    </script>
+    
+<script>
+(function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+(i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+})(window,document,'script','https://www.google-analytics.com/analytics.js','ga');
+
+ga('create', 'UA-119602814-1', 'auto');
+ga('send', 'pageview');
+</script>
+
+  </body>
+</html>
+</div>
+</div>
+
+
+<script>
+$('a[href^="\/blog\/three-decades-psei-prices-returns-naive-simulation\/#"]').click(function(e) {
+    e.preventDefault();
+    var target = this.hash;
+    $('html, body').animate({
+    scrollTop: $(target).offset().top
+    }, 500);
+    return false;
+})
+</script>
+
+</body>

@@ -3,6 +3,11 @@
   xmlns:xhtml="http://www.w3.org/1999/xhtml">
   
   <url>
+    <loc>/blog/three-decades-psei-prices-returns-naive-simulation/</loc>
+    <lastmod>2018-07-20T00:00:00+00:00</lastmod>
+  </url>
+  
+  <url>
     <loc>/blog/world-cup-2018-squads-scrape-wikipedia/</loc>
     <lastmod>2018-06-14T00:00:00+00:00</lastmod>
   </url>
@@ -38,12 +43,24 @@
   
   <url>
     <loc>/blog/</loc>
-    <lastmod>2018-06-14T00:00:00+00:00</lastmod>
+    <lastmod>2018-07-20T00:00:00+00:00</lastmod>
     <priority>0</priority>
   </url>
   
   <url>
     <loc>/categories/</loc>
+    <priority>0</priority>
+  </url>
+  
+  <url>
+    <loc>/categories/economics/</loc>
+    <lastmod>2018-07-20T00:00:00+00:00</lastmod>
+    <priority>0</priority>
+  </url>
+  
+  <url>
+    <loc>/categories/finance/</loc>
+    <lastmod>2018-07-20T00:00:00+00:00</lastmod>
     <priority>0</priority>
   </url>
   
@@ -78,6 +95,12 @@
   </url>
   
   <url>
+    <loc>/tags/investment/</loc>
+    <lastmod>2018-07-20T00:00:00+00:00</lastmod>
+    <priority>0</priority>
+  </url>
+  
+  <url>
     <loc>/categories/lessons/</loc>
     <lastmod>2018-06-14T00:00:00+00:00</lastmod>
     <priority>0</priority>
@@ -96,8 +119,26 @@
   </url>
   
   <url>
+    <loc>/tags/portfolio/</loc>
+    <lastmod>2018-07-20T00:00:00+00:00</lastmod>
+    <priority>0</priority>
+  </url>
+  
+  <url>
+    <loc>/tags/psei/</loc>
+    <lastmod>2018-07-20T00:00:00+00:00</lastmod>
+    <priority>0</priority>
+  </url>
+  
+  <url>
     <loc>/tags/rebus/</loc>
     <lastmod>2018-06-14T00:00:00+00:00</lastmod>
+    <priority>0</priority>
+  </url>
+  
+  <url>
+    <loc>/tags/returns/</loc>
+    <lastmod>2018-07-20T00:00:00+00:00</lastmod>
     <priority>0</priority>
   </url>
   
@@ -126,6 +167,12 @@
   </url>
   
   <url>
+    <loc>/tags/stocks/</loc>
+    <lastmod>2018-07-20T00:00:00+00:00</lastmod>
+    <priority>0</priority>
+  </url>
+  
+  <url>
     <loc>/tags/</loc>
     <lastmod>2018-05-19T00:00:00+00:00</lastmod>
     <priority>0</priority>
@@ -139,7 +186,7 @@
   
   <url>
     <loc>/</loc>
-    <lastmod>2018-06-14T00:00:00+00:00</lastmod>
+    <lastmod>2018-07-20T00:00:00+00:00</lastmod>
     <priority>0</priority>
   </url>
   
@@ -152,6 +199,12 @@
   <url>
     <loc>/categories/tidyverse/</loc>
     <lastmod>2018-05-19T00:00:00+00:00</lastmod>
+    <priority>0</priority>
+  </url>
+  
+  <url>
+    <loc>/categories/time-series/</loc>
+    <lastmod>2018-07-20T00:00:00+00:00</lastmod>
     <priority>0</priority>
   </url>
   

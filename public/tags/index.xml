@@ -57,6 +57,15 @@
     </item>
     
     <item>
+      <title>Investment</title>
+      <link>/tags/investment/</link>
+      <pubDate>Fri, 20 Jul 2018 00:00:00 +0000</pubDate>
+      
+      <guid>/tags/investment/</guid>
+      <description></description>
+    </item>
+    
+    <item>
       <title>Literature</title>
       <link>/tags/literature/</link>
       <pubDate>Sat, 19 May 2018 00:00:00 +0000</pubDate>
@@ -75,11 +84,38 @@
     </item>
     
     <item>
+      <title>Portfolio</title>
+      <link>/tags/portfolio/</link>
+      <pubDate>Fri, 20 Jul 2018 00:00:00 +0000</pubDate>
+      
+      <guid>/tags/portfolio/</guid>
+      <description></description>
+    </item>
+    
+    <item>
+      <title>Psei</title>
+      <link>/tags/psei/</link>
+      <pubDate>Fri, 20 Jul 2018 00:00:00 +0000</pubDate>
+      
+      <guid>/tags/psei/</guid>
+      <description></description>
+    </item>
+    
+    <item>
       <title>Rebus</title>
       <link>/tags/rebus/</link>
       <pubDate>Thu, 14 Jun 2018 00:00:00 +0000</pubDate>
       
       <guid>/tags/rebus/</guid>
+      <description></description>
+    </item>
+    
+    <item>
+      <title>Returns</title>
+      <link>/tags/returns/</link>
+      <pubDate>Fri, 20 Jul 2018 00:00:00 +0000</pubDate>
+      
+      <guid>/tags/returns/</guid>
       <description></description>
     </item>
     
@@ -107,6 +143,15 @@
       <pubDate>Sat, 19 May 2018 00:00:00 +0000</pubDate>
       
       <guid>/tags/sentiment-analysis/</guid>
+      <description></description>
+    </item>
+    
+    <item>
+      <title>Stocks</title>
+      <link>/tags/stocks/</link>
+      <pubDate>Fri, 20 Jul 2018 00:00:00 +0000</pubDate>
+      
+      <guid>/tags/stocks/</guid>
       <description></description>
     </item>
     

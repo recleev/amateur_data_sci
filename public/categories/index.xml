@@ -11,6 +11,24 @@
     
     
     <item>
+      <title>Economics</title>
+      <link>/categories/economics/</link>
+      <pubDate>Fri, 20 Jul 2018 00:00:00 +0000</pubDate>
+      
+      <guid>/categories/economics/</guid>
+      <description></description>
+    </item>
+    
+    <item>
+      <title>Finance</title>
+      <link>/categories/finance/</link>
+      <pubDate>Fri, 20 Jul 2018 00:00:00 +0000</pubDate>
+      
+      <guid>/categories/finance/</guid>
+      <description></description>
+    </item>
+    
+    <item>
       <title>Lessons</title>
       <link>/categories/lessons/</link>
       <pubDate>Thu, 14 Jun 2018 00:00:00 +0000</pubDate>
@@ -43,6 +61,15 @@
       <pubDate>Sat, 19 May 2018 00:00:00 +0000</pubDate>
       
       <guid>/categories/tidyverse/</guid>
+      <description></description>
+    </item>
+    
+    <item>
+      <title>Time Series</title>
+      <link>/categories/time-series/</link>
+      <pubDate>Fri, 20 Jul 2018 00:00:00 +0000</pubDate>
+      
+      <guid>/categories/time-series/</guid>
       <description></description>
     </item>
     
