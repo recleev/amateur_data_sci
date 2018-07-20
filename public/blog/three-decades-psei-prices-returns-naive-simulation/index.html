@@ -169,8 +169,8 @@ opts_chunk$set(
   warning = FALSE,
   echo = TRUE,
   fig.align = &quot;center&quot;,
-  fig.width = 12,
-  fig.height = 8
+  fig.width = 10,
+  fig.height = 7
 )</code></pre>
 <div id="rise-and-fall-of-stocks" class="section level1">
 <h1>Rise and Fall of Stocks</h1>
@@ -295,7 +295,7 @@ min_price_date &lt;-
     y = &quot;Monthly Closing Price&quot;,
     caption = date_caption
   )</code></pre>
-<p><img src="/blog/2018-07-20-psei-prices-returns-simulation_files/figure-html/plot_psei_monthly-1.png" width="1152" style="display: block; margin: auto;" /></p>
+<p><img src="/blog/2018-07-20-psei-prices-returns-simulation_files/figure-html/plot_psei_monthly-1.png" width="960" style="display: block; margin: auto;" /></p>
 <p>Since 1987 Jun 30, the historical PSEi end-of-month closing prices show a typical stock behavior. The price goes up sometimes, then goes down, but after 31 years, the overall trend is up. It seems that if we invested money on PSEi on 1987 Jun 30, we would have a very good amount by 2018 Jun 29.</p>
 <p><strong>Trivia</strong>: The lowest end-of-month closing price of PSEi was at ₱516.21 on 1990 Oct 05, and the highest was at ₱9,058.62 on 2018 Jan 29.</p>
 </div>
@@ -352,7 +352,7 @@ min_return_date &lt;-
     y = &quot;Percent Return&quot;,
     caption = date_caption
   )</code></pre>
-<p><img src="/blog/2018-07-20-psei-prices-returns-simulation_files/figure-html/plot_psei_earnings-1.png" width="1152" style="display: block; margin: auto;" /></p>
+<p><img src="/blog/2018-07-20-psei-prices-returns-simulation_files/figure-html/plot_psei_earnings-1.png" width="960" style="display: block; margin: auto;" /></p>
 <p>The PSEi’s returns over time emphasizes a stock’s price volatility and randomness. Once we buy a stock, we cannot be sure if the next price will give us profits. It becomes more stressful if we keep seeing negative returns and wonder if we can wait for a positive return. That is assuming the price will be positive at some time in the future.</p>
 <p><strong>Trivia</strong>: The biggest monthly return of PSEi was 39.3% on 1998 Oct 30 and the lowest monthly return was -31.5% on 1987 Sep 30.</p>
 </div>
@@ -409,7 +409,7 @@ min_return_date &lt;-
     x = &quot;Year&quot;,
     y = &quot;Portfolio Value&quot;
   )</code></pre>
-<p><img src="/blog/2018-07-20-psei-prices-returns-simulation_files/figure-html/plot_buy_hold_simul-1.png" width="1152" style="display: block; margin: auto;" /></p>
+<p><img src="/blog/2018-07-20-psei-prices-returns-simulation_files/figure-html/plot_buy_hold_simul-1.png" width="960" style="display: block; margin: auto;" /></p>
 <p>Our hypothetical investor breaches the ₱1,000,000 mark long before the end of the simulation. The final value of the buy and hold portfolio is ₱1,410,142.</p>
 </div>
 </div>
@@ -502,7 +502,7 @@ min_return_date &lt;-
     x = &quot;Year&quot;,
     y = &quot;Interest Rate&quot;
   )</code></pre>
-<p><img src="/blog/2018-07-20-psei-prices-returns-simulation_files/figure-html/plot_annual_interest-1.png" width="1152" style="display: block; margin: auto;" /></p>
+<p><img src="/blog/2018-07-20-psei-prices-returns-simulation_files/figure-html/plot_annual_interest-1.png" width="960" style="display: block; margin: auto;" /></p>
 <pre class="r"><code>min_rate &lt;-
   annual_interest_rate_estimated %&gt;% 
   filter(avg_interest_rate == min(avg_interest_rate)) %&gt;% 

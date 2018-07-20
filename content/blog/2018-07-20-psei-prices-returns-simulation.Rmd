@@ -39,8 +39,8 @@ opts_chunk$set(
   warning = FALSE,
   echo = TRUE,
   fig.align = "center",
-  fig.width = 12,
-  fig.height = 8
+  fig.width = 10,
+  fig.height = 7
 )
 
 ```
