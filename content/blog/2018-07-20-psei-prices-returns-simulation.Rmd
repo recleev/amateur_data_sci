@@ -336,9 +336,9 @@ Our hypothetical investor reached a million, but is it worth risking money in th
 
 I had to revisit the equation for ordinary annuity:
 
-$$FV=A\frac{(1+i)^n - 1}{i}$$
+`$$FV=A\frac{(1+i)^n - 1}{i}$$`
 
-$FV$ is the future value or the money we have after a certain period, $A$ is the annuity or the regular payment per period, $i$ is the interest rate, and $n$ is the number of interest periods. The equation is easy to use when we want to find $FV$, $A$, or $n$. Finding $i$ needs a bit of iteration. 
+\(FV\) is the future value or the money we have after a certain period, \(A\) is the annuity or the regular payment per period, \(i\) is the interest rate, and \(n\) is the number of interest periods. The equation is easy to use when we want to find \(FV\), \(A\), or \(n\). Finding \(i\) needs a bit of iteration. 
 
 However, this equation gave me problems when working with years with negative interest. My solution was to go back to the definition of an annuity, i.e. a series of compound interest of periodic payments with fixed rate, and work on that definition to iterate the interest rate. The simulation takes longer because of this method, so if anyone has a better way to determine this, I am willing to listen. 
 
@@ -368,7 +368,7 @@ compute_interest_rate_annuity <- function(
 
 ```
 
-*Note: The equation above has the assumption that the ordinary annuity starts at the end of year one, like the case in this investment simulation, and the future value also at year n, seemingly like this simulation. However, the protfolio value after the investment already incurs a gain / loss because of price differences. This makes this investment schedule act like an annuity due where the future value is at a year ahead of the last annuity period. For my simulation and the equation above to be consistent, find the future value using the interest at any year n using ordinary annuity, then add an interest, i.e.* $FV * (1 + i)$.
+*Note: The equation above has the assumption that the ordinary annuity starts at the end of year one, like the case in this investment simulation, and the future value also at year n, seemingly like this simulation. However, the protfolio value after the investment already incurs a gain / loss because of price differences. This makes this investment schedule act like an annuity due where the future value is at a year ahead of the last annuity period. For my simulation and the equation above to be consistent, find the future value using the interest at any year n using ordinary annuity, then add an interest, i.e.* \(FV * (1 + i)\).
 
 ```{r iterate_annuity_rate}
 
@@ -400,7 +400,7 @@ annual_interest_rate_estimated <-
 
 ```
 
-The interests estimated here are the equivalent growth rate of the investment at certain years. Given the current portfolio value, the annual `r peso(12000)` investment after $n$ years will have an equivalent of $i$ growth / decay rate. This redistributes the portfolio value's increase or decrease equally in terms of interest every year despite the variability of PSEi's price in those years.
+The interests estimated here are the equivalent growth rate of the investment at certain years. Given the current portfolio value, the annual `r peso(12000)` investment after \(n\) years will have an equivalent of \(i\) growth / decay rate. This redistributes the portfolio value's increase or decrease equally in terms of interest every year despite the variability of PSEi's price in those years.
 
 ```{r plot_annual_interest}
 
