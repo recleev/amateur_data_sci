@@ -301,7 +301,7 @@ min_return_date &lt;-
 <h1>Bank Deposit vs Buy and Hold Investment</h1>
 <p>Our hypothetical investor reached a million, but is it worth risking money in the stock market when one can just save in the bank. In the Philippines, if we save ₱6,000 every six months for 30 years, I think the best interest rate we can get is 0.75% per annum. What is the annual and final interest rate of our hypothetical buy and hold investment in the PSEi?</p>
 <p>I had to revisit the equation for ordinary annuity:</p>
-<p><span class="math display">\[FV=A\frac{(1+i)^n - 1}{i}\]</span></p>
+<p><code>$$FV=A\frac{(1+i)^n - 1}{i}$$</code></p>
 <p><span class="math inline">\(FV\)</span> is the future value or the money we have after a certain period, <span class="math inline">\(A\)</span> is the annuity or the regular payment per period, <span class="math inline">\(i\)</span> is the interest rate, and <span class="math inline">\(n\)</span> is the number of interest periods. The equation is easy to use when we want to find <span class="math inline">\(FV\)</span>, <span class="math inline">\(A\)</span>, or <span class="math inline">\(n\)</span>. Finding <span class="math inline">\(i\)</span> needs a bit of iteration.</p>
 <p>However, this equation gave me problems when working with years with negative interest. My solution was to go back to the definition of an annuity, i.e. a series of compound interest of periodic payments with fixed rate, and work on that definition to iterate the interest rate. The simulation takes longer because of this method, so if anyone has a better way to determine this, I am willing to listen.</p>
 <pre class="r"><code>compute_interest_rate_annuity &lt;- function(
