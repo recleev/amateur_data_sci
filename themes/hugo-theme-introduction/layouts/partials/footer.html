@@ -8,21 +8,8 @@
     </div><!-- End Footer container -->
 </div><!-- End Footer section -->
 
-{{ $highVer := .Site.Params.highlightjsVersion }}
-    {{ if (not (eq $highVer "")) }}
-    <script src="//cdnjs.cloudflare.com/ajax/libs/highlight.js/{{ $highVer }}/highlight.min.js"></script>
-    {{ range .Site.Params.highlightjsLang }}
-    <script src="//cdnjs.cloudflare.com/ajax/libs/highlight.js/{{ $highVer }}/languages/{{ . }}.min.js"></script>
-    {{ end }}
-    <script>hljs.configure({languages: []}); hljs.initHighlightingOnLoad();</script>
-    {{ end }}
-    <script type="text/x-mathjax-config">
-    MathJax.Hub.Config({
-      tex2jax: {
-        skipTags: ['script', 'noscript', 'style', 'textarea', 'pre']
-      }
-    });
-    </script>
+<script src="//https://amateurdatasci.rbind.io/js/math-code.js"></script>
+
     <script type="text/javascript"
       src="https://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML">
     </script>

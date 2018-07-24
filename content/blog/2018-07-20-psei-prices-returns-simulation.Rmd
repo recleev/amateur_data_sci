@@ -336,9 +336,9 @@ Our hypothetical investor reached a million, but is it worth risking money in th
 
 I had to revisit the equation for ordinary annuity:
 
-$$FV=A\frac{(1+i)^n - 1}{i}$$
+`$$FV=A\frac{(1+i)^n - 1}{i}$$`
 
-$FV$ is the future value or the money we have after a certain period, $A$ is the annuity or the regular payment per period, $i$ is the interest rate, and $n$ is the number of interest periods. The equation is easy to use when we want to find $FV$, $A$, or $n$. Finding $i$ needs a bit of iteration. 
+\(FV\) is the future value or the money we have after a certain period, $A$ is the annuity or the regular payment per period, $i$ is the interest rate, and $n$ is the number of interest periods. The equation is easy to use when we want to find $FV$, $A$, or $n$. Finding $i$ needs a bit of iteration. 
 
 However, this equation gave me problems when working with years with negative interest. My solution was to go back to the definition of an annuity, i.e. a series of compound interest of periodic payments with fixed rate, and work on that definition to iterate the interest rate. The simulation takes longer because of this method, so if anyone has a better way to determine this, I am willing to listen. 
 
