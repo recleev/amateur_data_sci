@@ -44,7 +44,6 @@ googleAnalytics         = "UA-119602814-1"
     shareFacebook       = true
     sharePinterest      = false
     shareGooglePlus     = true
-    shareFacebook       = true
     shareLinkedIn       = true
 
 # Social icons appear in introduction and contact section. Add as many more as you like.
@@ -64,4 +63,4 @@ googleAnalytics         = "UA-119602814-1"
 
 [[params.social]]
     url  = "https://www.linkedin.com/in/recleev/"
-icon = "linkedin"
+    icon = "linkedin"
