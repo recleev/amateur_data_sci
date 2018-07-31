@@ -28,7 +28,7 @@ googleAnalytics         = "UA-119602814-1"
     pygmentsStyle       = "monokai"                         # https://help.farbox.com/pygments.html
     pygmentsCodefences  = true
     footerText          = ""                                # Text to show in footer (overrides default text)
-    fadeIn              = false                              # Turn on/off the fade-in effect
+    fadeIn              = false                             # Turn on/off the fade-in effect
     customCSS           = []                                # Include custom css files e.g. ["css/foo.css", "css/bar.css"]
 
     showBlog            = true                              # Show Blog section on home page
@@ -44,6 +44,8 @@ googleAnalytics         = "UA-119602814-1"
     shareFacebook       = true
     sharePinterest      = false
     shareGooglePlus     = true
+    shareFacebook       = true
+    shareLinkedIn       = true
 
 # Social icons appear in introduction and contact section. Add as many more as you like.
 # Find icon names here: http://fontawesome.io/cheatsheet/
@@ -55,3 +57,11 @@ googleAnalytics         = "UA-119602814-1"
 [[params.social]]
     url = "https://github.com/recleev"
     icon = "github"
+
+[[params.social]]
+    url  = "https://facebook.com/recleev"
+    icon = "facebook"
+
+[[params.social]]
+    url  = "https://www.linkedin.com/in/recleev/"
+icon = "linkedin"
