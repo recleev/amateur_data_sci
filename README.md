@@ -1,4 +1,4 @@
-# Hi, I am the Amateur Data 
+# Hi, I am the Amateur Data Scientist
 
 > An amateur...is someone not quite up to par, a person not to be taken seriously, one whose performance falls short of professional standards. But originally, "amateur", from the Latin verb *amare*, "to love", referred to a person who loved what he was doing. 
 > --- Mihaly Cziksentmihalyi, Flow: The Psychology of Optimal Experience
