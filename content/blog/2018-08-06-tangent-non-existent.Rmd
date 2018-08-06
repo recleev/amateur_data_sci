@@ -53,7 +53,7 @@ f'(x_0) &= \lim \limits_{\Delta x \to 0}\frac{\lvert x_0 + \Delta x - h \rvert -
 $$
 
 
-If $x < h$, then $\lvert x - h \rvert = h - x$
+If $x_0 < h$, then $\lvert x_0 - h \rvert = h - x_0$
 
 $$
 \begin{align}
@@ -68,7 +68,7 @@ f'(x_0) &= \lim \limits_{\Delta x \to 0}\frac{-\Delta x}{\Delta x}
 \end{align}
 $$
 
-If $x > h$, then $\lvert x - h \rvert = x - h$
+If $x_0 > h$, then $\lvert x_0 - h \rvert = x_0 - h$
 
 $$
 \begin{align}
@@ -83,4 +83,4 @@ f'(x_0) &= \lim \limits_{\Delta x \to 0}\frac{\Delta x}{\Delta x}
 \end{align}
 $$
 
-The limits approach different values when $x \to h$ from the left and from the right. This means that the tangent line at $x = h$ does not exist.
+The limits approach different values as $x_0 \to h$ from the left and from the right. This means that the tangent line at $x_0 = h$ does not exist.
