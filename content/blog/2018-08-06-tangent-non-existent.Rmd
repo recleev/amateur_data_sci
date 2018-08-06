@@ -1,0 +1,86 @@
+---
+title: Tangent Lines and Non-Existent Ones
+author: Recle Etino Vibal
+date: '2018-08-06'
+slug: tangent-non-existent
+categories:
+  - Calculus
+  - Mathematics
+tags:
+  - limits
+  - tangents
+  - slopes
+output:
+  blogdown::html_page:
+    toc: yes
+---
+
+# Definition of a Tangent Line
+
+>Consider a curve $y = f(x)$, and let $P$ be a given fixed
+point on this curve. Let $Q$ be a second nearby point on the curve, and
+draw the secant line $PQ$. The tangent line at $P$ can now be thought of as the limiting
+position of the variable secant as $Q$ slides along the curve toward $P$. --- [Simmons restating Fermat's definition of a tangent line](https://www.amazon.com/Calculus-Analytic-Geometry-George-Simmons/dp/0070576424)
+
+# Slope of a Tangent Line on a Curve
+
+$$m = f'(x_0) = \lim \limits_{\Delta x \to 0}\frac{f(x_0 + \Delta x) - f(x_0)}{\Delta x}$$
+
+# Condition for Existence
+
+For a tangent line to exist, the secant line $PQ$ must approach the same tangent line at $P$ in both directions. For a limit to exist, it must approach the same value in both directions.
+
+# Limit of an Absolute Value
+
+## Problem
+
+Find $f'(x_0)$ when $x_0 < h$, $x_0 > h$, and $x_0 = h$ for,
+
+$$y = f(x) = \lvert x - h \rvert$$
+
+## Solution
+
+$$
+\begin{align}
+f'(x_0) &= \lim \limits_{\Delta x \to 0}\frac{f(x_0 + \Delta x) - f(x_0)}{\Delta x} 
+\\
+\\
+y &= f(x) = \lvert x - h \rvert 
+\\
+\\
+f'(x_0) &= \lim \limits_{\Delta x \to 0}\frac{\lvert x_0 + \Delta x - h \rvert - \lvert x_0 - h \rvert}{\Delta x} 
+\end{align}
+$$
+
+
+If $x < h$, then $\lvert x - h \rvert = h - x$
+
+$$
+\begin{align}
+f'(x_0) &= \lim \limits_{\Delta x \to 0}\frac{[h - (x_0 + \Delta x)] - (h - x_0)}{\Delta x} 
+\\
+\\
+f'(x_0) &= \lim \limits_{\Delta x \to 0}\frac{-\Delta x}{\Delta x}
+\\
+&= \lim \limits_{\Delta x \to 0} -1
+\\
+&= -1
+\end{align}
+$$
+
+If $x > h$, then $\lvert x - h \rvert = x - h$
+
+$$
+\begin{align}
+f'(x_0) &= \lim \limits_{\Delta x \to 0}\frac{[(x_0 + \Delta x) - h] - (x_0 - h)}{\Delta x}
+\\
+\\
+f'(x_0) &= \lim \limits_{\Delta x \to 0}\frac{\Delta x}{\Delta x}
+\\
+&= \lim \limits_{\Delta x \to 0} 1
+\\
+&= 1
+\end{align}
+$$
+
+The limits approach different values when $x \to h$ from the left and from the right. This means that the tangent line at $x = h$ does not exist.

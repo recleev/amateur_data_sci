@@ -1,0 +1,279 @@
+<!DOCTYPE html>
+<html lang="en-us">
+
+<head>
+<meta charset="utf-8">
+<meta http-equiv="X-UA-Compatible" content="chrome=1">
+<meta name="HandheldFriendly" content="True">
+<meta name="MobileOptimized" content="320">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="referrer" content="no-referrer">
+<meta name="description" content="I am a beginner R User and Data Sciencist. I love learning about R, statistics, data science and applying all this knowledge.">
+
+<base href="/">
+<title>
+
+
+     Tangent Lines and Non-Existent Ones 
+
+</title>
+<link rel="canonical" href="/blog/tangent-non-existent/">
+
+
+
+
+
+
+<script type="text/javascript" src="/js/jquery-3.3.1.min.js"></script>
+
+
+<link rel="stylesheet" href="/css/font-awesome.min.css">
+<link rel="stylesheet" href="/css/nunito_sans.css">
+
+
+    <link rel="stylesheet" href="css/light-style.css">
+
+
+
+
+
+
+<link rel="shortcut icon" href="img/recleev.ico">
+
+
+
+<script>
+window.ga=window.ga||function(){(ga.q=ga.q||[]).push(arguments)};ga.l=+new Date;
+ga('create', 'UA-119602814-1', 'auto');
+ga('send', 'pageview');
+</script>
+<script async src='//www.google-analytics.com/analytics.js'></script>
+
+
+
+
+
+</head>
+
+<body>
+
+<div class="section" id="top">
+
+    <div class="container hero ">
+    <h1 class="bold-title is-1">The Amateur Data Scientist</h1>
+    </div>
+
+
+<div class="section ">
+
+    <div class="container">
+    <hr>
+<nav class="nav nav-center">
+    <span id="nav-toggle" class="nav-toggle"  onclick="document.getElementById('nav-menu').classList.toggle('is-active');">
+      <span></span>
+      <span></span>
+      <span></span>
+    </span>
+    <div id="nav-menu" class="nav-left nav-menu">
+      <span class="nav-item">
+        <a href="/">Main</a>
+      </span>
+      <span class="nav-item">
+        <a href="/#about">About</a>
+      </span>
+      
+      <span class="nav-item">
+        <a href="/blog">Back to blog</a>
+      </span>
+      
+      <span class="nav-item">
+        <a href="/#contact">Contact</a>
+      </span>
+    
+      <span class="nav-item">
+        <a href="/index.xml"><i class="fa fa-rss"></i></a>
+      </span>
+    
+    </div>
+</nav>
+<hr>
+
+    </div>
+
+    <div class="container ">
+        <h2 class="title is-1 top-pad strong-post-title"><a href="/blog/tangent-non-existent/">Tangent Lines and Non-Existent Ones</a></h2>
+            <div class="post-data">
+                Aug 06, 2018 |
+                2 minutes read
+            </div>
+
+            
+                <div class="blog-share">
+                Share this:
+                
+                <a class="twitter-share-button" href="https://twitter.com/intent/tweet?text=Read%20Tangent%20Lines%20and%20Non-Existent%20Ones%20%2fblog%2ftangent-non-existent%2f"
+                onclick="window.open(this.href, 'twitter-share', 'width=550,height=235');return false;">
+                <i class="fa fa-twitter"></i>
+                <span class="hidden">Twitter</span>
+                </a>
+                
+                 
+                <a class="icon-facebook" href="https://www.facebook.com/sharer/sharer.php?u=%2fblog%2ftangent-non-existent%2f"
+                onclick="window.open(this.href, 'facebook-share','width=580,height=296');return false;">
+                <i class="fa fa-facebook"></i>
+                <span class="hidden">Facebook</span>
+                </a>
+                
+                
+                
+                <a class="icon-google-plus" href="https://plus.google.com/share?url=%2fblog%2ftangent-non-existent%2f"
+                onclick="window.open(this.href, 'google-plus-share', 'width=490,height=530');return false;">
+                <i class="fa fa-google-plus"></i>
+                <span class="hidden">Google+</span>
+                </a>
+                
+                </div>
+            
+
+    </div>
+
+    <div class="container markdown  top-pad">
+        <div id="TOC">
+<ul>
+<li><a href="#definition-of-a-tangent-line">Definition of a Tangent Line</a></li>
+<li><a href="#slope-of-a-tangent-line-on-a-curve">Slope of a Tangent Line on a Curve</a></li>
+<li><a href="#condition-for-existence">Condition for Existence</a></li>
+<li><a href="#limit-of-an-absolute-value">Limit of an Absolute Value</a><ul>
+<li><a href="#problem">Problem</a></li>
+<li><a href="#solution">Solution</a></li>
+</ul></li>
+</ul>
+</div>
+
+<div id="definition-of-a-tangent-line" class="section level1">
+<h1>Definition of a Tangent Line</h1>
+<blockquote>
+<p>Consider a curve <span class="math inline">\(y = f(x)\)</span>, and let <span class="math inline">\(P\)</span> be a given fixed point on this curve. Let <span class="math inline">\(Q\)</span> be a second nearby point on the curve, and draw the secant line <span class="math inline">\(PQ\)</span>. The tangent line at <span class="math inline">\(P\)</span> can now be thought of as the limiting position of the variable secant as <span class="math inline">\(Q\)</span> slides along the curve toward <span class="math inline">\(P\)</span>. — <a href="https://www.amazon.com/Calculus-Analytic-Geometry-George-Simmons/dp/0070576424">Simmons restating Fermat’s definition of a tangent line</a></p>
+</blockquote>
+</div>
+<div id="slope-of-a-tangent-line-on-a-curve" class="section level1">
+<h1>Slope of a Tangent Line on a Curve</h1>
+<p><span class="math display">\[m = f&#39;(x_0) = \lim \limits_{\Delta x \to 0}\frac{f(x_0 + \Delta x) - f(x_0)}{\Delta x}\]</span></p>
+</div>
+<div id="condition-for-existence" class="section level1">
+<h1>Condition for Existence</h1>
+<p>For a tangent line to exist, the secant line <span class="math inline">\(PQ\)</span> must approach the same tangent line at <span class="math inline">\(P\)</span> in both directions. For a limit to exist, it must approach the same value in both directions.</p>
+</div>
+<div id="limit-of-an-absolute-value" class="section level1">
+<h1>Limit of an Absolute Value</h1>
+<div id="problem" class="section level2">
+<h2>Problem</h2>
+<p>Find <span class="math inline">\(f&#39;(x_0)\)</span> when <span class="math inline">\(x_0 &lt; h\)</span>, <span class="math inline">\(x_0 &gt; h\)</span>, and <span class="math inline">\(x_0 = h\)</span> for,</p>
+<p><span class="math display">\[y = f(x) = \lvert x - h \rvert\]</span></p>
+</div>
+<div id="solution" class="section level2">
+<h2>Solution</h2>
+<p><span class="math display">\[
+\begin{align}
+f&#39;(x_0) &amp;= \lim \limits_{\Delta x \to 0}\frac{f(x_0 + \Delta x) - f(x_0)}{\Delta x} 
+\\
+\\
+y &amp;= f(x) = \lvert x - h \rvert 
+\\
+\\
+f&#39;(x_0) &amp;= \lim \limits_{\Delta x \to 0}\frac{\lvert x_0 + \Delta x - h \rvert - \lvert x_0 - h \rvert}{\Delta x} 
+\end{align}
+\]</span></p>
+<p>If <span class="math inline">\(x &lt; h\)</span>, then <span class="math inline">\(\lvert x - h \rvert = h - x\)</span></p>
+<p><span class="math display">\[
+\begin{align}
+f&#39;(x_0) &amp;= \lim \limits_{\Delta x \to 0}\frac{[h - (x_0 + \Delta x)] - (h - x_0)}{\Delta x} 
+\\
+\\
+f&#39;(x_0) &amp;= \lim \limits_{\Delta x \to 0}\frac{-\Delta x}{\Delta x}
+\\
+&amp;= \lim \limits_{\Delta x \to 0} -1
+\\
+&amp;= -1
+\end{align}
+\]</span></p>
+<p>If <span class="math inline">\(x &gt; h\)</span>, then <span class="math inline">\(\lvert x - h \rvert = x - h\)</span></p>
+<p><span class="math display">\[
+\begin{align}
+f&#39;(x_0) &amp;= \lim \limits_{\Delta x \to 0}\frac{[(x_0 + \Delta x) - h] - (x_0 - h)}{\Delta x}
+\\
+\\
+f&#39;(x_0) &amp;= \lim \limits_{\Delta x \to 0}\frac{\Delta x}{\Delta x}
+\\
+&amp;= \lim \limits_{\Delta x \to 0} 1
+\\
+&amp;= 1
+\end{align}
+\]</span></p>
+<p>The limits approach different values when <span class="math inline">\(x \to h\)</span> from the left and from the right. This means that the tangent line at <span class="math inline">\(x = h\)</span> does not exist.</p>
+</div>
+</div>
+
+    </div>
+
+    <div class="disqus">
+        <div id="disqus_thread"></div>
+<script>
+    var disqus_config = function () {
+    
+    
+    
+    };
+    (function() {
+        if (["localhost", "127.0.0.1"].indexOf(window.location.hostname) != -1) {
+            document.getElementById('disqus_thread').innerHTML = 'Disqus comments not available by default when the website is previewed locally.';
+            return;
+        }
+        var d = document, s = d.createElement('script'); s.async = true;
+        s.src = '//' + "the-amateur-data-scientist" + '.disqus.com/embed.js';
+        s.setAttribute('data-timestamp', +new Date());
+        (d.head || d.body).appendChild(s);
+    })();
+</script>
+<noscript>Please enable JavaScript to view the <a href="https://disqus.com/?ref_noscript">comments powered by Disqus.</a></noscript>
+<a href="https://disqus.com" class="dsq-brlink">comments powered by <span class="logo-disqus">Disqus</span></a>
+    </div>
+
+<div class="container has-text-centered top-pad">
+<hr>
+<a href="/blog/tangent-non-existent/#top"><i class="fa fa-arrow-up"></i></a>
+<hr>
+</div>
+
+<div class="section" id="footer">
+    <div class="container has-text-centered">
+        
+        <span class="footer-text"><a href="https://github.com/hivickylai/hugo-theme-introduction" target="_blank" rel="noopener">Introduction</a> theme for <a href="http://gohugo.io/" target="_blank" rel="noopener">Hugo</a>. Made with <i class="fa fa-heart"></i> and <i class="fa fa-coffee"></i>. <a href="https://vickylai.io" target="_blank" rel="noopener">Vicky Lai</a> 2018</span>
+        
+    </div>
+</div>
+
+<script src="//https://amateurdatasci.rbind.io/js/math-code.js"></script>
+
+    <script type="text/javascript"
+      src="https://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML">
+    </script>
+
+  </body>
+</html>
+</div>
+</div>
+
+
+<script>
+$('a[href^="\/blog\/tangent-non-existent\/#"]').click(function(e) {
+    e.preventDefault();
+    var target = this.hash;
+    $('html, body').animate({
+    scrollTop: $(target).offset().top
+    }, 500);
+    return false;
+})
+</script>
+
+</body>
