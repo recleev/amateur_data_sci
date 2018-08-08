@@ -1,0 +1,255 @@
+---
+title: Deriving the Quotient Rule from the Product Rule
+author: Recle Etino Vibal
+date: '2018-08-08'
+categories:
+  - Calculus
+  - lessons
+  - Mathematics
+tags:
+  - derivatives
+  - ggplot2
+  - mathjax
+  - tangents
+slug: deriving-quotient-rule-product-rule
+output:
+  blogdown::html_page:
+    toc: yes
+bibliography:
+  - cwag2016.bib
+biblio-style: apalike
+---
+
+
+<div id="TOC">
+<ul>
+<li><a href="#from-product-to-quotient">From Product to Quotient</a><ul>
+<li><a href="#product-rule-of-differentiation">Product Rule of Differentiation</a></li>
+<li><a href="#quotient-rule-of-differentiation">Quotient Rule of Differentiation</a></li>
+<li><a href="#derive-the-quotient-rule-from-the-product-rule">Derive the Quotient Rule from the Product Rule</a></li>
+</ul></li>
+<li><a href="#problems">Problems</a><ul>
+<li><a href="#extend-the-product-rule-and-prove">Extend the Product Rule and Prove</a></li>
+<li><a href="#tangent-lines-intersecting-on-a-curve">Tangent Lines Intersecting on a Curve</a></li>
+</ul></li>
+<li><a href="#reference">Reference</a></li>
+</ul>
+</div>
+
+<div id="from-product-to-quotient" class="section level1">
+<h1>From Product to Quotient</h1>
+<p>I have always had a hard time remembering the quotient rule for derivatives. I do not know how I remembered it while studying calculus, but today I learned from <span class="citation">Simmons (2016)</span> that I can derive it from the product rule.</p>
+<div id="product-rule-of-differentiation" class="section level2">
+<h2>Product Rule of Differentiation</h2>
+<p><span class="math display">\[\frac{d}{dx}uv = u\frac{dv}{dx} \ + \ v\frac{du}{dx}\]</span></p>
+<p>I think this is a very easy pattern to memorize.</p>
+</div>
+<div id="quotient-rule-of-differentiation" class="section level2">
+<h2>Quotient Rule of Differentiation</h2>
+<p><span class="math display">\[\frac{d}{dx}u/v = \frac{v \frac{du}{dx} - u \frac{dv}{dx}}{v^2}\]</span></p>
+<p>I find this one difficult and boring to remember.</p>
+</div>
+<div id="derive-the-quotient-rule-from-the-product-rule" class="section level2">
+<h2>Derive the Quotient Rule from the Product Rule</h2>
+<p>We can also write <span class="math inline">\(u/v\)</span> as <span class="math inline">\(uv^\text{-1}\)</span>. We also know from the power rule that,</p>
+<p><span class="math display">\[
+\frac{d}{dx}x^n = nx^{n-1}
+\]</span></p>
+<p>Then we can show,</p>
+<p><span class="math display">\[
+\begin{align}
+\frac{d}{dx}uv^\text{-1} &amp;= u\frac{dv^\text{-1}}{dx} + v^\text{-1}\frac{du}{dx}
+\\
+\\
+&amp;= u\left(-v^\text{-2}\frac{dv}{dx}\right) + \frac{1}{v}\frac{du}{dx}
+\\
+\\
+&amp;= \left(\frac{-u}{v^2}\right)\frac{dv}{du} + \frac{1}{v}\frac{du}{dx}
+\\
+\\
+&amp;= \frac{-udv/dx + vdu/dx}{v^2}
+\\
+\\
+\frac{d}{dx}u/v &amp;= \frac{vdu/dx - udv/dx}{v^2}
+\end{align}
+\]</span></p>
+<p>I always prefered deriving rules than memorizing them.</p>
+</div>
+</div>
+<div id="problems" class="section level1">
+<h1>Problems</h1>
+<div id="extend-the-product-rule-and-prove" class="section level2">
+<h2>Extend the Product Rule and Prove</h2>
+<p><span class="math display">\[
+\frac{d}{dx}uvw = vw\frac{du}{dx} + uw\frac{dv}{du} + uv\frac{dw}{dx}
+\]</span></p>
+<p>We can rewrite <span class="math inline">\(\frac{d}{dx}uvw\)</span> as <span class="math inline">\(\frac{d}{dx}(uv)w\)</span>. After this, we already know what <span class="math inline">\(\frac{d}{dx}uv\)</span> is.</p>
+<p><span class="math display">\[
+\begin{align}
+\frac{d}{dx}(uv)w &amp;= (uv)\frac{dw}{dx} + w\frac{d(uv)}{dx}
+\\
+\\
+&amp;= uv\frac{dw}{dx} + w \left( v\frac{du}{dx} + u\frac{dv}{dx}\right)
+\\
+\\
+&amp;= uv\frac{dw}{dx} + vw\frac{du}{dx} + uw\frac{dv}{dx}
+\\
+\\
+\frac{d}{dx}uvw &amp;= vw\frac{du}{dx} + uw\frac{dv}{du} + uv\frac{dw}{dx}
+\end{align}
+\]</span></p>
+</div>
+<div id="tangent-lines-intersecting-on-a-curve" class="section level2">
+<h2>Tangent Lines Intersecting on a Curve</h2>
+<p>Show that the tangents to the curve <span class="math inline">\(y = x^2\)</span> at points <span class="math inline">\((a, a^2)\)</span> and <span class="math inline">\((a + 2, (a + 2)^2)\)</span> intersect on the curve <span class="math inline">\(y = x^2 - 1\)</span>.</p>
+<pre class="r"><code>library(tidyverse)
+library(ggthemes)
+
+parabolas &lt;- 
+  dplyr::tibble(
+  abscissa = seq(-2, 2, by = 0.05),
+  ordinate_1 = abscissa ^ 2,
+  ordinate_2 = ordinate_1 - 1
+) %&gt;% 
+  tidyr::gather(
+    ordinate_type,
+    ordinate,
+    ordinate_1, ordinate_2
+  ) %&gt;%
+  ggplot(aes(
+    abscissa,
+    ordinate,
+    color = ordinate_type
+  )) +
+  geom_line(show.legend = FALSE) +
+  # gl = o to remove the grid lines
+  ggthemes::theme_pander(gl = 0) +
+  ggthemes::scale_color_pander() +
+  ggplot2::labs(
+    x = &quot;x&quot;,
+    y = &quot;y&quot;
+  ) +
+  # parse = TRUE ensures that the label gets printed as an equation and not as
+  # it appears in the string
+  ggplot2::annotate(
+    &quot;text&quot;, 
+    x = 0.5, 
+    y = 0.8,
+    label = &quot;y == x^2&quot;,
+    parse = TRUE
+  ) +
+  ggplot2::annotate(
+    &quot;text&quot;, 
+    x = 1.75, 
+    y = 1,
+    label = &quot;y == x^2 - 1&quot;,
+    parse = TRUE
+  )
+
+parabolas</code></pre>
+<p><img src="/blog/2018-08-08-deriving-the-quotient-rule-from-the-product-rule_files/figure-html/parabola-1.png" width="672" style="display: block; margin: auto;" /></p>
+<p>Find the slope of tangent lines on <span class="math inline">\(y = x^2\)</span>,</p>
+<p><span class="math display">\[
+m = \frac{dy}{dx} = 2x
+\]</span></p>
+<p>At <span class="math inline">\((a, a^2)\)</span>,</p>
+<p><span class="math display">\[
+\begin{align}
+m &amp;= 2a
+\\
+\\
+a^2 &amp;= 2a(a) + b
+\\
+\\
+a^2 &amp;= 2a^2 + b
+\\
+\\
+b &amp;= -a^2
+\\
+\\
+y &amp;= 2a(x) - a^2
+\end{align}
+\]</span></p>
+<p>At <span class="math inline">\((a + 2 , (a + 2)^2)\)</span>,</p>
+<p><span class="math display">\[
+\begin{align}
+m &amp;= 2(a + 2)
+\\
+\\
+(a + 2)^2 &amp;= 2(a + 2)(a + 2) + b
+\\
+\\
+(a + 2)^2 &amp;= 2(a + 2)^2 + b
+\\
+\\
+b &amp;= -(a + 2)^2
+\\
+\\
+y &amp;= 2(a + 2)x - (a + 2)^2
+\end{align}
+\]</span></p>
+<p>Since we have to prove that the two tangent lines intersect on the curve <span class="math inline">\(y = x^2 - 1\)</span>, then the two tangent lines should have the same <span class="math inline">\(y\)</span> at a given <span class="math inline">\(x\)</span> on the curve.</p>
+<p><span class="math display">\[
+\begin{align}
+2a(x) - a^2 &amp;= 2(a + 2)x - (a + 2)^2
+\\
+\\
+2ax - a^2 &amp;= 2ax + 4x - (a^2 + 4a + 4)
+\\
+\\
+2ax - a^2 &amp;= 2ax + 4x - a^2 - 4a - 4
+\\
+\\
+0 &amp;= 4x - 4a - 4
+\\
+\\
+a &amp;= x - 1
+\end{align}
+\]</span></p>
+<p>From one of the tangent lines,</p>
+<p><span class="math display">\[
+\begin{align}
+y &amp;= 2ax - a^2
+\\
+&amp;= 2(x - 1)x - (x - 1^2)
+\\
+&amp;= 2x^2 - 2x - (x^2 - 2x + 1)
+\\
+&amp;= 2x^2 - 2x - x^2 + 2x - 1
+\\
+y &amp;= x^2 - 1
+\end{align}
+\]</span></p>
+<pre class="r"><code>a &lt;- 0.2
+
+slope_1 = 2 * a
+
+intercept_1 = -a^2
+
+slope_2 = 2 * (a + 2)
+
+intercept_2 = -(a + 2)^2
+
+parabolas +
+  geom_abline(
+    slope = slope_1,
+    intercept = intercept_1,
+    color = ggthemes::palette_pander(3)[3]
+  ) +
+  geom_abline(
+    slope = slope_2,
+    intercept = intercept_2,
+    color = ggthemes::palette_pander(4)[4]
+  )</code></pre>
+<p><img src="/blog/2018-08-08-deriving-the-quotient-rule-from-the-product-rule_files/figure-html/parabola_tangents-1.png" width="672" style="display: block; margin: auto;" /></p>
+<p>Graphically, this proves that the tangent lines of <span class="math inline">\(y = x^2\)</span> at <span class="math inline">\((a, a^2)\)</span> and <span class="math inline">\((a + 2, (a + 2)^2)\)</span> intersect at <span class="math inline">\(y = x^2 - 1\)</span>.</p>
+</div>
+</div>
+<div id="reference" class="section level1 unnumbered">
+<h1>Reference</h1>
+<div id="refs" class="references">
+<div id="ref-cwag2016">
+<p>Simmons, George F. 2016. <em>Calculus with Analytic Geometry</em>. 2nd Edition. McGraw-Hill Education.</p>
+</div>
+</div>
+</div>

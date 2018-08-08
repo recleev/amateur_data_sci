@@ -1,14 +1,14 @@
 <?xml version="1.0" encoding="utf-8" standalone="yes" ?>
 <rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
   <channel>
-    <title>Tangents on The Amateur Data Scientist</title>
-    <link>/tags/tangents/</link>
-    <description>Recent content in Tangents on The Amateur Data Scientist</description>
+    <title>Ggplot2 on The Amateur Data Scientist</title>
+    <link>/tags/ggplot2/</link>
+    <description>Recent content in Ggplot2 on The Amateur Data Scientist</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>en-us</language>
     <lastBuildDate>Wed, 08 Aug 2018 00:00:00 +0000</lastBuildDate>
     
-	<atom:link href="/tags/tangents/index.xml" rel="self" type="application/rss+xml" />
+	<atom:link href="/tags/ggplot2/index.xml" rel="self" type="application/rss+xml" />
     
     
     <item>
@@ -18,15 +18,6 @@
       
       <guid>/blog/deriving-quotient-rule-product-rule/</guid>
       <description>From Product to QuotientProduct Rule of DifferentiationQuotient Rule of DifferentiationDerive the Quotient Rule from the Product RuleProblemsExtend the Product Rule and ProveTangent Lines Intersecting on a CurveReferenceFrom Product to QuotientI have always had a hard time remembering the quotient rule for derivatives. I do not know how I remembered it while studying calculus, but today I learned from Simmons (2016) that I can derive it from the product rule.</description>
-    </item>
-    
-    <item>
-      <title>Tangent Lines and Non-Existent Ones</title>
-      <link>/blog/tangent-non-existent/</link>
-      <pubDate>Mon, 06 Aug 2018 00:00:00 +0000</pubDate>
-      
-      <guid>/blog/tangent-non-existent/</guid>
-      <description>Definition of a Tangent LineSlope of a Tangent Line on a CurveCondition for ExistenceLimit of an Absolute ValueProblemSolutionReferenceDefinition of a Tangent LineConsider a curve \(y = f(x)\), and let \(P\) be a given fixed point on this curve. Let \(Q\) be a second nearby point on the curve, and draw the secant line \(PQ\). The tangent line at \(P\) can now be thought of as the limiting position of the variable secant as \(Q\) slides along the curve toward \(P\).</description>
     </item>
     
   </channel>
