@@ -15,7 +15,7 @@ output:
     toc: yes
 bibliography: ["references.bib"]
 biblio-style: "apalike"
-link-citations: true
+link-citations: false
 ---
 
 # Definition of a Tangent Line
