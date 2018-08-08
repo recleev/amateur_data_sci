@@ -23,7 +23,7 @@ link-citations: false
 >Consider a curve $y = f(x)$, and let $P$ be a given fixed
 point on this curve. Let $Q$ be a second nearby point on the curve, and
 draw the secant line $PQ$. The tangent line at $P$ can now be thought of as the limiting
-position of the variable secant as $Q$ slides along the curve toward $P$. --- @cwag_2016 [restating](testing citations with .bib; does not seem too complicated; might use this more often) Fermat's definition of a tangent line
+position of the variable secant as $Q$ slides along the curve toward $P$. --- @cwag_2016 [restating](https://www.amazon.com/Calculus-Analytic-Geometry-George-Simmons/dp/0070576424) Fermat's definition of a tangent line
 
 # Slope of a Tangent Line on a Curve
 
