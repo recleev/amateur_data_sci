@@ -17,7 +17,7 @@
       <pubDate>Mon, 06 Aug 2018 00:00:00 +0000</pubDate>
       
       <guid>/blog/tangent-non-existent/</guid>
-      <description>Definition of a Tangent LineSlope of a Tangent Line on a CurveCondition for ExistenceLimit of an Absolute ValueProblemSolutionDefinition of a Tangent LineConsider a curve \(y = f(x)\), and let \(P\) be a given fixed point on this curve. Let \(Q\) be a second nearby point on the curve, and draw the secant line \(PQ\). The tangent line at \(P\) can now be thought of as the limiting position of the variable secant as \(Q\) slides along the curve toward \(P\).</description>
+      <description>Definition of a Tangent LineSlope of a Tangent Line on a CurveCondition for ExistenceLimit of an Absolute ValueProblemSolutionReferenceDefinition of a Tangent LineConsider a curve \(y = f(x)\), and let \(P\) be a given fixed point on this curve. Let \(Q\) be a second nearby point on the curve, and draw the secant line \(PQ\). The tangent line at \(P\) can now be thought of as the limiting position of the variable secant as \(Q\) slides along the curve toward \(P\).</description>
     </item>
     
     <item>
