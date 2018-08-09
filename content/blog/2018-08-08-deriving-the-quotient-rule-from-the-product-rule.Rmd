@@ -102,7 +102,7 @@ library(ggthemes)
 
 parabolas <- 
   dplyr::tibble(
-  abscissa = seq(-2, 2, by = 0.05),
+  abscissa = seq(-3, 3, by = 0.03),
   ordinate_1 = abscissa ^ 2,
   ordinate_2 = ordinate_1 - 1
 ) %>% 
@@ -229,7 +229,7 @@ $$
 
 ```{r parabola_tangents, fig.align='center'}
 
-a <- 0.2
+a <- -0.3
 
 slope_1 = 2 * a
 
@@ -248,7 +248,7 @@ parabolas +
   geom_abline(
     slope = slope_2,
     intercept = intercept_2,
-    color = ggthemes::palette_pander(4)[4]
+    color = ggthemes::palette_pander(5)[5]
   )
   
 ```

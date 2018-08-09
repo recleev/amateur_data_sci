@@ -107,7 +107,7 @@ library(ggthemes)
 
 parabolas &lt;- 
   dplyr::tibble(
-  abscissa = seq(-2, 2, by = 0.05),
+  abscissa = seq(-3, 3, by = 0.03),
   ordinate_1 = abscissa ^ 2,
   ordinate_2 = ordinate_1 - 1
 ) %&gt;% 
@@ -220,7 +220,7 @@ y &amp;= 2ax - a^2
 y &amp;= x^2 - 1
 \end{align}
 \]</span></p>
-<pre class="r"><code>a &lt;- 0.2
+<pre class="r"><code>a &lt;- -0.3
 
 slope_1 = 2 * a
 
@@ -239,7 +239,7 @@ parabolas +
   geom_abline(
     slope = slope_2,
     intercept = intercept_2,
-    color = ggthemes::palette_pander(4)[4]
+    color = ggthemes::palette_pander(5)[5]
   )</code></pre>
 <p><img src="/blog/2018-08-08-deriving-the-quotient-rule-from-the-product-rule_files/figure-html/parabola_tangents-1.png" width="672" style="display: block; margin: auto;" /></p>
 <p>Graphically, this proves that the tangent lines of <span class="math inline">\(y = x^2\)</span> at <span class="math inline">\((a, a^2)\)</span> and <span class="math inline">\((a + 2, (a + 2)^2)\)</span> intersect at <span class="math inline">\(y = x^2 - 1\)</span>.</p>
