@@ -377,41 +377,43 @@ words %&gt;%
        y = &quot;Net Sentiment Score&quot;)</code></pre>
 <p><img src="/blog/2018-05-18-hideous-progeny-tidytext-analysis-of-frankenstein_files/figure-html/afinn-1.png" width="1152" style="display: block; margin: auto;" /></p>
 <p>To guide people who are yet to read Frankenstein, I renamed all chapters of the novel. I think I did not give away much, but I think we can get a feel of why some chapters are positive while others are negative. Chapter 24’s very negative score is also due to it being the chapter with the most words.</p>
-<pre class="r"><code>tibble(chapter_title = c(&quot;Letter 1 - Robert Walton&quot;, 
-                         &quot;Letter 2 - Vessel and Crew&quot;, 
-                         &quot;Letter 3 - In Haste&quot;, 
-                         &quot;Letter 4 - Two Strangers on the Ice&quot;, 
-                         &quot;Chapter 1 - Alphonse, Caroline, Elizabeth&quot;, 
-                         &quot;Chapter 2 - Victor Frankenstein&quot;, 
-                         &quot;Chapter 3 - Ingolstadt&quot;, 
-                         &quot;Chapter 4 - Eight Feet in Height&quot;, 
-                         &quot;Chapter 5 - Daemon&quot;, 
-                         &quot;Chapter 6 - News from Home&quot;, 
-                         &quot;Chapter 7 - Strangled&quot;, 
-                         &quot;Chapter 8 - The Trial&quot;, 
-                         &quot;Chapter 9 - Solitude in Nature&quot;, 
-                         &quot;Chapter 10 - The Daemon&#39;s Proposal&quot;, 
-                         &quot;Chapter 11 - Awakening&quot;, 
-                         &quot;Chapter 12 - The Cottagers&quot;, 
-                         &quot;Chapter 13 - Safie and the Gift of Knowledge&quot;, 
-                         &quot;Chapter 14 - Fall of the De Laceys&quot;, 
-                         &quot;Chaper 15 - Paradise Lost, Plutarch&#39;s Lives and Sorrows of Werter&quot;,
-                         &quot;Chapter 16 - Burned Down&quot;, 
-                         &quot;Chapter 17 - The Agreement&quot;, 
-                         &quot;Chapter 18 - To England&quot;, 
-                         &quot;Chapter 19 - Calm Before the Storm&quot;, 
-                         &quot;Chapter 20 - The Threat&quot;, 
-                         &quot;Chapter 21 - Accused&quot;, 
-                         &quot;Chapter 22 - Overshadowed Marriage&quot;, 
-                         &quot;Chapter 23 - Bridal Bier&quot;,
-                         &quot;Chapter 24 - Unconquerable Ice&quot;)) %&gt;% 
+<pre class="r"><code>tibble(chapter_title = c(
+  &quot;Letter 1 - Robert Walton&quot;,
+  &quot;Letter 2 - Vessel and Crew&quot;,
+  &quot;Letter 3 - In Haste&quot;, 
+  &quot;Letter 4 - Two Strangers on the Ice&quot;,
+  &quot;Chapter 1 - Alphonse, Caroline, Elizabeth&quot;,
+  &quot;Chapter 2 - Victor Frankenstein&quot;,
+  &quot;Chapter 3 - Ingolstadt&quot;,
+  &quot;Chapter 4 - Eight Feet in Height&quot;,
+  &quot;Chapter 5 - Daemon&quot;, 
+  &quot;Chapter 6 - News from Home&quot;,
+  &quot;Chapter 7 - Strangled&quot;, 
+  &quot;Chapter 8 - The Trial&quot;,
+  &quot;Chapter 9 - Solitude in Nature&quot;,
+  &quot;Chapter 10 - The Daemon&#39;s Proposal&quot;, 
+  &quot;Chapter 11 - Awakening&quot;,
+  &quot;Chapter 12 - The Cottagers&quot;, 
+  &quot;Chapter 13 - Safie and the Gift of Knowledge&quot;,
+  &quot;Chapter 14 - Fall of the De Laceys&quot;,
+  &quot;Chapter 15 - Paradise Lost, Plutarch&#39;s Lives and Sorrows of Werter&quot;,
+  &quot;Chapter 16 - Burned Down&quot;, 
+  &quot;Chapter 17 - The Agreement&quot;, 
+  &quot;Chapter 18 - To England&quot;,
+  &quot;Chapter 19 - Calm Before the Storm&quot;,
+  &quot;Chapter 20 - The Threat&quot;, 
+  &quot;Chapter 21 - Accused&quot;,
+  &quot;Chapter 22 - Overshadowed Marriage&quot;, 
+  &quot;Chapter 23 - Bridal Bier&quot;,
+  &quot;Chapter 24 - Unconquerable Ice&quot;
+)) %&gt;% 
   separate(chapter_title,
            into = c(&quot;chapter&quot;,
                     &quot;title&quot;),
            sep = &quot; - &quot;) %&gt;% 
   kable(caption = &quot;My Titles for Each Frankenstein Chapter&quot;)</code></pre>
 <table>
-<caption>(#tab:my_chapter_titles)My Titles for Each Frankenstein Chapter</caption>
+<caption><span id="tab:chapter-titles">Table 2: </span>My Titles for Each Frankenstein Chapter</caption>
 <thead>
 <tr class="header">
 <th align="left">chapter</th>
@@ -492,7 +494,7 @@ words %&gt;%
 <td align="left">Fall of the De Laceys</td>
 </tr>
 <tr class="odd">
-<td align="left">Chaper 15</td>
+<td align="left">Chapter 15</td>
 <td align="left">Paradise Lost, Plutarch’s Lives and Sorrows of Werter</td>
 </tr>
 <tr class="even">
