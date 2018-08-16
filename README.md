@@ -11,3 +11,4 @@ I started learning R in November 2016. I never stopped learning it and using it 
 This is the repo for my blog dedicated to R and data science created with [blogdown](https://bookdown.org/yihui/blogdown/) and the [Hugo](https://gohugo.io/) theme [Introduction](https://themes.gohugo.io/hugo-theme-introduction/). 
 
 Visit my site at [https://amateurdatasci.rbind.io/](https://amateurdatasci.rbind.io/).
+Robot icon by [Freepik](http://www.freepik.com) from [www.flaticon.com](https://www.flaticon.com/) is licensed by [Creative Commons BY 3.0](http://creativecommons.org/licenses/by/3.0/).
