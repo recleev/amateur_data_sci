@@ -10,3 +10,7 @@ I started learning R in November 2016. I never stopped learning it and using it 
 
 > The key word in "Data Science" is not Data, it is Science 
 > --- [Jeff Leek, simplystatistics.org](https://simplystatistics.org/2013/12/12/the-key-word-in-data-science-is-not-data-it-is-science/)
+
+Profile photo credit: [Maria Francia F. Lopez](https://twitter.com/iamfrancia_)
+
+Robot icon by [Freepik](http://www.freepik.com) from [www.flaticon.com](https://www.flaticon.com/) is licensed by [Creative Commons BY 3.0](http://creativecommons.org/licenses/by/3.0/).
