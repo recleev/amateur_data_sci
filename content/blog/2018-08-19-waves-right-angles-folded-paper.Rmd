@@ -1,0 +1,283 @@
+---
+title: Waves Intersecting at Right Angles and a Folded Paper
+author: Recle Etino Vibal
+date: '2018-08-19'
+slug: waves-right-angles-folded-paper
+categories:
+  - Calculus
+  - Mathematics
+tags:
+  - ggplot2
+  - simulation
+  - slopes
+  - tangents
+  - minima
+  - maxima
+output:
+  blogdown::html_page:
+    toc: yes
+bibliography:
+  - references/cwag2016.bib
+biblio-style: apalike
+---
+
+```{r set_up, message = FALSE, warning = FALSE}
+
+library(knitr)
+library(tidyverse)
+library(ggthemes)
+
+opts_chunk$set(
+  fig.align = "center",
+  message = FALSE,
+  warning = FALSE
+)
+
+```
+
+I found these two problems in @cwag2016. I enjoyed these problems because they require more thinking than just a mechanical application of derivatives.
+
+# Perpendicular Intersecting Waves (page 119, Problem 24)
+
+## Problem
+
+Find $a > 0$ so that the curves $y = \sin {ax}$ and $y=\cos {ax}$ intersect at right angles.
+
+## Solution
+
+Since the curves are perpendicular on their interesections, then the tangent lines must also be perpendicular at the intersection.
+
+The slope of the tangent lines are,
+
+$$
+\begin{align}
+y = \sin{ax}
+\\
+\frac{dy}{dx} = a \cos{ax}
+\\
+\\
+y = \cos{ax}
+\\
+\frac{dy}{dx} = -a \sin{ax}
+\end{align}
+$$
+
+By definition, the slope of perpendicular lines are negative reciprocals, i.e.
+
+$$
+-a \sin{ax} = -\frac{1}{a \cos{ax}}
+$$
+
+Simplifying,
+
+$$
+1 = a^2 \sin{ax} \cos{ax}
+$$
+
+At this point, I was stuck. It was very difficult to compute for $a$. My first light bulb was realizing that the point of interest is at the intersection and that means $y = \sin{ax} = \cos{ax}$. Upon substituting, 
+
+$$
+1 = a^2 {\sin}^2{ax} 
+\\ 
+\\
+or
+\\
+\\
+1 = a^2 {\cos}^2{ax} 
+$$
+
+I was stuck again for a moment because how can one compute for a in this situation. I was set free when I realized that $\sin{\theta} = \cos{\theta}$ when $\theta = \frac{\pi}{4}$. This simplifies the equation and allowed me to compute for $a$.
+
+$$
+\begin{align}
+1 = a^2{\sin}^2{ax}
+\\
+1 = a^2{\sin}^2{\frac{\pi}{4}}
+\\
+a^2 = \frac{1}{{\sin}^2{\frac{\pi}{4}}}
+\\
+a = \frac{1}{\sin{\frac{\pi}{4}}}
+\\
+\\
+a = \frac{2\sqrt{2}}{2}
+\end{align}
+$$
+
+I will confirm my answer by plotting the curves with $a = \frac{2\sqrt2}{2}$.
+
+```{r sine_cosine}
+
+factor = 1 / sin(pi / 4)
+
+tibble(
+  theta = seq(0, 1, by = 0.05) * pi
+) %>% 
+  mutate(
+    sin_y = sin(factor * theta),
+    cos_y = cos(factor * theta)
+  ) %>% 
+  ggplot(
+    aes(
+      theta,
+      sin_y
+    )
+  ) +
+  geom_line(color = ggthemes::palette_pander(1)) +
+  geom_line(
+    aes(
+      y = cos_y
+    ),
+    color = ggthemes::palette_pander(2)[2]
+  ) +
+  coord_fixed() +
+  ggthemes::theme_pander(
+    gl = 0
+  ) +
+  labs(
+    title = "Intersecting Sine and Cosine Functions",
+    x = "x",
+    y = "y"
+  ) +
+  annotate(
+    "text",
+    x = 2,
+    y = 0.7,
+    label = latex2exp::TeX("$y = \\sin{\\frac{2\\sqrt{2}}{2}x}$"),
+    parse = TRUE
+  ) +
+  annotate(
+    "text",
+    x = 1,
+    y = -0.25,
+    label = latex2exp::TeX("$y = \\cos{\\frac{2\\sqrt{2}}{2}x}$"),
+    parse = TRUE
+  )
+
+```
+
+It is hard to determine for sure, but I think the curves do interesect at right angles. I would like to highlight my discovery of [`{latex2exp}`](https://cran.r-project.org/web/packages/latex2exp/vignettes/using-latex2exp.html) that help converts Mathjax expressions to `R`'s plotmath expressions. This may not be necessary because I can also do the labels with plotmath syntax, but I prefer Mathjax syntax. Note the use of `\\` instead of the usual `\`. It seems that these are `regex` strings, `\` is the usual escape, i.e. `\` is not recognized as a backslash but as an escape tag. To use `\` in a string, we must use `\\`.
+
+# A Folded Paper (page 130, Problem 30)
+
+This problem really took me a long time and proves that I am really rusty at math. I am happy I started reviewing calculus again.
+
+## Problem
+
+A long sheet of paper is a units wide. One corner of the paper is folded over as shown. Find the value of $x$ that minimizes (a) the area of $\triangle ABC$, and (b) the length of crease $\overline {AC}$.
+
+```{r folded_paper, fig.width=6, fig.height=9}
+
+paper_width <- 40
+
+paper_height <- 60
+
+fold <- 25
+
+ggplot() +
+  aes(
+    c(0, fold, paper_width, paper_width),
+    c(0, paper_height, paper_height, 0)
+  ) +
+  geom_polygon(
+    fill = "palegreen"
+  ) +
+  geom_polygon(
+    aes(
+      c(0, fold, paper_width),
+      c(0, paper_height, paper_height - sqrt(fold**2 - (paper_width - fold)**2))
+    ),
+    fill = "seagreen"
+  ) +
+  geom_polygon(
+    aes(
+      c(0, 0, fold),
+      c(0, paper_height, paper_height)
+    ),
+    linetype = 2,
+    fill = "white",
+    size = 2,
+    color = "forestgreen"
+  ) +
+  annotate(
+    "text", 
+    x = -1, 
+    y = 0, 
+    label = "C", 
+    color = "darkred", 
+    size = 6
+  ) +
+  annotate(
+    "text", 
+    x = fold + 1.5, 
+    y = paper_height + 0.75, 
+    label = "A", 
+    color = "darkred", 
+    size = 6
+  ) +
+  annotate(
+    "text", 
+    x = paper_width + 0.75, 
+    y = paper_height - sqrt(fold**2 - (paper_width - fold)**2), 
+    label = "B", 
+    color = "darkred", 
+    size = 6
+  ) +
+  annotate(
+    "segment",
+    x = 0, 
+    y = paper_height + 2,
+    xend = fold,
+    yend = paper_height + 2,
+    color = "orange", 
+    size = 2
+  ) +
+  annotate(
+    "text",
+    x = fold / 2,
+    y = paper_height + 4,
+    label = "x"
+  ) +
+  annotate(
+    "segment",
+    x = fold, 
+    y = paper_height + 2,
+    xend = paper_width,
+    yend = paper_height + 2,
+    color = "yellow", 
+    size = 2
+  ) +
+  annotate(
+    "text",
+    x = fold + (paper_width - fold) / 2, 
+    y = paper_height + 4,
+    label = "a - x"
+  ) +
+  annotate(
+    "segment",
+    x = 0, 
+    y = -2,
+    xend = paper_width,
+    yend = -2,
+    color = "darkblue", 
+    size = 2
+  ) +
+  annotate(
+    "text",
+    x = paper_width / 2, 
+    y = -4,
+    label = "a"
+  ) +
+  theme_void() +
+  coord_fixed() +
+  labs(title = "A Folded Paper")
+
+```
+
+
+
+
+
+
+
+
+
