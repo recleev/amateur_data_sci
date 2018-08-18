@@ -2,20 +2,21 @@
 title: Tangent Lines and Non-Existent Ones
 author: Recle Etino Vibal
 date: '2018-08-06'
-slug: tangent-non-existent
 categories:
   - Calculus
   - Mathematics
 tags:
   - limits
-  - tangents
   - slopes
+  - tangents
+slug: tangent-non-existent
 output:
   blogdown::html_page:
     toc: yes
-bibliography: ["cwag2016.bib"]
-biblio-style: "apalike"
-link-citations: false
+bibliography:
+  - references/cwag2016.bib
+biblio-style: apalike
+link-citations: no
 ---
 
 # Definition of a Tangent Line
