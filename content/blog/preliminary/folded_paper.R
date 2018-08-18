@@ -63,7 +63,7 @@ ggplot() +
   ) +
   annotate(
     "text", 
-    x = 0.5, 
+    x = -1, 
     y = 0, 
     label = "C", 
     color = "darkred", 
@@ -71,15 +71,15 @@ ggplot() +
   ) +
   annotate(
     "text", 
-    x = fold + 0.5, 
-    y = paper_height + 0.5, 
+    x = fold + 1.5, 
+    y = paper_height + 0.75, 
     label = "A", 
     color = "darkred", 
     size = 6
   ) +
   annotate(
     "text", 
-    x = paper_width + 0.5, 
+    x = paper_width + 0.75, 
     y = paper_height - sqrt(fold**2 - (paper_width - fold)**2), 
     label = "B", 
     color = "darkred", 
@@ -133,3 +133,36 @@ ggplot() +
   theme_void() +
   coord_fixed() +
   labs(title = "A Folded Paper")
+
+# Sine and Cosine Interesect at Right Angles ------------------------------
+
+factor = 1 / sin(pi / 4)
+
+tibble(
+  theta = seq(0, 1, by = 0.05) * pi
+) %>% 
+  mutate(
+    sin_y = sin(factor * theta),
+    cos_y = cos(factor * theta)
+  ) %>% 
+  ggplot(
+    aes(
+      theta,
+      sin_y
+    )
+  ) +
+  geom_line(color = "red3") +
+  geom_line(
+    aes(
+      y = cos_y
+    ),
+    color = "forestgreen"
+  ) +
+  coord_fixed() +
+  ggthemes::theme_pander(gl = 0) +
+  labs(
+    title = "Intersecting Sine and Cosine Functions",
+    x = "x",
+    y = "y"
+  )
+  
