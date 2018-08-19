@@ -41,7 +41,7 @@
     <item>
       <title>Ggplot2</title>
       <link>/tags/ggplot2/</link>
-      <pubDate>Wed, 08 Aug 2018 00:00:00 +0000</pubDate>
+      <pubDate>Tue, 21 Aug 2018 00:00:00 +0000</pubDate>
       
       <guid>/tags/ggplot2/</guid>
       <description></description>
@@ -120,6 +120,24 @@
     </item>
     
     <item>
+      <title>Maxima</title>
+      <link>/tags/maxima/</link>
+      <pubDate>Tue, 21 Aug 2018 00:00:00 +0000</pubDate>
+      
+      <guid>/tags/maxima/</guid>
+      <description></description>
+    </item>
+    
+    <item>
+      <title>Minima</title>
+      <link>/tags/minima/</link>
+      <pubDate>Tue, 21 Aug 2018 00:00:00 +0000</pubDate>
+      
+      <guid>/tags/minima/</guid>
+      <description></description>
+    </item>
+    
+    <item>
       <title>Portfolio</title>
       <link>/tags/portfolio/</link>
       <pubDate>Fri, 20 Jul 2018 00:00:00 +0000</pubDate>
@@ -183,9 +201,18 @@
     </item>
     
     <item>
+      <title>Simulation</title>
+      <link>/tags/simulation/</link>
+      <pubDate>Tue, 21 Aug 2018 00:00:00 +0000</pubDate>
+      
+      <guid>/tags/simulation/</guid>
+      <description></description>
+    </item>
+    
+    <item>
       <title>Slopes</title>
       <link>/tags/slopes/</link>
-      <pubDate>Mon, 06 Aug 2018 00:00:00 +0000</pubDate>
+      <pubDate>Tue, 21 Aug 2018 00:00:00 +0000</pubDate>
       
       <guid>/tags/slopes/</guid>
       <description></description>
@@ -203,7 +230,7 @@
     <item>
       <title>Tangents</title>
       <link>/tags/tangents/</link>
-      <pubDate>Wed, 08 Aug 2018 00:00:00 +0000</pubDate>
+      <pubDate>Tue, 21 Aug 2018 00:00:00 +0000</pubDate>
       
       <guid>/tags/tangents/</guid>
       <description></description>
