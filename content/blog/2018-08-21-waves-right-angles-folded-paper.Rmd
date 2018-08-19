@@ -99,11 +99,11 @@ a^2 = \frac{1}{{\sin}^2{\frac{\pi}{4}}}
 a = \frac{1}{\sin{\frac{\pi}{4}}}
 \\
 \\
-a = \frac{2\sqrt{2}}{2}
+a = \sqrt{2}
 \end{align}
 $$
 
-I will confirm my answer by plotting the curves with $a = \frac{2\sqrt2}{2}$.
+We can confirm my answer by plotting the curves with $a = \sqrt{2}$.
 
 ```{r sine_cosine}
 
@@ -142,20 +142,22 @@ tibble(
     "text",
     x = 2,
     y = 0.7,
-    label = latex2exp::TeX("$y = \\sin{\\frac{2\\sqrt{2}}{2}x}$"),
+    label = latex2exp::TeX("$y = \\sin{\\left(x\\sqrt{2}\\right)}$"),
     parse = TRUE
   ) +
   annotate(
     "text",
     x = 1,
     y = -0.25,
-    label = latex2exp::TeX("$y = \\cos{\\frac{2\\sqrt{2}}{2}x}$"),
+    label = latex2exp::TeX("$y = \\cos{\\left(x\\sqrt{2}\\right)}$"),
     parse = TRUE
   )
 
 ```
 
-It is hard to determine for sure, but I think the curves do interesect at right angles. I would like to highlight my discovery of [`{latex2exp}`](https://cran.r-project.org/web/packages/latex2exp/vignettes/using-latex2exp.html) that help converts Mathjax expressions to `R`'s plotmath expressions. This may not be necessary because I can also do the labels with plotmath syntax, but I prefer Mathjax syntax. Note the use of `\\` instead of the usual `\`. It seems that these are `regex` strings, `\` is the usual escape, i.e. `\` is not recognized as a backslash but as an escape tag. To use `\` in a string, we must use `\\`.
+It is hard to determine for sure, but I think the curves do interesect at right angles. 
+
+I would like to highlight my use of [`{latex2exp}`](https://cran.r-project.org/web/packages/latex2exp/vignettes/using-latex2exp.html) that help converts Mathjax expressions to `R`'s plotmath expressions. This may not be necessary because I can also do the labels with plotmath syntax, but I prefer Mathjax syntax. Note the use of `\\` instead of the usual `\`. It seems that these are `regex` strings, `\` is the usual escape, i.e. `\` is not recognized as a backslash but as an escape tag. To use `\` in a string, we must use `\\`.
 
 # A Folded Paper (page 130, Problem 30)
 
