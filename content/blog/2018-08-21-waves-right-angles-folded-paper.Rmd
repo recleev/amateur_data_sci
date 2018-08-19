@@ -1,18 +1,18 @@
 ---
 title: Waves Intersecting at Right Angles and a Folded Paper
 author: Recle Etino Vibal
-date: '2018-08-19'
-slug: waves-right-angles-folded-paper
+date: '2018-08-21'
 categories:
   - Calculus
   - Mathematics
 tags:
   - ggplot2
+  - maxima
+  - minima
   - simulation
   - slopes
   - tangents
-  - minima
-  - maxima
+slug: waves-right-angles-folded-paper
 output:
   blogdown::html_page:
     toc: yes
@@ -272,6 +272,71 @@ ggplot() +
   labs(title = "A Folded Paper")
 
 ```
+
+I made this folded paper diagram with `ggplot2::geom_polygon()`. I only needed to specify the vertices, and the shapes drew themselves. I may have overused `ggplot2::annotate()`, but I also enjoyed using it. 
+
+Note in the problem that the paper is very long, so there is still paper $C$. I drew it this way for a reason that will be clear later. The position of $C$ does not really matter as the solution will generalize later. 
+
+The blue line indicates the width of the paper `a`. The orange line is the width of paper used in the fold, $x$. The yellow line, $a-x$ indicates the remaining edge of the paper not involved in the fold.
+
+## Solution: Minimum Area
+
+This problem took me a while to solve, so bear with as I discuss my thought process.
+
+First thing I realized was I needed to find the area of a triangle using three vertices. I chose $C$ to be at $\left(0,0\right)$ to simplify matters, and that also explains the way I drew the diagram. $A$ is at point $\left(x, y\right)$ where $y$ is the length of paper we will use in the fold, i.e. from $C$ to the edge of the paper. 
+
+$B$ is a big more complicated, but here is how I found it. Observe $\overline{AB}$ is just $x$. From $A$ to the corner of the paper is $a - x$. That leaves us with the distance from $B$ to the corner of the paper. Here is where geometry comes in. Notice that the triangle formed by $A$, $B$, and the corner of the paper is a right triangle. $\overline{AB}$ is the hypotenuse; one side is $a - x$. The distance from $B$ to the corner of the paper is 
+
+$$
+\begin{align}
+\sqrt{x^2 - (a - x)^2} &= \sqrt{x^2 - (a^2 - 2ax + x^2)}
+\\
+\\
+&= \sqrt{x^2 - a^2 + 2ax - x^2}
+\\
+\\
+&= \sqrt{2ax - a^2}
+\end{align}
+$$
+
+From this we can already say that $x \ge \frac{1}{2}a$, otherwise we will get an imaginary side.
+
+If the vertical distance of $A$ from the x-axis is $y$ and the vertical distance of $B$ from the edge of the paper is $\sqrt{2ax - a^2}$, then the distance of $B$ from the x-axis is $y - \sqrt{2ax - a^2}$. We can designated $B$ to be at point $\left(a, y - \sqrt{2ax - a^2}\right)$. We now have three points, but this is becoming more and more complicated.
+
+To compute the area of a triangle from its three vertices, I used the [shoelace formula](https://en.wikipedia.org/wiki/Shoelace_formula). For any polygon, we can find its area from its vertices using the equation,
+
+$$
+Area = \frac{1}{2} \lvert \sum_{i = 1}^n x_i (y_{i + 1} - y_{i - 1}) \rvert
+$$
+
+The absolute value is necessary as the summation can result to a negative value. Area cannot be negative. The summation only produces negative values because of the order and sign of the vertices. For this form of the shoelace formula, note that $x_{n+1} = x_1$, $x_0 = x_n$, $y_{n+1} = {y_1}$, and
+$y_0 = y_n$.
+
+For a triangle,
+
+$$
+\begin{align}
+Area = \frac{1}{2} \lvert x_1(y_2 - y_0) + x_2(y_3 - y_1) + x_3(y_4 - y_2) \rvert
+\end{align}
+$$
+
+When I specified $C$ to be at $\left(0,0\right)$, my intention was to have a simplified shoelace formula. If we let $B \left(a, y - \sqrt{2ax - a^2}\right)$ to be $\left(x_1, y_1\right)$, $A \left(x, y\right)$ as $\left(x_2, y_2\right)$, and $C\left(0, 0\right)$ as $\left(x_3, y_3\right)$, then
+
+$$
+\begin{align}
+Area &= \frac{1}{2} \lvert a(y - 0) + x\left[0 - \left(y - \sqrt{2ax - a^2}\right)\right] + 0 \cdot \left(y - \sqrt{2ax - a^2} - y\right)
+\\
+\\
+&= \frac{1}{2} \lvert ay  - x\left(y - \sqrt{2ax - a^2}\right)\rvert
+\\
+\\
+Area &= \frac{1}{2}ay - \frac{1}{2}xy + \frac{1}{2}\sqrt{2ax - a^2}
+\end{align}
+$$
+
+Note that I freely removed the absolute value sign since the expression will always be positive, i.e. $a \gt x$ and $y \gt y - \sqrt{2ax - a^2}$. Unfortunately, I hit another roadblock after this. How can I find the minimum area, when the area is a function of $x$ and $y$.
+
+The key to proceed with this problem is to realize that the area of $\triangle ABC$ is the same as the area of the right triangle indicated by the dashed lines in the figure, i.e. $Area = \frac{1}{2}xy$. This also gives us $y$ as a function of $x$ and the $Area$, $y = \frac{2Area}{x}$.
 
 
 
