@@ -37,9 +37,11 @@ opts_chunk$set(
 
 I found these two problems in @cwag2016. I enjoyed these problems because they require more thinking than just a mechanical application of derivatives.
 
-# Perpendicular Intersecting Waves (page 119, Problem 24)
+# Perpendicular Intersecting Waves
 
 ## Problem
+
+This problem appears in @cwag2016 on page 119, item 24.
 
 Find $a > 0$ so that the curves $y = \sin {ax}$ and $y=\cos {ax}$ intersect at right angles.
 
@@ -159,9 +161,9 @@ It is hard to determine for sure, but I think the curves do interesect at right 
 
 I would like to highlight my use of [`{latex2exp}`](https://cran.r-project.org/web/packages/latex2exp/vignettes/using-latex2exp.html) that help converts Mathjax expressions to `R`'s plotmath expressions. This may not be necessary because I can also do the labels with plotmath syntax, but I prefer Mathjax syntax. Note the use of `\\` instead of the usual `\`. It seems that these are `regex` strings, `\` is the usual escape, i.e. `\` is not recognized as a backslash but as an escape tag. To use `\` in a string, we must use `\\`.
 
-# A Folded Paper (page 130, Problem 30)
+# A Folded Paper
 
-This problem really took me a long time and proves that I am really rusty at math. I am happy I started reviewing calculus again.
+This problem on page 130, item 30 in @cwag2016 really took me a long time and proves that I am really rusty at math. I am happy I started reviewing calculus again.
 
 ## Problem
 
@@ -309,7 +311,7 @@ To compute the area of a triangle from its three vertices, I used the [shoelace 
 
 $$
 \begin{equation}
-A_{\triangle} = \frac{1}{2} \lvert \sum_{i = 1}^n x_i (y_{i + 1} - y_{i - 1}) \rvert \tag{The Shoelace Formula} \label{shoelace}
+A_{\triangle} = \frac{1}{2} \lvert \sum_{i = 1}^n x_i (y_{i + 1} - y_{i - 1}) \rvert \tag{Shoelace Formula} \label{shoelace}
 \end{equation}
 $$
 
@@ -334,19 +336,48 @@ A_{\triangle} &= \frac{1}{2} \lvert a(y - 0) + x\left[0 - \left(y - \sqrt{2ax - 
 &= \frac{1}{2} \lvert ay  - x\left(y - \sqrt{2ax - a^2}\right)\rvert
 \\
 \\
-A_{\triangle} &= \frac{1}{2}ay - \frac{1}{2}xy + \frac{1}{2}\sqrt{2ax - a^2}
+A_{\triangle} &= \frac{1}{2}ay - \frac{1}{2}xy + \frac{1}{2} x \sqrt{2ax - a^2} \tag{Area Eqn 1} \label{area1}
 \end{align}
 $$
 
 Note that I freely removed the absolute value sign since the expression will always be positive, i.e. $a \gt x$ and $y \gt y - \sqrt{2ax - a^2}$. Unfortunately, I hit another roadblock after this. How can I find the minimum area, when the area is a function of $x$ and $y$.
 
-The key to proceed with this problem is to realize that the area of $\triangle ABC$ is the same as the area of the right triangle indicated by the dashed lines in the figure, i.e. $A_{\triangle} = \frac{1}{2}xy$. This also gives us $y$ as a function of $x$ and the $A_{\triangle}$, $y = 2A_{\triangle}/x$.
+The key to proceed with this problem is to realize that the area of $\triangle ABC$ is the same as the area of the right triangle indicated by the dashed lines in the figure, i.e. 
+$$
+A_{\triangle} = \frac{1}{2}xy \tag{Area Eqn 2} \label{area2}
+$$
 
+This also gives us $y$ as a function of $x$ and the $A_{\triangle}$, 
 
+$$
+y = 2A_{\triangle}/x \tag{a} \label{y1}
+$$
 
+Substituting $\eqref{area2}$ and $\eqref{y1}$ in $\eqref{area1}$,
 
+$$
+\begin{align}
+A_{\triangle} &= \frac{1}{2}a \left(\frac{2 A_{\triangle}}{x}\right) - A_{\triangle} + \frac{1}{2} x \sqrt{2ax - a^2}
+\\
+\\
+A_{\triangle} + A_{\triangle} &= \frac{aA_{\triangle}}{x} + \frac{1}{2} x \sqrt{2ax - a^2}
+\\
+\\
+2A_{\triangle} - \frac{aA_{\triangle}}{x} &= \frac{1}{2} x \sqrt{2ax - a^2}
+\\
+\\
+\frac{2A_{\triangle} x - aA_{\triangle}}{x} &= \frac{1}{2} x \sqrt{2ax - a^2}
+\\
+\\
+A_{\triangle} \left( 2x - a \right) &= \frac{1}{2} x^2 \sqrt{2ax - a^2}
+\\
+\\
+A_{\triangle} &= \frac{x^2 \sqrt{2ax - a^2}}{4x - 2a} = x^2 \left( 2ax - a^2 \right)^{1/2} \left( 4x -2a \right)^{\text -1} \tag{Area Eqn 3} \label{area3}
+\end{align}
+$$
 
+I am showing $\eqref{area3}$ in alternate form, a product of terms rather than a quotient, that will be obvious later.
 
-
+# Reference
 
 

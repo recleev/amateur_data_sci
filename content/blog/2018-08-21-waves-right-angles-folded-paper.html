@@ -24,14 +24,15 @@ biblio-style: apalike
 
 <div id="TOC">
 <ul>
-<li><a href="#perpendicular-intersecting-waves-page-119-problem-24">Perpendicular Intersecting Waves (page 119, Problem 24)</a><ul>
+<li><a href="#perpendicular-intersecting-waves">Perpendicular Intersecting Waves</a><ul>
 <li><a href="#problem">Problem</a></li>
 <li><a href="#solution">Solution</a></li>
 </ul></li>
-<li><a href="#a-folded-paper-page-130-problem-30">A Folded Paper (page 130, Problem 30)</a><ul>
+<li><a href="#a-folded-paper">A Folded Paper</a><ul>
 <li><a href="#problem-1">Problem</a></li>
 <li><a href="#solution-minimum-area">Solution: Minimum Area</a></li>
 </ul></li>
+<li><a href="#reference">Reference</a></li>
 </ul>
 </div>
 
@@ -45,10 +46,11 @@ opts_chunk$set(
   warning = FALSE
 )</code></pre>
 <p>I found these two problems in <span class="citation">Simmons (2016)</span>. I enjoyed these problems because they require more thinking than just a mechanical application of derivatives.</p>
-<div id="perpendicular-intersecting-waves-page-119-problem-24" class="section level1">
-<h1>Perpendicular Intersecting Waves (page 119, Problem 24)</h1>
+<div id="perpendicular-intersecting-waves" class="section level1">
+<h1>Perpendicular Intersecting Waves</h1>
 <div id="problem" class="section level2">
 <h2>Problem</h2>
+<p>This problem appears in <span class="citation">Simmons (2016)</span> on page 119, item 24.</p>
 <p>Find <span class="math inline">\(a &gt; 0\)</span> so that the curves <span class="math inline">\(y = \sin {ax}\)</span> and <span class="math inline">\(y=\cos {ax}\)</span> intersect at right angles.</p>
 </div>
 <div id="solution" class="section level2">
@@ -151,9 +153,9 @@ tibble(
 <p>I would like to highlight my use of <a href="https://cran.r-project.org/web/packages/latex2exp/vignettes/using-latex2exp.html"><code>{latex2exp}</code></a> that help converts Mathjax expressions to <code>R</code>’s plotmath expressions. This may not be necessary because I can also do the labels with plotmath syntax, but I prefer Mathjax syntax. Note the use of <code>\\</code> instead of the usual <code>\</code>. It seems that these are <code>regex</code> strings, <code>\</code> is the usual escape, i.e. <code>\</code> is not recognized as a backslash but as an escape tag. To use <code>\</code> in a string, we must use <code>\\</code>.</p>
 </div>
 </div>
-<div id="a-folded-paper-page-130-problem-30" class="section level1">
-<h1>A Folded Paper (page 130, Problem 30)</h1>
-<p>This problem really took me a long time and proves that I am really rusty at math. I am happy I started reviewing calculus again.</p>
+<div id="a-folded-paper" class="section level1">
+<h1>A Folded Paper</h1>
+<p>This problem on page 130, item 30 in <span class="citation">Simmons (2016)</span> really took me a long time and proves that I am really rusty at math. I am happy I started reviewing calculus again.</p>
 <div id="problem-1" class="section level2">
 <h2>Problem</h2>
 <p>A long sheet of paper is a units wide. One corner of the paper is folded over as shown. Find the value of <span class="math inline">\(x\)</span> that minimizes (a) the area of <span class="math inline">\(\triangle ABC\)</span>, and (b) the length of crease <span class="math inline">\(\overline {AC}\)</span>.</p>
@@ -286,7 +288,7 @@ ggplot() +
 <p>To compute the area of a triangle from its three vertices, I used the <a href="https://en.wikipedia.org/wiki/Shoelace_formula">shoelace formula</a>. For any polygon, we can find its area from its vertices using the equation,</p>
 <p><span class="math display">\[
 \begin{equation}
-A_{\triangle} = \frac{1}{2} \lvert \sum_{i = 1}^n x_i (y_{i + 1} - y_{i - 1}) \rvert \tag{The Shoelace Formula} \label{shoelace}
+A_{\triangle} = \frac{1}{2} \lvert \sum_{i = 1}^n x_i (y_{i + 1} - y_{i - 1}) \rvert \tag{Shoelace Formula} \label{shoelace}
 \end{equation}
 \]</span></p>
 <p>The absolute value is necessary as the summation can result to a negative value. Area cannot be negative. The summation only produces negative values because of the order and sign of the vertices. For this form of the shoelace formula, note that <span class="math inline">\(x_{n+1} = x_1\)</span>, <span class="math inline">\(x_0 = x_n\)</span>, <span class="math inline">\(y_{n+1} = {y_1}\)</span>, and <span class="math inline">\(y_0 = y_n\)</span>.</p>
@@ -305,15 +307,46 @@ A_{\triangle} &amp;= \frac{1}{2} \lvert a(y - 0) + x\left[0 - \left(y - \sqrt{2a
 &amp;= \frac{1}{2} \lvert ay  - x\left(y - \sqrt{2ax - a^2}\right)\rvert
 \\
 \\
-A_{\triangle} &amp;= \frac{1}{2}ay - \frac{1}{2}xy + \frac{1}{2}\sqrt{2ax - a^2}
+A_{\triangle} &amp;= \frac{1}{2}ay - \frac{1}{2}xy + \frac{1}{2} x \sqrt{2ax - a^2} \tag{Area Eqn 1} \label{area1}
 \end{align}
 \]</span></p>
 <p>Note that I freely removed the absolute value sign since the expression will always be positive, i.e. <span class="math inline">\(a \gt x\)</span> and <span class="math inline">\(y \gt y - \sqrt{2ax - a^2}\)</span>. Unfortunately, I hit another roadblock after this. How can I find the minimum area, when the area is a function of <span class="math inline">\(x\)</span> and <span class="math inline">\(y\)</span>.</p>
-<p>The key to proceed with this problem is to realize that the area of <span class="math inline">\(\triangle ABC\)</span> is the same as the area of the right triangle indicated by the dashed lines in the figure, i.e. <span class="math inline">\(A_{\triangle} = \frac{1}{2}xy\)</span>. This also gives us <span class="math inline">\(y\)</span> as a function of <span class="math inline">\(x\)</span> and the <span class="math inline">\(A_{\triangle}\)</span>, <span class="math inline">\(y = 2A_{\triangle}/x\)</span>.</p>
+<p>The key to proceed with this problem is to realize that the area of <span class="math inline">\(\triangle ABC\)</span> is the same as the area of the right triangle indicated by the dashed lines in the figure, i.e. <span class="math display">\[
+A_{\triangle} = \frac{1}{2}xy \tag{Area Eqn 2} \label{area2}
+\]</span></p>
+<p>This also gives us <span class="math inline">\(y\)</span> as a function of <span class="math inline">\(x\)</span> and the <span class="math inline">\(A_{\triangle}\)</span>,</p>
+<p><span class="math display">\[
+y = 2A_{\triangle}/x \tag{a} \label{y1}
+\]</span></p>
+<p>Substituting <span class="math inline">\(\eqref{area2}\)</span> and <span class="math inline">\(\eqref{y1}\)</span> in <span class="math inline">\(\eqref{area1}\)</span>,</p>
+<p><span class="math display">\[
+\begin{align}
+A_{\triangle} &amp;= \frac{1}{2}a \left(\frac{2 A_{\triangle}}{x}\right) - A_{\triangle} + \frac{1}{2} x \sqrt{2ax - a^2}
+\\
+\\
+A_{\triangle} + A_{\triangle} &amp;= \frac{aA_{\triangle}}{x} + \frac{1}{2} x \sqrt{2ax - a^2}
+\\
+\\
+2A_{\triangle} - \frac{aA_{\triangle}}{x} &amp;= \frac{1}{2} x \sqrt{2ax - a^2}
+\\
+\\
+\frac{2A_{\triangle} x - aA_{\triangle}}{x} &amp;= \frac{1}{2} x \sqrt{2ax - a^2}
+\\
+\\
+A_{\triangle} \left( 2x - a \right) &amp;= \frac{1}{2} x^2 \sqrt{2ax - a^2}
+\\
+\\
+A_{\triangle} &amp;= \frac{x^2 \sqrt{2ax - a^2}}{4x - 2a} = x^2 \left( 2ax - a^2 \right)^{1/2} \left( 4x -2a \right)^{\text -1} \tag{Area Eqn 3} \label{area3}
+\end{align}
+\]</span></p>
+<p>I am showing <span class="math inline">\(\eqref{area3}\)</span> in alternate form, a product of terms rather than a quotient, that will be obvious later.</p>
+</div>
+</div>
+<div id="reference" class="section level1 unnumbered">
+<h1>Reference</h1>
 <div id="refs" class="references">
 <div id="ref-cwag2016">
 <p>Simmons, George F. 2016. <em>Calculus with Analytic Geometry</em>. 2nd Edition. McGraw-Hill Education.</p>
-</div>
 </div>
 </div>
 </div>
