@@ -380,15 +380,43 @@ I am showing $\eqref{area3}$ in alternate form, a product of terms rather than a
 
 $$
 \begin{align}
-\frac{d}{dx}A_{\triangle} &= 2x \left(2ax - a^2\right)^{1/2} \left(4x - 2a\right)^{\text -1} + x^2 \left( \frac{1}{2}  \right) \left( 2a \right)\left(2ax - a^2\right)^{\text -1/2} \left(4x - 2a\right)^{\text -1} + x^2 \left(2ax - a^2\right)^{1/2} \left(-1 \right) \left(4x - 2a\right)^{\text -2}
+\frac{d}{dx}A_{\triangle} &= 2x \left(2ax - a^2\right)^{1/2} \left(4x - 2a\right)^{\text -1} + x^2 \left( \frac{1}{2}  \right) \left( 2a \right)\left(2ax - a^2\right)^{\text -1/2} \left(4x - 2a\right)^{\text -1} + x^2 \left(2ax - a^2\right)^{1/2} \left(-1 \right) \left(4x - 2a\right)^{\text -2} \left( 4 \right)
 \\
 \\
-&= \frac{2x \left(2a - a^2\right)^{1/2}}{4x - 2a} + \frac{a x^2}{\left(2ax - a^2\right)^{1/2} \left(4x - 2a\right)} - \frac {x^2 \left(2ax - a^2\right)^{1/2}}{\left(4x - 2a\right)^2}
+&= \frac{2x \left(2a - a^2\right)^{1/2}}{4x - 2a} + \frac{a x^2}{\left(2ax - a^2\right)^{1/2} \left(4x - 2a\right)} - \frac {4x^2 \left(2ax - a^2\right)^{1/2}}{\left(4x - 2a\right)^2}
 \\
 \\
-&= \frac{2x \left(2x - a^2\right) \left(4x - 2a\right) + ax^2 \left( 4x - 2a \right) - x^2 \left( 2ax - a^2\right)}{\left(2ax - a^2\right)^{1/2}\left(4x - 2a\right)^2}
+&= \frac{2x \left(2ax - a^2\right) \left( 4x - 2a \right) + ax^2 \left( 4x - 2a \right) - 4x^2 \left( 2ax - a^2\right)}{\left(2ax - a^2\right)^{1/2}\left(4x - 2a\right)^2}
+\\
+\\
+&= \frac{2x \left( 8ax^2 - 4a^2x - 4a^2x + 2a^3 \right) + 4ax^3 - 2a^2x^2 - 8ax^3 + 4a^2x^2}{\left( 2ax - a^2 \right)^{1/2}\left( 4x - 2a \right)^2}
+\\
+\\
+&= \frac{16ax^3 - 8a^2x^2 - 8a^2x^2 + 4a^3x + 4ax^3 - 2a^2x^2 - 8ax^3 + 4a^2x^2}{\left( 2ax - a^2 \right)^{1/2}\left( 4x - 2a \right)^2}
+\\
+\\
+&= \frac{12ax^3 - 14a^2x^2 + 4a^3x}{\left( 2ax - a^2 \right)^{1/2}\left( 4x - 2a \right)^2}
+\\
+\\
+\frac{d}{dx}A_{\triangle} &= \frac{\left( 6x - 4a \right) \left( 2x - a \right)}{\left( 2ax - a^2 \right)^{1/2}\left( 4x - 2a \right)^2}
 \end{align}
 $$
+
+To find the minimum area, find the value of $x$ when $\frac{d}{dx}A_{\triangle} = 0$.
+
+$$
+\begin{align}
+\frac{d}{dx}A_{\triangle} &= 0 = \frac{\left( 6x - 4a \right) \left( 2x - a \right)}{\left( 2ax - a^2 \right)^{1/2}\left( 4x - 2a \right)^2}
+\\
+\\
+0 &= \left( 6x - 4a \right) \left( 2x - a \right)
+\\
+\\
+x &= \frac{2}{3}a \ , \ \frac{1}{2}a
+\end{align}
+$$
+
+We know that $x = \frac{1}{2}a$ is not a possible solution, so the the minimum area is achieved when $x = \frac{2}{3}a$.
 
 
 # Reference
