@@ -416,7 +416,7 @@ x &= \frac{2}{3}a \ , \ \frac{1}{2}a
 \end{align}
 $$
 
-The solution $x = \frac{1}{2}a$ is not a possible because it results to a denaminator of $0$, so the the minimum area is achieved when $x = \frac{2}{3}a$.
+The solution $x = \frac{1}{2}a$ is not possible because it results to a denaminator of $0$, so the the minimum area is achieved when $x = \frac{2}{3}a$.
 
 ## Solution: Minimum Crease Length
 
