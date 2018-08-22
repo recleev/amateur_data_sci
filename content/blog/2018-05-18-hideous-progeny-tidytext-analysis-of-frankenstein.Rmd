@@ -2,12 +2,17 @@
 title: 'Hideous Progeny: Tidytext Analysis of Frankenstein'
 author: Recle Etino Vibal
 date: '2018-05-19'
+categories:
+  - text mining
+  - tidyverse
+tags:
+  - frankenstein
+  - literature
+  - sentiment analysis
 slug: hideous-progeny-tidytext-frankenstein
-categories: ["text mining", "tidyverse"]
-tags: ["frankenstein", "literature", "sentiment analysis"]
 output:
   blogdown::html_page:
-    toc: true
+    toc: yes
 ---
 
 ```{r setup, include=FALSE}
