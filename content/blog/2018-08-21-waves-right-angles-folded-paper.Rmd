@@ -350,7 +350,7 @@ $$
 This also gives us $y$ as a function of $x$ and the $A_{\triangle}$, 
 
 $$
-y = 2A_{\triangle}/x \tag{a} \label{y1}
+y = \frac{2A_{\triangle}}{x} \tag{a} \label{y1}
 $$
 
 Substituting $\eqref{area2}$ and $\eqref{y1}$ in $\eqref{area1}$,
@@ -416,7 +416,7 @@ x &= \frac{2}{3}a \ , \ \frac{1}{2}a
 \end{align}
 $$
 
-We know that $x = \frac{1}{2}a$ is not a possible solution, so the the minimum area is achieved when $x = \frac{2}{3}a$.
+The solution $x = \frac{1}{2}a$ is not a possible because it results to a denaminator of $0$, so the the minimum area is achieved when $x = \frac{2}{3}a$.
 
 ## Solution: Minimum Crease Length
 
