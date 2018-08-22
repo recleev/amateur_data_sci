@@ -330,7 +330,7 @@ When I specified $C$ to be at $\left(0,0\right)$, my intention was to have a sim
 
 $$
 \begin{align}
-A_{\triangle} &= \frac{1}{2} \lvert a(y - 0) + x\left[0 - \left(y - \sqrt{2ax - a^2}\right)\right] + 0 \cdot \left(y - \sqrt{2ax - a^2} - y\right)
+A_{\triangle} &= \frac{1}{2} \lvert a(y - 0) + x\left[0 - \left(y - \sqrt{2ax - a^2}\right)\right] + 0 \cdot \left(y - \sqrt{2ax - a^2} - y\right) \rvert
 \\
 \\
 &= \frac{1}{2} \lvert ay  - x\left(y - \sqrt{2ax - a^2}\right)\rvert
