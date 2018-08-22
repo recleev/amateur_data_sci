@@ -104,7 +104,7 @@ ga('send', 'pageview');
         <h2 class="title is-1 top-pad strong-post-title"><a href="/blog/waves-right-angles-folded-paper/">Waves Intersecting at Right Angles and a Folded Paper</a></h2>
             <div class="post-data">
                 Aug 21, 2018 |
-                9 minutes read
+                13 minutes read
             </div>
 
             
@@ -147,6 +147,8 @@ ga('send', 'pageview');
 <li><a href="#a-folded-paper">A Folded Paper</a><ul>
 <li><a href="#problem-1">Problem</a></li>
 <li><a href="#solution-minimum-area">Solution: Minimum Area</a></li>
+<li><a href="#solution-minimum-crease-length">Solution: Minimum Crease Length</a></li>
+<li><a href="#solution-using-r-without-differentiations">Solution: Using R (Without Differentiations)</a></li>
 </ul></li>
 <li><a href="#reference">Reference</a></li>
 </ul>
@@ -167,7 +169,7 @@ opts_chunk$set(
 <div id="problem" class="section level2">
 <h2>Problem</h2>
 <p>This problem appears in <span class="citation">Simmons (2016)</span> on page 119, item 24.</p>
-<p>Find <span class="math inline">\(a &gt; 0\)</span> so that the curves <span class="math inline">\(y = \sin {ax}\)</span> and <span class="math inline">\(y=\cos {ax}\)</span> intersect at right angles.</p>
+<p>Find <span class="math inline">\(a \gt 0\)</span> so that the curves <span class="math inline">\(y = \sin {ax}\)</span> and <span class="math inline">\(y = \cos {ax}\)</span> intersect at right angles.</p>
 </div>
 <div id="solution" class="section level2">
 <h2>Solution</h2>
@@ -193,7 +195,7 @@ y = \cos{ax}
 <p><span class="math display">\[
 1 = a^2 \sin{ax} \cos{ax}
 \]</span></p>
-<p>At this point, I was stuck. It was very difficult to compute for <span class="math inline">\(a\)</span>. My first light bulb was realizing that the point of interest is at the intersection and that means <span class="math inline">\(y = \sin{ax} = \cos{ax}\)</span>. Upon substituting,</p>
+<p>At this point, I was stuck. It was very difficult to compute for <span class="math inline">\(a\)</span>. My first light bulb was realizing that the point of interest is at the intersection and that means <span class="math inline">\(y = \sin{ax} = \cos{ax}\)</span>. Upon substitution,</p>
 <p><span class="math display">\[
 1 = a^2 {\sin}^2{ax} 
 \\ 
@@ -203,7 +205,7 @@ or
 \\
 1 = a^2 {\cos}^2{ax} 
 \]</span></p>
-<p>I was stuck again for a moment because how can one compute for a in this situation. I was set free when I realized that <span class="math inline">\(\sin{\theta} = \cos{\theta}\)</span> when <span class="math inline">\(\theta = \frac{\pi}{4}\)</span>. This simplifies the equation and allowed me to compute for <span class="math inline">\(a\)</span>.</p>
+<p>I was stuck again for a moment because how can one compute for <span class="math inline">\(a\)</span> in this situation. I was set free when I realized that <span class="math inline">\(\sin{\theta} = \cos{\theta}\)</span> when <span class="math inline">\(\theta = \frac{\pi}{4}\)</span>. This simplifies the equation and allowed me to compute for <span class="math inline">\(a\)</span>.</p>
 <p><span class="math display">\[
 \begin{align}
 1 = a^2{\sin}^2{ax}
@@ -266,7 +268,7 @@ tibble(
   )</code></pre>
 <p><img src="/blog/2018-08-21-waves-right-angles-folded-paper_files/figure-html/sine_cosine-1.png" width="672" style="display: block; margin: auto;" /></p>
 <p>It is hard to determine for sure, but I think the curves do interesect at right angles.</p>
-<p>I would like to highlight my use of <a href="https://cran.r-project.org/web/packages/latex2exp/vignettes/using-latex2exp.html"><code>{latex2exp}</code></a> that help converts Mathjax expressions to <code>R</code>’s plotmath expressions. This may not be necessary because I can also do the labels with plotmath syntax, but I prefer Mathjax syntax. Note the use of <code>\\</code> instead of the usual <code>\</code>. It seems that these are <code>regex</code> strings, <code>\</code> is the usual escape, i.e. <code>\</code> is not recognized as a backslash but as an escape tag. To use <code>\</code> in a string, we must use <code>\\</code>.</p>
+<p>I would like to highlight my use of <a href="https://cran.r-project.org/web/packages/latex2exp/vignettes/using-latex2exp.html"><code>{latex2exp}</code></a> that help converts Mathjax expressions to <code>R</code>’s plotmath expressions. This may not be necessary because I can also do the labels with plotmath syntax, but I prefer Mathjax syntax. Note the use of \ instead of the usual . It seems that these are <code>regex</code> strings,  is the usual escape, i.e.  is not recognized as a backslash but as an escape tag. To use  in a string, we must use \.</p>
 </div>
 </div>
 <div id="a-folded-paper" class="section level1">
@@ -399,7 +401,7 @@ ggplot() +
 &amp;= \sqrt{2ax - a^2}
 \end{align}
 \]</span></p>
-<p>From this we can already say that <span class="math inline">\(\frac{1}{2}a \le x \le a\)</span>. If <span class="math inline">\(x \le \frac{1}{2}a\)</span>, then we will get an imaginary side.</p>
+<p>From this we can already say that <span class="math inline">\(\frac{1}{2}a \le x \le a\)</span>. If <span class="math inline">\(x \lt \frac{1}{2}a\)</span>, then we will get an imaginary side.</p>
 <p>If the vertical distance of <span class="math inline">\(A\)</span> from the x-axis is <span class="math inline">\(y\)</span> and the vertical distance of <span class="math inline">\(B\)</span> from the edge of the paper is <span class="math inline">\(\sqrt{2ax - a^2}\)</span>, then the distance of <span class="math inline">\(B\)</span> from the x-axis is <span class="math inline">\(y - \sqrt{2ax - a^2}\)</span>. We can designated <span class="math inline">\(B\)</span> to be at point <span class="math inline">\(\left(a, y - \sqrt{2ax - a^2}\right)\)</span>. We now have three points, but this is becoming more and more complicated.</p>
 <p>To compute the area of a triangle from its three vertices, I used the <a href="https://en.wikipedia.org/wiki/Shoelace_formula">shoelace formula</a>. For any polygon, we can find its area from its vertices using the equation,</p>
 <p><span class="math display">\[
@@ -455,7 +457,158 @@ A_{\triangle} \left( 2x - a \right) &amp;= \frac{1}{2} x^2 \sqrt{2ax - a^2}
 A_{\triangle} &amp;= \frac{x^2 \sqrt{2ax - a^2}}{4x - 2a} = x^2 \left( 2ax - a^2 \right)^{1/2} \left( 4x -2a \right)^{\text -1} \tag{Area Eqn 3} \label{area3}
 \end{align}
 \]</span></p>
-<p>I am showing <span class="math inline">\(\eqref{area3}\)</span> in alternate form, a product of terms rather than a quotient, that will be obvious later.</p>
+<p>I am showing <span class="math inline">\(\eqref{area3}\)</span> in alternate form, a product of terms rather than a quotient, as this is easier to differentiate.</p>
+<p><span class="math display">\[
+\begin{align}
+\frac{d}{dx}A_{\triangle} &amp;= 2x \left(2ax - a^2\right)^{1/2} \left(4x - 2a\right)^{\text -1} + x^2 \left( \frac{1}{2}  \right) \left( 2a \right)\left(2ax - a^2\right)^{\text -1/2} \left(4x - 2a\right)^{\text -1} + x^2 \left(2ax - a^2\right)^{1/2} \left(-1 \right) \left(4x - 2a\right)^{\text -2} \left( 4 \right)
+\\
+\\
+&amp;= \frac{2x \left(2a - a^2\right)^{1/2}}{4x - 2a} + \frac{a x^2}{\left(2ax - a^2\right)^{1/2} \left(4x - 2a\right)} - \frac {4x^2 \left(2ax - a^2\right)^{1/2}}{\left(4x - 2a\right)^2}
+\\
+\\
+&amp;= \frac{2x \left(2ax - a^2\right) \left( 4x - 2a \right) + ax^2 \left( 4x - 2a \right) - 4x^2 \left( 2ax - a^2\right)}{\left(2ax - a^2\right)^{1/2}\left(4x - 2a\right)^2}
+\\
+\\
+&amp;= \frac{2x \left( 8ax^2 - 4a^2x - 4a^2x + 2a^3 \right) + 4ax^3 - 2a^2x^2 - 8ax^3 + 4a^2x^2}{\left( 2ax - a^2 \right)^{1/2}\left( 4x - 2a \right)^2}
+\\
+\\
+&amp;= \frac{16ax^3 - 8a^2x^2 - 8a^2x^2 + 4a^3x + 4ax^3 - 2a^2x^2 - 8ax^3 + 4a^2x^2}{\left( 2ax - a^2 \right)^{1/2}\left( 4x - 2a \right)^2}
+\\
+\\
+&amp;= \frac{12ax^3 - 14a^2x^2 + 4a^3x}{\left( 2ax - a^2 \right)^{1/2}\left( 4x - 2a \right)^2}
+\\
+\\
+\frac{d}{dx}A_{\triangle} &amp;= \frac{\left( 6x - 4a \right) \left( 2x - a \right)}{\left( 2ax - a^2 \right)^{1/2}\left( 4x - 2a \right)^2}
+\end{align}
+\]</span></p>
+<p>To find the minimum area, find the value of <span class="math inline">\(x\)</span> when <span class="math inline">\(\frac{d}{dx}A_{\triangle} = 0\)</span>.</p>
+<p><span class="math display">\[
+\begin{align}
+\frac{d}{dx}A_{\triangle} &amp;= 0 = \frac{\left( 6x - 4a \right) \left( 2x - a \right)}{\left( 2ax - a^2 \right)^{1/2}\left( 4x - 2a \right)^2}
+\\
+\\
+0 &amp;= \left( 6x - 4a \right) \left( 2x - a \right)
+\\
+\\
+x &amp;= \frac{2}{3}a \ , \ \frac{1}{2}a
+\end{align}
+\]</span></p>
+<p>We know that <span class="math inline">\(x = \frac{1}{2}a\)</span> is not a possible solution, so the the minimum area is achieved when <span class="math inline">\(x = \frac{2}{3}a\)</span>.</p>
+</div>
+<div id="solution-minimum-crease-length" class="section level2">
+<h2>Solution: Minimum Crease Length</h2>
+<p>The first thing to realize is that the length of the crease, <span class="math inline">\(l_{AC}\)</span>, is equal to <span class="math inline">\(x^2 + y^2\)</span>. The second thing to realize is that <span class="math inline">\(y = l_{BC}\)</span> such that,</p>
+<p><span class="math display">\[
+\begin{align}
+y &amp;= l_{BC} = \sqrt{a^2 + \left( y - \sqrt{2ax - a^2} \right)^2}
+\\
+\\
+y^2 &amp;= a^2 + \left( y - \sqrt{2ax - a^2} \right)^2
+\\
+\\
+y^2 &amp;= a^2 + y^2 - 2y\sqrt{2ax - a^2} + \left( 2ax - a^2 \right)
+\\
+\\
+y^2 - y^2 + 2y \sqrt{2ax - a^2} &amp;= a^2 + 2ax - a^2
+\\
+\\
+2y \sqrt{2ax - a^2} &amp;= 2ax
+\\
+\\
+y &amp;= \frac{ax}{\sqrt{2ax - a^2}}
+\end{align}
+\]</span></p>
+<p>Now that we have <span class="math inline">\(y\)</span> as a function of <span class="math inline">\(x\)</span>,</p>
+<p><span class="math display">\[
+\begin{align}
+l_{AC}^2 &amp;= x^2 + y^2
+\\
+\\
+&amp;= x^2 + \left( \frac{ax}{\sqrt{2ax - a^2}} \right)^2
+\\
+\\
+&amp;= x^2 + \frac{a^2x^2}{2ax - a^2}
+\\
+\\
+&amp;= \frac{x^2 \left( 2ax - a^2 \right) + a^2x^2}{2ax - a^2}
+\\
+\\
+&amp;= \frac{2ax^3 - a^2x^2 + a^2x^2}{2ax - a^2}
+\\
+\\
+l_{AC}^2 &amp;= \frac{2ax^3}{2ax - a^2}
+\\
+\\
+l_{AC} &amp;= \left( \frac{2ax^3}{2ax - a^2} \right)^{\text 1/2}
+\\
+\\
+l_{AC} &amp;= \left( 2ax^3 \right)^{\text 1/2} \left( 2ax -a^2 \right)^{\text -1/2} \tag{Crease Eqn} \label{crease}
+\end{align}
+\]</span></p>
+<p>Now we have <span class="math inline">\(l_{AC}\)</span> as a function of <span class="math inline">\(x\)</span>. To find the value of <span class="math inline">\(x\)</span> that will give the minimum value of <span class="math inline">\(l_{AC}\)</span>, find <span class="math inline">\(x\)</span> such that <span class="math inline">\(\frac{d}{dx}l_{AC} = 0\)</span>.</p>
+<p><span class="math display">\[
+\begin{align}
+\frac{d}{dx}l_{AC} &amp;= \frac{1}{2} \left( 2ax^3 \right)^{\text -1/2} \left( 6ax^2 \right) \left( 2ax -a^2 \right)^{\text -1/2} + \left( 2ax^3 \right)^{\text 1/2} \left( - \frac{1}{2} \right) \left( 2ax - a^2 \right)^{\text -3/2} \left( 2a \right)
+\\
+\\
+&amp;= \frac{3ax^2}{\left( 2ax^3 \right)^{\text 1/2} \left( 2ax - a^2 \right)^{\text 1/2}} - \frac{2^{\text 1/2} \left( ax \right)^{\text 3/2}}{\left( 2ax - a^2 \right)^{\text 3/2}}
+\\
+\\
+&amp;= \frac{3ax^2 \left( 2ax - a^2 \right) - 2^{\text 1/2} \left( ax \right)^{\text 3/2} \left( 2ax^3 \right)^{\text 1/2}}{\left( 2ax^3 \right)^{\text 1/2} \left( 2ax - a^2 \right)^{\text 3/2}}
+\\
+\\
+&amp;= \frac{6a^2x^3 - 3a^3x^2 - 2a^2x^3}{\left( 2ax^3 \right)^{\text 1/2} \left( 2ax - a^2 \right)^{\text 3/2}}
+\\
+\\
+\frac{d}{dx}l_{AC} &amp;= \frac{4a^2x^3 - 3a^3x^2}{\left( 2ax^3 \right)^{\text 1/2} \left( 2ax - a^2 \right)^{\text 3/2}}
+\\
+\\
+\frac{d}{dx}l_{AC} &amp;= 0 = \frac{4a^2x^3 - 3a^3x^2}{\left( 2ax^3 \right)^{\text 1/2} \left( 2ax - a^2 \right)^{\text 3/2}}
+\\
+\\
+0 &amp;= 4a^2x^3 - 3a^3x^2
+\\
+\\
+4a^2x^3 &amp;= 3a^3x^2
+\\
+\\
+x &amp;= \frac{3}{4}a
+\end{align}
+\]</span></p>
+</div>
+<div id="solution-using-r-without-differentiations" class="section level2">
+<h2>Solution: Using R (Without Differentiations)</h2>
+<p>All of the above steps are the traditional way of finding the extremas of a value as a function of another value. We can solve the same problems using only <span class="math inline">\(\eqref{area3}\)</span> and <span class="math inline">\(\eqref{crease}\)</span> without differentiation.</p>
+<p>I set <span class="math inline">\(a = 1\)</span> so that any <span class="math inline">\(x\)</span> will be a factor multiplied to any value of <span class="math inline">\(a\)</span> and used values of <span class="math inline">\(x \in \left[ \frac{1}{2}, 1 \right]\)</span> and filtered the minimum values of <span class="math inline">\(A_{\triangle}\)</span> and <span class="math inline">\(l_{AC}\)</span>.</p>
+<pre class="r"><code># Create Domain -----------------------------------------------------------
+
+domain &lt;- 
+  # the assumption is the thickness of the paper is one unit
+  dplyr::tibble(width = seq(0.50001, 1, by = 0.00001))
+
+# Find Minimum Area -------------------------------------------------------
+
+area_min &lt;- 
+  domain %&gt;% 
+  mutate(
+    area = (width ** 2) * sqrt(2 * width - 1) /
+      (4 * width - 2)
+  ) %&gt;% 
+  filter(area == min(area)) %&gt;% 
+  dplyr::pull(width)
+
+# Find Minimum Crease Length ----------------------------------------------
+
+crease_min &lt;- 
+  domain %&gt;% 
+  mutate(
+    crease_length = sqrt(
+      (2 * (width ** 3)) / (2 * width - 1)
+    )
+  ) %&gt;% 
+  filter(crease_length == min(crease_length)) %&gt;% 
+  dplyr::pull(width)</code></pre>
+<p>From this simulation we find that the minimum <span class="math inline">\(A_{\triangle}\)</span> is obtained when <span class="math inline">\(x\)</span> is 0.66667 or <span class="math inline">\(\frac{2}{3}\)</span> of <span class="math inline">\(a\)</span> and the minimum <span class="math inline">\(l_{AC}\)</span> is obtained when <span class="math inline">\(x\)</span> is 0.75 or <span class="math inline">\(\frac{3}{4}\)</span>. This confirms the answer we obtained using the traditional steps of differentiation. However, we will not be able to use this method if we cannot derive <span class="math inline">\(\eqref{area3}\)</span> and <span class="math inline">\(\eqref{crease}\)</span>.</p>
 </div>
 </div>
 <div id="reference" class="section level1 unnumbered">

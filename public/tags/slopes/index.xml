@@ -17,7 +17,7 @@
       <pubDate>Tue, 21 Aug 2018 00:00:00 +0000</pubDate>
       
       <guid>/blog/waves-right-angles-folded-paper/</guid>
-      <description>Perpendicular Intersecting WavesProblemSolutionA Folded PaperProblemSolution: Minimum AreaReferencelibrary(knitr)library(tidyverse)library(ggthemes)opts_chunk$set(fig.align = &amp;quot;center&amp;quot;,message = FALSE,warning = FALSE)I found these two problems in Simmons (2016). I enjoyed these problems because they require more thinking than just a mechanical application of derivatives.
+      <description>Perpendicular Intersecting WavesProblemSolutionA Folded PaperProblemSolution: Minimum AreaSolution: Minimum Crease LengthSolution: Using R (Without Differentiations)Referencelibrary(knitr)library(tidyverse)library(ggthemes)opts_chunk$set(fig.align = &amp;quot;center&amp;quot;,message = FALSE,warning = FALSE)I found these two problems in Simmons (2016). I enjoyed these problems because they require more thinking than just a mechanical application of derivatives.
 Perpendicular Intersecting WavesProblemThis problem appears in Simmons (2016) on page 119, item 24.</description>
     </item>
     

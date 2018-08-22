@@ -11,7 +11,8 @@ domain <-
 
 # Find Minimum Area -------------------------------------------------------
 
-domain %>% 
+area_min <- 
+  domain %>% 
   mutate(
     area = (width ** 2) * sqrt(2 * width - 1) /
       (4 * width - 2)
@@ -20,7 +21,8 @@ domain %>%
 
 # Find Minimum Crease Length ----------------------------------------------
 
-domain %>% 
+crease_min <- 
+  domain %>% 
   mutate(
     crease_length = sqrt(
       (2 * (width ** 3)) / (2 * width - 1)

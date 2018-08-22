@@ -43,7 +43,7 @@ I found these two problems in @cwag2016. I enjoyed these problems because they r
 
 This problem appears in @cwag2016 on page 119, item 24.
 
-Find $a > 0$ so that the curves $y = \sin {ax}$ and $y=\cos {ax}$ intersect at right angles.
+Find $a \gt 0$ so that the curves $y = \sin {ax}$ and $y = \cos {ax}$ intersect at right angles.
 
 ## Solution
 
@@ -76,7 +76,7 @@ $$
 1 = a^2 \sin{ax} \cos{ax}
 $$
 
-At this point, I was stuck. It was very difficult to compute for $a$. My first light bulb was realizing that the point of interest is at the intersection and that means $y = \sin{ax} = \cos{ax}$. Upon substituting, 
+At this point, I was stuck. It was very difficult to compute for $a$. My first light bulb was realizing that the point of interest is at the intersection and that means $y = \sin{ax} = \cos{ax}$. Upon substitution, 
 
 $$
 1 = a^2 {\sin}^2{ax} 
@@ -88,7 +88,7 @@ or
 1 = a^2 {\cos}^2{ax} 
 $$
 
-I was stuck again for a moment because how can one compute for a in this situation. I was set free when I realized that $\sin{\theta} = \cos{\theta}$ when $\theta = \frac{\pi}{4}$. This simplifies the equation and allowed me to compute for $a$.
+I was stuck again for a moment because how can one compute for $a$ in this situation. I was set free when I realized that $\sin{\theta} = \cos{\theta}$ when $\theta = \frac{\pi}{4}$. This simplifies the equation and allowed me to compute for $a$.
 
 $$
 \begin{align}
@@ -159,7 +159,7 @@ tibble(
 
 It is hard to determine for sure, but I think the curves do interesect at right angles. 
 
-I would like to highlight my use of [`{latex2exp}`](https://cran.r-project.org/web/packages/latex2exp/vignettes/using-latex2exp.html) that help converts Mathjax expressions to `R`'s plotmath expressions. This may not be necessary because I can also do the labels with plotmath syntax, but I prefer Mathjax syntax. Note the use of `\\` instead of the usual `\`. It seems that these are `regex` strings, `\` is the usual escape, i.e. `\` is not recognized as a backslash but as an escape tag. To use `\` in a string, we must use `\\`.
+I would like to highlight my use of [`{latex2exp}`](https://cran.r-project.org/web/packages/latex2exp/vignettes/using-latex2exp.html) that help converts Mathjax expressions to `R`'s plotmath expressions. This may not be necessary because I can also do the labels with plotmath syntax, but I prefer Mathjax syntax. Note the use of \\ instead of the usual \. It seems that these are `regex` strings, \ is the usual escape, i.e. \ is not recognized as a backslash but as an escape tag. To use \ in a string, we must use \\.
 
 # A Folded Paper
 
@@ -303,7 +303,7 @@ $$
 \end{align}
 $$
 
-From this we can already say that $\frac{1}{2}a \le x \le a$. If $x \le \frac{1}{2}a$, then we will get an imaginary side.
+From this we can already say that $\frac{1}{2}a \le x \le a$. If $x \lt \frac{1}{2}a$, then we will get an imaginary side.
 
 If the vertical distance of $A$ from the x-axis is $y$ and the vertical distance of $B$ from the edge of the paper is $\sqrt{2ax - a^2}$, then the distance of $B$ from the x-axis is $y - \sqrt{2ax - a^2}$. We can designated $B$ to be at point $\left(a, y - \sqrt{2ax - a^2}\right)$. We now have three points, but this is becoming more and more complicated.
 
@@ -418,6 +418,132 @@ $$
 
 We know that $x = \frac{1}{2}a$ is not a possible solution, so the the minimum area is achieved when $x = \frac{2}{3}a$.
 
+## Solution: Minimum Crease Length
+
+The first thing to realize is that the length of the crease, $l_{AC}$, is equal to $x^2 + y^2$. The second thing to realize is that $y = l_{BC}$ such that,
+
+$$
+\begin{align}
+y &= l_{BC} = \sqrt{a^2 + \left( y - \sqrt{2ax - a^2} \right)^2}
+\\
+\\
+y^2 &= a^2 + \left( y - \sqrt{2ax - a^2} \right)^2
+\\
+\\
+y^2 &= a^2 + y^2 - 2y\sqrt{2ax - a^2} + \left( 2ax - a^2 \right)
+\\
+\\
+y^2 - y^2 + 2y \sqrt{2ax - a^2} &= a^2 + 2ax - a^2
+\\
+\\
+2y \sqrt{2ax - a^2} &= 2ax
+\\
+\\
+y &= \frac{ax}{\sqrt{2ax - a^2}}
+\end{align}
+$$
+
+Now that we have $y$ as a function of $x$,
+
+$$
+\begin{align}
+l_{AC}^2 &= x^2 + y^2
+\\
+\\
+&= x^2 + \left( \frac{ax}{\sqrt{2ax - a^2}} \right)^2
+\\
+\\
+&= x^2 + \frac{a^2x^2}{2ax - a^2}
+\\
+\\
+&= \frac{x^2 \left( 2ax - a^2 \right) + a^2x^2}{2ax - a^2}
+\\
+\\
+&= \frac{2ax^3 - a^2x^2 + a^2x^2}{2ax - a^2}
+\\
+\\
+l_{AC}^2 &= \frac{2ax^3}{2ax - a^2}
+\\
+\\
+l_{AC} &= \left( \frac{2ax^3}{2ax - a^2} \right)^{\text 1/2}
+\\
+\\
+l_{AC} &= \left( 2ax^3 \right)^{\text 1/2} \left( 2ax -a^2 \right)^{\text -1/2} \tag{Crease Eqn} \label{crease}
+\end{align}
+$$
+
+Now we have $l_{AC}$ as a function of $x$. To find the value of $x$ that will give the minimum value of $l_{AC}$, find $x$ such that $\frac{d}{dx}l_{AC} = 0$.
+
+$$
+\begin{align}
+\frac{d}{dx}l_{AC} &= \frac{1}{2} \left( 2ax^3 \right)^{\text -1/2} \left( 6ax^2 \right) \left( 2ax -a^2 \right)^{\text -1/2} + \left( 2ax^3 \right)^{\text 1/2} \left( - \frac{1}{2} \right) \left( 2ax - a^2 \right)^{\text -3/2} \left( 2a \right)
+\\
+\\
+&= \frac{3ax^2}{\left( 2ax^3 \right)^{\text 1/2} \left( 2ax - a^2 \right)^{\text 1/2}} - \frac{2^{\text 1/2} \left( ax \right)^{\text 3/2}}{\left( 2ax - a^2 \right)^{\text 3/2}}
+\\
+\\
+&= \frac{3ax^2 \left( 2ax - a^2 \right) - 2^{\text 1/2} \left( ax \right)^{\text 3/2} \left( 2ax^3 \right)^{\text 1/2}}{\left( 2ax^3 \right)^{\text 1/2} \left( 2ax - a^2 \right)^{\text 3/2}}
+\\
+\\
+&= \frac{6a^2x^3 - 3a^3x^2 - 2a^2x^3}{\left( 2ax^3 \right)^{\text 1/2} \left( 2ax - a^2 \right)^{\text 3/2}}
+\\
+\\
+\frac{d}{dx}l_{AC} &= \frac{4a^2x^3 - 3a^3x^2}{\left( 2ax^3 \right)^{\text 1/2} \left( 2ax - a^2 \right)^{\text 3/2}}
+\\
+\\
+\frac{d}{dx}l_{AC} &= 0 = \frac{4a^2x^3 - 3a^3x^2}{\left( 2ax^3 \right)^{\text 1/2} \left( 2ax - a^2 \right)^{\text 3/2}}
+\\
+\\
+0 &= 4a^2x^3 - 3a^3x^2
+\\
+\\
+4a^2x^3 &= 3a^3x^2
+\\
+\\
+x &= \frac{3}{4}a
+\end{align}
+$$
+
+## Solution: Using R (Without Differentiations)
+
+All of the above steps are the traditional way of finding the extremas of a value as a function of another value. We can solve the same problems using only $\eqref{area3}$ and $\eqref{crease}$ without differentiation.
+
+I set $a = 1$ so that any $x$ will be a factor multiplied to any value of $a$ and used values of $x \in \left[ \frac{1}{2}, 1 \right]$ and filtered the minimum values of $A_{\triangle}$ and $l_{AC}$.
+
+```{r simulate_minimum}
+
+# Create Domain -----------------------------------------------------------
+
+domain <- 
+  # the assumption is the thickness of the paper is one unit
+  dplyr::tibble(width = seq(0.50001, 1, by = 0.00001))
+
+# Find Minimum Area -------------------------------------------------------
+
+area_min <- 
+  domain %>% 
+  mutate(
+    area = (width ** 2) * sqrt(2 * width - 1) /
+      (4 * width - 2)
+  ) %>% 
+  filter(area == min(area)) %>% 
+  dplyr::pull(width)
+
+# Find Minimum Crease Length ----------------------------------------------
+
+crease_min <- 
+  domain %>% 
+  mutate(
+    crease_length = sqrt(
+      (2 * (width ** 3)) / (2 * width - 1)
+    )
+  ) %>% 
+  filter(crease_length == min(crease_length)) %>% 
+  dplyr::pull(width)
+
+```
+
+From this simulation we find that the minimum $A_{\triangle}$ is obtained when $x$ is `r area_min` or $\frac{2}{3}$ of $a$ and the minimum $l_{AC}$ is obtained when $x$ is `r crease_min` or $\frac{3}{4}$. This confirms the answer we obtained using the traditional steps of differentiation. However, we will not be able to use this method if we cannot derive $\eqref{area3}$ and $\eqref{crease}$.
 
 # Reference
 
