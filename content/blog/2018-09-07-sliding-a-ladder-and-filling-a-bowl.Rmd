@@ -25,13 +25,14 @@ biblio-style: apalike
 
 Problem 116, Page 142 in @cwag2016
 
-A ladder 20 ft long is leaning against a wall 1 2 ft high, with its top projecting over the wall. Its bottom is being pulled away from the wall at the constant rate of 5 ft/min. Find how rapidly the top of the ladder is approaching the ground 
+A ladder 20 ft long is leaning against a wall 12 ft high, with its top projecting over the wall. Its bottom is being pulled away from the wall at the constant rate of 5 ft/min. Find how rapidly the top of the ladder is approaching the ground: 
+
  - when 5 ft of the ladder projects over the wall; 
  - when the top of the ladder reaches the top of the wall.
  
 ## Solution
 
-The key to this problem is to recognize that the angle $\theta$ between the ladder and the floor relates the distance $x$ of the foot of the ladder from the wall and the top of the ladder from the ground $y$, such that
+The key to this problem is to recognize that the angle $\theta$ between the ladder and the floor relates the distance $x$ of the foot of the ladder from the wall and and the distance $y$ from the top of the ladder to the ground, such that,
 
 $$
 \begin{gather}
@@ -61,7 +62,7 @@ $$
 
 From $\eqref{angle_rate}$ we can find the rate at which the angle $\theta$ between the ladder and the floor is decreasing as the ladder is pulled away from the wall at a rate of $\frac{dx}{dt} = 5$. This decrease in angle will cause a decrease in the distance $y$ from the top of the ladder to the floor at a rate of $\frac{dy}{dt}$ that is related to $\frac{d \theta}{dt}$ by $\eqref{height_rate}$.
 
-We still need the values of $x$ and the values of $\sec \theta$ and $\cos \theta$. If we let $l$ be the length of the ladder portruding over the wall, then we know that
+We still need the values of $x$ and the values of $\sec \theta$ and $\cos \theta$. If we let $l$ be the length of the ladder projecting over the wall, then we know that
 
 $$
 \left( 20 - l \right)^2 = x^2 + 12^2
@@ -173,7 +174,7 @@ $$
 
 Problem 20, Page 143 in @cwag2016
 
-Water is being poured into a hemispherical bowl of radius 3 in at the rate of 1 in3/s. The bowl contains a lead ball 2 inches in diameter. How fast the water level is rising when the ball is half submerged?
+Water is being poured into a hemispherical bowl of radius 3 inches at the rate of 1 $in^3/s$. The bowl contains a lead ball 2 inches in diameter. How fast is the water level rising when the ball is half submerged?
 
 ## Solution
 
@@ -191,7 +192,7 @@ h &= \text{height of the cap}
 \end{align}
 $$
 
-The volume of the water inside the bowl will be equal to the volume of the bowl minus the volume occupied by the lead ball both at water level $h$.
+The volume of the water inside the bowl will be equal to the volume of the bowl's cap minus the volume occupied by the lead ball's cap both at water level $h$.
 
 $$
 \begin{align}

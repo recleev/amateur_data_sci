@@ -157,11 +157,15 @@ ga('send', 'pageview');
 <div id="problem" class="section level2">
 <h2>Problem</h2>
 <p>Problem 116, Page 142 in <span class="citation">Simmons (2016)</span></p>
-<p>A ladder 20 ft long is leaning against a wall 1 2 ft high, with its top projecting over the wall. Its bottom is being pulled away from the wall at the constant rate of 5 ft/min. Find how rapidly the top of the ladder is approaching the ground - when 5 ft of the ladder projects over the wall; - when the top of the ladder reaches the top of the wall.</p>
+<p>A ladder 20 ft long is leaning against a wall 12 ft high, with its top projecting over the wall. Its bottom is being pulled away from the wall at the constant rate of 5 ft/min. Find how rapidly the top of the ladder is approaching the ground:</p>
+<ul>
+<li>when 5 ft of the ladder projects over the wall;</li>
+<li>when the top of the ladder reaches the top of the wall.</li>
+</ul>
 </div>
 <div id="solution" class="section level2">
 <h2>Solution</h2>
-<p>The key to this problem is to recognize that the angle <span class="math inline">\(\theta\)</span> between the ladder and the floor relates the distance <span class="math inline">\(x\)</span> of the foot of the ladder from the wall and the top of the ladder from the ground <span class="math inline">\(y\)</span>, such that</p>
+<p>The key to this problem is to recognize that the angle <span class="math inline">\(\theta\)</span> between the ladder and the floor relates the distance <span class="math inline">\(x\)</span> of the foot of the ladder from the wall and and the distance <span class="math inline">\(y\)</span> from the top of the ladder to the ground, such that,</p>
 <p><span class="math display">\[
 \begin{gather}
 \tan \theta = \frac{12}{x}
@@ -186,7 +190,7 @@ ga('send', 'pageview');
 \end{align}
 \]</span></p>
 <p>From <span class="math inline">\(\eqref{angle_rate}\)</span> we can find the rate at which the angle <span class="math inline">\(\theta\)</span> between the ladder and the floor is decreasing as the ladder is pulled away from the wall at a rate of <span class="math inline">\(\frac{dx}{dt} = 5\)</span>. This decrease in angle will cause a decrease in the distance <span class="math inline">\(y\)</span> from the top of the ladder to the floor at a rate of <span class="math inline">\(\frac{dy}{dt}\)</span> that is related to <span class="math inline">\(\frac{d \theta}{dt}\)</span> by <span class="math inline">\(\eqref{height_rate}\)</span>.</p>
-<p>We still need the values of <span class="math inline">\(x\)</span> and the values of <span class="math inline">\(\sec \theta\)</span> and <span class="math inline">\(\cos \theta\)</span>. If we let <span class="math inline">\(l\)</span> be the length of the ladder portruding over the wall, then we know that</p>
+<p>We still need the values of <span class="math inline">\(x\)</span> and the values of <span class="math inline">\(\sec \theta\)</span> and <span class="math inline">\(\cos \theta\)</span>. If we let <span class="math inline">\(l\)</span> be the length of the ladder projecting over the wall, then we know that</p>
 <p><span class="math display">\[
 \left( 20 - l \right)^2 = x^2 + 12^2
 \]</span></p>
@@ -288,7 +292,7 @@ x &amp;= 16 \tag{d} \label{x_16}
 <div id="problem-1" class="section level2">
 <h2>Problem</h2>
 <p>Problem 20, Page 143 in <span class="citation">Simmons (2016)</span></p>
-<p>Water is being poured into a hemispherical bowl of radius 3 in at the rate of 1 in3/s. The bowl contains a lead ball 2 inches in diameter. How fast the water level is rising when the ball is half submerged?</p>
+<p>Water is being poured into a hemispherical bowl of radius 3 inches at the rate of 1 <span class="math inline">\(in^3/s\)</span>. The bowl contains a lead ball 2 inches in diameter. How fast is the water level rising when the ball is half submerged?</p>
 </div>
 <div id="solution-1" class="section level2">
 <h2>Solution</h2>
@@ -304,7 +308,7 @@ r &amp;= \text{radius of the sphere}
 h &amp;= \text{height of the cap}
 \end{align}
 \]</span></p>
-<p>The volume of the water inside the bowl will be equal to the volume of the bowl minus the volume occupied by the lead ball both at water level <span class="math inline">\(h\)</span>.</p>
+<p>The volume of the water inside the bowl will be equal to the volume of the bowl’s cap minus the volume occupied by the lead ball’s cap both at water level <span class="math inline">\(h\)</span>.</p>
 <p><span class="math display">\[
 \begin{align}
 V_{water} &amp;= V_{bowl} - V_{ball}
