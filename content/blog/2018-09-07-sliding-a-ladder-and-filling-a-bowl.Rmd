@@ -1,0 +1,236 @@
+---
+title: Sliding a Ladder and Filling a Bowl
+author: Recle Etino Vibal
+date: '2018-09-07'
+slug: sliding-ladder-filling-bowl
+categories:
+  - Calculus
+  - Mathematics
+tags:
+  - derivatives
+  - mathjax
+  - maxima
+  - minima
+output:
+  blogdown::html_page:
+    toc: yes
+bibliography:
+  - references/cwag2016.bib
+biblio-style: apalike
+---
+
+# Sliding Ladder
+
+## Problem
+
+Problem 116, Page 142 in @cwag2016
+
+A ladder 20 ft long is leaning against a wall 1 2 ft high, with its top projecting over the wall. Its bottom is being pulled away from the wall at the constant rate of 5 ft/min. Find how rapidly the top of the ladder is approaching the ground 
+ - when 5 ft of the ladder projects over the wall; 
+ - when the top of the ladder reaches the top of the wall.
+ 
+## Solution
+
+The key to this problem is to recognize that the angle $\theta$ between the ladder and the floor relates the distance $x$ of the foot of the ladder from the wall and the top of the ladder from the ground $y$, such that
+
+$$
+\begin{gather}
+\tan \theta = \frac{12}{x}
+\\
+\\
+\sin \theta = \frac{y}{20}
+\end{gather}
+$$
+
+Differentiating the two equations with respect to time,
+
+$$
+\begin{align}
+\sec^2 \theta \frac{d \theta}{dt} &= \frac{-12}{x^2} \frac{dx}{dt}
+\\
+\\
+\frac{d \theta}{dt} &= \frac{-12}{x^2 \sec^2 \theta} \frac{dx}{dt} \tag{1} \label{angle_rate}
+\\
+\\
+\cos \theta \frac{d \theta}{dt}&= \frac{1}{20} \frac{dy}{dt}
+\\
+\\
+\frac{dy}{dt} &= 20 \cos \theta \frac{d \theta}{dt} \tag{2} \label{height_rate}
+\end{align}
+$$
+
+From $\eqref{angle_rate}$ we can find the rate at which the angle $\theta$ between the ladder and the floor is decreasing as the ladder is pulled away from the wall at a rate of $\frac{dx}{dt} = 5$. This decrease in angle will cause a decrease in the distance $y$ from the top of the ladder to the floor at a rate of $\frac{dy}{dt}$ that is related to $\frac{d \theta}{dt}$ by $\eqref{height_rate}$.
+
+We still need the values of $x$ and the values of $\sec \theta$ and $\cos \theta$. If we let $l$ be the length of the ladder portruding over the wall, then we know that
+
+$$
+\left( 20 - l \right)^2 = x^2 + 12^2
+$$
+
+At $l = 5$,
+
+$$
+\begin{align}
+\left( 20 - 5 \right)^2 &= x^2 + 12^2
+\\
+\\
+15^2 &= x^2 + 12^2
+\\
+\\
+x^2 &= 15^2 - 12^2
+\\
+\\
+x^2 &= 81
+\\
+\\
+x &= 9 \tag{a} \label{x_9}
+\\
+\\
+\cos \theta &= \frac{9}{20 - 5} = \frac{3}{5} \tag{b} \label{cos_x_9}
+\\
+\\
+\sec \theta &= \frac{5}{3} \tag{c} \label{sec_x_9}
+\end{align}
+$$
+
+At $l = 0$,
+
+$$
+\begin{align}
+\left( 20 - 0 \right)^2 &= x^2 + 12^2
+\\
+\\
+20^2 &= x^2 + 12^2
+\\
+\\
+x^2 &= 20^2 - 12^2
+\\
+\\
+x^2 &= 256
+\\
+\\
+x &= 16 \tag{d} \label{x_16}
+\\
+\\
+\cos \theta &= \frac{16}{20} = \frac{4}{5} \tag{e} \label{cos_x_16}
+\\
+\\
+\sec \theta &= \frac{5}{4} \tag{f} \label{sec_x_16}
+\end{align} 
+$$
+
+We now have everything we need.
+
+For $l = 5$, using $\eqref{angle_rate}$, $\eqref{height_rate}$, $\eqref{x_9}$, $\eqref{cos_x_9}$, and $\eqref{sec_x_9}$,
+
+$$
+\begin{align}
+\frac {d \theta}{dt} &= \frac{-12}{x^2 \sec^2 \theta} \frac{dx}{dt}
+\\
+\\
+\frac {d \theta}{dt} &= \frac{-12}{9^2 \left( \frac{15}{9} \right)^2} \left( 5 \right)
+\\
+\\
+\frac{d \theta}{dt} &= - \frac{12}{45} = - \frac{4}{15}
+\\
+\\
+\frac{dy}{dt} &= 20 \cos \theta \frac{d \theta}{dt}
+\\
+\\
+\frac {dy}{dt} &= 20 \left( \frac{3}{5} \right) \left( - \frac{4}{15} \right)
+\\
+\\
+\frac {dy}{dt} &= - \frac{16}{5}
+\end{align}
+$$
+
+For $l = 5$, using $\eqref{angle_rate}$, $\eqref{height_rate}$, $\eqref{x_16}$, $\eqref{cos_x_16}$, and $\eqref{sec_x_16}$,
+
+$$
+\begin{align}
+\frac {d \theta}{dt} &= \frac{-12}{x^2 \sec^2 \theta} \frac{dx}{dt}
+\\
+\\
+\frac {d \theta}{dt} &= \frac{-12}{16^2 \left( \frac{5}{4} \right)^2} \left( 5 \right)
+\\
+\\
+\frac{d \theta}{dt} &= - \frac{60}{400} = - \frac{3}{20}
+\\
+\\
+\frac{dy}{dt} &= 20 \cos \theta \frac{d \theta}{dt}
+\\
+\\
+\frac {dy}{dt} &= 20 \left( \frac{4}{5} \right) \left( - \frac{3}{20} \right)
+\\
+\\
+\frac {dy}{dt} &= - \frac{12}{5}
+\end{align}
+$$
+
+# Filling a Bowl
+
+## Problem
+
+Problem 20, Page 143 in @cwag2016
+
+Water is being poured into a hemispherical bowl of radius 3 in at the rate of 1 in3/s. The bowl contains a lead ball 2 inches in diameter. How fast the water level is rising when the ball is half submerged?
+
+## Solution
+
+I took a shortcut with this problem using the volume of a [spherical cap](https://en.wikipedia.org/wiki/Spherical_cap).
+
+$$
+\begin{align}
+V &= \frac{\pi h^2}{3} \left( 3r - h \right)
+\\
+\text{where:} ~ V &= \text{volume of the spherical cap}
+\\
+r &= \text{radius of the sphere}
+\\
+h &= \text{height of the cap}
+\end{align}
+$$
+
+The volume of the water inside the bowl will be equal to the volume of the bowl minus the volume occupied by the lead ball both at water level $h$.
+
+$$
+\begin{align}
+V_{water} &= V_{bowl} - V_{ball}
+\\
+\\
+V_{water} &= \frac{\pi h^2}{3} \left( 3 \times 3 - h \right) - \frac{\pi h^2}{3} \left( 3 \times 1 - h \right)
+\\
+\\
+V_{water} &= 9 \frac{\pi h^2}{3} - \frac{\pi h^3}{3} - 3\frac{\pi h^2}{3} + \frac{\pi h^3}{3}
+\\
+\\
+V_{water} &= 3 \pi h^2 - \pi h^2
+\\
+\\
+V_{water} &= 2 \pi h^2 \tag{3} \label{volume_water}
+\end{align}
+$$
+
+Differentiating $\eqref{volume_water}$ with respect to time,
+
+$$
+\begin{align}
+\frac{d V_{water}}{dt} &= 4 \pi h \frac{dh}{dt}
+\\
+\\
+\frac{dh}{dt} &= \frac{1}{4 \pi h} \frac{d V_{water}}{dt}
+\end{align}
+$$
+
+If the ball is half-submerged, then $h = 1$, and we know that $\frac{d V_{water}}{dt} = 1$,
+
+$$
+\begin{align}
+\frac{dh}{dt} &= \frac{1}{4 \pi \times 1} \times 1
+\\
+\\
+\frac{dh}{dt} &= \frac{1}{4 \pi}
+\end{align}
+$$
+
+# References

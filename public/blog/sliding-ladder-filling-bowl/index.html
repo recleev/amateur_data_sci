@@ -1,0 +1,416 @@
+<!DOCTYPE html>
+<html lang="en-us">
+
+<head>
+<meta charset="utf-8">
+<meta http-equiv="X-UA-Compatible" content="chrome=1">
+<meta name="HandheldFriendly" content="True">
+<meta name="MobileOptimized" content="320">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="referrer" content="no-referrer">
+<meta name="description" content="I am a beginner R User and Data Sciencist. I love learning about R, statistics, data science and applying all this knowledge.">
+
+<base href="/">
+<title>
+
+
+     Sliding a Ladder and Filling a Bowl 
+
+</title>
+<link rel="canonical" href="/blog/sliding-ladder-filling-bowl/">
+
+
+
+
+
+
+<script type="text/javascript" src="/js/jquery-3.3.1.min.js"></script>
+
+
+<link rel="stylesheet" href="/css/font-awesome.min.css">
+<link rel="stylesheet" href="/css/nunito_sans.css">
+
+
+    <link rel="stylesheet" href="css/light-style.css">
+
+
+
+
+
+
+<link rel="shortcut icon" href="img/robot.ico">
+
+
+
+<script>
+window.ga=window.ga||function(){(ga.q=ga.q||[]).push(arguments)};ga.l=+new Date;
+ga('create', 'UA-119602814-1', 'auto');
+ga('send', 'pageview');
+</script>
+<script async src='//www.google-analytics.com/analytics.js'></script>
+
+
+
+
+
+</head>
+
+<body>
+
+<div class="section" id="top">
+
+    <div class="container hero ">
+    <h1 class="bold-title is-1">The Amateur Data Scientist</h1>
+    </div>
+
+
+<div class="section ">
+
+    <div class="container">
+    <hr>
+<nav class="nav nav-center">
+    <span id="nav-toggle" class="nav-toggle"  onclick="document.getElementById('nav-menu').classList.toggle('is-active');">
+      <span></span>
+      <span></span>
+      <span></span>
+    </span>
+    <div id="nav-menu" class="nav-left nav-menu">
+      <span class="nav-item">
+        <a href="/">Main</a>
+      </span>
+      <span class="nav-item">
+        <a href="/#about">About</a>
+      </span>
+      
+      <span class="nav-item">
+        <a href="/blog">Back to blog</a>
+      </span>
+      
+      <span class="nav-item">
+        <a href="/#contact">Contact</a>
+      </span>
+    
+      <span class="nav-item">
+        <a href="/index.xml"><i class="fa fa-rss"></i></a>
+      </span>
+    
+    </div>
+</nav>
+<hr>
+
+    </div>
+
+    <div class="container ">
+        <h2 class="title is-1 top-pad strong-post-title"><a href="/blog/sliding-ladder-filling-bowl/">Sliding a Ladder and Filling a Bowl</a></h2>
+            <div class="post-data">
+                Sep 07, 2018 |
+                5 minutes read
+            </div>
+
+            
+                <div class="blog-share">
+                Share this:
+                
+                <a class="twitter-share-button" href="https://twitter.com/intent/tweet?text=Read%20Sliding%20a%20Ladder%20and%20Filling%20a%20Bowl%20%2fblog%2fsliding-ladder-filling-bowl%2f"
+                onclick="window.open(this.href, 'twitter-share', 'width=550,height=235');return false;">
+                <i class="fa fa-twitter"></i>
+                <span class="hidden">Twitter</span>
+                </a>
+                
+                 
+                <a class="icon-facebook" href="https://www.facebook.com/sharer/sharer.php?u=%2fblog%2fsliding-ladder-filling-bowl%2f"
+                onclick="window.open(this.href, 'facebook-share','width=580,height=296');return false;">
+                <i class="fa fa-facebook"></i>
+                <span class="hidden">Facebook</span>
+                </a>
+                
+                
+                
+                <a class="icon-google-plus" href="https://plus.google.com/share?url=%2fblog%2fsliding-ladder-filling-bowl%2f"
+                onclick="window.open(this.href, 'google-plus-share', 'width=490,height=530');return false;">
+                <i class="fa fa-google-plus"></i>
+                <span class="hidden">Google+</span>
+                </a>
+                
+                </div>
+            
+
+    </div>
+
+    <div class="container markdown  top-pad">
+        <div id="TOC">
+<ul>
+<li><a href="#sliding-ladder">Sliding Ladder</a><ul>
+<li><a href="#problem">Problem</a></li>
+<li><a href="#solution">Solution</a></li>
+</ul></li>
+<li><a href="#filling-a-bowl">Filling a Bowl</a><ul>
+<li><a href="#problem-1">Problem</a></li>
+<li><a href="#solution-1">Solution</a></li>
+</ul></li>
+<li><a href="#references">References</a></li>
+</ul>
+</div>
+
+<div id="sliding-ladder" class="section level1">
+<h1>Sliding Ladder</h1>
+<div id="problem" class="section level2">
+<h2>Problem</h2>
+<p>Problem 116, Page 142 in <span class="citation">Simmons (2016)</span></p>
+<p>A ladder 20 ft long is leaning against a wall 1 2 ft high, with its top projecting over the wall. Its bottom is being pulled away from the wall at the constant rate of 5 ft/min. Find how rapidly the top of the ladder is approaching the ground - when 5 ft of the ladder projects over the wall; - when the top of the ladder reaches the top of the wall.</p>
+</div>
+<div id="solution" class="section level2">
+<h2>Solution</h2>
+<p>The key to this problem is to recognize that the angle <span class="math inline">\(\theta\)</span> between the ladder and the floor relates the distance <span class="math inline">\(x\)</span> of the foot of the ladder from the wall and the top of the ladder from the ground <span class="math inline">\(y\)</span>, such that</p>
+<p><span class="math display">\[
+\begin{gather}
+\tan \theta = \frac{12}{x}
+\\
+\\
+\sin \theta = \frac{y}{20}
+\end{gather}
+\]</span></p>
+<p>Differentiating the two equations with respect to time,</p>
+<p><span class="math display">\[
+\begin{align}
+\sec^2 \theta \frac{d \theta}{dt} &amp;= \frac{-12}{x^2} \frac{dx}{dt}
+\\
+\\
+\frac{d \theta}{dt} &amp;= \frac{-12}{x^2 \sec^2 \theta} \frac{dx}{dt} \tag{1} \label{angle_rate}
+\\
+\\
+\cos \theta \frac{d \theta}{dt}&amp;= \frac{1}{20} \frac{dy}{dt}
+\\
+\\
+\frac{dy}{dt} &amp;= 20 \cos \theta \frac{d \theta}{dt} \tag{2} \label{height_rate}
+\end{align}
+\]</span></p>
+<p>From <span class="math inline">\(\eqref{angle_rate}\)</span> we can find the rate at which the angle <span class="math inline">\(\theta\)</span> between the ladder and the floor is decreasing as the ladder is pulled away from the wall at a rate of <span class="math inline">\(\frac{dx}{dt} = 5\)</span>. This decrease in angle will cause a decrease in the distance <span class="math inline">\(y\)</span> from the top of the ladder to the floor at a rate of <span class="math inline">\(\frac{dy}{dt}\)</span> that is related to <span class="math inline">\(\frac{d \theta}{dt}\)</span> by <span class="math inline">\(\eqref{height_rate}\)</span>.</p>
+<p>We still need the values of <span class="math inline">\(x\)</span> and the values of <span class="math inline">\(\sec \theta\)</span> and <span class="math inline">\(\cos \theta\)</span>. If we let <span class="math inline">\(l\)</span> be the length of the ladder portruding over the wall, then we know that</p>
+<p><span class="math display">\[
+\left( 20 - l \right)^2 = x^2 + 12^2
+\]</span></p>
+<p>At <span class="math inline">\(l = 5\)</span>,</p>
+<p><span class="math display">\[
+\begin{align}
+\left( 20 - 5 \right)^2 &amp;= x^2 + 12^2
+\\
+\\
+15^2 &amp;= x^2 + 12^2
+\\
+\\
+x^2 &amp;= 15^2 - 12^2
+\\
+\\
+x^2 &amp;= 81
+\\
+\\
+x &amp;= 9 \tag{a} \label{x_9}
+\\
+\\
+\cos \theta &amp;= \frac{9}{20 - 5} = \frac{3}{5} \tag{b} \label{cos_x_9}
+\\
+\\
+\sec \theta &amp;= \frac{5}{3} \tag{c} \label{sec_x_9}
+\end{align}
+\]</span></p>
+<p>At <span class="math inline">\(l = 0\)</span>,</p>
+<p><span class="math display">\[
+\begin{align}
+\left( 20 - 0 \right)^2 &amp;= x^2 + 12^2
+\\
+\\
+20^2 &amp;= x^2 + 12^2
+\\
+\\
+x^2 &amp;= 20^2 - 12^2
+\\
+\\
+x^2 &amp;= 256
+\\
+\\
+x &amp;= 16 \tag{d} \label{x_16}
+\\
+\\
+\cos \theta &amp;= \frac{16}{20} = \frac{4}{5} \tag{e} \label{cos_x_16}
+\\
+\\
+\sec \theta &amp;= \frac{5}{4} \tag{f} \label{sec_x_16}
+\end{align} 
+\]</span></p>
+<p>We now have everything we need.</p>
+<p>For <span class="math inline">\(l = 5\)</span>, using <span class="math inline">\(\eqref{angle_rate}\)</span>, <span class="math inline">\(\eqref{height_rate}\)</span>, <span class="math inline">\(\eqref{x_9}\)</span>, <span class="math inline">\(\eqref{cos_x_9}\)</span>, and <span class="math inline">\(\eqref{sec_x_9}\)</span>,</p>
+<p><span class="math display">\[
+\begin{align}
+\frac {d \theta}{dt} &amp;= \frac{-12}{x^2 \sec^2 \theta} \frac{dx}{dt}
+\\
+\\
+\frac {d \theta}{dt} &amp;= \frac{-12}{9^2 \left( \frac{15}{9} \right)^2} \left( 5 \right)
+\\
+\\
+\frac{d \theta}{dt} &amp;= - \frac{12}{45} = - \frac{4}{15}
+\\
+\\
+\frac{dy}{dt} &amp;= 20 \cos \theta \frac{d \theta}{dt}
+\\
+\\
+\frac {dy}{dt} &amp;= 20 \left( \frac{3}{5} \right) \left( - \frac{4}{15} \right)
+\\
+\\
+\frac {dy}{dt} &amp;= - \frac{16}{5}
+\end{align}
+\]</span></p>
+<p>For <span class="math inline">\(l = 5\)</span>, using <span class="math inline">\(\eqref{angle_rate}\)</span>, <span class="math inline">\(\eqref{height_rate}\)</span>, <span class="math inline">\(\eqref{x_16}\)</span>, <span class="math inline">\(\eqref{cos_x_16}\)</span>, and <span class="math inline">\(\eqref{sec_x_16}\)</span>,</p>
+<p><span class="math display">\[
+\begin{align}
+\frac {d \theta}{dt} &amp;= \frac{-12}{x^2 \sec^2 \theta} \frac{dx}{dt}
+\\
+\\
+\frac {d \theta}{dt} &amp;= \frac{-12}{16^2 \left( \frac{5}{4} \right)^2} \left( 5 \right)
+\\
+\\
+\frac{d \theta}{dt} &amp;= - \frac{60}{400} = - \frac{3}{20}
+\\
+\\
+\frac{dy}{dt} &amp;= 20 \cos \theta \frac{d \theta}{dt}
+\\
+\\
+\frac {dy}{dt} &amp;= 20 \left( \frac{4}{5} \right) \left( - \frac{3}{20} \right)
+\\
+\\
+\frac {dy}{dt} &amp;= - \frac{12}{5}
+\end{align}
+\]</span></p>
+</div>
+</div>
+<div id="filling-a-bowl" class="section level1">
+<h1>Filling a Bowl</h1>
+<div id="problem-1" class="section level2">
+<h2>Problem</h2>
+<p>Problem 20, Page 143 in <span class="citation">Simmons (2016)</span></p>
+<p>Water is being poured into a hemispherical bowl of radius 3 in at the rate of 1 in3/s. The bowl contains a lead ball 2 inches in diameter. How fast the water level is rising when the ball is half submerged?</p>
+</div>
+<div id="solution-1" class="section level2">
+<h2>Solution</h2>
+<p>I took a shortcut with this problem using the volume of a <a href="https://en.wikipedia.org/wiki/Spherical_cap">spherical cap</a>.</p>
+<p><span class="math display">\[
+\begin{align}
+V &amp;= \frac{\pi h^2}{3} \left( 3r - h \right)
+\\
+\text{where:} ~ V &amp;= \text{volume of the spherical cap}
+\\
+r &amp;= \text{radius of the sphere}
+\\
+h &amp;= \text{height of the cap}
+\end{align}
+\]</span></p>
+<p>The volume of the water inside the bowl will be equal to the volume of the bowl minus the volume occupied by the lead ball both at water level <span class="math inline">\(h\)</span>.</p>
+<p><span class="math display">\[
+\begin{align}
+V_{water} &amp;= V_{bowl} - V_{ball}
+\\
+\\
+V_{water} &amp;= \frac{\pi h^2}{3} \left( 3 \times 3 - h \right) - \frac{\pi h^2}{3} \left( 3 \times 1 - h \right)
+\\
+\\
+V_{water} &amp;= 9 \frac{\pi h^2}{3} - \frac{\pi h^3}{3} - 3\frac{\pi h^2}{3} + \frac{\pi h^3}{3}
+\\
+\\
+V_{water} &amp;= 3 \pi h^2 - \pi h^2
+\\
+\\
+V_{water} &amp;= 2 \pi h^2 \tag{3} \label{volume_water}
+\end{align}
+\]</span></p>
+<p>Differentiating <span class="math inline">\(\eqref{volume_water}\)</span> with respect to time,</p>
+<p><span class="math display">\[
+\begin{align}
+\frac{d V_{water}}{dt} &amp;= 4 \pi h \frac{dh}{dt}
+\\
+\\
+\frac{dh}{dt} &amp;= \frac{1}{4 \pi h} \frac{d V_{water}}{dt}
+\end{align}
+\]</span></p>
+<p>If the ball is half-submerged, then <span class="math inline">\(h = 1\)</span>, and we know that <span class="math inline">\(\frac{d V_{water}}{dt} = 1\)</span>,</p>
+<p><span class="math display">\[
+\begin{align}
+\frac{dh}{dt} &amp;= \frac{1}{4 \pi \times 1} \times 1
+\\
+\\
+\frac{dh}{dt} &amp;= \frac{1}{4 \pi}
+\end{align}
+\]</span></p>
+</div>
+</div>
+<div id="references" class="section level1 unnumbered">
+<h1>References</h1>
+<div id="refs" class="references">
+<div id="ref-cwag2016">
+<p>Simmons, George F. 2016. <em>Calculus with Analytic Geometry</em>. 2nd Edition. McGraw-Hill Education.</p>
+</div>
+</div>
+</div>
+
+    </div>
+
+    <div class="disqus">
+        <div id="disqus_thread"></div>
+<script>
+    var disqus_config = function () {
+    
+    
+    
+    };
+    (function() {
+        if (["localhost", "127.0.0.1"].indexOf(window.location.hostname) != -1) {
+            document.getElementById('disqus_thread').innerHTML = 'Disqus comments not available by default when the website is previewed locally.';
+            return;
+        }
+        var d = document, s = d.createElement('script'); s.async = true;
+        s.src = '//' + "the-amateur-data-scientist" + '.disqus.com/embed.js';
+        s.setAttribute('data-timestamp', +new Date());
+        (d.head || d.body).appendChild(s);
+    })();
+</script>
+<noscript>Please enable JavaScript to view the <a href="https://disqus.com/?ref_noscript">comments powered by Disqus.</a></noscript>
+<a href="https://disqus.com" class="dsq-brlink">comments powered by <span class="logo-disqus">Disqus</span></a>
+    </div>
+
+<div class="container has-text-centered top-pad">
+<hr>
+<a href="/blog/sliding-ladder-filling-bowl/#top"><i class="fa fa-arrow-up"></i></a>
+<hr>
+</div>
+
+<div class="section" id="footer">
+    <div class="container has-text-centered">
+        
+        <span class="footer-text"><a href="https://github.com/hivickylai/hugo-theme-introduction" target="_blank" rel="noopener">Introduction</a> theme for <a href="http://gohugo.io/" target="_blank" rel="noopener">Hugo</a>. Made with <i class="fa fa-heart"></i> and <i class="fa fa-coffee"></i>. <a href="https://vickylai.io" target="_blank" rel="noopener">Vicky Lai</a> 2018</span>
+        
+    </div>
+</div>
+
+<script src="//https://amateurdatasci.rbind.io/js/math-code.js"></script>
+
+    <script type="text/javascript"
+      src="https://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML">
+    </script>
+
+  </body>
+</html>
+</div>
+</div>
+
+
+<script>
+$('a[href^="\/blog\/sliding-ladder-filling-bowl\/#"]').click(function(e) {
+    e.preventDefault();
+    var target = this.hash;
+    $('html, body').animate({
+    scrollTop: $(target).offset().top
+    }, 500);
+    return false;
+})
+</script>
+
+</body>

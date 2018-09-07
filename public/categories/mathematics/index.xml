@@ -6,10 +6,20 @@
     <description>Recent content in Mathematics on The Amateur Data Scientist</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>en-us</language>
-    <lastBuildDate>Tue, 21 Aug 2018 00:00:00 +0000</lastBuildDate>
+    <lastBuildDate>Fri, 07 Sep 2018 00:00:00 +0000</lastBuildDate>
     
 	<atom:link href="/categories/mathematics/index.xml" rel="self" type="application/rss+xml" />
     
+    
+    <item>
+      <title>Sliding a Ladder and Filling a Bowl</title>
+      <link>/blog/sliding-ladder-filling-bowl/</link>
+      <pubDate>Fri, 07 Sep 2018 00:00:00 +0000</pubDate>
+      
+      <guid>/blog/sliding-ladder-filling-bowl/</guid>
+      <description>Sliding LadderProblemSolutionFilling a BowlProblemSolutionReferencesSliding LadderProblemProblem 116, Page 142 in Simmons (2016)
+A ladder 20 ft long is leaning against a wall 1 2 ft high, with its top projecting over the wall. Its bottom is being pulled away from the wall at the constant rate of 5 ft/min. Find how rapidly the top of the ladder is approaching the ground - when 5 ft of the ladder projects over the wall; - when the top of the ladder reaches the top of the wall.</description>
+    </item>
     
     <item>
       <title>Waves Intersecting at Right Angles and a Folded Paper</title>
