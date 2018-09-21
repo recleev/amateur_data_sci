@@ -1,0 +1,179 @@
+---
+title: 'Rain Drops: Condensation and Acceleration'
+author: Recle Etino Vibal
+date: '2018-09-21'
+slug: rain-drops-condensation-acceleration
+categories:
+  - Calculus
+  - Mathematics
+tags:
+  - integration
+  - antidifferentation
+  - derivatives
+  - mathjax
+output:
+  bookdown::html_document2:
+    toc: yes
+bibliography:
+  - references/cwag2016.bib
+biblio-style: apalike
+---
+
+# Problem
+
+Problem 49, page 189 in @cwag2016
+
+Newton's second law of motion 
+
+$$
+F = ma = m \frac{dv}{dt}
+$$ 
+
+can be written in the form 
+
+$$
+\begin{equation}
+F = \frac{d \left( mv \right)}{dt} \label{momentum-rate}
+\end{equation}
+$$
+
+in terms of the momentum $mv$ of a particle of mass $m$ and velocity $v$, and remains valid even if $m$ is not constant. A spherical raindrop falls through air with water vapor, and assume that by condensation the mass of the raindrop increases at a rate proportional to its surface area, with $c$ the constant of proportionality. If the intial radius and velocity of the raindrop are both zero, show that the drag exerted bt the condensation of the water vapor has the effect of making the raindrop fall with acceleration $\frac{g}{4}$.
+
+*Hint:* Show that
+
+$$
+\begin{align}
+\begin{split}
+\frac{d}{dr} \left( r^3 v \right) &= \left( \frac{\delta}{c} \right) r^3 g
+\\
+\\
+\text{where:} ~ r &= \text{radius of raindrop}
+\\
+v &= \text{velocity of raindrop}
+\\
+\delta &= \text{density of raindrop}
+\\
+g &= \text{acceleration due to gravity}
+\end{split} \label{hint}
+\end{align}
+$$
+
+# Solution
+
+The first key to this problem is to realize that the phrase *mass of the raindrop increases at a rate proportional to its surface area, with $c$ the constant of proportionality* is interpreted as
+
+$$
+\begin{equation}
+\frac{dm}{dt} = 4 \pi r^2 c \label{mass-rate}
+\end{equation}
+$$
+
+$\eqref{hint}$ only confused me at the beginning, but it gave me clues later on how to solve the problem. The first clue was the presence of the raindrop's density $\delta$.
+
+Mass is the product of volume and density. Since the raindrop is assumed to be spherical,
+
+$$
+\begin{equation}
+m = \frac{4}{3} \pi r^3 \delta \label{volume-density}
+\end{equation}
+$$
+
+Keeping in mind that $m$, $r$, and $v$ all vary with time and all other values are constant, I expanded (by the [product rule](https://amateurdatasci.rbind.io/blog/deriving-quotient-rule-product-rule/)) $\eqref{momentum-rate}$ both from itself and by using $\eqref{volume-dentsity}$, i.e.
+
+$$
+\begin{align}
+\frac{d}{dt} \left( mv \right) &= \frac{d}{dt} \left( \frac{4}{3} \pi r^3 \delta \times v \right)
+\\
+\\
+m \frac{dv}{dt} + v \frac{dm}{dt} &= \frac{4}{3} \pi \delta \frac{d}{dt}\left( r^3 v \right)
+\\
+\\
+m \frac{dv}{dt} + v \frac{dm}{dt} &= \frac{4}{3} \pi \delta \left[ r^3 \frac{dv}{dt} + v \left( 3 r^2 \right) \frac{dr}{dt} \right]
+\end{align}
+$$
+
+Substituting $\eqref{mass-rate}$ and $\eqref{volume-density}$,
+
+$$
+\begin{align}
+\frac{4}{3} \pi r^3 \delta \frac{dv}{dt} + v \left( 4 \pi r^2 c \right) &= \frac{4}{3} \pi r^3 \delta \frac{dv}{dt} + \frac{4}{3} \pi \delta \left( 3 r^2 v \right) \frac{dr}{dt}
+\\
+\\
+\frac{4}{3} \pi r^3 \delta \frac{dv}{dt} + 4 \pi r^2 c v &= \frac{4}{3} \pi r^3 \delta \frac{dv}{dt} + 4 \pi \delta r^2 v \frac{dr}{dt}
+\\
+\\
+4 \pi r^2 c v &= 4 \pi \delta r^2 v \frac{dr}{dt}
+\\
+\\
+\frac{c}{\delta} &= \frac{dr}{dt}
+\\
+\\
+dt &= \frac{\delta}{c} dr \label{radius-time}
+\end{align}
+$$
+
+Another thing to remember, the force acting on the raindrop, despite it's variable size, is always equal to it's weight,
+
+$$
+\begin{align}
+\frac{4}{3} \pi \delta \frac{d}{dt} \left( r^3 v \right) &= mg
+\\
+\\
+\frac{4}{3} \pi \delta \frac{d}{dt} \left( r^3 v \right) &= \left( \frac{4}{3} \pi r^3 \delta \right) g
+\end{align}
+$$
+
+Using $\eqref{radius-time}$,
+
+$$
+\begin{align}
+\frac{4}{3} \pi \delta \cfrac{d}{\cfrac{\delta}{c} dr} \left( r^3 v \right) &= \frac{4}{3} \pi r^3 \delta g
+\\
+\\
+\frac{4}{3} \pi c \frac{d}{dr} \left( r^3 v \right) &= \frac{4}{3} \pi r^3 \delta g
+\\
+\\
+\frac{d}{dr} \left( r^3 v \right) &= \frac{\delta}{c} r^3 g \label{hint-proof}
+\end{align}
+$$
+
+This is proving $\eqref{hint}$ and also sets up to integrate in terms of $r$.
+
+$$
+\begin{align}
+\int d\left( r^3 v \right) &= \int \left( \frac{\delta}{c} r^3 g \right) dr
+\\
+\\
+r^3 v &= \frac{\delta}{c} g \left( \frac{r^4}{4} \right) + C
+\end{align}
+$$
+
+Before simplifying, note from the given that at $t = 0$, $r = 0$, and $v = 0$, thus $C = 0$.
+
+$$
+\begin{align}
+r^3 v &= \frac{\delta g r^4}{4c}
+\\
+\\
+v &= \frac{\delta g r}{4c} \label{velocity-radius}
+\end{align}
+$$
+
+Differentiating $\eqref{velocity-radius}$ with respect to time,
+
+$$
+\begin{equation}
+\frac{dv}{dt} = \frac{\delta g}{4c} \frac{dr}{dt} \notag
+\end{equation}
+$$
+
+However, from $\eqref{radius-time}$, $\cfrac{dr}{dt} = \cfrac{c}{\delta}$
+
+$$
+\begin{align}
+\frac{dv}{dt} &= \frac{\delta g}{4c} \frac{c}{\delta}
+\\
+\\
+\frac{dv}{dt} &= a = \frac{g}{4}
+\end{align}
+$$
