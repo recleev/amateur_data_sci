@@ -39,13 +39,13 @@ $$
 
 in terms of the momentum $mv$ of a particle of mass $m$ and velocity $v$, and remains valid even if $m$ is not constant. 
 
-A spherical raindrop falls through air with water vapor, and assume that by condensation the mass of the raindrop increases at a rate proportional to its surface area, with $c$ the constant of proportionality. If the intial radius and velocity of the raindrop are both zero, show that the drag exerted by the condensation of the water vapor has the effect of making the raindrop fall with acceleration $\cfrac{g}{4}$.
+A spherical raindrop falls through air with water vapor, and assume that by condensation the mass of the raindrop increases at a rate proportional to its surface area, with $c$ the constant of proportionality. If the intial radius and velocity of the raindrop are both zero, show that the drag exerted by the condensation of the water vapor has the effect of making the raindrop fall with acceleration $a = \cfrac{g}{4}$.
 
 *Hint:* Show that
 
 $$
 \begin{align}
-\frac{d}{dr} \left( r^3 v \right) &= \left( \frac{\delta}{c} \right) r^3 g
+\frac{d}{dr} \left( r^3 v \right) &= \left( \frac{\delta}{c} \right) r^3 g \tag{2} \label{hint}
 \\
 \\
 \text{where:} ~ r &= \text{radius of raindrop}
@@ -54,7 +54,7 @@ v &= \text{velocity of raindrop}
 \\
 \delta &= \text{density of raindrop}
 \\
-g &= \text{acceleration due to gravity} \tag{2} \label{hint}
+g &= \text{acceleration due to gravity} 
 \end{align}
 $$
 
@@ -78,7 +78,7 @@ m = \frac{4}{3} \pi r^3 \delta \tag{4} \label{volume-density}
 \end{equation}
 $$
 
-Keeping in mind that $m$, $r$, and $v$ all vary with time and all other values are constant, I expanded (by the [product rule](https://amateurdatasci.rbind.io/blog/deriving-quotient-rule-product-rule/)) $\eqref{momentum-rate}$ both from itself and by using $\eqref{volume-dentsity}$, i.e.
+Keeping in mind that $m$, $r$, and $v$ all vary with time and all other values are constant, I expanded $\eqref{momentum-rate}$ both from itself and by using $\eqref{volume-density}$. By the [product rule](https://amateurdatasci.rbind.io/blog/deriving-quotient-rule-product-rule/),
 
 $$
 \begin{align}
@@ -92,7 +92,7 @@ m \frac{dv}{dt} + v \frac{dm}{dt} &= \frac{4}{3} \pi \delta \left[ r^3 \frac{dv}
 \end{align}
 $$
 
-Substituting $\eqref{mass-rate}$ and $\eqref{volume-density}$,
+Substituting $\eqref{mass-rate}$ and $\eqref{volume-density}$ again,
 
 $$
 \begin{align}
@@ -112,7 +112,7 @@ dt &= \frac{\delta}{c} dr \tag{5} \label{radius-time}
 \end{align}
 $$
 
-Another thing to remember, the force acting on the raindrop, despite it's variable mass, is always equal to it's weight,
+Another thing to remember: the force acting on the raindrop, despite it's variable mass, is always equal to it's weight,
 
 $$
 \begin{align}
@@ -167,7 +167,7 @@ $$
 \end{equation}
 $$
 
-However, from $\eqref{radius-time}$ that $\cfrac{dr}{dt} = \cfrac{c}{\delta}$
+However, from $\eqref{radius-time}$, $\cfrac{dr}{dt} = \cfrac{c}{\delta}$
 
 $$
 \begin{align}

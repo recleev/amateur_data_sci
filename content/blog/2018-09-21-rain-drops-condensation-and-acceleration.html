@@ -42,11 +42,11 @@ F = \frac{d \left( mv \right)}{dt} \tag{1} \label{momentum-rate}
 \end{equation}
 \]</span></p>
 <p>in terms of the momentum <span class="math inline">\(mv\)</span> of a particle of mass <span class="math inline">\(m\)</span> and velocity <span class="math inline">\(v\)</span>, and remains valid even if <span class="math inline">\(m\)</span> is not constant.</p>
-<p>A spherical raindrop falls through air with water vapor, and assume that by condensation the mass of the raindrop increases at a rate proportional to its surface area, with <span class="math inline">\(c\)</span> the constant of proportionality. If the intial radius and velocity of the raindrop are both zero, show that the drag exerted by the condensation of the water vapor has the effect of making the raindrop fall with acceleration <span class="math inline">\(\cfrac{g}{4}\)</span>.</p>
+<p>A spherical raindrop falls through air with water vapor, and assume that by condensation the mass of the raindrop increases at a rate proportional to its surface area, with <span class="math inline">\(c\)</span> the constant of proportionality. If the intial radius and velocity of the raindrop are both zero, show that the drag exerted by the condensation of the water vapor has the effect of making the raindrop fall with acceleration <span class="math inline">\(a = \cfrac{g}{4}\)</span>.</p>
 <p><em>Hint:</em> Show that</p>
 <p><span class="math display">\[
 \begin{align}
-\frac{d}{dr} \left( r^3 v \right) &amp;= \left( \frac{\delta}{c} \right) r^3 g
+\frac{d}{dr} \left( r^3 v \right) &amp;= \left( \frac{\delta}{c} \right) r^3 g \tag{2} \label{hint}
 \\
 \\
 \text{where:} ~ r &amp;= \text{radius of raindrop}
@@ -55,7 +55,7 @@ v &amp;= \text{velocity of raindrop}
 \\
 \delta &amp;= \text{density of raindrop}
 \\
-g &amp;= \text{acceleration due to gravity} \tag{2} \label{hint}
+g &amp;= \text{acceleration due to gravity} 
 \end{align}
 \]</span></p>
 </div>
@@ -74,7 +74,7 @@ g &amp;= \text{acceleration due to gravity} \tag{2} \label{hint}
 m = \frac{4}{3} \pi r^3 \delta \tag{4} \label{volume-density}
 \end{equation}
 \]</span></p>
-<p>Keeping in mind that <span class="math inline">\(m\)</span>, <span class="math inline">\(r\)</span>, and <span class="math inline">\(v\)</span> all vary with time and all other values are constant, I expanded (by the <a href="https://amateurdatasci.rbind.io/blog/deriving-quotient-rule-product-rule/">product rule</a>) <span class="math inline">\(\eqref{momentum-rate}\)</span> both from itself and by using <span class="math inline">\(\eqref{volume-dentsity}\)</span>, i.e.</p>
+<p>Keeping in mind that <span class="math inline">\(m\)</span>, <span class="math inline">\(r\)</span>, and <span class="math inline">\(v\)</span> all vary with time and all other values are constant, I expanded <span class="math inline">\(\eqref{momentum-rate}\)</span> both from itself and by using <span class="math inline">\(\eqref{volume-density}\)</span>. By the <a href="https://amateurdatasci.rbind.io/blog/deriving-quotient-rule-product-rule/">product rule</a>,</p>
 <p><span class="math display">\[
 \begin{align}
 \frac{d}{dt} \left( mv \right) &amp;= \frac{d}{dt} \left( \frac{4}{3} \pi r^3 \delta \times v \right)
@@ -86,7 +86,7 @@ m \frac{dv}{dt} + v \frac{dm}{dt} &amp;= \frac{4}{3} \pi \delta \frac{d}{dt}\lef
 m \frac{dv}{dt} + v \frac{dm}{dt} &amp;= \frac{4}{3} \pi \delta \left[ r^3 \frac{dv}{dt} + v \left( 3 r^2 \right) \frac{dr}{dt} \right]
 \end{align}
 \]</span></p>
-<p>Substituting <span class="math inline">\(\eqref{mass-rate}\)</span> and <span class="math inline">\(\eqref{volume-density}\)</span>,</p>
+<p>Substituting <span class="math inline">\(\eqref{mass-rate}\)</span> and <span class="math inline">\(\eqref{volume-density}\)</span> again,</p>
 <p><span class="math display">\[
 \begin{align}
 \frac{4}{3} \pi r^3 \delta \frac{dv}{dt} + v \left( 4 \pi r^2 c \right) &amp;= \frac{4}{3} \pi r^3 \delta \frac{dv}{dt} + \frac{4}{3} \pi \delta \left( 3 r^2 v \right) \frac{dr}{dt}
@@ -104,7 +104,7 @@ m \frac{dv}{dt} + v \frac{dm}{dt} &amp;= \frac{4}{3} \pi \delta \left[ r^3 \frac
 dt &amp;= \frac{\delta}{c} dr \tag{5} \label{radius-time}
 \end{align}
 \]</span></p>
-<p>Another thing to remember, the force acting on the raindrop, despite it’s variable mass, is always equal to it’s weight,</p>
+<p>Another thing to remember: the force acting on the raindrop, despite it’s variable mass, is always equal to it’s weight,</p>
 <p><span class="math display">\[
 \begin{align}
 \frac{4}{3} \pi \delta \frac{d}{dt} \left( r^3 v \right) &amp;= mg
@@ -149,7 +149,7 @@ v &amp;= \frac{\delta g r}{4c} \tag{7} \label{velocity-radius}
 \frac{dv}{dt} = \frac{\delta g}{4c} \frac{dr}{dt}
 \end{equation}
 \]</span></p>
-<p>However, from <span class="math inline">\(\eqref{radius-time}\)</span> that <span class="math inline">\(\cfrac{dr}{dt} = \cfrac{c}{\delta}\)</span></p>
+<p>However, from <span class="math inline">\(\eqref{radius-time}\)</span>, <span class="math inline">\(\cfrac{dr}{dt} = \cfrac{c}{\delta}\)</span></p>
 <p><span class="math display">\[
 \begin{align}
 \frac{dv}{dt} &amp;= \frac{\delta g}{4c} \frac{c}{\delta}
