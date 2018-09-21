@@ -17,12 +17,13 @@
       <pubDate>Fri, 21 Sep 2018 00:00:00 +0000</pubDate>
       
       <guid>/blog/rain-drops-condensation-acceleration/</guid>
-      <description>ProblemSolutionProblemProblem 49, page 189 in Simmons (2016)
+      <description>ProblemSolutionReferenceProblemProblem 49, page 189 in Simmons (2016)
 Newton’s second law of motion
 \[F = ma = m \frac{dv}{dt}\]
 can be written in the form
 \[\begin{equation}F = \frac{d \left( mv \right)}{dt} \tag{1} \label{momentum-rate}\end{equation}\]
-in terms of the momentum \(mv\) of a particle of mass \(m\) and velocity \(v\), and remains valid even if \(m\) is not constant. A spherical raindrop falls through air with water vapor, and assume that by condensation the mass of the raindrop increases at a rate proportional to its surface area, with \(c\) the constant of proportionality.</description>
+in terms of the momentum \(mv\) of a particle of mass \(m\) and velocity \(v\), and remains valid even if \(m\) is not constant.
+A spherical raindrop falls through air with water vapor, and assume that by condensation the mass of the raindrop increases at a rate proportional to its surface area, with \(c\) the constant of proportionality.</description>
     </item>
     
     <item>

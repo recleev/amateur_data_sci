@@ -24,6 +24,7 @@ biblio-style: apalike
 <ul>
 <li><a href="#problem">Problem</a></li>
 <li><a href="#solution">Solution</a></li>
+<li><a href="#reference">Reference</a></li>
 </ul>
 </div>
 
@@ -40,11 +41,11 @@ F = ma = m \frac{dv}{dt}
 F = \frac{d \left( mv \right)}{dt} \tag{1} \label{momentum-rate}
 \end{equation}
 \]</span></p>
-<p>in terms of the momentum <span class="math inline">\(mv\)</span> of a particle of mass <span class="math inline">\(m\)</span> and velocity <span class="math inline">\(v\)</span>, and remains valid even if <span class="math inline">\(m\)</span> is not constant. A spherical raindrop falls through air with water vapor, and assume that by condensation the mass of the raindrop increases at a rate proportional to its surface area, with <span class="math inline">\(c\)</span> the constant of proportionality. If the intial radius and velocity of the raindrop are both zero, show that the drag exerted bt the condensation of the water vapor has the effect of making the raindrop fall with acceleration <span class="math inline">\(\frac{g}{4}\)</span>.</p>
+<p>in terms of the momentum <span class="math inline">\(mv\)</span> of a particle of mass <span class="math inline">\(m\)</span> and velocity <span class="math inline">\(v\)</span>, and remains valid even if <span class="math inline">\(m\)</span> is not constant.</p>
+<p>A spherical raindrop falls through air with water vapor, and assume that by condensation the mass of the raindrop increases at a rate proportional to its surface area, with <span class="math inline">\(c\)</span> the constant of proportionality. If the intial radius and velocity of the raindrop are both zero, show that the drag exerted by the condensation of the water vapor has the effect of making the raindrop fall with acceleration <span class="math inline">\(\cfrac{g}{4}\)</span>.</p>
 <p><em>Hint:</em> Show that</p>
 <p><span class="math display">\[
 \begin{align}
-\begin{split}
 \frac{d}{dr} \left( r^3 v \right) &amp;= \left( \frac{\delta}{c} \right) r^3 g
 \\
 \\
@@ -54,8 +55,7 @@ v &amp;= \text{velocity of raindrop}
 \\
 \delta &amp;= \text{density of raindrop}
 \\
-g &amp;= \text{acceleration due to gravity}
-\end{split} \tag{2} \label{hint}
+g &amp;= \text{acceleration due to gravity} \tag{2} \label{hint}
 \end{align}
 \]</span></p>
 </div>
@@ -67,7 +67,7 @@ g &amp;= \text{acceleration due to gravity}
 \frac{dm}{dt} = 4 \pi r^2 c \tag{3} \label{mass-rate}
 \end{equation}
 \]</span></p>
-<p><span class="math inline">\(\eqref{hint}\)</span> only confused me at the beginning, but it gave me clues later on how to solve the problem. The first clue was the presence of the raindrop’s density <span class="math inline">\(\delta\)</span>.</p>
+<p>The hint <span class="math inline">\(\eqref{hint}\)</span> only confused me at the beginning, but it gave me clues on how to solve the problem. The first clue was the presence of the raindrop’s density <span class="math inline">\(\delta\)</span>.</p>
 <p>Mass is the product of volume and density. Since the raindrop is assumed to be spherical,</p>
 <p><span class="math display">\[
 \begin{equation}
@@ -104,7 +104,7 @@ m \frac{dv}{dt} + v \frac{dm}{dt} &amp;= \frac{4}{3} \pi \delta \left[ r^3 \frac
 dt &amp;= \frac{\delta}{c} dr \tag{5} \label{radius-time}
 \end{align}
 \]</span></p>
-<p>Another thing to remember, the force acting on the raindrop, despite it’s variable size, is always equal to it’s weight,</p>
+<p>Another thing to remember, the force acting on the raindrop, despite it’s variable mass, is always equal to it’s weight,</p>
 <p><span class="math display">\[
 \begin{align}
 \frac{4}{3} \pi \delta \frac{d}{dt} \left( r^3 v \right) &amp;= mg
@@ -125,7 +125,7 @@ dt &amp;= \frac{\delta}{c} dr \tag{5} \label{radius-time}
 \frac{d}{dr} \left( r^3 v \right) &amp;= \frac{\delta}{c} r^3 g \tag{6} \label{hint-proof}
 \end{align}
 \]</span></p>
-<p>This is proving <span class="math inline">\(\eqref{hint}\)</span> and also sets up to integrate in terms of <span class="math inline">\(r\)</span>.</p>
+<p>This is proving <span class="math inline">\(\eqref{hint}\)</span> and also sets up integration with respect to <span class="math inline">\(r\)</span>.</p>
 <p><span class="math display">\[
 \begin{align}
 \int d\left( r^3 v \right) &amp;= \int \left( \frac{\delta}{c} r^3 g \right) dr
@@ -149,7 +149,7 @@ v &amp;= \frac{\delta g r}{4c} \tag{7} \label{velocity-radius}
 \frac{dv}{dt} = \frac{\delta g}{4c} \frac{dr}{dt}
 \end{equation}
 \]</span></p>
-<p>However, from <span class="math inline">\(\eqref{radius-time}\)</span>, <span class="math inline">\(\cfrac{dr}{dt} = \cfrac{c}{\delta}\)</span></p>
+<p>However, from <span class="math inline">\(\eqref{radius-time}\)</span> that <span class="math inline">\(\cfrac{dr}{dt} = \cfrac{c}{\delta}\)</span></p>
 <p><span class="math display">\[
 \begin{align}
 \frac{dv}{dt} &amp;= \frac{\delta g}{4c} \frac{c}{\delta}
@@ -158,6 +158,9 @@ v &amp;= \frac{\delta g r}{4c} \tag{7} \label{velocity-radius}
 \frac{dv}{dt} &amp;= a = \frac{g}{4}
 \end{align}
 \]</span></p>
+</div>
+<div id="reference" class="section level1 unnumbered">
+<h1>Reference</h1>
 <div id="refs" class="references">
 <div id="ref-cwag2016">
 <p>Simmons, George F. 2016. <em>Calculus with Analytic Geometry</em>. 2nd Edition. McGraw-Hill Education.</p>
