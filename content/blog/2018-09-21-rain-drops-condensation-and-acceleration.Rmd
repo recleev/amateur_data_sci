@@ -12,7 +12,7 @@ tags:
   - derivatives
   - mathjax
 output:
-  bookdown::html_document2:
+  blogdown::html_page:
     toc: yes
 bibliography:
   - references/cwag2016.bib
@@ -33,7 +33,7 @@ can be written in the form
 
 $$
 \begin{equation}
-F = \frac{d \left( mv \right)}{dt} \label{momentum-rate}
+F = \frac{d \left( mv \right)}{dt} \tag{1} \label{momentum-rate}
 \end{equation}
 $$
 
@@ -54,7 +54,7 @@ v &= \text{velocity of raindrop}
 \delta &= \text{density of raindrop}
 \\
 g &= \text{acceleration due to gravity}
-\end{split} \label{hint}
+\end{split} \tag{2} \label{hint}
 \end{align}
 $$
 
@@ -64,7 +64,7 @@ The first key to this problem is to realize that the phrase *mass of the raindro
 
 $$
 \begin{equation}
-\frac{dm}{dt} = 4 \pi r^2 c \label{mass-rate}
+\frac{dm}{dt} = 4 \pi r^2 c \tag{3} \label{mass-rate}
 \end{equation}
 $$
 
@@ -74,7 +74,7 @@ Mass is the product of volume and density. Since the raindrop is assumed to be s
 
 $$
 \begin{equation}
-m = \frac{4}{3} \pi r^3 \delta \label{volume-density}
+m = \frac{4}{3} \pi r^3 \delta \tag{4} \label{volume-density}
 \end{equation}
 $$
 
@@ -108,7 +108,7 @@ $$
 \frac{c}{\delta} &= \frac{dr}{dt}
 \\
 \\
-dt &= \frac{\delta}{c} dr \label{radius-time}
+dt &= \frac{\delta}{c} dr \tag{5} \label{radius-time}
 \end{align}
 $$
 
@@ -133,7 +133,7 @@ $$
 \frac{4}{3} \pi c \frac{d}{dr} \left( r^3 v \right) &= \frac{4}{3} \pi r^3 \delta g
 \\
 \\
-\frac{d}{dr} \left( r^3 v \right) &= \frac{\delta}{c} r^3 g \label{hint-proof}
+\frac{d}{dr} \left( r^3 v \right) &= \frac{\delta}{c} r^3 g \tag{6} \label{hint-proof}
 \end{align}
 $$
 
@@ -155,7 +155,7 @@ $$
 r^3 v &= \frac{\delta g r^4}{4c}
 \\
 \\
-v &= \frac{\delta g r}{4c} \label{velocity-radius}
+v &= \frac{\delta g r}{4c} \tag{7} \label{velocity-radius}
 \end{align}
 $$
 
@@ -163,7 +163,7 @@ Differentiating $\eqref{velocity-radius}$ with respect to time,
 
 $$
 \begin{equation}
-\frac{dv}{dt} = \frac{\delta g}{4c} \frac{dr}{dt} \notag
+\frac{dv}{dt} = \frac{\delta g}{4c} \frac{dr}{dt}
 \end{equation}
 $$
 

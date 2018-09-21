@@ -6,10 +6,24 @@
     <description>Recent content in Derivatives on The Amateur Data Scientist</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>en-us</language>
-    <lastBuildDate>Fri, 07 Sep 2018 00:00:00 +0000</lastBuildDate>
+    <lastBuildDate>Fri, 21 Sep 2018 00:00:00 +0000</lastBuildDate>
     
 	<atom:link href="/tags/derivatives/index.xml" rel="self" type="application/rss+xml" />
     
+    
+    <item>
+      <title>Rain Drops: Condensation and Acceleration</title>
+      <link>/blog/rain-drops-condensation-acceleration/</link>
+      <pubDate>Fri, 21 Sep 2018 00:00:00 +0000</pubDate>
+      
+      <guid>/blog/rain-drops-condensation-acceleration/</guid>
+      <description>ProblemSolutionProblemProblem 49, page 189 in Simmons (2016)
+Newton’s second law of motion
+\[F = ma = m \frac{dv}{dt}\]
+can be written in the form
+\[\begin{equation}F = \frac{d \left( mv \right)}{dt} \tag{1} \label{momentum-rate}\end{equation}\]
+in terms of the momentum \(mv\) of a particle of mass \(m\) and velocity \(v\), and remains valid even if \(m\) is not constant. A spherical raindrop falls through air with water vapor, and assume that by condensation the mass of the raindrop increases at a rate proportional to its surface area, with \(c\) the constant of proportionality.</description>
+    </item>
     
     <item>
       <title>Sliding a Ladder and Filling a Bowl</title>

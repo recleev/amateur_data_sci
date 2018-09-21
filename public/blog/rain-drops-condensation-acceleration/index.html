@@ -1,0 +1,348 @@
+<!DOCTYPE html>
+<html lang="en-us">
+
+<head>
+<meta charset="utf-8">
+<meta http-equiv="X-UA-Compatible" content="chrome=1">
+<meta name="HandheldFriendly" content="True">
+<meta name="MobileOptimized" content="320">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="referrer" content="no-referrer">
+<meta name="description" content="I am a beginner R User and Data Sciencist. I love learning about R, statistics, data science and applying all this knowledge.">
+
+<base href="/">
+<title>
+
+
+     Rain Drops: Condensation and Acceleration 
+
+</title>
+<link rel="canonical" href="/blog/rain-drops-condensation-acceleration/">
+
+
+
+
+
+
+<script type="text/javascript" src="/js/jquery-3.3.1.min.js"></script>
+
+
+<link rel="stylesheet" href="/css/font-awesome.min.css">
+<link rel="stylesheet" href="/css/nunito_sans.css">
+
+
+    <link rel="stylesheet" href="css/light-style.css">
+
+
+
+
+
+
+<link rel="shortcut icon" href="img/robot.ico">
+
+
+
+<script>
+window.ga=window.ga||function(){(ga.q=ga.q||[]).push(arguments)};ga.l=+new Date;
+ga('create', 'UA-119602814-1', 'auto');
+ga('send', 'pageview');
+</script>
+<script async src='//www.google-analytics.com/analytics.js'></script>
+
+
+
+
+
+</head>
+
+<body>
+
+<div class="section" id="top">
+
+    <div class="container hero ">
+    <h1 class="bold-title is-1">The Amateur Data Scientist</h1>
+    </div>
+
+
+<div class="section ">
+
+    <div class="container">
+    <hr>
+<nav class="nav nav-center">
+    <span id="nav-toggle" class="nav-toggle"  onclick="document.getElementById('nav-menu').classList.toggle('is-active');">
+      <span></span>
+      <span></span>
+      <span></span>
+    </span>
+    <div id="nav-menu" class="nav-left nav-menu">
+      <span class="nav-item">
+        <a href="/">Main</a>
+      </span>
+      <span class="nav-item">
+        <a href="/#about">About</a>
+      </span>
+      
+      <span class="nav-item">
+        <a href="/blog">Back to blog</a>
+      </span>
+      
+      <span class="nav-item">
+        <a href="/#contact">Contact</a>
+      </span>
+    
+      <span class="nav-item">
+        <a href="/index.xml"><i class="fa fa-rss"></i></a>
+      </span>
+    
+    </div>
+</nav>
+<hr>
+
+    </div>
+
+    <div class="container ">
+        <h2 class="title is-1 top-pad strong-post-title"><a href="/blog/rain-drops-condensation-acceleration/">Rain Drops: Condensation and Acceleration</a></h2>
+            <div class="post-data">
+                Sep 21, 2018 |
+                4 minutes read
+            </div>
+
+            
+                <div class="blog-share">
+                Share this:
+                
+                <a class="twitter-share-button" href="https://twitter.com/intent/tweet?text=Read%20Rain%20Drops%3a%20Condensation%20and%20Acceleration%20%2fblog%2frain-drops-condensation-acceleration%2f"
+                onclick="window.open(this.href, 'twitter-share', 'width=550,height=235');return false;">
+                <i class="fa fa-twitter"></i>
+                <span class="hidden">Twitter</span>
+                </a>
+                
+                 
+                <a class="icon-facebook" href="https://www.facebook.com/sharer/sharer.php?u=%2fblog%2frain-drops-condensation-acceleration%2f"
+                onclick="window.open(this.href, 'facebook-share','width=580,height=296');return false;">
+                <i class="fa fa-facebook"></i>
+                <span class="hidden">Facebook</span>
+                </a>
+                
+                
+                
+                <a class="icon-google-plus" href="https://plus.google.com/share?url=%2fblog%2frain-drops-condensation-acceleration%2f"
+                onclick="window.open(this.href, 'google-plus-share', 'width=490,height=530');return false;">
+                <i class="fa fa-google-plus"></i>
+                <span class="hidden">Google+</span>
+                </a>
+                
+                </div>
+            
+
+    </div>
+
+    <div class="container markdown  top-pad">
+        <div id="TOC">
+<ul>
+<li><a href="#problem">Problem</a></li>
+<li><a href="#solution">Solution</a></li>
+</ul>
+</div>
+
+<div id="problem" class="section level1">
+<h1>Problem</h1>
+<p>Problem 49, page 189 in <span class="citation">Simmons (2016)</span></p>
+<p>Newton’s second law of motion</p>
+<p><span class="math display">\[
+F = ma = m \frac{dv}{dt}
+\]</span></p>
+<p>can be written in the form</p>
+<p><span class="math display">\[
+\begin{equation}
+F = \frac{d \left( mv \right)}{dt} \tag{1} \label{momentum-rate}
+\end{equation}
+\]</span></p>
+<p>in terms of the momentum <span class="math inline">\(mv\)</span> of a particle of mass <span class="math inline">\(m\)</span> and velocity <span class="math inline">\(v\)</span>, and remains valid even if <span class="math inline">\(m\)</span> is not constant. A spherical raindrop falls through air with water vapor, and assume that by condensation the mass of the raindrop increases at a rate proportional to its surface area, with <span class="math inline">\(c\)</span> the constant of proportionality. If the intial radius and velocity of the raindrop are both zero, show that the drag exerted bt the condensation of the water vapor has the effect of making the raindrop fall with acceleration <span class="math inline">\(\frac{g}{4}\)</span>.</p>
+<p><em>Hint:</em> Show that</p>
+<p><span class="math display">\[
+\begin{align}
+\begin{split}
+\frac{d}{dr} \left( r^3 v \right) &amp;= \left( \frac{\delta}{c} \right) r^3 g
+\\
+\\
+\text{where:} ~ r &amp;= \text{radius of raindrop}
+\\
+v &amp;= \text{velocity of raindrop}
+\\
+\delta &amp;= \text{density of raindrop}
+\\
+g &amp;= \text{acceleration due to gravity}
+\end{split} \tag{2} \label{hint}
+\end{align}
+\]</span></p>
+</div>
+<div id="solution" class="section level1">
+<h1>Solution</h1>
+<p>The first key to this problem is to realize that the phrase <em>mass of the raindrop increases at a rate proportional to its surface area, with <span class="math inline">\(c\)</span> the constant of proportionality</em> is interpreted as</p>
+<p><span class="math display">\[
+\begin{equation}
+\frac{dm}{dt} = 4 \pi r^2 c \tag{3} \label{mass-rate}
+\end{equation}
+\]</span></p>
+<p><span class="math inline">\(\eqref{hint}\)</span> only confused me at the beginning, but it gave me clues later on how to solve the problem. The first clue was the presence of the raindrop’s density <span class="math inline">\(\delta\)</span>.</p>
+<p>Mass is the product of volume and density. Since the raindrop is assumed to be spherical,</p>
+<p><span class="math display">\[
+\begin{equation}
+m = \frac{4}{3} \pi r^3 \delta \tag{4} \label{volume-density}
+\end{equation}
+\]</span></p>
+<p>Keeping in mind that <span class="math inline">\(m\)</span>, <span class="math inline">\(r\)</span>, and <span class="math inline">\(v\)</span> all vary with time and all other values are constant, I expanded (by the <a href="https://amateurdatasci.rbind.io/blog/deriving-quotient-rule-product-rule/">product rule</a>) <span class="math inline">\(\eqref{momentum-rate}\)</span> both from itself and by using <span class="math inline">\(\eqref{volume-dentsity}\)</span>, i.e.</p>
+<p><span class="math display">\[
+\begin{align}
+\frac{d}{dt} \left( mv \right) &amp;= \frac{d}{dt} \left( \frac{4}{3} \pi r^3 \delta \times v \right)
+\\
+\\
+m \frac{dv}{dt} + v \frac{dm}{dt} &amp;= \frac{4}{3} \pi \delta \frac{d}{dt}\left( r^3 v \right)
+\\
+\\
+m \frac{dv}{dt} + v \frac{dm}{dt} &amp;= \frac{4}{3} \pi \delta \left[ r^3 \frac{dv}{dt} + v \left( 3 r^2 \right) \frac{dr}{dt} \right]
+\end{align}
+\]</span></p>
+<p>Substituting <span class="math inline">\(\eqref{mass-rate}\)</span> and <span class="math inline">\(\eqref{volume-density}\)</span>,</p>
+<p><span class="math display">\[
+\begin{align}
+\frac{4}{3} \pi r^3 \delta \frac{dv}{dt} + v \left( 4 \pi r^2 c \right) &amp;= \frac{4}{3} \pi r^3 \delta \frac{dv}{dt} + \frac{4}{3} \pi \delta \left( 3 r^2 v \right) \frac{dr}{dt}
+\\
+\\
+\frac{4}{3} \pi r^3 \delta \frac{dv}{dt} + 4 \pi r^2 c v &amp;= \frac{4}{3} \pi r^3 \delta \frac{dv}{dt} + 4 \pi \delta r^2 v \frac{dr}{dt}
+\\
+\\
+4 \pi r^2 c v &amp;= 4 \pi \delta r^2 v \frac{dr}{dt}
+\\
+\\
+\frac{c}{\delta} &amp;= \frac{dr}{dt}
+\\
+\\
+dt &amp;= \frac{\delta}{c} dr \tag{5} \label{radius-time}
+\end{align}
+\]</span></p>
+<p>Another thing to remember, the force acting on the raindrop, despite it’s variable size, is always equal to it’s weight,</p>
+<p><span class="math display">\[
+\begin{align}
+\frac{4}{3} \pi \delta \frac{d}{dt} \left( r^3 v \right) &amp;= mg
+\\
+\\
+\frac{4}{3} \pi \delta \frac{d}{dt} \left( r^3 v \right) &amp;= \left( \frac{4}{3} \pi r^3 \delta \right) g
+\end{align}
+\]</span></p>
+<p>Using <span class="math inline">\(\eqref{radius-time}\)</span>,</p>
+<p><span class="math display">\[
+\begin{align}
+\frac{4}{3} \pi \delta \cfrac{d}{\cfrac{\delta}{c} dr} \left( r^3 v \right) &amp;= \frac{4}{3} \pi r^3 \delta g
+\\
+\\
+\frac{4}{3} \pi c \frac{d}{dr} \left( r^3 v \right) &amp;= \frac{4}{3} \pi r^3 \delta g
+\\
+\\
+\frac{d}{dr} \left( r^3 v \right) &amp;= \frac{\delta}{c} r^3 g \tag{6} \label{hint-proof}
+\end{align}
+\]</span></p>
+<p>This is proving <span class="math inline">\(\eqref{hint}\)</span> and also sets up to integrate in terms of <span class="math inline">\(r\)</span>.</p>
+<p><span class="math display">\[
+\begin{align}
+\int d\left( r^3 v \right) &amp;= \int \left( \frac{\delta}{c} r^3 g \right) dr
+\\
+\\
+r^3 v &amp;= \frac{\delta}{c} g \left( \frac{r^4}{4} \right) + C
+\end{align}
+\]</span></p>
+<p>Before simplifying, note from the given that at <span class="math inline">\(t = 0\)</span>, <span class="math inline">\(r = 0\)</span>, and <span class="math inline">\(v = 0\)</span>, thus <span class="math inline">\(C = 0\)</span>.</p>
+<p><span class="math display">\[
+\begin{align}
+r^3 v &amp;= \frac{\delta g r^4}{4c}
+\\
+\\
+v &amp;= \frac{\delta g r}{4c} \tag{7} \label{velocity-radius}
+\end{align}
+\]</span></p>
+<p>Differentiating <span class="math inline">\(\eqref{velocity-radius}\)</span> with respect to time,</p>
+<p><span class="math display">\[
+\begin{equation}
+\frac{dv}{dt} = \frac{\delta g}{4c} \frac{dr}{dt}
+\end{equation}
+\]</span></p>
+<p>However, from <span class="math inline">\(\eqref{radius-time}\)</span>, <span class="math inline">\(\cfrac{dr}{dt} = \cfrac{c}{\delta}\)</span></p>
+<p><span class="math display">\[
+\begin{align}
+\frac{dv}{dt} &amp;= \frac{\delta g}{4c} \frac{c}{\delta}
+\\
+\\
+\frac{dv}{dt} &amp;= a = \frac{g}{4}
+\end{align}
+\]</span></p>
+<div id="refs" class="references">
+<div id="ref-cwag2016">
+<p>Simmons, George F. 2016. <em>Calculus with Analytic Geometry</em>. 2nd Edition. McGraw-Hill Education.</p>
+</div>
+</div>
+</div>
+
+    </div>
+
+    <div class="disqus">
+        <div id="disqus_thread"></div>
+<script>
+    var disqus_config = function () {
+    
+    
+    
+    };
+    (function() {
+        if (["localhost", "127.0.0.1"].indexOf(window.location.hostname) != -1) {
+            document.getElementById('disqus_thread').innerHTML = 'Disqus comments not available by default when the website is previewed locally.';
+            return;
+        }
+        var d = document, s = d.createElement('script'); s.async = true;
+        s.src = '//' + "the-amateur-data-scientist" + '.disqus.com/embed.js';
+        s.setAttribute('data-timestamp', +new Date());
+        (d.head || d.body).appendChild(s);
+    })();
+</script>
+<noscript>Please enable JavaScript to view the <a href="https://disqus.com/?ref_noscript">comments powered by Disqus.</a></noscript>
+<a href="https://disqus.com" class="dsq-brlink">comments powered by <span class="logo-disqus">Disqus</span></a>
+    </div>
+
+<div class="container has-text-centered top-pad">
+<hr>
+<a href="/blog/rain-drops-condensation-acceleration/#top"><i class="fa fa-arrow-up"></i></a>
+<hr>
+</div>
+
+<div class="section" id="footer">
+    <div class="container has-text-centered">
+        
+        <span class="footer-text"><a href="https://github.com/hivickylai/hugo-theme-introduction" target="_blank" rel="noopener">Introduction</a> theme for <a href="http://gohugo.io/" target="_blank" rel="noopener">Hugo</a>. Made with <i class="fa fa-heart"></i> and <i class="fa fa-coffee"></i>. <a href="https://vickylai.io" target="_blank" rel="noopener">Vicky Lai</a> 2018</span>
+        
+    </div>
+</div>
+
+<script src="//https://amateurdatasci.rbind.io/js/math-code.js"></script>
+
+    <script type="text/javascript"
+      src="https://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML">
+    </script>
+
+  </body>
+</html>
+</div>
+</div>
+
+
+<script>
+$('a[href^="\/blog\/rain-drops-condensation-acceleration\/#"]').click(function(e) {
+    e.preventDefault();
+    var target = this.hash;
+    $('html, body').animate({
+    scrollTop: $(target).offset().top
+    }, 500);
+    return false;
+})
+</script>
+
+</body>

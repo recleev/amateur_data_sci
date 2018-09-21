@@ -6,15 +6,24 @@
     <description>Recent content in Tags on The Amateur Data Scientist</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>en-us</language>
-    <lastBuildDate>Fri, 07 Sep 2018 00:00:00 +0000</lastBuildDate>
+    <lastBuildDate>Fri, 21 Sep 2018 00:00:00 +0000</lastBuildDate>
     
 	<atom:link href="/tags/index.xml" rel="self" type="application/rss+xml" />
     
     
     <item>
+      <title>Antidifferentation</title>
+      <link>/tags/antidifferentation/</link>
+      <pubDate>Fri, 21 Sep 2018 00:00:00 +0000</pubDate>
+      
+      <guid>/tags/antidifferentation/</guid>
+      <description></description>
+    </item>
+    
+    <item>
       <title>Derivatives</title>
       <link>/tags/derivatives/</link>
-      <pubDate>Fri, 07 Sep 2018 00:00:00 +0000</pubDate>
+      <pubDate>Fri, 21 Sep 2018 00:00:00 +0000</pubDate>
       
       <guid>/tags/derivatives/</guid>
       <description></description>
@@ -75,6 +84,15 @@
     </item>
     
     <item>
+      <title>Integration</title>
+      <link>/tags/integration/</link>
+      <pubDate>Fri, 21 Sep 2018 00:00:00 +0000</pubDate>
+      
+      <guid>/tags/integration/</guid>
+      <description></description>
+    </item>
+    
+    <item>
       <title>Investment</title>
       <link>/tags/investment/</link>
       <pubDate>Fri, 20 Jul 2018 00:00:00 +0000</pubDate>
@@ -113,7 +131,7 @@
     <item>
       <title>Mathjax</title>
       <link>/tags/mathjax/</link>
-      <pubDate>Fri, 07 Sep 2018 00:00:00 +0000</pubDate>
+      <pubDate>Fri, 21 Sep 2018 00:00:00 +0000</pubDate>
       
       <guid>/tags/mathjax/</guid>
       <description></description>
