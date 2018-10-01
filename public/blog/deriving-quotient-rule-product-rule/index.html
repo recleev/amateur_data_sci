@@ -140,35 +140,35 @@ ga('send', 'pageview');
     <div class="container markdown  top-pad">
         <div id="TOC">
 <ul>
-<li><a href="#from-product-to-quotient">From Product to Quotient</a><ul>
-<li><a href="#product-rule-of-differentiation">Product Rule of Differentiation</a></li>
-<li><a href="#quotient-rule-of-differentiation">Quotient Rule of Differentiation</a></li>
-<li><a href="#derive-the-quotient-rule-from-the-product-rule">Derive the Quotient Rule from the Product Rule</a></li>
+<li><a href="#from-product-to-quotient"><span class="toc-section-number">1</span> From Product to Quotient</a><ul>
+<li><a href="#product-rule-of-differentiation"><span class="toc-section-number">1.1</span> Product Rule of Differentiation</a></li>
+<li><a href="#quotient-rule-of-differentiation"><span class="toc-section-number">1.2</span> Quotient Rule of Differentiation</a></li>
+<li><a href="#derive-the-quotient-rule-from-the-product-rule"><span class="toc-section-number">1.3</span> Derive the Quotient Rule from the Product Rule</a></li>
 </ul></li>
-<li><a href="#problems">Problems</a><ul>
-<li><a href="#extend-the-product-rule-and-prove">Extend the Product Rule and Prove</a></li>
-<li><a href="#tangent-lines-intersecting-on-a-curve">Tangent Lines Intersecting on a Curve</a></li>
+<li><a href="#problems"><span class="toc-section-number">2</span> Problems</a><ul>
+<li><a href="#extend-the-product-rule-and-prove"><span class="toc-section-number">2.1</span> Extend the Product Rule and Prove</a></li>
+<li><a href="#tangent-lines-intersecting-on-a-curve"><span class="toc-section-number">2.2</span> Tangent Lines Intersecting on a Curve</a></li>
 </ul></li>
-<li><a href="#reference">Reference</a></li>
+<li><a href="#reference"><span class="toc-section-number">3</span> Reference</a></li>
 </ul>
 </div>
 
 <div id="from-product-to-quotient" class="section level1">
-<h1>From Product to Quotient</h1>
+<h1><span class="header-section-number">1</span> From Product to Quotient</h1>
 <p>I have always had a hard time remembering the quotient rule for derivatives. I do not know how I remembered it while studying calculus, but today I learned from <span class="citation">Simmons (2016)</span> that I can derive it from the product rule.</p>
 <div id="product-rule-of-differentiation" class="section level2">
-<h2>Product Rule of Differentiation</h2>
+<h2><span class="header-section-number">1.1</span> Product Rule of Differentiation</h2>
 <p><span class="math display">\[\frac{d}{dx}uv = u\frac{dv}{dx} \ + \ v\frac{du}{dx}\]</span></p>
 <p>I think this is a very easy pattern to memorize.</p>
 </div>
 <div id="quotient-rule-of-differentiation" class="section level2">
-<h2>Quotient Rule of Differentiation</h2>
-<p><span class="math display">\[\frac{d}{dx}u/v = \frac{v \frac{du}{dx} - u \frac{dv}{dx}}{v^2}\]</span></p>
+<h2><span class="header-section-number">1.2</span> Quotient Rule of Differentiation</h2>
+<p><span class="math display">\[\frac{d}{dx} \left( \frac{u}{v} \right) = \frac{v \frac{du}{dx} - u \frac{dv}{dx}}{v^2}\]</span></p>
 <p>I find this one difficult and boring to remember.</p>
 </div>
 <div id="derive-the-quotient-rule-from-the-product-rule" class="section level2">
-<h2>Derive the Quotient Rule from the Product Rule</h2>
-<p>We can also write <span class="math inline">\(u/v\)</span> as <span class="math inline">\(uv^\text{-1}\)</span>. We also know from the power rule that,</p>
+<h2><span class="header-section-number">1.3</span> Derive the Quotient Rule from the Product Rule</h2>
+<p>We can also write <span class="math inline">\(\cfrac{u}{v}\)</span> as <span class="math inline">\(uv^\text{-1}\)</span>. We also know from the power rule that,</p>
 <p><span class="math display">\[
 \frac{d}{dx}x^n = nx^{n-1}
 \]</span></p>
@@ -184,19 +184,19 @@ ga('send', 'pageview');
 &amp;= \left(\frac{-u}{v^2}\right)\frac{dv}{du} + \frac{1}{v}\frac{du}{dx}
 \\
 \\
-&amp;= \frac{-udv/dx + vdu/dx}{v^2}
+&amp;= \frac{-u \frac{dv}{dx} + v \frac{du}{dx}}{v^2}
 \\
 \\
-\frac{d}{dx}u/v &amp;= \frac{vdu/dx - udv/dx}{v^2}
+\frac{d}{dx} \left( \frac{u}{v} \right) &amp;= \frac{v \frac{du}{dx} - u \frac{dv}{dx}}{v^2}
 \end{align}
 \]</span></p>
 <p>I always prefered deriving rules than memorizing them.</p>
 </div>
 </div>
 <div id="problems" class="section level1">
-<h1>Problems</h1>
+<h1><span class="header-section-number">2</span> Problems</h1>
 <div id="extend-the-product-rule-and-prove" class="section level2">
-<h2>Extend the Product Rule and Prove</h2>
+<h2><span class="header-section-number">2.1</span> Extend the Product Rule and Prove</h2>
 <p><span class="math display">\[
 \frac{d}{dx}uvw = vw\frac{du}{dx} + uw\frac{dv}{du} + uv\frac{dw}{dx}
 \]</span></p>
@@ -217,7 +217,7 @@ ga('send', 'pageview');
 \]</span></p>
 </div>
 <div id="tangent-lines-intersecting-on-a-curve" class="section level2">
-<h2>Tangent Lines Intersecting on a Curve</h2>
+<h2><span class="header-section-number">2.2</span> Tangent Lines Intersecting on a Curve</h2>
 <p>Show that the tangents to the curve <span class="math inline">\(y = x^2\)</span> at points <span class="math inline">\((a, a^2)\)</span> and <span class="math inline">\((a + 2, (a + 2)^2)\)</span> intersect on the curve <span class="math inline">\(y = x^2 - 1\)</span>.</p>
 <pre class="r"><code>library(tidyverse)
 library(ggthemes)
@@ -362,8 +362,9 @@ parabolas +
 <p>Graphically, this proves that the tangent lines of <span class="math inline">\(y = x^2\)</span> at <span class="math inline">\((a, a^2)\)</span> and <span class="math inline">\((a + 2, (a + 2)^2)\)</span> intersect at <span class="math inline">\(y = x^2 - 1\)</span>.</p>
 </div>
 </div>
-<div id="reference" class="section level1 unnumbered">
-<h1>Reference</h1>
+<div id="reference" class="section level1">
+<h1><span class="header-section-number">3</span> Reference</h1>
+<p>Problems and lessons from</p>
 <div id="refs" class="references">
 <div id="ref-cwag2016">
 <p>Simmons, George F. 2016. <em>Calculus with Analytic Geometry</em>. 2nd Edition. McGraw-Hill Education.</p>

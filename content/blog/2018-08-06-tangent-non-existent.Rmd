@@ -13,6 +13,7 @@ slug: tangent-non-existent
 output:
   blogdown::html_page:
     toc: yes
+    number_sections: true
 bibliography:
   - references/cwag2016.bib
 biblio-style: apalike
@@ -90,3 +91,5 @@ $$
 The limits approach different values as $x_0 \to h$ from the left and from the right. This means that the tangent line at $x_0 = h$ does not exist.
 
 # Reference
+
+Problem and lessons from

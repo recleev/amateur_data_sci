@@ -15,6 +15,7 @@ slug: deriving-quotient-rule-product-rule
 output:
   blogdown::html_page:
     toc: yes
+    number_sections: true
 bibliography:
   - references/cwag2016.bib
 biblio-style: apalike
@@ -32,13 +33,13 @@ I think this is a very easy pattern to memorize.
 
 ## Quotient Rule of Differentiation
 
-$$\frac{d}{dx}u/v = \frac{v \frac{du}{dx} - u \frac{dv}{dx}}{v^2}$$
+$$\frac{d}{dx} \left( \frac{u}{v} \right) = \frac{v \frac{du}{dx} - u \frac{dv}{dx}}{v^2}$$
 
 I find this one difficult and boring to remember.
 
 ## Derive the Quotient Rule from the Product Rule
 
-We can also write $u/v$ as $uv^\text{-1}$. We also know from the power rule that,
+We can also write $\cfrac{u}{v}$ as $uv^\text{-1}$. We also know from the power rule that,
 
 $$
 \frac{d}{dx}x^n = nx^{n-1}
@@ -57,10 +58,10 @@ $$
 &= \left(\frac{-u}{v^2}\right)\frac{dv}{du} + \frac{1}{v}\frac{du}{dx}
 \\
 \\
-&= \frac{-udv/dx + vdu/dx}{v^2}
+&= \frac{-u \frac{dv}{dx} + v \frac{du}{dx}}{v^2}
 \\
 \\
-\frac{d}{dx}u/v &= \frac{vdu/dx - udv/dx}{v^2}
+\frac{d}{dx} \left( \frac{u}{v} \right) &= \frac{v \frac{du}{dx} - u \frac{dv}{dx}}{v^2}
 \end{align}
 $$
 
@@ -256,3 +257,5 @@ parabolas +
 Graphically, this proves that the tangent lines of $y = x^2$ at $(a, a^2)$ and $(a + 2, (a + 2)^2)$ intersect at $y = x^2 - 1$.
 
 # Reference
+
+Problems and lessons from

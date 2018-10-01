@@ -13,6 +13,7 @@ slug: hideous-progeny-tidytext-frankenstein
 output:
   blogdown::html_page:
     toc: yes
+    number_sections: true
 ---
 
 ```{r setup, include=FALSE}
@@ -115,7 +116,7 @@ Now that the Frankenstein text data is tidy, we can start exploring.
 
 One of the very first questions I answer when I explore text data is to determine the most commonly used words.
 
-```{r most_words}
+```{r most-words, fig.cap="Most Used Words in Frankenstein"}
 
 words %>% 
   count(word) %>% 
@@ -124,9 +125,10 @@ words %>%
              n)) +
   geom_col(fill = palette_pander(2)[2]) +
   coord_flip() +
-  labs(title = "Most Used Words in Frankenstein",
-       x = "Word",
-       y = "Count") +
+  labs(
+    x = "Word",
+    y = "Count"
+  ) +
   theme_pander()
 
 ```
@@ -139,7 +141,7 @@ There are two important fathers in the story. Elizabeth also has an important ro
 
 After the most common words, I also ask what are the number of words per chapter.
 
-```{r most_words_chapter}
+```{r most-words-chapter, fig.cap=paste("Number of Words per Chapter.", sprintf("Red Line is the Median Number of Words (%s) per Chapter", comma(n_words_median_chapter)))}
 
 n_words_median_chapter <- 
   words %>% 
@@ -156,11 +158,10 @@ words %>%
              color = "red3") +
   coord_flip() +
   scale_y_continuous(labels = comma) +
-  labs(title = "Number of Words per Chapter",
-       subtitle = sprintf("Red Line is the Median Number of Words (%s) per Chapter",
-                          comma(n_words_median_chapter)),
-       x = "Chapter",
-       y = "Number of Words") +
+  labs(
+    x = "Chapter",
+    y = "Number of Words"
+  ) +
   theme_pander()
 
 ```
@@ -182,7 +183,7 @@ Here, I used the [AFINN](http://www2.imm.dtu.dk/pubdb/views/publication_details.
 The AFINN lexicon scores words from -5 to 5 depending on the words emotions and intensity. I took the AFINN scores of each word in each chapter then took the total AFINN score of each chapter to determine the overall sentiment of the chapter.
 
 
-```{r afinn}
+```{r afinn, fig.cap="Net AFINN Score per Chapter of Frankenstein"}
 
 words %>% 
   inner_join(get_sentiments("afinn"),
@@ -201,9 +202,10 @@ words %>%
   theme_pander() +
   theme(axis.text.x = element_text(angle = 90),
         axis.ticks.x = element_blank()) +
-  labs(title = "Net AFINN Score per Chapter of Frankenstein",
-       x = "Chapter",
-       y = "Net Sentiment Score")
+  labs(
+    x = "Chapter",
+    y = "Net Sentiment Score"
+  )
 
 ```
 
@@ -257,7 +259,7 @@ I also started wondering what kind of emotional ride Frankenstein can bring to t
 
 I took the total AFINN score of a line in the novel and took the cumulative sum of the scores from start to finish. I am interested if there are parts that will keep us feeling down or are there parts that will pull us back and allow us to breath the happiness air.
 
-```{r afinn_cumsum}
+```{r afinn-cumsum, fig.cap="Cumulative AFINN Score Through Frankenstein"}
 
 words %>% 
   inner_join(get_sentiments("afinn"),
@@ -273,9 +275,10 @@ words %>%
              color = "red3") +
   theme(axis.text.x = element_blank()) +
   theme_pander() +
-  labs(title = "Cumulative AFINN Score Through Frankenstein",
-       x = "Progress of Novel (Start to Finish)",
-       y = "Cumulative AFINN Score")
+  labs(
+    x = "Progress of Novel (Start to Finish)",
+    y = "Cumulative AFINN Score"
+  )
 
 ```
 
@@ -285,7 +288,7 @@ Overall, Shelley seems to keep the reader  floating on the sea of positive emoti
 
 The NRC lexicon does not score words. Instead, it categorizes words as either positive or negative and into one of the eight basic emotions (anger, anticipation, disgust, fear, joy, sadness, surprise, trust). What is the most dominant emotion in Frankenstein?
 
-```{r nrc}
+```{r nrc, fig.cap="Frequency of the Eight Emotions in Frankenstein"}
 
 words %>% 
   inner_join(get_sentiments("nrc"),
@@ -303,9 +306,10 @@ words %>%
   coord_flip() +
   scale_fill_pander() +
   theme_pander() +
-  labs(title = "Frequency of the Eight Emotions in Frankenstein",
-       x = "Emotions",
-       y = "")
+  labs(
+    x = "Emotions",
+    y = ""
+  )
 
 ```
 
@@ -315,4 +319,4 @@ Perhaps it is not surprising to the future reader that fear is the dominating em
 
 > This ice is not made of such stuff as your hearts may be; it is mutable and cannot withstand you if you say that it shall not. --- Victor Frankenstein
 
-Alas, this tidytext analysis fails if I have not sparked any interest in you to read Frankenstein. Mary Wollstonecraft Shelley's masterpiece must continue to burn inside the hearts and minds of the people. It might be only way to caution the Victor and appease the Daemon inside us. 
+Alas, this tidytext analysis fails if I have not sparked any interest in you to read Frankenstein. Mary Wollstonecraft Shelley's masterpiece must continue to burn inside the hearts and minds of the people. It might be the only way to caution the Victor and appease the Daemon inside us. 

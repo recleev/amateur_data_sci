@@ -17,7 +17,7 @@
       <pubDate>Fri, 21 Sep 2018 00:00:00 +0000</pubDate>
       
       <guid>/blog/rain-drops-condensation-acceleration/</guid>
-      <description>1 Problem2 SolutionReference1 ProblemProblem 49, page 189 in Simmons (2016)
+      <description>1 Problem2 Solution3 Reference1 ProblemProblem 49, page 189 in Simmons (2016)
 Newton’s second law of motion
 \[F = ma = m \frac{dv}{dt}\]
 can be written in the form
@@ -31,7 +31,7 @@ in terms of the momentum \(mv\) of a particle of mass \(m\) and velocity \(v\), 
       <pubDate>Fri, 07 Sep 2018 00:00:00 +0000</pubDate>
       
       <guid>/blog/sliding-ladder-filling-bowl/</guid>
-      <description>Sliding LadderProblemSolutionFilling a BowlProblemSolutionReferencesSliding LadderProblemProblem 116, Page 142 in Simmons (2016)
+      <description>1 Sliding Ladder1.1 Problem1.2 Solution2 Filling a Bowl2.1 Problem2.2 Solution3 References1 Sliding Ladder1.1 ProblemProblem 116, Page 142 in Simmons (2016)
 A ladder 20 ft long is leaning against a wall 12 ft high, with its top projecting over the wall. Its bottom is being pulled away from the wall at the constant rate of 5 ft/min. Find how rapidly the top of the ladder is approaching the ground:</description>
     </item>
     
@@ -41,8 +41,7 @@ A ladder 20 ft long is leaning against a wall 12 ft high, with its top projectin
       <pubDate>Tue, 21 Aug 2018 00:00:00 +0000</pubDate>
       
       <guid>/blog/waves-right-angles-folded-paper/</guid>
-      <description>Perpendicular Intersecting WavesProblemSolutionA Folded PaperProblemSolution: Minimum AreaSolution: Minimum Crease LengthSolution: Using R (Without Differentiations)Referencelibrary(knitr)library(tidyverse)library(ggthemes)opts_chunk$set(fig.align = &amp;quot;center&amp;quot;,message = FALSE,warning = FALSE)I found these two problems in Simmons (2016). I enjoyed these problems because they require more thinking than just a mechanical application of derivatives.
-Perpendicular Intersecting WavesProblemThis problem appears in Simmons (2016) on page 119, item 24.</description>
+      <description>1 Perpendicular Intersecting Waves1.1 Problem1.2 Solution2 A Folded Paper2.1 Problem2.2 Solution: Minimum Area2.3 Solution: Minimum Crease Length2.4 Solution: Using R (Without Differentiations)3 Referencelibrary(knitr)library(tidyverse)library(ggthemes)opts_chunk$set(fig.align = &amp;quot;center&amp;quot;,message = FALSE,warning = FALSE)I found these two problems in Simmons (2016). I enjoyed these problems because they require more thinking than just a mechanical application of derivatives.</description>
     </item>
     
     <item>
@@ -51,7 +50,7 @@ Perpendicular Intersecting WavesProblemThis problem appears in Simmons (2016) 
       <pubDate>Wed, 08 Aug 2018 00:00:00 +0000</pubDate>
       
       <guid>/blog/deriving-quotient-rule-product-rule/</guid>
-      <description>From Product to QuotientProduct Rule of DifferentiationQuotient Rule of DifferentiationDerive the Quotient Rule from the Product RuleProblemsExtend the Product Rule and ProveTangent Lines Intersecting on a CurveReferenceFrom Product to QuotientI have always had a hard time remembering the quotient rule for derivatives. I do not know how I remembered it while studying calculus, but today I learned from Simmons (2016) that I can derive it from the product rule.</description>
+      <description>1 From Product to Quotient1.1 Product Rule of Differentiation1.2 Quotient Rule of Differentiation1.3 Derive the Quotient Rule from the Product Rule2 Problems2.1 Extend the Product Rule and Prove2.2 Tangent Lines Intersecting on a Curve3 Reference1 From Product to QuotientI have always had a hard time remembering the quotient rule for derivatives. I do not know how I remembered it while studying calculus, but today I learned from Simmons (2016) that I can derive it from the product rule.</description>
     </item>
     
     <item>
@@ -60,7 +59,7 @@ Perpendicular Intersecting WavesProblemThis problem appears in Simmons (2016) 
       <pubDate>Mon, 06 Aug 2018 00:00:00 +0000</pubDate>
       
       <guid>/blog/tangent-non-existent/</guid>
-      <description>Definition of a Tangent LineSlope of a Tangent Line on a CurveCondition for ExistenceLimit of an Absolute ValueProblemSolutionReferenceDefinition of a Tangent LineConsider a curve \(y = f(x)\), and let \(P\) be a given fixed point on this curve. Let \(Q\) be a second nearby point on the curve, and draw the secant line \(PQ\). The tangent line at \(P\) can now be thought of as the limiting position of the variable secant as \(Q\) slides along the curve toward \(P\).</description>
+      <description>1 Definition of a Tangent Line2 Slope of a Tangent Line on a Curve3 Condition for Existence4 Limit of an Absolute Value4.1 Problem4.2 Solution5 Reference1 Definition of a Tangent LineConsider a curve \(y = f(x)\), and let \(P\) be a given fixed point on this curve. Let \(Q\) be a second nearby point on the curve, and draw the secant line \(PQ\).</description>
     </item>
     
     <item>
@@ -69,7 +68,7 @@ Perpendicular Intersecting WavesProblemThis problem appears in Simmons (2016) 
       <pubDate>Fri, 20 Jul 2018 00:00:00 +0000</pubDate>
       
       <guid>/blog/three-decades-psei-prices-returns-naive-simulation/</guid>
-      <description>Rise and Fall of StocksThirty Years of PSEi PricesUps and Downs but Going UpMonth-to-Month ReturnsBuy and HoldSimulating Buy and Hold Over Three Decades of PSEiMore Than a MillionBank Deposit vs Buy and Hold InvestmentNext Thirty Years: Another Million?library(knitr)library(tidyverse)library(quantmod)library(magrittr)library(janitor)library(ggthemes)library(ggsci)library(drlib)library(lubridate)library(scales)opts_chunk$set(message = FALSE,warning = FALSE,echo = TRUE,fig.</description>
+      <description>1 Rise and Fall of Stocks2 Thirty Years of PSEi Prices3 Ups and Downs but Going Up4 Month-to-Month Returns5 Buy and Hold5.1 Simulating Buy and Hold Over Three Decades of PSEi5.2 More Than a Million6 Bank Deposit vs Buy and Hold Investment7 Next Thirty Years: Another Million?library(knitr)library(tidyverse)library(quantmod)library(magrittr)library(janitor)library(ggthemes)library(ggsci)library(drlib)library(lubridate)library(scales)opts_chunk$set(message = FALSE,warning = FALSE,echo = TRUE,fig.</description>
     </item>
     
     <item>
@@ -78,7 +77,7 @@ Perpendicular Intersecting WavesProblemThis problem appears in Simmons (2016) 
       <pubDate>Thu, 14 Jun 2018 00:00:00 +0000</pubDate>
       
       <guid>/blog/world-cup-2018-squads-scrape-wikipedia/</guid>
-      <description>The Hunt for a Decent List of World Cup 2018 SquadsA Template for Scraping Tables from WikipediaInspect ElementFind and Copy the XPathScrape Tables with rvestScraping World Cup 2018 Squads All at OnceNational Teams and GroupingsThe Scraping FunctionGather All the SquadsTidying the World Cup SquadsWorld Cup 2018 Squads and GroupThe Hunt for a Decent List of World Cup 2018 SquadsWith World Cup 2018 to kick off today, I was in search for the past days for a list all the players that will represent their country in the tournament.</description>
+      <description>1 The Hunt for a Decent List of World Cup 2018 Squads2 A Template for Scraping Tables from Wikipedia2.1 Inspect Element2.2 Find and Copy the XPath2.3 Scrape Tables with rvest3 Scraping World Cup 2018 Squads All at Once3.1 National Teams and Groupings3.2 The Scraping Function3.3 Gather All the Squads4 Tidying the World Cup Squads5 World Cup 2018 Squads and Group1 The Hunt for a Decent List of World Cup 2018 SquadsWith World Cup 2018 to kick off today, I was in search for the past days for a list all the players that will represent their country in the tournament.</description>
     </item>
     
     <item>
@@ -87,7 +86,7 @@ Perpendicular Intersecting WavesProblemThis problem appears in Simmons (2016) 
       <pubDate>Thu, 24 May 2018 00:00:00 +0000</pubDate>
       
       <guid>/blog/all-about-git/</guid>
-      <description>Git NewbieCommit, Push, and PullLet’s Git It On!Create an account in GithubOnce we have an account, we can immediately create a repository.Configure Git in R StudioCreate new project with version controlCopy Repository URL and Create ProjectGit Up, Git DownR Studio’s Easy Git Interface.First CommitPush the ChangesMake changes in the RepositoryPull the ChangesCreate README FileSame StepsGit NewbieAs a novice programmer, I realized that code can go from bad to worse just because of minimal changes.</description>
+      <description>1 Git Newbie2 Commit, Push, and Pull3 Let’s Git It On!3.1 Create an account in Github3.2 Once we have an account, we can immediately create a repository.3.3 Configure Git in R Studio3.4 Create new project with version control3.5 Copy Repository URL and Create Project4 Git Up, Git Down4.1 R Studio’s Easy Git Interface.4.2 First Commit4.3 Push the Changes4.</description>
     </item>
     
     <item>
@@ -96,8 +95,7 @@ Perpendicular Intersecting WavesProblemThis problem appears in Simmons (2016) 
       <pubDate>Sat, 19 May 2018 00:00:00 +0000</pubDate>
       
       <guid>/blog/hideous-progeny-tidytext-frankenstein/</guid>
-      <description>The Moden PrometheusPursuit for Frankenstein BeginsEmptiness FilledDestruction and CreationOf Man, Of LifeA Big EndingUncontrollable FeelingsWaves of EmotionsDown the PrecipiceFear the DaemonIce and Hearts of FireAnd now, once again, I bid my hideous progeny go forth and prosper. — Mary Wollstonecraft Shelley (London, 15 October 1831)
-The Moden PrometheusMary Wollstonecraft Shelley’s Frankenstein (The Modern Prometheus) is one of the best stories anyone can read.</description>
+      <description>1 The Moden Prometheus2 Pursuit for Frankenstein Begins3 Emptiness Filled4 Destruction and Creation5 Of Man, Of Life6 A Big Ending7 Uncontrollable Feelings7.1 Waves of Emotions7.2 Down the Precipice7.3 Fear the Daemon8 Ice and Hearts of FireAnd now, once again, I bid my hideous progeny go forth and prosper. — Mary Wollstonecraft Shelley (London, 15 October 1831)</description>
     </item>
     
     <item>
@@ -106,8 +104,8 @@ Perpendicular Intersecting WavesProblemThis problem appears in Simmons (2016) 
       <pubDate>Sat, 19 May 2018 00:00:00 +0000</pubDate>
       
       <guid>/blog/trivium-songs/</guid>
-      <description>A View of Mining LyricsInto the Mouth of R We MarchPull Harder on the Strings of Lyrics with geniusRText DismantledAnthem (We are the Functions)Album That Spawned the Most WordsTread the WordsTorn Between Term Frequency and Inverse Document FrequencyNegativity ThrivesThese Sentiments Can’t Tear Us Apart(Warning: NSFW Language)
-A View of Mining LyricsTrivium is my favorite heavy metal band.</description>
+      <description>1 A View of Mining Lyrics2 Into the Mouth of R We March3 Pull Harder on the Strings of Lyrics with geniusR4 Text Dismantled5 Anthem (We are the Functions)6 Album That Spawned the Most Words7 Tread the Words8 Torn Between Term Frequency and Inverse Document Frequency9 Negativity Thrives10 These Sentiments Can’t Tear Us Apart(Warning: NSFW Language)
+1 A View of Mining LyricsTrivium is my favorite heavy metal band.</description>
     </item>
     
   </channel>

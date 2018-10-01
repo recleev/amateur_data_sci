@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes" ?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>Philippines on The Amateur Data Scientist</title>
+    <link>/categories/philippines/</link>
+    <description>Recent content in Philippines on The Amateur Data Scientist</description>
+    <generator>Hugo -- gohugo.io</generator>
+    <language>en-us</language>
+    <lastBuildDate>Wed, 03 Oct 2018 00:00:00 +0000</lastBuildDate>
+    
+	<atom:link href="/categories/philippines/index.xml" rel="self" type="application/rss+xml" />
+    
+    
+    <item>
+      <title>From Messy to Tidy: The Power of `tidyr::gather`</title>
+      <link>/blog/messy-tidy-tidyr-gather/</link>
+      <pubDate>Wed, 03 Oct 2018 00:00:00 +0000</pubDate>
+      
+      <guid>/blog/messy-tidy-tidyr-gather/</guid>
+      <description>library(knitr)library(tidyverse)library(magrittr)library(janitor)library(lubridate)opts_chunk$set(message = FALSE,warning = FALSE,echo = TRUE)Tidy Data: Long But Mahcine ReadableWorking with data made me concious of how we compile, store, and share data. Most of us work with spreadsheets and most of the time we encode our data in a way that makes it easy for other people to read our data. Unfortunately, human readable data format is not necessarily machine readable data.</description>
+    </item>
+    
+  </channel>
+</rss>

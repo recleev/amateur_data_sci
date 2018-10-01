@@ -17,6 +17,7 @@ slug: three-decades-psei-prices-returns-naive-simulation
 output:
   blogdown::html_page:
     toc: yes
+    number_sections: true
 editor_options:
   chunk_output_type: console
 ---
@@ -24,16 +25,16 @@ editor_options:
 
 <div id="TOC">
 <ul>
-<li><a href="#rise-and-fall-of-stocks">Rise and Fall of Stocks</a></li>
-<li><a href="#thirty-years-of-psei-prices">Thirty Years of PSEi Prices</a></li>
-<li><a href="#ups-and-downs-but-going-up">Ups and Downs but Going Up</a></li>
-<li><a href="#month-to-month-returns">Month-to-Month Returns</a></li>
-<li><a href="#buy-and-hold">Buy and Hold</a><ul>
-<li><a href="#simulating-buy-and-hold-over-three-decades-of-psei">Simulating Buy and Hold Over Three Decades of PSEi</a></li>
-<li><a href="#more-than-a-million">More Than a Million</a></li>
+<li><a href="#rise-and-fall-of-stocks"><span class="toc-section-number">1</span> Rise and Fall of Stocks</a></li>
+<li><a href="#thirty-years-of-psei-prices"><span class="toc-section-number">2</span> Thirty Years of PSEi Prices</a></li>
+<li><a href="#ups-and-downs-but-going-up"><span class="toc-section-number">3</span> Ups and Downs but Going Up</a></li>
+<li><a href="#month-to-month-returns"><span class="toc-section-number">4</span> Month-to-Month Returns</a></li>
+<li><a href="#buy-and-hold"><span class="toc-section-number">5</span> Buy and Hold</a><ul>
+<li><a href="#simulating-buy-and-hold-over-three-decades-of-psei"><span class="toc-section-number">5.1</span> Simulating Buy and Hold Over Three Decades of PSEi</a></li>
+<li><a href="#more-than-a-million"><span class="toc-section-number">5.2</span> More Than a Million</a></li>
 </ul></li>
-<li><a href="#bank-deposit-vs-buy-and-hold-investment">Bank Deposit vs Buy and Hold Investment</a></li>
-<li><a href="#next-thirty-years-another-million">Next Thirty Years: Another Million?</a></li>
+<li><a href="#bank-deposit-vs-buy-and-hold-investment"><span class="toc-section-number">6</span> Bank Deposit vs Buy and Hold Investment</a></li>
+<li><a href="#next-thirty-years-another-million"><span class="toc-section-number">7</span> Next Thirty Years: Another Million?</a></li>
 </ul>
 </div>
 
@@ -57,11 +58,11 @@ opts_chunk$set(
   fig.height = 7
 )</code></pre>
 <div id="rise-and-fall-of-stocks" class="section level1">
-<h1>Rise and Fall of Stocks</h1>
+<h1><span class="header-section-number">1</span> Rise and Fall of Stocks</h1>
 <p>I recently regained my interest in stocks after news of a bearish Philippine stock market was speculated in 2018 June. Stock prices go up and down on a regular basis and some people cannot live with that kind of volatility on a daily basis. The most appealing stocks investment strategy for me is the buy and hold because it requires the least amount of monitoring of stock prices and therefore less stress. Which led me to ask: If we follow a buy and hold strategy for the <a href="http://www.pse.com.ph/stockMarket/marketInfo-marketActivity.html?tab=1&amp;indexName=PSEi">Philippine Stock Exchange Index</a> for the last 30 years, what would have been our earnings/loss from such an investment?</p>
 </div>
 <div id="thirty-years-of-psei-prices" class="section level1">
-<h1>Thirty Years of PSEi Prices</h1>
+<h1><span class="header-section-number">2</span> Thirty Years of PSEi Prices</h1>
 <p>Before I can answer my question, I must have PSEi data first. Luckily, (1) <code>Yahoo!</code> keeps PSEi data, and (2) <code>quantmod::getSymbols()</code> allows us to retrieve the PSEi historical prices from <code>Yahoo!</code> via <code>R</code>.</p>
 <pre class="r"><code>psei_historical_data &lt;- 
   # obtain historical psei data from yahoo; I am only interested on closing
@@ -157,7 +158,7 @@ min_price_date &lt;-
   format(format = &quot;%Y %b %d&quot;)</code></pre>
 </div>
 <div id="ups-and-downs-but-going-up" class="section level1">
-<h1>Ups and Downs but Going Up</h1>
+<h1><span class="header-section-number">3</span> Ups and Downs but Going Up</h1>
 <pre class="r"><code>monthly_psei %&gt;% 
   ggplot(aes(trading_date, psei_ps_close)) +
   geom_line(color = palette_pander(1), size = 1) +
@@ -174,17 +175,21 @@ min_price_date &lt;-
   # are necessary
   theme_pander(gl = 0) +
   labs(
-    title = &quot;Historical Monthly Closing Prices of PSEi&quot;,
     x = &quot;Year&quot;,
     y = &quot;Monthly Closing Price&quot;,
     caption = date_caption
   )</code></pre>
-<p><img src="/blog/2018-07-20-psei-prices-returns-simulation_files/figure-html/plot_psei_monthly-1.png" width="960" style="display: block; margin: auto;" /></p>
+<div class="figure" style="text-align: center"><span id="fig:plot-psei-monthly"></span>
+<img src="/blog/2018-07-20-psei-prices-returns-simulation_files/figure-html/plot-psei-monthly-1.png" alt="Historical Monthly Closing Prices of PSEi" width="960" />
+<p class="caption">
+Figure 3.1: Historical Monthly Closing Prices of PSEi
+</p>
+</div>
 <p>Since 1987 Jun 30, the historical PSEi end-of-month closing prices show a typical stock behavior. The price goes up sometimes, then goes down, but after 31 years, the overall trend is up. It seems that if we invested money on PSEi on 1987 Jun 30, we would have a very good amount by 2018 Jun 29.</p>
 <p><strong>Trivia</strong>: The lowest end-of-month closing price of PSEi was at ₱516.21 on 1990 Oct 05, and the highest was at ₱9,058.62 on 2018 Jan 29.</p>
 </div>
 <div id="month-to-month-returns" class="section level1">
-<h1>Month-to-Month Returns</h1>
+<h1><span class="header-section-number">4</span> Month-to-Month Returns</h1>
 <pre class="r"><code>returns_monthly &lt;- 
   monthly_psei %&gt;%
   # returns is just the net change of the current price from the previous price;
@@ -231,17 +236,21 @@ min_return_date &lt;-
   scale_x_date(date_breaks = &quot;3 years&quot;, date_labels = &quot;%Y&quot;) +
   theme_pander(gl = 0) +
   labs(
-    title = &quot;Percent Monthly Returns of PSEi&quot;,
     x = &quot;Year&quot;,
     y = &quot;Percent Return&quot;,
     caption = date_caption
   )</code></pre>
-<p><img src="/blog/2018-07-20-psei-prices-returns-simulation_files/figure-html/plot_psei_earnings-1.png" width="960" style="display: block; margin: auto;" /></p>
+<div class="figure" style="text-align: center"><span id="fig:plot-psei-earnings"></span>
+<img src="/blog/2018-07-20-psei-prices-returns-simulation_files/figure-html/plot-psei-earnings-1.png" alt="Percent Monthly Returns of PSEi" width="960" />
+<p class="caption">
+Figure 4.1: Percent Monthly Returns of PSEi
+</p>
+</div>
 <p>The PSEi’s returns over time emphasizes a stock’s price volatility and randomness. Once we buy a stock, we cannot be sure if the next price will give us profits. It becomes more stressful if we keep seeing negative returns and wonder if we can wait for a positive return. That is assuming the price will be positive at some time in the future.</p>
 <p><strong>Trivia</strong>: The biggest monthly return of PSEi was 39.3% on 1998 Oct 30 and the lowest monthly return was -31.5% on 1987 Sep 30.</p>
 </div>
 <div id="buy-and-hold" class="section level1">
-<h1>Buy and Hold</h1>
+<h1><span class="header-section-number">5</span> Buy and Hold</h1>
 <p>The randomness of stock prices are usually enough to push away people from investing in the stock market. Monitoring prices can be very stressful when you see the market and the stocks in your portfolio all going down.</p>
 <p>There are different opinions and strategies on how to invest in stocks and to ensure low risks and decent rewards. My favorite strategy is the <em>buy and hold</em>, buy a stock, hold it for the long run. I like this strategy because it is less stressful than watching the prices everyday and buying/selling at opportune moments.</p>
 <p>Another strategy I like with stocks is the regular buying of stocks at fixed intervals with a fixed budget. For example, we can promise ourselves that we will invest ₱6,000 every six months on the stock market. When the price of our portfolio is up, we buy less. When the price of our portfolio is down, we buy more. Then we hold.</p>
@@ -249,7 +258,7 @@ min_return_date &lt;-
 <p>To illustrate buy and hold, I will simulate the strategy over the PSEi data.</p>
 <p><em>Note: This is only for illustration purposes. I am only using PSEi as a representative stock. One cannot really buy PSEi as a stock and not as fractions of stocks either. Investing a fixed amount on stocks and indices is a little bit more complicated than what I am about to do here.</em></p>
 <div id="simulating-buy-and-hold-over-three-decades-of-psei" class="section level2">
-<h2>Simulating Buy and Hold Over Three Decades of PSEi</h2>
+<h2><span class="header-section-number">5.1</span> Simulating Buy and Hold Over Three Decades of PSEi</h2>
 <pre class="r"><code>invest_psei_simulation &lt;-
   monthly_psei %&gt;% 
   # choose only Jun and Dec
@@ -265,7 +274,7 @@ min_return_date &lt;-
 <p>The simulation is as follows: Starting 1987 Jun 30, the hypothetical investor uses ₱6,000 to buy PSEi stocks every six months until 2018 Jun 29. The hypothetical investor will accumulate a ₱378,000 over this period.</p>
 </div>
 <div id="more-than-a-million" class="section level2">
-<h2>More Than a Million</h2>
+<h2><span class="header-section-number">5.2</span> More Than a Million</h2>
 <pre class="r"><code>invest_psei_simulation %&gt;% 
    ggplot(aes(
     trading_date,
@@ -283,27 +292,30 @@ min_return_date &lt;-
    scale_y_continuous(labels = peso) +
    theme_pander(gl = 0) +
   labs(
-    title = &quot;Simulated Portfolio Value of a PSEi Investment&quot;,
-    subtitle = sprintf(
-      &quot;%s Investment Every Six Months from %s to %s&quot;,
-      peso(6000),
-      format(start_date, format = &quot;%Y %b %d&quot;),
-      format(end_date, format = &quot;%Y %b %d&quot;)
-    ),
     x = &quot;Year&quot;,
     y = &quot;Portfolio Value&quot;
   )</code></pre>
-<p><img src="/blog/2018-07-20-psei-prices-returns-simulation_files/figure-html/plot_buy_hold_simul-1.png" width="960" style="display: block; margin: auto;" /></p>
+<div class="figure" style="text-align: center"><span id="fig:plot-buy-hold-simulation"></span>
+<img src="/blog/2018-07-20-psei-prices-returns-simulation_files/figure-html/plot-buy-hold-simulation-1.png" alt="Simulated Portfolio Value of a PSEi Investment. ₱6,000 Investment Every Six Months from 1987 Jun 30 to 2018 Jun 29" width="960" />
+<p class="caption">
+Figure 5.1: Simulated Portfolio Value of a PSEi Investment. ₱6,000 Investment Every Six Months from 1987 Jun 30 to 2018 Jun 29
+</p>
+</div>
 <p>Our hypothetical investor breaches the ₱1,000,000 mark long before the end of the simulation. The final value of the buy and hold portfolio is ₱1,410,142.</p>
 </div>
 </div>
 <div id="bank-deposit-vs-buy-and-hold-investment" class="section level1">
-<h1>Bank Deposit vs Buy and Hold Investment</h1>
+<h1><span class="header-section-number">6</span> Bank Deposit vs Buy and Hold Investment</h1>
 <p>Our hypothetical investor reached a million, but is it worth risking money in the stock market when one can just save in the bank. In the Philippines, if we save ₱6,000 every six months for 30 years, I think the best interest rate we can get is 0.75% per annum. What is the annual and final interest rate of our hypothetical buy and hold investment in the PSEi?</p>
 <p>I had to revisit the equation for ordinary annuity:</p>
-<p><span class="math display">\[FV=A\frac{(1+i)^n - 1}{i}\]</span></p>
-<p><span class="math inline">\(FV\)</span> is the future value or the money we have after a certain period, <span class="math inline">\(A\)</span> is the annuity or the regular payment per period, <span class="math inline">\(i\)</span> is the interest rate, and <span class="math inline">\(n\)</span> is the number of interest periods. The equation is easy to use when we want to find <span class="math inline">\(FV\)</span>, <span class="math inline">\(A\)</span>, or <span class="math inline">\(n\)</span>. Finding <span class="math inline">\(i\)</span> needs a bit of iteration.</p>
-<p>However, this equation gave me problems when working with years with negative interest. My solution was to go back to the definition of an annuity, i.e. a series of compound interest of periodic payments with fixed rate, and work on that definition to iterate the interest rate. The simulation takes longer because of this method, so if anyone has a better way to determine this, I am willing to listen.</p>
+<p><span class="math display" id="eq:annuity">\[
+\begin{equation}
+FV=A\frac{(1+i)^n - 1}{i}
+\tag{6.1}
+\end{equation}
+\]</span></p>
+<p><span class="math inline">\(FV\)</span> is the future value or the money we have after a certain period, <span class="math inline">\(A\)</span> is the annuity or the regular payment per period, <span class="math inline">\(i\)</span> is the interest rate, and <span class="math inline">\(n\)</span> is the number of interest periods.</p>
+<p>Equation <a href="#eq:annuity">(6.1)</a> is easy to use when we want to find <span class="math inline">\(FV\)</span>, <span class="math inline">\(A\)</span>, or <span class="math inline">\(n\)</span>. Finding <span class="math inline">\(i\)</span> needs a bit of iteration. However, equation <a href="#eq:annuity">(6.1)</a> gave me problems when working with years with negative interest. My solution was to go back to the definition of an annuity, i.e. a series of compound interest of periodic payments with fixed rate, and work on that definition to iterate the interest rate. The simulation takes longer because of this method, so if anyone has a better way to determine this, I am willing to listen.</p>
 <pre class="r"><code>compute_interest_rate_annuity &lt;- function(
   future_value, 
   annuity, 
@@ -376,17 +388,15 @@ min_return_date &lt;-
   theme_pander(gl = 0) +
   scale_fill_pander() +
   labs(
-    title = &quot;Estimated Annual Interest Rate of PSEi Investment&quot;,
-    subtitle = sprintf(
-      &quot;%s Investments Every Six Months from %s to %s&quot;,
-      peso(6000),
-      format(start_date, format = &quot;%Y %b %d&quot;),
-      format(end_date, format = &quot;%Y %b %d&quot;)
-    ),
     x = &quot;Year&quot;,
     y = &quot;Interest Rate&quot;
   )</code></pre>
-<p><img src="/blog/2018-07-20-psei-prices-returns-simulation_files/figure-html/plot_annual_interest-1.png" width="960" style="display: block; margin: auto;" /></p>
+<div class="figure" style="text-align: center"><span id="fig:plot-annual-interest"></span>
+<img src="/blog/2018-07-20-psei-prices-returns-simulation_files/figure-html/plot-annual-interest-1.png" alt="Estimated Annual Interest Rate of PSEi Investment. ₱6,000 Investment Every Six Months from 1987 Jun 30 to 2018 Jun 29" width="960" />
+<p class="caption">
+Figure 6.1: Estimated Annual Interest Rate of PSEi Investment. ₱6,000 Investment Every Six Months from 1987 Jun 30 to 2018 Jun 29
+</p>
+</div>
 <pre class="r"><code>min_rate &lt;-
   annual_interest_rate_estimated %&gt;% 
   filter(avg_interest_rate == min(avg_interest_rate)) %&gt;% 
@@ -409,10 +419,10 @@ max_rate_year &lt;-
   pull(trading_date) %&gt;% 
   year()</code></pre>
 <p>The PSEi was not consistently profitable in the past three decades, but it seems like if one stayed with it for the long run, i.e. buy and hold, then one can expect a rate of 8.22% after waiting patiently for 31 years. If a bank account with an annual interest rate of more than 8.22% existed in the past three decades, then saving in that account would have been better than risking money in the PSEi. Please inform me of a bank that offers this kind of saving interest rate.</p>
-<p>Impatience and early panicking cost. If one panicked and gave up with PSEi after experiencing a net decay rate of -11% at the end of 1990 then one would have missed the 28.7% at the end of 1993. However, buying out at the maximum rate would only gain our hypothetical investor ₱176,613 and miss the ₱1,298,527 after three decades of patience.</p>
+<p>Impatience and early panicking cost. If one panicked and gave up with PSEi after experiencing a net decay rate of -11.0% at the end of 1990 then one would have missed the 28.7% at the end of 1993. However, buying out at the maximum rate would only gain our hypothetical investor ₱176,613 and miss the ₱1,298,527 after three decades of patience.</p>
 </div>
 <div id="next-thirty-years-another-million" class="section level1">
-<h1>Next Thirty Years: Another Million?</h1>
+<h1><span class="header-section-number">7</span> Next Thirty Years: Another Million?</h1>
 <p>Not really. While PSEi seems like a good investment for the past three decades, this does not ensure that it will be profitable for the next thirty years. Just to be clear, I am not saying that that investing in stocks is a sure way to get a million pesos in your retirement fund. It is always the best to go into an investment thinking that it will fail. If you want to invest in stocks, I suggest investing the amount you are willing or financially capable to lose anyway. In case the stocks you are buying plunges to zero, it will not hurt because you can afford to lose it anyway. If you gain money from stocks, just shrug, think buy and hold, and do not buy out until you need to, if there is anything to buy out.</p>
 <p>That being said, I do not think I am the best financial adviser when it comes to stock market investments.</p>
 </div>

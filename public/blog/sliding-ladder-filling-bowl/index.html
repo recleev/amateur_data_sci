@@ -140,22 +140,22 @@ ga('send', 'pageview');
     <div class="container markdown  top-pad">
         <div id="TOC">
 <ul>
-<li><a href="#sliding-ladder">Sliding Ladder</a><ul>
-<li><a href="#problem">Problem</a></li>
-<li><a href="#solution">Solution</a></li>
+<li><a href="#sliding-ladder"><span class="toc-section-number">1</span> Sliding Ladder</a><ul>
+<li><a href="#problem"><span class="toc-section-number">1.1</span> Problem</a></li>
+<li><a href="#solution"><span class="toc-section-number">1.2</span> Solution</a></li>
 </ul></li>
-<li><a href="#filling-a-bowl">Filling a Bowl</a><ul>
-<li><a href="#problem-1">Problem</a></li>
-<li><a href="#solution-1">Solution</a></li>
+<li><a href="#filling-a-bowl"><span class="toc-section-number">2</span> Filling a Bowl</a><ul>
+<li><a href="#problem-1"><span class="toc-section-number">2.1</span> Problem</a></li>
+<li><a href="#solution-1"><span class="toc-section-number">2.2</span> Solution</a></li>
 </ul></li>
-<li><a href="#references">References</a></li>
+<li><a href="#references"><span class="toc-section-number">3</span> References</a></li>
 </ul>
 </div>
 
 <div id="sliding-ladder" class="section level1">
-<h1>Sliding Ladder</h1>
+<h1><span class="header-section-number">1</span> Sliding Ladder</h1>
 <div id="problem" class="section level2">
-<h2>Problem</h2>
+<h2><span class="header-section-number">1.1</span> Problem</h2>
 <p>Problem 116, Page 142 in <span class="citation">Simmons (2016)</span></p>
 <p>A ladder 20 ft long is leaning against a wall 12 ft high, with its top projecting over the wall. Its bottom is being pulled away from the wall at the constant rate of 5 ft/min. Find how rapidly the top of the ladder is approaching the ground:</p>
 <ul>
@@ -164,7 +164,7 @@ ga('send', 'pageview');
 </ul>
 </div>
 <div id="solution" class="section level2">
-<h2>Solution</h2>
+<h2><span class="header-section-number">1.2</span> Solution</h2>
 <p>The key to this problem is to recognize that the angle <span class="math inline">\(\theta\)</span> between the ladder and the floor relates the distance <span class="math inline">\(x\)</span> of the foot of the ladder from the wall and and the distance <span class="math inline">\(y\)</span> from the top of the ladder to the ground, such that,</p>
 <p><span class="math display">\[
 \begin{gather}
@@ -175,27 +175,27 @@ ga('send', 'pageview');
 \end{gather}
 \]</span></p>
 <p>Differentiating the two equations with respect to time,</p>
-<p><span class="math display">\[
+<p><span class="math display" id="eq:height-rate" id="eq:angle-rate">\[
 \begin{align}
 \sec^2 \theta \frac{d \theta}{dt} &amp;= \frac{-12}{x^2} \frac{dx}{dt}
 \\
 \\
-\frac{d \theta}{dt} &amp;= \frac{-12}{x^2 \sec^2 \theta} \frac{dx}{dt} \tag{1} \label{angle_rate}
+\frac{d \theta}{dt} &amp;= \frac{-12}{x^2 \sec^2 \theta} \frac{dx}{dt} \tag{1.1}
 \\
 \\
 \cos \theta \frac{d \theta}{dt}&amp;= \frac{1}{20} \frac{dy}{dt}
 \\
 \\
-\frac{dy}{dt} &amp;= 20 \cos \theta \frac{d \theta}{dt} \tag{2} \label{height_rate}
+\frac{dy}{dt} &amp;= 20 \cos \theta \frac{d \theta}{dt} \tag{1.2}
 \end{align}
 \]</span></p>
-<p>From <span class="math inline">\(\eqref{angle_rate}\)</span> we can find the rate at which the angle <span class="math inline">\(\theta\)</span> between the ladder and the floor is decreasing as the ladder is pulled away from the wall at a rate of <span class="math inline">\(\frac{dx}{dt} = 5\)</span>. This decrease in angle will cause a decrease in the distance <span class="math inline">\(y\)</span> from the top of the ladder to the floor at a rate of <span class="math inline">\(\frac{dy}{dt}\)</span> that is related to <span class="math inline">\(\frac{d \theta}{dt}\)</span> by <span class="math inline">\(\eqref{height_rate}\)</span>.</p>
+<p>From <a href="#eq:angle-rate">(1.1)</a> we can find the rate at which the angle <span class="math inline">\(\theta\)</span> between the ladder and the floor is decreasing as the ladder is pulled away from the wall at a rate of <span class="math inline">\(\frac{dx}{dt} = 5\)</span>. This decrease in angle will cause a decrease in the distance <span class="math inline">\(y\)</span> from the top of the ladder to the floor at a rate of <span class="math inline">\(\frac{dy}{dt}\)</span> that is related to <span class="math inline">\(\frac{d \theta}{dt}\)</span> by <a href="#eq:height-rate">(1.2)</a>.</p>
 <p>We still need the values of <span class="math inline">\(x\)</span> and the values of <span class="math inline">\(\sec \theta\)</span> and <span class="math inline">\(\cos \theta\)</span>. If we let <span class="math inline">\(l\)</span> be the length of the ladder projecting over the wall, then we know that</p>
 <p><span class="math display">\[
 \left( 20 - l \right)^2 = x^2 + 12^2
 \]</span></p>
 <p>At <span class="math inline">\(l = 5\)</span>,</p>
-<p><span class="math display">\[
+<p><span class="math display" id="eq:sec-x-9" id="eq:cos-x-9" id="eq:x-9">\[
 \begin{align}
 \left( 20 - 5 \right)^2 &amp;= x^2 + 12^2
 \\
@@ -209,17 +209,17 @@ x^2 &amp;= 15^2 - 12^2
 x^2 &amp;= 81
 \\
 \\
-x &amp;= 9 \tag{a} \label{x_9}
+x &amp;= 9 \tag{1.3}
 \\
 \\
-\cos \theta &amp;= \frac{9}{20 - 5} = \frac{3}{5} \tag{b} \label{cos_x_9}
+\cos \theta &amp;= \frac{9}{20 - 5} = \frac{3}{5} \tag{1.4}
 \\
 \\
-\sec \theta &amp;= \frac{5}{3} \tag{c} \label{sec_x_9}
+\sec \theta &amp;= \frac{5}{3} \tag{1.5}
 \end{align}
 \]</span></p>
 <p>At <span class="math inline">\(l = 0\)</span>,</p>
-<p><span class="math display">\[
+<p><span class="math display" id="eq:sec-x-16" id="eq:cos-x-16" id="eq:x-16">\[
 \begin{align}
 \left( 20 - 0 \right)^2 &amp;= x^2 + 12^2
 \\
@@ -233,17 +233,17 @@ x^2 &amp;= 20^2 - 12^2
 x^2 &amp;= 256
 \\
 \\
-x &amp;= 16 \tag{d} \label{x_16}
+x &amp;= 16 \tag{1.6}
 \\
 \\
-\cos \theta &amp;= \frac{16}{20} = \frac{4}{5} \tag{e} \label{cos_x_16}
+\cos \theta &amp;= \frac{16}{20} = \frac{4}{5} \tag{1.7}
 \\
 \\
-\sec \theta &amp;= \frac{5}{4} \tag{f} \label{sec_x_16}
+\sec \theta &amp;= \frac{5}{4} \tag{1.8}
 \end{align} 
 \]</span></p>
 <p>We now have everything we need.</p>
-<p>For <span class="math inline">\(l = 5\)</span>, using <span class="math inline">\(\eqref{angle_rate}\)</span>, <span class="math inline">\(\eqref{height_rate}\)</span>, <span class="math inline">\(\eqref{x_9}\)</span>, <span class="math inline">\(\eqref{cos_x_9}\)</span>, and <span class="math inline">\(\eqref{sec_x_9}\)</span>,</p>
+<p>For <span class="math inline">\(l = 5\)</span>, using <a href="#eq:angle-rate">(1.1)</a>, <a href="#eq:height-rate">(1.2)</a>, <a href="#eq:x-9">(1.3)</a>, <a href="#eq:cos-x-9">(1.4)</a>, and <a href="#eq:sec-x-9">(1.5)</a>,</p>
 <p><span class="math display">\[
 \begin{align}
 \frac {d \theta}{dt} &amp;= \frac{-12}{x^2 \sec^2 \theta} \frac{dx}{dt}
@@ -264,7 +264,7 @@ x &amp;= 16 \tag{d} \label{x_16}
 \frac {dy}{dt} &amp;= - \frac{16}{5}
 \end{align}
 \]</span></p>
-<p>For <span class="math inline">\(l = 5\)</span>, using <span class="math inline">\(\eqref{angle_rate}\)</span>, <span class="math inline">\(\eqref{height_rate}\)</span>, <span class="math inline">\(\eqref{x_16}\)</span>, <span class="math inline">\(\eqref{cos_x_16}\)</span>, and <span class="math inline">\(\eqref{sec_x_16}\)</span>,</p>
+<p>For <span class="math inline">\(l = 5\)</span>, using <a href="#eq:angle-rate">(1.1)</a>, <a href="#eq:height-rate">(1.2)</a>, <a href="#eq:x-16">(1.6)</a>, <a href="#eq:cos-x-16">(1.7)</a>, and <a href="#eq:sec-x-16">(1.8)</a>,</p>
 <p><span class="math display">\[
 \begin{align}
 \frac {d \theta}{dt} &amp;= \frac{-12}{x^2 \sec^2 \theta} \frac{dx}{dt}
@@ -288,14 +288,14 @@ x &amp;= 16 \tag{d} \label{x_16}
 </div>
 </div>
 <div id="filling-a-bowl" class="section level1">
-<h1>Filling a Bowl</h1>
+<h1><span class="header-section-number">2</span> Filling a Bowl</h1>
 <div id="problem-1" class="section level2">
-<h2>Problem</h2>
+<h2><span class="header-section-number">2.1</span> Problem</h2>
 <p>Problem 20, Page 143 in <span class="citation">Simmons (2016)</span></p>
 <p>Water is being poured into a hemispherical bowl of radius 3 inches at the rate of 1 <span class="math inline">\(in^3/s\)</span>. The bowl contains a lead ball 2 inches in diameter. How fast is the water level rising when the ball is half submerged?</p>
 </div>
 <div id="solution-1" class="section level2">
-<h2>Solution</h2>
+<h2><span class="header-section-number">2.2</span> Solution</h2>
 <p>I took a shortcut with this problem using the volume of a <a href="https://en.wikipedia.org/wiki/Spherical_cap">spherical cap</a>.</p>
 <p><span class="math display">\[
 \begin{align}
@@ -309,7 +309,7 @@ h &amp;= \text{height of the cap}
 \end{align}
 \]</span></p>
 <p>The volume of the water inside the bowl will be equal to the volume of the bowl’s cap minus the volume occupied by the lead ball’s cap both at water level <span class="math inline">\(h\)</span>.</p>
-<p><span class="math display">\[
+<p><span class="math display" id="eq:volume-water">\[
 \begin{align}
 V_{water} &amp;= V_{bowl} - V_{ball}
 \\
@@ -323,10 +323,10 @@ V_{water} &amp;= 9 \frac{\pi h^2}{3} - \frac{\pi h^3}{3} - 3\frac{\pi h^2}{3} + 
 V_{water} &amp;= 3 \pi h^2 - \pi h^2
 \\
 \\
-V_{water} &amp;= 2 \pi h^2 \tag{3} \label{volume_water}
+V_{water} &amp;= 2 \pi h^2 \tag{2.1}
 \end{align}
 \]</span></p>
-<p>Differentiating <span class="math inline">\(\eqref{volume_water}\)</span> with respect to time,</p>
+<p>Differentiating <a href="#eq:volume-water">(2.1)</a> with respect to time,</p>
 <p><span class="math display">\[
 \begin{align}
 \frac{d V_{water}}{dt} &amp;= 4 \pi h \frac{dh}{dt}
@@ -346,8 +346,9 @@ V_{water} &amp;= 2 \pi h^2 \tag{3} \label{volume_water}
 \]</span></p>
 </div>
 </div>
-<div id="references" class="section level1 unnumbered">
-<h1>References</h1>
+<div id="references" class="section level1">
+<h1><span class="header-section-number">3</span> References</h1>
+<p>Problems and lessons from</p>
 <div id="refs" class="references">
 <div id="ref-cwag2016">
 <p>Simmons, George F. 2016. <em>Calculus with Analytic Geometry</em>. 2nd Edition. McGraw-Hill Education.</p>

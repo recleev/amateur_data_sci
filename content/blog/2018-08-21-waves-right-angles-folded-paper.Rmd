@@ -16,6 +16,7 @@ slug: waves-right-angles-folded-paper
 output:
   blogdown::html_page:
     toc: yes
+    number_sections: true
 bibliography:
   - references/cwag2016.bib
 biblio-style: apalike
@@ -311,14 +312,14 @@ To compute the area of a triangle from its three vertices, I used the [shoelace 
 
 $$
 \begin{equation}
-A_{\triangle} = \frac{1}{2} \lvert \sum_{i = 1}^n x_i (y_{i + 1} - y_{i - 1}) \rvert \tag{Shoelace Formula} \label{shoelace}
+A_{\triangle} = \frac{1}{2} \lvert \sum_{i = 1}^n x_i (y_{i + 1} - y_{i - 1}) \rvert (\#eq:shoelace)
 \end{equation}
 $$
 
 The absolute value is necessary as the summation can result to a negative value. Area cannot be negative. The summation only produces negative values because of the order and sign of the vertices. For this form of the shoelace formula, note that $x_{n+1} = x_1$, $x_0 = x_n$, $y_{n+1} = {y_1}$, and
 $y_0 = y_n$.
 
-Applying $\eqref{shoelace}$ to a triangle,
+Applying \@ref(eq:shoelace) to a triangle,
 
 $$
 \begin{equation}
@@ -336,24 +337,31 @@ A_{\triangle} &= \frac{1}{2} \lvert a(y - 0) + x\left[0 - \left(y - \sqrt{2ax - 
 &= \frac{1}{2} \lvert ay  - x\left(y - \sqrt{2ax - a^2}\right)\rvert
 \\
 \\
-A_{\triangle} &= \frac{1}{2}ay - \frac{1}{2}xy + \frac{1}{2} x \sqrt{2ax - a^2} \tag{Area Eqn 1} \label{area1}
+A_{\triangle} &= \frac{1}{2}ay - \frac{1}{2}xy + \frac{1}{2} x \sqrt{2ax - a^2} (\#eq:area-1)
 \end{align}
 $$
 
 Note that I freely removed the absolute value sign since the expression will always be positive, i.e. $a \gt x$ and $y \gt y - \sqrt{2ax - a^2}$. Unfortunately, I hit another roadblock after this. How can I find the minimum area, when the area is a function of $x$ and $y$.
 
-The key to proceed with this problem is to realize that the area of $\triangle ABC$ is the same as the area of the right triangle indicated by the dashed lines in the figure, i.e. 
+The key to proceed with this problem is to realize that the area of $\triangle ABC$ is the same as the area of the right triangle indicated by the dashed lines in the figure, i.e.
+
 $$
-A_{\triangle} = \frac{1}{2}xy \tag{Area Eqn 2} \label{area2}
+\begin{equation}
+A_{\triangle} = \frac{1}{2}xy 
+(\#eq:area-2)
+\end{equation}
 $$
 
 This also gives us $y$ as a function of $x$ and the $A_{\triangle}$, 
 
 $$
-y = \frac{2A_{\triangle}}{x} \tag{a} \label{y1}
+\begin{equation}
+y = \frac{2A_{\triangle}}{x} 
+(\#eq:y1)
+\end{equation}
 $$
 
-Substituting $\eqref{area2}$ and $\eqref{y1}$ in $\eqref{area1}$,
+Substituting \@ref(eq:area-2) and \@ref(eq:y1) in \@ref(eq:area-1),
 
 $$
 \begin{align}
@@ -372,11 +380,11 @@ A_{\triangle} + A_{\triangle} &= \frac{aA_{\triangle}}{x} + \frac{1}{2} x \sqrt{
 A_{\triangle} \left( 2x - a \right) &= \frac{1}{2} x^2 \sqrt{2ax - a^2}
 \\
 \\
-A_{\triangle} &= \frac{x^2 \sqrt{2ax - a^2}}{4x - 2a} = x^2 \left( 2ax - a^2 \right)^{1/2} \left( 4x -2a \right)^{\text -1} \tag{Area Eqn 3} \label{area3}
+A_{\triangle} &= \frac{x^2 \sqrt{2ax - a^2}}{4x - 2a} = x^2 \left( 2ax - a^2 \right)^{1/2} \left( 4x -2a \right)^{\text -1} (\#eq:area3)
 \end{align}
 $$
 
-I am showing $\eqref{area3}$ in alternate form, a product of terms rather than a quotient, as this is easier to differentiate.
+I am showing \@ref(eq:area3) in alternate form, a product of terms rather than a quotient, as this is easier to differentiate.
 
 $$
 \begin{align}
@@ -468,7 +476,7 @@ l_{AC}^2 &= \frac{2ax^3}{2ax - a^2}
 l_{AC} &= \left( \frac{2ax^3}{2ax - a^2} \right)^{\text 1/2}
 \\
 \\
-l_{AC} &= \left( 2ax^3 \right)^{\text 1/2} \left( 2ax -a^2 \right)^{\text -1/2} \tag{Crease Eqn} \label{crease}
+l_{AC} &= \left( 2ax^3 \right)^{\text 1/2} \left( 2ax -a^2 \right)^{\text -1/2} (\#eq:crease)
 \end{align}
 $$
 
@@ -506,7 +514,7 @@ $$
 
 ## Solution: Using R (Without Differentiations)
 
-All of the above steps are the traditional way of finding the extremas of a value as a function of another value. We can solve the same problems using only $\eqref{area3}$ and $\eqref{crease}$ without differentiation.
+All of the above steps are the traditional way of finding the extremas of a value as a function of another value. We can solve the same problems using only \@ref(eq:area3) and \@ref(eq:crease) without differentiation.
 
 I set $a = 1$ so that any $x$ will be a factor multiplied to any value of $a$ and used values of $x \in \left[ \frac{1}{2}, 1 \right]$ and filtered the minimum values of $A_{\triangle}$ and $l_{AC}$.
 
@@ -543,8 +551,9 @@ crease_min <-
 
 ```
 
-From this simulation we find that the minimum $A_{\triangle}$ is obtained when $x$ is `r area_min` or $\frac{2}{3}$ of $a$ and the minimum $l_{AC}$ is obtained when $x$ is `r crease_min` or $\frac{3}{4}$. This confirms the answer we obtained using the traditional steps of differentiation. However, we will not be able to use this method if we cannot derive $\eqref{area3}$ and $\eqref{crease}$.
+From this simulation we find that the minimum $A_{\triangle}$ is obtained when $x$ is `r area_min` or $\frac{2}{3}$ of $a$ and the minimum $l_{AC}$ is obtained when $x$ is `r crease_min` or $\frac{3}{4}$. This confirms the answer we obtained using the traditional steps of differentiation. However, we will not be able to use this method if we cannot derive \@ref(eq:area3) and \@ref(eq:crease).
 
 # Reference
 
+Problems and lessons from
 

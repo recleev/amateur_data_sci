@@ -140,17 +140,17 @@ ga('send', 'pageview');
     <div class="container markdown  top-pad">
         <div id="TOC">
 <ul>
-<li><a href="#perpendicular-intersecting-waves">Perpendicular Intersecting Waves</a><ul>
-<li><a href="#problem">Problem</a></li>
-<li><a href="#solution">Solution</a></li>
+<li><a href="#perpendicular-intersecting-waves"><span class="toc-section-number">1</span> Perpendicular Intersecting Waves</a><ul>
+<li><a href="#problem"><span class="toc-section-number">1.1</span> Problem</a></li>
+<li><a href="#solution"><span class="toc-section-number">1.2</span> Solution</a></li>
 </ul></li>
-<li><a href="#a-folded-paper">A Folded Paper</a><ul>
-<li><a href="#problem-1">Problem</a></li>
-<li><a href="#solution-minimum-area">Solution: Minimum Area</a></li>
-<li><a href="#solution-minimum-crease-length">Solution: Minimum Crease Length</a></li>
-<li><a href="#solution-using-r-without-differentiations">Solution: Using R (Without Differentiations)</a></li>
+<li><a href="#a-folded-paper"><span class="toc-section-number">2</span> A Folded Paper</a><ul>
+<li><a href="#problem-1"><span class="toc-section-number">2.1</span> Problem</a></li>
+<li><a href="#solution-minimum-area"><span class="toc-section-number">2.2</span> Solution: Minimum Area</a></li>
+<li><a href="#solution-minimum-crease-length"><span class="toc-section-number">2.3</span> Solution: Minimum Crease Length</a></li>
+<li><a href="#solution-using-r-without-differentiations"><span class="toc-section-number">2.4</span> Solution: Using R (Without Differentiations)</a></li>
 </ul></li>
-<li><a href="#reference">Reference</a></li>
+<li><a href="#reference"><span class="toc-section-number">3</span> Reference</a></li>
 </ul>
 </div>
 
@@ -165,14 +165,14 @@ opts_chunk$set(
 )</code></pre>
 <p>I found these two problems in <span class="citation">Simmons (2016)</span>. I enjoyed these problems because they require more thinking than just a mechanical application of derivatives.</p>
 <div id="perpendicular-intersecting-waves" class="section level1">
-<h1>Perpendicular Intersecting Waves</h1>
+<h1><span class="header-section-number">1</span> Perpendicular Intersecting Waves</h1>
 <div id="problem" class="section level2">
-<h2>Problem</h2>
+<h2><span class="header-section-number">1.1</span> Problem</h2>
 <p>This problem appears in <span class="citation">Simmons (2016)</span> on page 119, item 24.</p>
 <p>Find <span class="math inline">\(a \gt 0\)</span> so that the curves <span class="math inline">\(y = \sin {ax}\)</span> and <span class="math inline">\(y = \cos {ax}\)</span> intersect at right angles.</p>
 </div>
 <div id="solution" class="section level2">
-<h2>Solution</h2>
+<h2><span class="header-section-number">1.2</span> Solution</h2>
 <p>Since the curves are perpendicular on their interesections, then the tangent lines must also be perpendicular at the intersection.</p>
 <p>The slope of the tangent lines are,</p>
 <p><span class="math display">\[
@@ -272,10 +272,10 @@ tibble(
 </div>
 </div>
 <div id="a-folded-paper" class="section level1">
-<h1>A Folded Paper</h1>
+<h1><span class="header-section-number">2</span> A Folded Paper</h1>
 <p>This problem on page 130, item 30 in <span class="citation">Simmons (2016)</span> really took me a long time and proves that I am really rusty at math. I am happy I started reviewing calculus again.</p>
 <div id="problem-1" class="section level2">
-<h2>Problem</h2>
+<h2><span class="header-section-number">2.1</span> Problem</h2>
 <p>A long sheet of paper is a units wide. One corner of the paper is folded over as shown. Find the value of <span class="math inline">\(x\)</span> that minimizes (a) the area of <span class="math inline">\(\triangle ABC\)</span>, and (b) the length of crease <span class="math inline">\(\overline {AC}\)</span>.</p>
 <pre class="r"><code>paper_width &lt;- 40
 
@@ -386,7 +386,7 @@ ggplot() +
 <p>The blue line indicates the width of the paper <code>a</code>. The orange line is the width of paper used in the fold, <span class="math inline">\(x\)</span>. The yellow line, <span class="math inline">\(a-x\)</span> indicates the remaining edge of the paper not involved in the fold.</p>
 </div>
 <div id="solution-minimum-area" class="section level2">
-<h2>Solution: Minimum Area</h2>
+<h2><span class="header-section-number">2.2</span> Solution: Minimum Area</h2>
 <p>This problem took me a while to solve, so bear with as I discuss my thought process.</p>
 <p>First thing I realized was I needed to find the area of a triangle using three vertices. I chose <span class="math inline">\(C\)</span> to be at <span class="math inline">\(\left(0,0\right)\)</span> to simplify matters, and that also explains the way I drew the diagram. <span class="math inline">\(A\)</span> is at point <span class="math inline">\(\left(x, y\right)\)</span> where <span class="math inline">\(y\)</span> is the length of paper we will use in the fold, i.e. from <span class="math inline">\(C\)</span> to the edge of the paper.</p>
 <p><span class="math inline">\(B\)</span> is a big more complicated, but here is how I found it. Observe <span class="math inline">\(\overline{AB}\)</span> is just <span class="math inline">\(x\)</span>. From <span class="math inline">\(A\)</span> to the corner of the paper is <span class="math inline">\(a - x\)</span>. That leaves us with the distance from <span class="math inline">\(B\)</span> to the corner of the paper. Here is where geometry comes in. Notice that the triangle formed by <span class="math inline">\(A\)</span>, <span class="math inline">\(B\)</span>, and the corner of the paper is a right triangle. <span class="math inline">\(\overline{AB}\)</span> is the hypotenuse; one side is <span class="math inline">\(a - x\)</span>. The distance from <span class="math inline">\(B\)</span> to the corner of the paper is</p>
@@ -404,20 +404,20 @@ ggplot() +
 <p>From this we can already say that <span class="math inline">\(\frac{1}{2}a \le x \le a\)</span>. If <span class="math inline">\(x \lt \frac{1}{2}a\)</span>, then we will get an imaginary side.</p>
 <p>If the vertical distance of <span class="math inline">\(A\)</span> from the x-axis is <span class="math inline">\(y\)</span> and the vertical distance of <span class="math inline">\(B\)</span> from the edge of the paper is <span class="math inline">\(\sqrt{2ax - a^2}\)</span>, then the distance of <span class="math inline">\(B\)</span> from the x-axis is <span class="math inline">\(y - \sqrt{2ax - a^2}\)</span>. We can designated <span class="math inline">\(B\)</span> to be at point <span class="math inline">\(\left(a, y - \sqrt{2ax - a^2}\right)\)</span>. We now have three points, but this is becoming more and more complicated.</p>
 <p>To compute the area of a triangle from its three vertices, I used the <a href="https://en.wikipedia.org/wiki/Shoelace_formula">shoelace formula</a>. For any polygon, we can find its area from its vertices using the equation,</p>
-<p><span class="math display">\[
+<p><span class="math display" id="eq:shoelace">\[
 \begin{equation}
-A_{\triangle} = \frac{1}{2} \lvert \sum_{i = 1}^n x_i (y_{i + 1} - y_{i - 1}) \rvert \tag{Shoelace Formula} \label{shoelace}
+A_{\triangle} = \frac{1}{2} \lvert \sum_{i = 1}^n x_i (y_{i + 1} - y_{i - 1}) \rvert \tag{2.1}
 \end{equation}
 \]</span></p>
 <p>The absolute value is necessary as the summation can result to a negative value. Area cannot be negative. The summation only produces negative values because of the order and sign of the vertices. For this form of the shoelace formula, note that <span class="math inline">\(x_{n+1} = x_1\)</span>, <span class="math inline">\(x_0 = x_n\)</span>, <span class="math inline">\(y_{n+1} = {y_1}\)</span>, and <span class="math inline">\(y_0 = y_n\)</span>.</p>
-<p>Applying <span class="math inline">\(\eqref{shoelace}\)</span> to a triangle,</p>
+<p>Applying <a href="#eq:shoelace">(2.1)</a> to a triangle,</p>
 <p><span class="math display">\[
 \begin{equation}
 A_{\triangle} = \frac{1}{2} \lvert x_1(y_2 - y_0) + x_2(y_3 - y_1) + x_3(y_4 - y_2) \rvert 
 \end{equation}
 \]</span></p>
 <p>When I specified <span class="math inline">\(C\)</span> to be at <span class="math inline">\(\left(0,0\right)\)</span>, my intention was to have a simplified shoelace formula. If we let <span class="math inline">\(B \left(a, y - \sqrt{2ax - a^2}\right)\)</span> to be <span class="math inline">\(\left(x_1, y_1\right)\)</span>, <span class="math inline">\(A \left(x, y\right)\)</span> as <span class="math inline">\(\left(x_2, y_2\right)\)</span>, and <span class="math inline">\(C\left(0, 0\right)\)</span> as <span class="math inline">\(\left(x_3, y_3\right)\)</span>, then</p>
-<p><span class="math display">\[
+<p><span class="math display" id="eq:area-1">\[
 \begin{align}
 A_{\triangle} &amp;= \frac{1}{2} \lvert a(y - 0) + x\left[0 - \left(y - \sqrt{2ax - a^2}\right)\right] + 0 \cdot \left(y - \sqrt{2ax - a^2} - y\right) \rvert
 \\
@@ -425,19 +425,26 @@ A_{\triangle} &amp;= \frac{1}{2} \lvert a(y - 0) + x\left[0 - \left(y - \sqrt{2a
 &amp;= \frac{1}{2} \lvert ay  - x\left(y - \sqrt{2ax - a^2}\right)\rvert
 \\
 \\
-A_{\triangle} &amp;= \frac{1}{2}ay - \frac{1}{2}xy + \frac{1}{2} x \sqrt{2ax - a^2} \tag{Area Eqn 1} \label{area1}
+A_{\triangle} &amp;= \frac{1}{2}ay - \frac{1}{2}xy + \frac{1}{2} x \sqrt{2ax - a^2} \tag{2.2}
 \end{align}
 \]</span></p>
 <p>Note that I freely removed the absolute value sign since the expression will always be positive, i.e. <span class="math inline">\(a \gt x\)</span> and <span class="math inline">\(y \gt y - \sqrt{2ax - a^2}\)</span>. Unfortunately, I hit another roadblock after this. How can I find the minimum area, when the area is a function of <span class="math inline">\(x\)</span> and <span class="math inline">\(y\)</span>.</p>
-<p>The key to proceed with this problem is to realize that the area of <span class="math inline">\(\triangle ABC\)</span> is the same as the area of the right triangle indicated by the dashed lines in the figure, i.e. <span class="math display">\[
-A_{\triangle} = \frac{1}{2}xy \tag{Area Eqn 2} \label{area2}
+<p>The key to proceed with this problem is to realize that the area of <span class="math inline">\(\triangle ABC\)</span> is the same as the area of the right triangle indicated by the dashed lines in the figure, i.e.</p>
+<p><span class="math display" id="eq:area-2">\[
+\begin{equation}
+A_{\triangle} = \frac{1}{2}xy 
+\tag{2.3}
+\end{equation}
 \]</span></p>
 <p>This also gives us <span class="math inline">\(y\)</span> as a function of <span class="math inline">\(x\)</span> and the <span class="math inline">\(A_{\triangle}\)</span>,</p>
-<p><span class="math display">\[
-y = \frac{2A_{\triangle}}{x} \tag{a} \label{y1}
+<p><span class="math display" id="eq:y1">\[
+\begin{equation}
+y = \frac{2A_{\triangle}}{x} 
+\tag{2.4}
+\end{equation}
 \]</span></p>
-<p>Substituting <span class="math inline">\(\eqref{area2}\)</span> and <span class="math inline">\(\eqref{y1}\)</span> in <span class="math inline">\(\eqref{area1}\)</span>,</p>
-<p><span class="math display">\[
+<p>Substituting <a href="#eq:area-2">(2.3)</a> and <a href="#eq:y1">(2.4)</a> in <a href="#eq:area-1">(2.2)</a>,</p>
+<p><span class="math display" id="eq:area3">\[
 \begin{align}
 A_{\triangle} &amp;= \frac{1}{2}a \left(\frac{2 A_{\triangle}}{x}\right) - A_{\triangle} + \frac{1}{2} x \sqrt{2ax - a^2}
 \\
@@ -454,10 +461,10 @@ A_{\triangle} + A_{\triangle} &amp;= \frac{aA_{\triangle}}{x} + \frac{1}{2} x \s
 A_{\triangle} \left( 2x - a \right) &amp;= \frac{1}{2} x^2 \sqrt{2ax - a^2}
 \\
 \\
-A_{\triangle} &amp;= \frac{x^2 \sqrt{2ax - a^2}}{4x - 2a} = x^2 \left( 2ax - a^2 \right)^{1/2} \left( 4x -2a \right)^{\text -1} \tag{Area Eqn 3} \label{area3}
+A_{\triangle} &amp;= \frac{x^2 \sqrt{2ax - a^2}}{4x - 2a} = x^2 \left( 2ax - a^2 \right)^{1/2} \left( 4x -2a \right)^{\text -1} \tag{2.5}
 \end{align}
 \]</span></p>
-<p>I am showing <span class="math inline">\(\eqref{area3}\)</span> in alternate form, a product of terms rather than a quotient, as this is easier to differentiate.</p>
+<p>I am showing <a href="#eq:area3">(2.5)</a> in alternate form, a product of terms rather than a quotient, as this is easier to differentiate.</p>
 <p><span class="math display">\[
 \begin{align}
 \frac{d}{dx}A_{\triangle} &amp;= 2x \left(2ax - a^2\right)^{1/2} \left(4x - 2a\right)^{\text -1} + x^2 \left( \frac{1}{2}  \right) \left( 2a \right)\left(2ax - a^2\right)^{\text -1/2} \left(4x - 2a\right)^{\text -1} + x^2 \left(2ax - a^2\right)^{1/2} \left(-1 \right) \left(4x - 2a\right)^{\text -2} \left( 4 \right)
@@ -496,7 +503,7 @@ x &amp;= \frac{2}{3}a \ , \ \frac{1}{2}a
 <p>The solution <span class="math inline">\(x = \frac{1}{2}a\)</span> is not possible because it results to a denaminator of <span class="math inline">\(0\)</span>, so the the minimum area is achieved when <span class="math inline">\(x = \frac{2}{3}a\)</span>.</p>
 </div>
 <div id="solution-minimum-crease-length" class="section level2">
-<h2>Solution: Minimum Crease Length</h2>
+<h2><span class="header-section-number">2.3</span> Solution: Minimum Crease Length</h2>
 <p>The first thing to realize is that the length of the crease, <span class="math inline">\(l_{AC}\)</span>, is equal to <span class="math inline">\(x^2 + y^2\)</span>. The second thing to realize is that <span class="math inline">\(y = l_{BC}\)</span> such that,</p>
 <p><span class="math display">\[
 \begin{align}
@@ -519,7 +526,7 @@ y &amp;= \frac{ax}{\sqrt{2ax - a^2}}
 \end{align}
 \]</span></p>
 <p>Now that we have <span class="math inline">\(y\)</span> as a function of <span class="math inline">\(x\)</span>,</p>
-<p><span class="math display">\[
+<p><span class="math display" id="eq:crease">\[
 \begin{align}
 l_{AC}^2 &amp;= x^2 + y^2
 \\
@@ -542,7 +549,7 @@ l_{AC}^2 &amp;= \frac{2ax^3}{2ax - a^2}
 l_{AC} &amp;= \left( \frac{2ax^3}{2ax - a^2} \right)^{\text 1/2}
 \\
 \\
-l_{AC} &amp;= \left( 2ax^3 \right)^{\text 1/2} \left( 2ax -a^2 \right)^{\text -1/2} \tag{Crease Eqn} \label{crease}
+l_{AC} &amp;= \left( 2ax^3 \right)^{\text 1/2} \left( 2ax -a^2 \right)^{\text -1/2} \tag{2.6}
 \end{align}
 \]</span></p>
 <p>Now we have <span class="math inline">\(l_{AC}\)</span> as a function of <span class="math inline">\(x\)</span>. To find the value of <span class="math inline">\(x\)</span> that will give the minimum value of <span class="math inline">\(l_{AC}\)</span>, find <span class="math inline">\(x\)</span> such that <span class="math inline">\(\frac{d}{dx}l_{AC} = 0\)</span>.</p>
@@ -577,8 +584,8 @@ x &amp;= \frac{3}{4}a
 \]</span></p>
 </div>
 <div id="solution-using-r-without-differentiations" class="section level2">
-<h2>Solution: Using R (Without Differentiations)</h2>
-<p>All of the above steps are the traditional way of finding the extremas of a value as a function of another value. We can solve the same problems using only <span class="math inline">\(\eqref{area3}\)</span> and <span class="math inline">\(\eqref{crease}\)</span> without differentiation.</p>
+<h2><span class="header-section-number">2.4</span> Solution: Using R (Without Differentiations)</h2>
+<p>All of the above steps are the traditional way of finding the extremas of a value as a function of another value. We can solve the same problems using only <a href="#eq:area3">(2.5)</a> and <a href="#eq:crease">(2.6)</a> without differentiation.</p>
 <p>I set <span class="math inline">\(a = 1\)</span> so that any <span class="math inline">\(x\)</span> will be a factor multiplied to any value of <span class="math inline">\(a\)</span> and used values of <span class="math inline">\(x \in \left[ \frac{1}{2}, 1 \right]\)</span> and filtered the minimum values of <span class="math inline">\(A_{\triangle}\)</span> and <span class="math inline">\(l_{AC}\)</span>.</p>
 <pre class="r"><code># Create Domain -----------------------------------------------------------
 
@@ -608,11 +615,12 @@ crease_min &lt;-
   ) %&gt;% 
   filter(crease_length == min(crease_length)) %&gt;% 
   dplyr::pull(width)</code></pre>
-<p>From this simulation we find that the minimum <span class="math inline">\(A_{\triangle}\)</span> is obtained when <span class="math inline">\(x\)</span> is 0.66667 or <span class="math inline">\(\frac{2}{3}\)</span> of <span class="math inline">\(a\)</span> and the minimum <span class="math inline">\(l_{AC}\)</span> is obtained when <span class="math inline">\(x\)</span> is 0.75 or <span class="math inline">\(\frac{3}{4}\)</span>. This confirms the answer we obtained using the traditional steps of differentiation. However, we will not be able to use this method if we cannot derive <span class="math inline">\(\eqref{area3}\)</span> and <span class="math inline">\(\eqref{crease}\)</span>.</p>
+<p>From this simulation we find that the minimum <span class="math inline">\(A_{\triangle}\)</span> is obtained when <span class="math inline">\(x\)</span> is 0.66667 or <span class="math inline">\(\frac{2}{3}\)</span> of <span class="math inline">\(a\)</span> and the minimum <span class="math inline">\(l_{AC}\)</span> is obtained when <span class="math inline">\(x\)</span> is 0.75 or <span class="math inline">\(\frac{3}{4}\)</span>. This confirms the answer we obtained using the traditional steps of differentiation. However, we will not be able to use this method if we cannot derive <a href="#eq:area3">(2.5)</a> and <a href="#eq:crease">(2.6)</a>.</p>
 </div>
 </div>
-<div id="reference" class="section level1 unnumbered">
-<h1>Reference</h1>
+<div id="reference" class="section level1">
+<h1><span class="header-section-number">3</span> Reference</h1>
+<p>Problems and lessons from</p>
 <div id="refs" class="references">
 <div id="ref-cwag2016">
 <p>Simmons, George F. 2016. <em>Calculus with Analytic Geometry</em>. 2nd Edition. McGraw-Hill Education.</p>

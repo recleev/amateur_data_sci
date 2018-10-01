@@ -17,6 +17,7 @@ slug: three-decades-psei-prices-returns-naive-simulation
 output:
   blogdown::html_page:
     toc: yes
+    number_sections: true
 editor_options:
   chunk_output_type: console
 ---
@@ -54,7 +55,7 @@ I recently regained my interest in stocks after news of a bearish Philippine sto
 
 Before I can answer my question, I must have PSEi data first. Luckily, (1) `Yahoo!` keeps PSEi data, and (2) `quantmod::getSymbols()` allows us to retrieve the PSEi historical prices from `Yahoo!` via `R`.
 
-```{r get_psei_data}
+```{r get-psei_data}
 
 psei_historical_data <- 
   # obtain historical psei data from yahoo; I am only interested on closing
@@ -78,7 +79,7 @@ After converting to a tibble, I had to use `tibble::rownames_to_column()` becaus
 
 Next is to select only the end-of-month closing prices. The logic behind my code is in the chunk.
 
-```{r monthly_psei}
+```{r monthly-psei}
 
 # convert daily data to monthly data
 monthly_psei <- 
@@ -161,7 +162,7 @@ min_price_date <-
 
 # Ups and Downs but Going Up
 
-```{r plot_psei_monthly}
+```{r plot-psei-monthly, fig.cap="Historical Monthly Closing Prices of PSEi"}
 
 monthly_psei %>% 
   ggplot(aes(trading_date, psei_ps_close)) +
@@ -179,7 +180,6 @@ monthly_psei %>%
   # are necessary
   theme_pander(gl = 0) +
   labs(
-    title = "Historical Monthly Closing Prices of PSEi",
     x = "Year",
     y = "Monthly Closing Price",
     caption = date_caption
@@ -193,7 +193,7 @@ Since `r start_date`, the historical PSEi end-of-month closing prices show a typ
 
 # Month-to-Month Returns
 
-```{r psei_earnings}
+```{r psei-earnings}
 
 returns_monthly <- 
   monthly_psei %>%
@@ -230,7 +230,7 @@ min_return_date <-
 
 A stock's return is the gain or loss of the current price relative to the previous price. We want to know if we buy a stock now, will we gain or lose money if we sell it at the next available price after a period.
 
-```{r plot_psei_earnings}
+```{r plot-psei-earnings, fig.cap="Percent Monthly Returns of PSEi"}
 
 returns_monthly %>%
   ggplot(aes(trading_date, psei_returns)) +
@@ -247,7 +247,6 @@ returns_monthly %>%
   scale_x_date(date_breaks = "3 years", date_labels = "%Y") +
   theme_pander(gl = 0) +
   labs(
-    title = "Percent Monthly Returns of PSEi",
     x = "Year",
     y = "Percent Return",
     caption = date_caption
@@ -275,7 +274,7 @@ To illustrate buy and hold, I will simulate the strategy over the PSEi data.
 
 ## Simulating Buy and Hold Over Three Decades of PSEi
 
-```{r buy_hold_simul}
+```{r buy-hold-simulation}
 
 invest_psei_simulation <-
   monthly_psei %>% 
@@ -296,7 +295,7 @@ The simulation is as follows: Starting `r start_date`, the hypothetical investor
 
 ## More Than a Million
 
-```{r plot_buy_hold_simul}
+```{r plot-buy-hold-simulation, fig.cap=paste("Simulated Portfolio Value of a PSEi Investment.", sprintf("%s Investment Every Six Months from %s to %s",peso(6000),format(start_date, format = "%Y %b %d"),format(end_date, format = "%Y %b %d")))}
 
 invest_psei_simulation %>% 
    ggplot(aes(
@@ -315,13 +314,6 @@ invest_psei_simulation %>%
    scale_y_continuous(labels = peso) +
    theme_pander(gl = 0) +
   labs(
-    title = "Simulated Portfolio Value of a PSEi Investment",
-    subtitle = sprintf(
-      "%s Investment Every Six Months from %s to %s",
-      peso(6000),
-      format(start_date, format = "%Y %b %d"),
-      format(end_date, format = "%Y %b %d")
-    ),
     x = "Year",
     y = "Portfolio Value"
   )
@@ -336,13 +328,18 @@ Our hypothetical investor reached a million, but is it worth risking money in th
 
 I had to revisit the equation for ordinary annuity:
 
-$$FV=A\frac{(1+i)^n - 1}{i}$$
+$$
+\begin{equation}
+FV=A\frac{(1+i)^n - 1}{i}
+(\#eq:annuity)
+\end{equation}
+$$
 
-$FV$ is the future value or the money we have after a certain period, $A$ is the annuity or the regular payment per period, $i$ is the interest rate, and $n$ is the number of interest periods. The equation is easy to use when we want to find $FV$, $A$, or $n$. Finding $i$ needs a bit of iteration. 
+$FV$ is the future value or the money we have after a certain period, $A$ is the annuity or the regular payment per period, $i$ is the interest rate, and $n$ is the number of interest periods. 
 
-However, this equation gave me problems when working with years with negative interest. My solution was to go back to the definition of an annuity, i.e. a series of compound interest of periodic payments with fixed rate, and work on that definition to iterate the interest rate. The simulation takes longer because of this method, so if anyone has a better way to determine this, I am willing to listen. 
+Equation \@ref(eq:annuity) is easy to use when we want to find $FV$, $A$, or $n$. Finding $i$ needs a bit of iteration. However, equation \@ref(eq:annuity) gave me problems when working with years with negative interest. My solution was to go back to the definition of an annuity, i.e. a series of compound interest of periodic payments with fixed rate, and work on that definition to iterate the interest rate. The simulation takes longer because of this method, so if anyone has a better way to determine this, I am willing to listen. 
 
-```{r annuity_rate_function}
+```{r annuity-rate-function}
 
 compute_interest_rate_annuity <- function(
   future_value, 
@@ -370,7 +367,7 @@ compute_interest_rate_annuity <- function(
 
 *Note: The equation above has the assumption that the ordinary annuity starts at the end of year one, like the case in this investment simulation, and the future value also at year n, seemingly like this simulation. However, the protfolio value after the investment already incurs a gain / loss because of price differences. This makes this investment schedule act like an annuity due where the future value is at a year ahead of the last annuity period. For my simulation and the equation above to be consistent, find the future value using the interest at any year n using ordinary annuity, then add an interest, i.e.* $FV * (1 + i)$.
 
-```{r iterate_annuity_rate}
+```{r iterate-annuity-rate}
 
 annual_interest_rate_estimated <- 
   invest_psei_simulation %>%
@@ -402,7 +399,7 @@ annual_interest_rate_estimated <-
 
 The interests estimated here are the equivalent growth rate of the investment at certain years. Given the current portfolio value, the annual `r peso(12000)` investment after $n$ years will have an equivalent of $i$ growth / decay rate. This redistributes the portfolio value's increase or decrease equally in terms of interest every year despite the variability of PSEi's price in those years.
 
-```{r plot_annual_interest}
+```{r plot-annual-interest, fig.cap=paste("Estimated Annual Interest Rate of PSEi Investment.", sprintf("%s Investment Every Six Months from %s to %s",peso(6000),format(start_date, format = "%Y %b %d"),format(end_date, format = "%Y %b %d")))}
 
 annual_interest_rate_estimated %>% 
   ggplot(aes(
@@ -428,13 +425,6 @@ annual_interest_rate_estimated %>%
   theme_pander(gl = 0) +
   scale_fill_pander() +
   labs(
-    title = "Estimated Annual Interest Rate of PSEi Investment",
-    subtitle = sprintf(
-      "%s Investments Every Six Months from %s to %s",
-      peso(6000),
-      format(start_date, format = "%Y %b %d"),
-      format(end_date, format = "%Y %b %d")
-    ),
     x = "Year",
     y = "Interest Rate"
   )

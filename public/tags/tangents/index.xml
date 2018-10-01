@@ -17,8 +17,7 @@
       <pubDate>Tue, 21 Aug 2018 00:00:00 +0000</pubDate>
       
       <guid>/blog/waves-right-angles-folded-paper/</guid>
-      <description>Perpendicular Intersecting WavesProblemSolutionA Folded PaperProblemSolution: Minimum AreaSolution: Minimum Crease LengthSolution: Using R (Without Differentiations)Referencelibrary(knitr)library(tidyverse)library(ggthemes)opts_chunk$set(fig.align = &amp;quot;center&amp;quot;,message = FALSE,warning = FALSE)I found these two problems in Simmons (2016). I enjoyed these problems because they require more thinking than just a mechanical application of derivatives.
-Perpendicular Intersecting WavesProblemThis problem appears in Simmons (2016) on page 119, item 24.</description>
+      <description>1 Perpendicular Intersecting Waves1.1 Problem1.2 Solution2 A Folded Paper2.1 Problem2.2 Solution: Minimum Area2.3 Solution: Minimum Crease Length2.4 Solution: Using R (Without Differentiations)3 Referencelibrary(knitr)library(tidyverse)library(ggthemes)opts_chunk$set(fig.align = &amp;quot;center&amp;quot;,message = FALSE,warning = FALSE)I found these two problems in Simmons (2016). I enjoyed these problems because they require more thinking than just a mechanical application of derivatives.</description>
     </item>
     
     <item>
@@ -27,7 +26,7 @@ Perpendicular Intersecting WavesProblemThis problem appears in Simmons (2016) 
       <pubDate>Wed, 08 Aug 2018 00:00:00 +0000</pubDate>
       
       <guid>/blog/deriving-quotient-rule-product-rule/</guid>
-      <description>From Product to QuotientProduct Rule of DifferentiationQuotient Rule of DifferentiationDerive the Quotient Rule from the Product RuleProblemsExtend the Product Rule and ProveTangent Lines Intersecting on a CurveReferenceFrom Product to QuotientI have always had a hard time remembering the quotient rule for derivatives. I do not know how I remembered it while studying calculus, but today I learned from Simmons (2016) that I can derive it from the product rule.</description>
+      <description>1 From Product to Quotient1.1 Product Rule of Differentiation1.2 Quotient Rule of Differentiation1.3 Derive the Quotient Rule from the Product Rule2 Problems2.1 Extend the Product Rule and Prove2.2 Tangent Lines Intersecting on a Curve3 Reference1 From Product to QuotientI have always had a hard time remembering the quotient rule for derivatives. I do not know how I remembered it while studying calculus, but today I learned from Simmons (2016) that I can derive it from the product rule.</description>
     </item>
     
     <item>
@@ -36,7 +35,7 @@ Perpendicular Intersecting WavesProblemThis problem appears in Simmons (2016) 
       <pubDate>Mon, 06 Aug 2018 00:00:00 +0000</pubDate>
       
       <guid>/blog/tangent-non-existent/</guid>
-      <description>Definition of a Tangent LineSlope of a Tangent Line on a CurveCondition for ExistenceLimit of an Absolute ValueProblemSolutionReferenceDefinition of a Tangent LineConsider a curve \(y = f(x)\), and let \(P\) be a given fixed point on this curve. Let \(Q\) be a second nearby point on the curve, and draw the secant line \(PQ\). The tangent line at \(P\) can now be thought of as the limiting position of the variable secant as \(Q\) slides along the curve toward \(P\).</description>
+      <description>1 Definition of a Tangent Line2 Slope of a Tangent Line on a Curve3 Condition for Existence4 Limit of an Absolute Value4.1 Problem4.2 Solution5 Reference1 Definition of a Tangent LineConsider a curve \(y = f(x)\), and let \(P\) be a given fixed point on this curve. Let \(Q\) be a second nearby point on the curve, and draw the secant line \(PQ\).</description>
     </item>
     
   </channel>

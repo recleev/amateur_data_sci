@@ -14,6 +14,7 @@ tags:
 output:
   blogdown::html_page:
     toc: yes
+    number_sections: true
 bibliography:
   - references/cwag2016.bib
 biblio-style: apalike
@@ -50,17 +51,17 @@ $$
 \sec^2 \theta \frac{d \theta}{dt} &= \frac{-12}{x^2} \frac{dx}{dt}
 \\
 \\
-\frac{d \theta}{dt} &= \frac{-12}{x^2 \sec^2 \theta} \frac{dx}{dt} \tag{1} \label{angle_rate}
+\frac{d \theta}{dt} &= \frac{-12}{x^2 \sec^2 \theta} \frac{dx}{dt} (\#eq:angle-rate)
 \\
 \\
 \cos \theta \frac{d \theta}{dt}&= \frac{1}{20} \frac{dy}{dt}
 \\
 \\
-\frac{dy}{dt} &= 20 \cos \theta \frac{d \theta}{dt} \tag{2} \label{height_rate}
+\frac{dy}{dt} &= 20 \cos \theta \frac{d \theta}{dt} (\#eq:height-rate)
 \end{align}
 $$
 
-From $\eqref{angle_rate}$ we can find the rate at which the angle $\theta$ between the ladder and the floor is decreasing as the ladder is pulled away from the wall at a rate of $\frac{dx}{dt} = 5$. This decrease in angle will cause a decrease in the distance $y$ from the top of the ladder to the floor at a rate of $\frac{dy}{dt}$ that is related to $\frac{d \theta}{dt}$ by $\eqref{height_rate}$.
+From \@ref(eq:angle-rate) we can find the rate at which the angle $\theta$ between the ladder and the floor is decreasing as the ladder is pulled away from the wall at a rate of $\frac{dx}{dt} = 5$. This decrease in angle will cause a decrease in the distance $y$ from the top of the ladder to the floor at a rate of $\frac{dy}{dt}$ that is related to $\frac{d \theta}{dt}$ by \@ref(eq:height-rate).
 
 We still need the values of $x$ and the values of $\sec \theta$ and $\cos \theta$. If we let $l$ be the length of the ladder projecting over the wall, then we know that
 
@@ -84,13 +85,13 @@ x^2 &= 15^2 - 12^2
 x^2 &= 81
 \\
 \\
-x &= 9 \tag{a} \label{x_9}
+x &= 9 (\#eq:x-9)
 \\
 \\
-\cos \theta &= \frac{9}{20 - 5} = \frac{3}{5} \tag{b} \label{cos_x_9}
+\cos \theta &= \frac{9}{20 - 5} = \frac{3}{5} (\#eq:cos-x-9)
 \\
 \\
-\sec \theta &= \frac{5}{3} \tag{c} \label{sec_x_9}
+\sec \theta &= \frac{5}{3} (\#eq:sec-x-9)
 \end{align}
 $$
 
@@ -110,19 +111,19 @@ x^2 &= 20^2 - 12^2
 x^2 &= 256
 \\
 \\
-x &= 16 \tag{d} \label{x_16}
+x &= 16 (\#eq:x-16)
 \\
 \\
-\cos \theta &= \frac{16}{20} = \frac{4}{5} \tag{e} \label{cos_x_16}
+\cos \theta &= \frac{16}{20} = \frac{4}{5} (\#eq:cos-x-16)
 \\
 \\
-\sec \theta &= \frac{5}{4} \tag{f} \label{sec_x_16}
+\sec \theta &= \frac{5}{4} (\#eq:sec-x-16)
 \end{align} 
 $$
 
 We now have everything we need.
 
-For $l = 5$, using $\eqref{angle_rate}$, $\eqref{height_rate}$, $\eqref{x_9}$, $\eqref{cos_x_9}$, and $\eqref{sec_x_9}$,
+For $l = 5$, using \@ref(eq:angle-rate), \@ref(eq:height-rate), \@ref(eq:x-9), \@ref(eq:cos-x-9), and \@ref(eq:sec-x-9),
 
 $$
 \begin{align}
@@ -145,7 +146,7 @@ $$
 \end{align}
 $$
 
-For $l = 5$, using $\eqref{angle_rate}$, $\eqref{height_rate}$, $\eqref{x_16}$, $\eqref{cos_x_16}$, and $\eqref{sec_x_16}$,
+For $l = 5$, using \@ref(eq:angle-rate), \@ref(eq:height-rate), \@ref(eq:x-16), \@ref(eq:cos-x-16), and \@ref(eq:sec-x-16),
 
 $$
 \begin{align}
@@ -208,11 +209,11 @@ V_{water} &= 9 \frac{\pi h^2}{3} - \frac{\pi h^3}{3} - 3\frac{\pi h^2}{3} + \fra
 V_{water} &= 3 \pi h^2 - \pi h^2
 \\
 \\
-V_{water} &= 2 \pi h^2 \tag{3} \label{volume_water}
+V_{water} &= 2 \pi h^2 (\#eq:volume-water)
 \end{align}
 $$
 
-Differentiating $\eqref{volume_water}$ with respect to time,
+Differentiating \@ref(eq:volume-water) with respect to time,
 
 $$
 \begin{align}
@@ -235,3 +236,5 @@ $$
 $$
 
 # References
+
+Problems and lessons from
