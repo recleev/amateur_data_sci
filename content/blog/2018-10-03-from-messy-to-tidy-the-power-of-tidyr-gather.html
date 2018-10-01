@@ -1,144 +1,27 @@
-<!DOCTYPE html>
-<html lang="en-us">
+---
+title: 'From Messy to Tidy: The Power of `tidyr::gather`'
+author: Recle Etino Vibal
+date: '2018-10-03'
+categories:
+  - lessons
+  - Philippines
+  - tidyverse
+tags:
+  - consumer price index
+  - dplyr
+  - lubridate
+  - tidyr
+slug: messy-tidy-tidyr-gather
+output:
+  blogdown::html_page:
+    toc: yes
+    number_sections: true
+bibliography:
+  - references/tidy-data-articles.bib
+biblio-style: apalike
+---
 
-<head>
-<meta charset="utf-8">
-<meta http-equiv="X-UA-Compatible" content="chrome=1">
-<meta name="HandheldFriendly" content="True">
-<meta name="MobileOptimized" content="320">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
-<meta name="referrer" content="no-referrer">
-<meta name="description" content="I am a beginner R User and Data Sciencist. I love learning about R, statistics, data science and applying all this knowledge.">
-
-<base href="/">
-<title>
-
-
-     From Messy to Tidy: The Power of `tidyr::gather` 
-
-</title>
-<link rel="canonical" href="/blog/messy-tidy-tidyr-gather/">
-
-
-
-
-
-
-<script type="text/javascript" src="/js/jquery-3.3.1.min.js"></script>
-
-
-<link rel="stylesheet" href="/css/font-awesome.min.css">
-<link rel="stylesheet" href="/css/nunito_sans.css">
-
-
-    <link rel="stylesheet" href="css/light-style.css">
-
-
-
-
-
-
-<link rel="shortcut icon" href="img/robot.ico">
-
-
-
-<script>
-window.ga=window.ga||function(){(ga.q=ga.q||[]).push(arguments)};ga.l=+new Date;
-ga('create', 'UA-119602814-1', 'auto');
-ga('send', 'pageview');
-</script>
-<script async src='//www.google-analytics.com/analytics.js'></script>
-
-
-
-
-
-</head>
-
-<body>
-
-<div class="section" id="top">
-
-    <div class="container hero ">
-    <h1 class="bold-title is-1">The Amateur Data Scientist</h1>
-    </div>
-
-
-<div class="section ">
-
-    <div class="container">
-    <hr>
-<nav class="nav nav-center">
-    <span id="nav-toggle" class="nav-toggle"  onclick="document.getElementById('nav-menu').classList.toggle('is-active');">
-      <span></span>
-      <span></span>
-      <span></span>
-    </span>
-    <div id="nav-menu" class="nav-left nav-menu">
-      <span class="nav-item">
-        <a href="/">Main</a>
-      </span>
-      <span class="nav-item">
-        <a href="/#about">About</a>
-      </span>
-      
-      <span class="nav-item">
-        <a href="/blog">Back to blog</a>
-      </span>
-      
-      <span class="nav-item">
-        <a href="/#contact">Contact</a>
-      </span>
-    
-      <span class="nav-item">
-        <a href="/index.xml"><i class="fa fa-rss"></i></a>
-      </span>
-    
-    </div>
-</nav>
-<hr>
-
-    </div>
-
-    <div class="container ">
-        <h2 class="title is-1 top-pad strong-post-title"><a href="/blog/messy-tidy-tidyr-gather/">From Messy to Tidy: The Power of `tidyr::gather`</a></h2>
-            <div class="post-data">
-                Oct 03, 2018 |
-                5 minutes read
-            </div>
-
-            
-                <div class="blog-share">
-                Share this:
-                
-                <a class="twitter-share-button" href="https://twitter.com/intent/tweet?text=Read%20From%20Messy%20to%20Tidy%3a%20The%20Power%20of%20%60tidyr%3a%3agather%60%20%2fblog%2fmessy-tidy-tidyr-gather%2f"
-                onclick="window.open(this.href, 'twitter-share', 'width=550,height=235');return false;">
-                <i class="fa fa-twitter"></i>
-                <span class="hidden">Twitter</span>
-                </a>
-                
-                 
-                <a class="icon-facebook" href="https://www.facebook.com/sharer/sharer.php?u=%2fblog%2fmessy-tidy-tidyr-gather%2f"
-                onclick="window.open(this.href, 'facebook-share','width=580,height=296');return false;">
-                <i class="fa fa-facebook"></i>
-                <span class="hidden">Facebook</span>
-                </a>
-                
-                
-                
-                <a class="icon-google-plus" href="https://plus.google.com/share?url=%2fblog%2fmessy-tidy-tidyr-gather%2f"
-                onclick="window.open(this.href, 'google-plus-share', 'width=490,height=530');return false;">
-                <i class="fa fa-google-plus"></i>
-                <span class="hidden">Google+</span>
-                </a>
-                
-                </div>
-            
-
-    </div>
-
-    <div class="container markdown  top-pad">
-        <script src="/rmarkdown-libs/htmlwidgets/htmlwidgets.js"></script>
+<script src="/rmarkdown-libs/htmlwidgets/htmlwidgets.js"></script>
 <script src="/rmarkdown-libs/jquery/jquery.min.js"></script>
 <link href="/rmarkdown-libs/datatables-css/datatables-crosstalk.css" rel="stylesheet" />
 <script src="/rmarkdown-libs/datatables-binding/datatables.js"></script>
@@ -228,67 +111,3 @@ cpi_data_raw %&gt;%
 </div>
 </div>
 </div>
-
-    </div>
-
-    <div class="disqus">
-        <div id="disqus_thread"></div>
-<script>
-    var disqus_config = function () {
-    
-    
-    
-    };
-    (function() {
-        if (["localhost", "127.0.0.1"].indexOf(window.location.hostname) != -1) {
-            document.getElementById('disqus_thread').innerHTML = 'Disqus comments not available by default when the website is previewed locally.';
-            return;
-        }
-        var d = document, s = d.createElement('script'); s.async = true;
-        s.src = '//' + "the-amateur-data-scientist" + '.disqus.com/embed.js';
-        s.setAttribute('data-timestamp', +new Date());
-        (d.head || d.body).appendChild(s);
-    })();
-</script>
-<noscript>Please enable JavaScript to view the <a href="https://disqus.com/?ref_noscript">comments powered by Disqus.</a></noscript>
-<a href="https://disqus.com" class="dsq-brlink">comments powered by <span class="logo-disqus">Disqus</span></a>
-    </div>
-
-<div class="container has-text-centered top-pad">
-<hr>
-<a href="/blog/messy-tidy-tidyr-gather/#top"><i class="fa fa-arrow-up"></i></a>
-<hr>
-</div>
-
-<div class="section" id="footer">
-    <div class="container has-text-centered">
-        
-        <span class="footer-text"><a href="https://github.com/hivickylai/hugo-theme-introduction" target="_blank" rel="noopener">Introduction</a> theme for <a href="http://gohugo.io/" target="_blank" rel="noopener">Hugo</a>. Made with <i class="fa fa-heart"></i> and <i class="fa fa-coffee"></i>. <a href="https://vickylai.io" target="_blank" rel="noopener">Vicky Lai</a> 2018</span>
-        
-    </div>
-</div>
-
-<script src="//https://amateurdatasci.rbind.io/js/math-code.js"></script>
-
-    <script type="text/javascript"
-      src="https://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML">
-    </script>
-
-  </body>
-</html>
-</div>
-</div>
-
-
-<script>
-$('a[href^="\/blog\/messy-tidy-tidyr-gather\/#"]').click(function(e) {
-    e.preventDefault();
-    var target = this.hash;
-    $('html, body').animate({
-    scrollTop: $(target).offset().top
-    }, 500);
-    return false;
-})
-</script>
-
-</body>

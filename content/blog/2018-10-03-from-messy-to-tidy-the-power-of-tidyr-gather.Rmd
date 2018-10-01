@@ -12,15 +12,24 @@ tags:
   - lubridate
   - tidyr
 slug: messy-tidy-tidyr-gather
+output:
+  blogdown::html_page:
+    toc: yes
+    number_sections: true
+bibliography:
+  - references/tidy-data-articles.bib
+biblio-style: apalike
 ---
 
-```{r libraries-opts, message=FALSE, warning=FALSE, include=TRUE}
+```{r packages-opts, message=FALSE, warning=FALSE, include=TRUE}
 
 library(knitr)
 library(tidyverse)
 library(magrittr)
 library(janitor)
 library(lubridate)
+library(DT)
+library(rebus)
 
 opts_chunk$set(
   message = FALSE,
@@ -30,21 +39,23 @@ opts_chunk$set(
 
 ```
 
-# Tidy Data: Long But Mahcine Readable
+# Tidy Data: Long But Machine Readable
 
 Working with data made me concious of how we compile, store, and share data. Most of us work with spreadsheets and most of the time we encode our data in a way that makes it easy for other people to read our data. Unfortunately, human readable data format is not necessarily machine readable data. When we want work with data in code, human readable data is not usually the best form to begin with and to share with other people who wants to reproduce our work.
 
-[Hadley Wickham's Tidy Data](http://vita.had.co.nz/papers/tidy-data.html) gives the three vital properties of a tidy data:
+@tidy-data [Tidy Data](http://vita.had.co.nz/papers/tidy-data.html) gives the three vital properties of a tidy data:
 
 1. Every column is a variable
 2. Every row is an observation
 3. Every observational unit forms a table
 
-I will discuss the properties 1 and 2 in this post via a real world data example.
+@share-data also advocates tidy data principles and good practices when sharing data for collaboration.
+
+I will discuss these three properties in this post in the context of a real world data.
 
 # Consumer Price Index of the Philippines
 
-The data I will use here is the consumer price index of the Philippines from 1994 Jan to 2018 Jun retrieved [here](http://openstat.psa.gov.ph/dataset/prices-and-related-indices) on 2018 Sep 28.
+The data I will use here is the Philippines consumer price index from 1994 Jan to 2018 Jun retrieved [here](http://openstat.psa.gov.ph/dataset/prices-and-related-indices) on 2018 Sep 28.
 
 ```{r read-cpi-data}
 
@@ -54,11 +65,32 @@ cpi_data_raw <-
     trim_ws = TRUE
   )
 
-head(cpi_data_raw) %>% 
-  print()
+cpi_data_raw %>% 
+  head(20) %>% 
+  DT::datatable(
+    caption = "The Philippines Monthly Consumer Price Index (CPI) for All Income Households by Commodity Group and Geographic Area from 1994 Jan to 2018 Jun. CPI from 1994 to 2005 are the equivalent/estimated 2006-based CPI using the splicing method. Data from Philippine Statistics Authority (http://openstat.psa.gov.ph).",
+    extensions = 'FixedColumns',
+    options = list(
+      scrollX = TRUE,
+      scrollCollapse = TRUE
+    )
+  )
 
 ```
 
+According to the [Philippine Statistics Authority](http://openstat.psa.gov.ph/)
+
+> Consumer Price Index (CPI) - is an indicator of the change in the average retail prices of a fixed basket of goods and services commonly purchased by households relative to a base year.CPI stands for the percentage change in the average prices of goods and services commonly bought by a group of consumers from the base year.
+
+The initial reason why I looked at this data was because of the high inflation rates the Philippines is experiencing in 2018. However, after I saw how the data looked, I became more interested in using it to discuss tidy data principles and ways to turn a data set from messy to tidy.
+
+## Messy Data Clue: Dates as Columns
+
+One of the common ways of making a data set messy is by creating columns that are not variables, which happens quite often with dates. In the CPI data, there are `r colnames(cpi_data_raw) %>% str_detect(paste(month.abb %R% "_" %R% one_or_more(DGT), collapse = "|")) %>% sum()` columns that are month and year data, not even in [ISO 8601](https://en.wikipedia.org/wiki/ISO_8601) format (yyyy-mm-dd).
+
+# References
+
+For more tidy principles, techniques, and good practices, please read the following:
 
 
 
