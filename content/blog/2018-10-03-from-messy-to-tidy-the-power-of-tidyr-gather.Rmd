@@ -1,0 +1,68 @@
+---
+title: 'From Messy to Tidy: The Power of `tidyr::gather`'
+author: Recle Etino Vibal
+date: '2018-10-03'
+categories:
+  - lessons
+  - Philippines
+  - tidyverse
+tags:
+  - consumer price index
+  - dplyr
+  - lubridate
+  - tidyr
+slug: messy-tidy-tidyr-gather
+---
+
+```{r libraries-opts, message=FALSE, warning=FALSE, include=TRUE}
+
+library(knitr)
+library(tidyverse)
+library(magrittr)
+library(janitor)
+library(lubridate)
+
+opts_chunk$set(
+  message = FALSE,
+  warning = FALSE,
+  echo = TRUE
+)
+
+```
+
+# Tidy Data: Long But Mahcine Readable
+
+Working with data made me concious of how we compile, store, and share data. Most of us work with spreadsheets and most of the time we encode our data in a way that makes it easy for other people to read our data. Unfortunately, human readable data format is not necessarily machine readable data. When we want work with data in code, human readable data is not usually the best form to begin with and to share with other people who wants to reproduce our work.
+
+[Hadley Wickham's Tidy Data](http://vita.had.co.nz/papers/tidy-data.html) gives the three vital properties of a tidy data:
+
+1. Every column is a variable
+2. Every row is an observation
+3. Every observational unit forms a table
+
+I will discuss the properties 1 and 2 in this post via a real world data example.
+
+# Consumer Price Index of the Philippines
+
+The data I will use here is the consumer price index of the Philippines from 1994 Jan to 2018 Jun retrieved [here](http://openstat.psa.gov.ph/dataset/prices-and-related-indices) on 2018 Sep 28.
+
+```{r read-cpi-data}
+
+cpi_data_raw <- 
+  readr::read_csv(
+    "./data/CPI_2006=100_1994-2018_1_2.csv",
+    trim_ws = TRUE
+  )
+
+head(cpi_data_raw) %>% 
+  print()
+
+```
+
+
+
+
+
+
+
+
