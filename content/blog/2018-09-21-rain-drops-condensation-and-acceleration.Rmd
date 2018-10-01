@@ -14,6 +14,7 @@ tags:
 output:
   blogdown::html_page:
     toc: yes
+    number_sections: true
 bibliography:
   - references/cwag2016.bib
 biblio-style: apalike
@@ -33,7 +34,8 @@ can be written in the form
 
 $$
 \begin{equation}
-F = \frac{d \left( mv \right)}{dt} \tag{1} \label{momentum-rate}
+F = \frac{d \left( mv \right)}{dt} 
+(\#eq:momentum-rate)
 \end{equation}
 $$
 
@@ -45,7 +47,7 @@ A spherical raindrop falls through air with water vapor, and assume that by cond
 
 $$
 \begin{align}
-\frac{d}{dr} \left( r^3 v \right) &= \left( \frac{\delta}{c} \right) r^3 g \tag{2} \label{hint}
+\frac{d}{dr} \left( r^3 v \right) &= \left( \frac{\delta}{c} \right) r^3 g (\#eq:hint)
 \\
 \\
 \text{where:} ~ r &= \text{radius of raindrop}
@@ -64,21 +66,21 @@ The first key to this problem is to realize that the phrase *mass of the raindro
 
 $$
 \begin{equation}
-\frac{dm}{dt} = 4 \pi r^2 c \tag{3} \label{mass-rate}
+\frac{dm}{dt} = 4 \pi r^2 c (\#eq:mass-rate)
 \end{equation}
 $$
 
-The hint $\eqref{hint}$ only confused me at the beginning, but it gave me clues on how to solve the problem. The first clue was the presence of the raindrop's density $\delta$.
+The hint \@ref(eq:hint) only confused me at the beginning, but it gave me clues on how to solve the problem. The first clue was the presence of the raindrop's density $\delta$.
 
 Mass is the product of volume and density. Since the raindrop is assumed to be spherical,
 
 $$
 \begin{equation}
-m = \frac{4}{3} \pi r^3 \delta \tag{4} \label{volume-density}
+m = \frac{4}{3} \pi r^3 \delta (\#eq:volume-density)
 \end{equation}
 $$
 
-Keeping in mind that $m$, $r$, and $v$ all vary with time and all other values are constant, I expanded $\eqref{momentum-rate}$ both from itself and by using $\eqref{volume-density}$. By the [product rule](https://amateurdatasci.rbind.io/blog/deriving-quotient-rule-product-rule/),
+Keeping in mind that $m$, $r$, and $v$ all vary with time and all other values are constant, I expanded \@ref(eq:momentum-rate) both from itself and by using \@ref(eq:volume-density). By the [product rule](https://amateurdatasci.rbind.io/blog/deriving-quotient-rule-product-rule/),
 
 $$
 \begin{align}
@@ -92,7 +94,7 @@ m \frac{dv}{dt} + v \frac{dm}{dt} &= \frac{4}{3} \pi \delta \left[ r^3 \frac{dv}
 \end{align}
 $$
 
-Substituting $\eqref{mass-rate}$ and $\eqref{volume-density}$ again,
+Substituting \@ref(eq:mass-rate) and \@ref(eq:volume-density) again,
 
 $$
 \begin{align}
@@ -108,7 +110,7 @@ $$
 \frac{c}{\delta} &= \frac{dr}{dt}
 \\
 \\
-dt &= \frac{\delta}{c} dr \tag{5} \label{radius-time}
+dt &= \frac{\delta}{c} dr (\#eq:radius-time)
 \end{align}
 $$
 
@@ -123,7 +125,7 @@ $$
 \end{align}
 $$
 
-Using $\eqref{radius-time}$,
+Using \@ref(eq:radius-time),
 
 $$
 \begin{align}
@@ -133,11 +135,11 @@ $$
 \frac{4}{3} \pi c \frac{d}{dr} \left( r^3 v \right) &= \frac{4}{3} \pi r^3 \delta g
 \\
 \\
-\frac{d}{dr} \left( r^3 v \right) &= \frac{\delta}{c} r^3 g \tag{6} \label{hint-proof}
+\frac{d}{dr} \left( r^3 v \right) &= \frac{\delta}{c} r^3 g (\#eq:hint-proof)
 \end{align}
 $$
 
-This is proving $\eqref{hint}$ and also sets up integration with respect to $r$.
+This is proving \@ref(eq:hint) and also sets up integration with respect to $r$.
 
 $$
 \begin{align}
@@ -155,11 +157,11 @@ $$
 r^3 v &= \frac{\delta g r^4}{4c}
 \\
 \\
-v &= \frac{\delta g r}{4c} \tag{7} \label{velocity-radius}
+v &= \frac{\delta g r}{4c} (\#eq:velocity-radius)
 \end{align}
 $$
 
-Differentiating $\eqref{velocity-radius}$ with respect to time,
+Differentiating \@ref(eq:velocity-radius) with respect to time,
 
 $$
 \begin{equation}
@@ -167,7 +169,7 @@ $$
 \end{equation}
 $$
 
-However, from $\eqref{radius-time}$, $\cfrac{dr}{dt} = \cfrac{c}{\delta}$
+However, from \@ref(eq:radius-time), $\cfrac{dr}{dt} = \cfrac{c}{\delta}$
 
 $$
 \begin{align}
