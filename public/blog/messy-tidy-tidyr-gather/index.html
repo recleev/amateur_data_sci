@@ -14,7 +14,7 @@
 <title>
 
 
-     From Messy to Tidy: The Power of `tidyr::gather` 
+     From Messy to Tidy: Gather All Those Dates 
 
 </title>
 <link rel="canonical" href="/blog/messy-tidy-tidyr-gather/">
@@ -101,17 +101,17 @@ ga('send', 'pageview');
     </div>
 
     <div class="container ">
-        <h2 class="title is-1 top-pad strong-post-title"><a href="/blog/messy-tidy-tidyr-gather/">From Messy to Tidy: The Power of `tidyr::gather`</a></h2>
+        <h2 class="title is-1 top-pad strong-post-title"><a href="/blog/messy-tidy-tidyr-gather/">From Messy to Tidy: Gather All Those Dates</a></h2>
             <div class="post-data">
                 Oct 03, 2018 |
-                5 minutes read
+                6 minutes read
             </div>
 
             
                 <div class="blog-share">
                 Share this:
                 
-                <a class="twitter-share-button" href="https://twitter.com/intent/tweet?text=Read%20From%20Messy%20to%20Tidy%3a%20The%20Power%20of%20%60tidyr%3a%3agather%60%20%2fblog%2fmessy-tidy-tidyr-gather%2f"
+                <a class="twitter-share-button" href="https://twitter.com/intent/tweet?text=Read%20From%20Messy%20to%20Tidy%3a%20Gather%20All%20Those%20Dates%20%2fblog%2fmessy-tidy-tidyr-gather%2f"
                 onclick="window.open(this.href, 'twitter-share', 'width=550,height=235');return false;">
                 <i class="fa fa-twitter"></i>
                 <span class="hidden">Twitter</span>
@@ -154,7 +154,8 @@ ga('send', 'pageview');
 <ul>
 <li><a href="#tidy-data-long-but-machine-readable"><span class="toc-section-number">1</span> Tidy Data: Long But Machine Readable</a></li>
 <li><a href="#consumer-price-index-of-the-philippines"><span class="toc-section-number">2</span> Consumer Price Index of the Philippines</a><ul>
-<li><a href="#messy-data-clue-dates-as-columns"><span class="toc-section-number">2.1</span> Messy Data Clue: Dates as Columns</a></li>
+<li><a href="#dates-as-columns"><span class="toc-section-number">2.1</span> Dates as Columns</a></li>
+<li><a href="#average-columns"><span class="toc-section-number">2.2</span> Average Columns</a></li>
 </ul></li>
 <li><a href="#references"><span class="toc-section-number">3</span> References</a></li>
 </ul>
@@ -211,9 +212,21 @@ cpi_data_raw %&gt;%
 <p>Consumer Price Index (CPI) - is an indicator of the change in the average retail prices of a fixed basket of goods and services commonly purchased by households relative to a base year.CPI stands for the percentage change in the average prices of goods and services commonly bought by a group of consumers from the base year.</p>
 </blockquote>
 <p>The initial reason why I looked at this data was because of the high inflation rates the Philippines is experiencing in 2018. However, after I saw how the data looked, I became more interested in using it to discuss tidy data principles and ways to turn a data set from messy to tidy.</p>
-<div id="messy-data-clue-dates-as-columns" class="section level2">
-<h2><span class="header-section-number">2.1</span> Messy Data Clue: Dates as Columns</h2>
-<p>One of the common ways of making a data set messy is by creating columns that are not variables, which happens quite often with dates. In the CPI data, there are 294 columns that are month and year data, not even in <a href="https://en.wikipedia.org/wiki/ISO_8601">ISO 8601</a> format (yyyy-mm-dd).</p>
+<div id="dates-as-columns" class="section level2">
+<h2><span class="header-section-number">2.1</span> Dates as Columns</h2>
+<p>One of the common ways of making a data set messy is by creating columns that are not variables but values of a certain observation, which happens quite often with dates. In the CPI data, there are 294 columns that are month and year data, not even in <a href="https://en.wikipedia.org/wiki/ISO_8601">ISO 8601</a> format (yyyy-mm-dd). Under each date column is supposed the consumer price index. Variables under variables are not the tidy way.</p>
+</div>
+<div id="average-columns" class="section level2">
+<h2><span class="header-section-number">2.2</span> Average Columns</h2>
+<p>Before I do something about these dates, I also noticed that there are <code>Ave_yy</code> columns. These columns show the average CPI for each year.</p>
+<p><span class="citation">Ellis and Leek (2014)</span> considers raw data in the correct format if it did not</p>
+<ol style="list-style-type: decimal">
+<li>Ran on software</li>
+<li>Modify data</li>
+<li>Remove data</li>
+<li>Summarise data</li>
+</ol>
+<p>I can only assume that the first three conditions was followed. There are missing values, but I think it was missing in the first place rather than removed. I am sure that the <code>Ave_yy</code> summarises the data. Manipulating data to obtain any statistical value like the average is easy for any data analyst to do when the raw data is tidy or at least near tidy. Having columns are not only unnecessary, but it also may lead the data analyst into checking what these columns mean anyway<a href="#fn1" class="footnoteRef" id="fnref1"><sup>1</sup></a>. I had to From the definition of CPI, I also don’t think this is a necessary value to consider.</p>
 </div>
 </div>
 <div id="references" class="section level1">
@@ -227,6 +240,12 @@ cpi_data_raw %&gt;%
 <p>Wickham, Hadley. 2014. “Tidy Data.” <em>The Journal of Statistical Software</em> 59 (10). <a href="http://www.jstatsoft.org/v59/i10/" class="uri">http://www.jstatsoft.org/v59/i10/</a>.</p>
 </div>
 </div>
+</div>
+<div class="footnotes">
+<hr />
+<ol>
+<li id="fn1"><p>I had to verify if the <code>Ave_yy</code> columns are really just the average of the CPI for each year. I confirmed that it was so with <code>cpi_data_raw %&gt;% select(Description, matches(&quot;_&quot; %R% DGT %R% DGT)) %&gt;% mutate_at(vars(-Description), as.numeric) %&gt;% gather(month_year, cpi, Jan_94:Dec_94) %&gt;% group_by(Description) %&gt;% summarise_at(vars(Ave_94, cpi), mean, na.rm = TRUE) %&gt;% filter(abs(Ave_94 - cpi) &gt; 0.05)</code>. I chose 0.05 as the limit for rounding differences<a href="#fnref1">↩</a></p></li>
+</ol>
 </div>
 
     </div>

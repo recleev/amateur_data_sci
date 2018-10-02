@@ -1,5 +1,5 @@
 ---
-title: 'From Messy to Tidy: The Power of `tidyr::gather`'
+title: 'From Messy to Tidy: Gather All Those Dates'
 author: Recle Etino Vibal
 date: '2018-10-03'
 categories:
@@ -84,9 +84,22 @@ According to the [Philippine Statistics Authority](http://openstat.psa.gov.ph/)
 
 The initial reason why I looked at this data was because of the high inflation rates the Philippines is experiencing in 2018. However, after I saw how the data looked, I became more interested in using it to discuss tidy data principles and ways to turn a data set from messy to tidy.
 
-## Messy Data Clue: Dates as Columns
+## Dates as Columns
 
-One of the common ways of making a data set messy is by creating columns that are not variables, which happens quite often with dates. In the CPI data, there are `r colnames(cpi_data_raw) %>% str_detect(paste(month.abb %R% "_" %R% one_or_more(DGT), collapse = "|")) %>% sum()` columns that are month and year data, not even in [ISO 8601](https://en.wikipedia.org/wiki/ISO_8601) format (yyyy-mm-dd).
+One of the common ways of making a data set messy is by creating columns that are not variables but values of a certain observation, which happens quite often with dates. In the CPI data, there are `r colnames(cpi_data_raw) %>% str_detect(paste(month.abb %R% "_" %R% one_or_more(DGT), collapse = "|")) %>% sum()` columns that are month and year data, not even in [ISO 8601](https://en.wikipedia.org/wiki/ISO_8601) format (yyyy-mm-dd). Under each date column is supposed the consumer price index. Variables under variables are not the tidy way.
+
+## Average Columns
+
+Before I do something about these dates, I also noticed that there are `Ave_yy` columns. These columns show the average CPI for each year. 
+
+@share-data considers raw data in the correct format if it did not
+
+1. Ran on software
+2. Modify data
+3. Remove data
+4. Summarise data
+
+I can only assume that the first three conditions was followed. There are missing values, but I think it was missing in the first place rather than removed. I am sure that the `Ave_yy` summarises the data. Manipulating data to obtain any statistical value like the average is easy for any data analyst to do when the raw data is tidy or at least near tidy. Having columns are not only unnecessary, but it also may lead the data analyst into checking what these columns mean anyway^[I had to verify if the `Ave_yy` columns are really just the average of the CPI for each year. I confirmed that it was so with `cpi_data_raw %>% select(Description, matches("_" %R% DGT %R% DGT)) %>% mutate_at(vars(-Description), as.numeric) %>% gather(month_year, cpi, Jan_94:Dec_94) %>% group_by(Description) %>% summarise_at(vars(Ave_94, cpi), mean, na.rm = TRUE) %>% filter(abs(Ave_94 - cpi) > 0.05)`. I chose 0.05 as the limit for rounding differences]. I had to From the definition of CPI, I also don't think this is a necessary value to consider.
 
 # References
 

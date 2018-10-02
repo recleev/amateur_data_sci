@@ -12,12 +12,12 @@
     
     
     <item>
-      <title>From Messy to Tidy: The Power of `tidyr::gather`</title>
+      <title>From Messy to Tidy: Gather All Those Dates</title>
       <link>/blog/messy-tidy-tidyr-gather/</link>
       <pubDate>Wed, 03 Oct 2018 00:00:00 +0000</pubDate>
       
       <guid>/blog/messy-tidy-tidyr-gather/</guid>
-      <description>1 Tidy Data: Long But Machine Readable2 Consumer Price Index of the Philippines2.1 Messy Data Clue: Dates as Columns3 Referenceslibrary(knitr)library(tidyverse)library(magrittr)library(janitor)library(lubridate)library(DT)library(rebus)opts_chunk$set(message = FALSE,warning = FALSE,echo = TRUE)1 Tidy Data: Long But Machine ReadableWorking with data made me concious of how we compile, store, and share data.</description>
+      <description>1 Tidy Data: Long But Machine Readable2 Consumer Price Index of the Philippines2.1 Dates as Columns2.2 Average Columns3 Referenceslibrary(knitr)library(tidyverse)library(magrittr)library(janitor)library(lubridate)library(DT)library(rebus)opts_chunk$set(message = FALSE,warning = FALSE,echo = TRUE)1 Tidy Data: Long But Machine ReadableWorking with data made me concious of how we compile, store, and share data.</description>
     </item>
     
   </channel>
