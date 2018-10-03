@@ -10,7 +10,7 @@
 <meta name="referrer" content="no-referrer">
 {{ if .Site.Params.description }}<meta name="description" content="{{ .Site.Params.description }}">{{ end }}
 
-<base target="_blank">
+<base href="{url}">
 <title>
 {{ $url := replace .Permalink ( printf "%s" .Site.BaseURL) "" }}
 {{ if eq $url "/" }}
