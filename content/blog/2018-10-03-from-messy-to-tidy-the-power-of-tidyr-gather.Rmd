@@ -6,7 +6,7 @@ categories:
   - lessons
   - Philippines
   - tidyverse
-  -tidy data
+  - tidy data
 tags:
   - consumer price index
   - dplyr
@@ -43,7 +43,7 @@ opts_chunk$set(
 
 # Tidy Data: Long But Machine Readable
 
-Working with data made me concious of how we compile, store, and share data. Most of us work with spreadsheets and most of the time we encode our data in a way that makes it easy for other people to read our data. Unfortunately, human readable data format is not necessarily machine readable data. When we want to work with data in code, human readable data is not usually the best form to begin with and to share with other people who wants to reproduce our work.
+Working with data made me conscious of how we compile, store, and share data. Most of us work with spreadsheets and most of the time we encode our data in a way that makes it easy for other people to read our data. Unfortunately, human readable data format is not necessarily machine readable data. When we want to work with data in code, human readable data is not usually the best form to begin with and to share with other people who wants to reproduce our work.
 
 @tidy-data has the following definition of a [tidy data](http://vita.had.co.nz/papers/tidy-data.html):
 
@@ -51,8 +51,8 @@ Working with data made me concious of how we compile, store, and share data. Mos
 >Data is tidy when 
 >
 >1. Every column is a variable, 
->2. Every row is an observation, and 
->3. Every observational unit forms a table.
+2. Every row is an observation, and 
+3. Every observational unit forms a table.
 
 Data that is not tidy is *messy*.
 
@@ -76,7 +76,7 @@ raw_cpi_data <-
 
 The data I will use here is the Philippines consumer price index from 1994 Jan to 2018 Jun retrieved [here](http://openstat.psa.gov.ph/dataset/prices-and-related-indices) on 2018 Sep 28.
 
-```{r show-raw-data-sample, fig.cap="First Twenty Rows of the Philippines Monthly Consumer Price Index (CPI) for All Income Households by Commodity Group and Geographic Area from 1994 Jan to 2018 Jun. CPI from 1994 to 2005 are the equivalent/estimated 2006-based CPI using the splicing method. Data from Philippine Statistics Authority (http://openstat.psa.gov.ph)."}
+```{r show-raw-data-sample, fig.cap="First 20 Rows of the Philippines Monthly Consumer Price Index (CPI) for All Income Households by Commodity Group and Geographic Area from 1994 Jan to 2018 Jun. CPI from 1994 to 2005 are the equivalent/estimated 2006-based CPI using the splicing method. Data from Philippine Statistics Authority (http://openstat.psa.gov.ph)."}
 
 # Show Sample of CPI Data
 
@@ -100,11 +100,13 @@ The initial reason why I looked at this data was because of the high inflation r
 
 # Messy Data Cues
 
-Usually tidy data takes the form of a long table. This is just a consequence of keeping variables in columns and observations in rows. A wide table, like Table \@ref(fig:show-raw-data-sample), is a common cue that a data is not tidy. The CPI data has `r ncol(raw_cpi_data)` columns and `r nrow(raw_cpi_data) %>% scales::comma()` rows. The dimensions may indicate a long table already, but we must further investigate; `r ncol(raw_cpi_data)` columns is just too many to be just variables.
+## Wide not Long
+
+Usually, tidy data takes the form of a long table. This is just a consequence of keeping variables in columns and observations in rows. A wide table, like Figure \@ref(fig:show-raw-data-sample), is a common cue that a data is not tidy. The CPI data has `r ncol(raw_cpi_data)` columns and `r nrow(raw_cpi_data) %>% scales::comma()` rows. The dimensions may indicate a long table already, but we must further investigate; `r ncol(raw_cpi_data)` columns is just too many to be just variables.
 
 ## Dates as Columns
 
-One of the common ways of making a data set messy is by creating columns that are not variables but values of a certain observation, which happens quite often with dates in the wild. In the CPI data, there are `r colnames(raw_cpi_data) %>% str_detect(paste(month.abb %R% "_" %R% one_or_more(DGT), collapse = "|")) %>% sum()` columns that are month and year data, not even in [ISO 8601](https://en.wikipedia.org/wiki/ISO_8601) format (YYYY-MM-DD). Under each date column is supposed the consumer price index. Variables under variables are not the tidy way.
+One of the common ways of making a data set messy is by creating columns that are not variables but values of a certain observation, which happens quite often with dates. In the CPI data, there are `r colnames(raw_cpi_data) %>% str_detect(paste(month.abb %R% "_" %R% one_or_more(DGT), collapse = "|")) %>% sum()` columns that are month and year data, not even in [ISO 8601](https://en.wikipedia.org/wiki/ISO_8601) format (YYYY-MM-DD). Under each date column is supposed to be the consumer price index for that month and year. Putting variables under variables is not the tidy way.
 
 ## Average Columns
 
@@ -112,28 +114,28 @@ Before I do something about these dates, I also noticed that there are `Ave_yy` 
 
 @share-data considers raw data in the correct format if it **did not**
 
-1. Ran on software
+>1. Ran on software
 2. Modify data
 3. Remove data
 4. Summarise data
 
-I can only assume that the first three conditions was followed. There are missing values, but I think it was missing in the first place rather than removed. I am sure that the `Ave_yy` summarises the data. Manipulating data to obtain any statistical value like the average is easy for any data analyst to do when the raw data is tidy or at least near tidy. Having summary columns are not only unnecessary, but it also may lead the data analyst into checking what these columns mean^[I wanted to verify if the `Ave_yy` columns are really the average of the CPI for each year. However, I think I was dwelling on it too much rather than focus on tidying the data. My experience with `Ave_yy` columns just proves that summaries only hinder the data analysis]. From the definition of CPI, I also don't think that the annual average is a necessary and correct value to consider.
+I can only assume that the data encoder of the CPI data followed the first three conditions. There are missing values, but I think it was missing in the first place rather than removed. I am sure that the `Ave_yy` summarizes the data. Manipulating data to obtain any statistical value like the average is easy for any data analyst when the raw data is tidy or at least near tidy. Having summary columns are not only unnecessary, but it also may lead the data analyst into checking what these columns mean^[I wanted to verify if the `Ave_yy` columns are really the average of the CPI for each year. However, I think I was dwelling on it too much rather than focusing on how to tidy the data. My experience with `Ave_yy` columns just proves that summaries only hinder the data analysis]. From the definition of CPI, I also don't think that the annual average is a necessary and correct value to consider.
 
 # Short Steps to a Long Table
 
 For this post, I have the following tasks:
 
-1. Remove the `Ave_yy` columns,
+>1. Remove the `Ave_yy` columns,
 2. Collect all the `month_year` and CPI values underneath into separate columns, and
 3. COnvert the new date columns in ISO 8601 format^[@share-data also advocates ISO 8601 as the preffered date format for consistency and because the YYYY-MM-DD format is not misconstrued in Excel. I agree with them. For more variable coding guidelines, see Figure 2 of @share-data].
 
-I opted at separating the code and the discussion of my process such that the discussion will not be interrupted by code blocks and such that the reader can review my process through code in one uninterrupted pass after reading my discussion. For all the packages and code I used, please refer to \@ref(code)
+I opted at separating the code and the discussion of my process such that the discussion will not be interrupted by code blocks and such that the reader can review my process through code in one uninterrupted pass after reading the discussion. For all the packages and code I used, please refer to \@ref(code).
 
 ## Remove Columns with Names that Starts with the Same Characters
 
 `dplyr::select()` [@R-dplyr] allows for selecting or removing columns by column names. There are `r raw_cpi_data %>% colnames() %>% str_detect("Ave") %>% sum()` `Ave_yy` columns. Listing them one-by-one is bothersome.
 
-`dplyr::starts_with()` [@R-dplyr] to the rescue. As the function name implies, `dplyr::starts_with()` selects all column names that begin with the specified string. We can remove `r raw_cpi_data %>% colnames() %>% str_detect("Ave") %>% sum()` `Ave_yy` columns using two simple functions. Just don't forget the `-` to tell select that we want the columns removed not selected. I also removed the extra `X324` column.
+`dplyr::starts_with()` [@R-dplyr] offers one way to remove the `Ave_yy` columns. As the function name implies, `dplyr::starts_with()` selects all column names that begin with the specified string prefix. We can remove `r raw_cpi_data %>% colnames() %>% str_detect("Ave") %>% sum()` `Ave_yy` columns using two simple functions. Just don't forget the `-` to tell select that we want the columns removed not selected. I also removed the extra and empty `X324` column.
 
 ```{r remove-ave-cols}
 
@@ -149,11 +151,11 @@ no_ave_cpi_data <-
 
 Converting a table from wide to long format is possible with `tidyr::gather()` [@R-tidyr]. It takes four important arguments: the wide `data`, the `key` or column name we want to call the the column names we are gathering, the `value` or the column name we want to call the variables under the columns we will collect, and `...` or the set of column names we want to gather.
 
-Since the column names we want to gather the `month_year`, it is appropriate to call the "key" column "month_year". The values under the `month_year` columns are the CPI for each month; the appropriate "value" column is "cpi".
+Since the column names we want to gather are in `month_year` form, it is appropriate to call the "key" column "month_year". The values under the `month_year` columns are the CPI for each month; the appropriate "value" column is "cpi".
 
-There are `r colnames(raw_cpi_data) %>% str_detect(paste(month.abb %R% "_" %R% one_or_more(DGT), collapse = "|")) %>% sum()` `month_year` columns, so listing them one-by-one is more bothersome than listing the `Ave_yy` columns. `dplyr::starts_with()` will not help us here because it needs a specific string to match as prefix. The `month_year` columns have different beginnings (i.e. `r knitr::combine_words(month.abb)`). In situations like this, we will need the help of `dplyr::matches()` [@R-dplyr]. The advantage of `dplyr::matches()` over `dplyr::starts_with()` is that finds column names that matches a regular expression anywhere in the column name.
+There are `r colnames(raw_cpi_data) %>% str_detect(paste(month.abb %R% "_" %R% one_or_more(DGT), collapse = "|")) %>% sum()` `month_year` columns, so listing them one-by-one is more bothersome than listing the `Ave_yy` columns. `dplyr::starts_with()` will not help us here because it needs a specific string to match as prefix. The `month_year` columns have different beginnings (i.e. `r knitr::combine_words(month.abb)`). In situations like this, we will need the help of `dplyr::matches()` [@R-dplyr]. Instead of a specific string prefix, `dplyr::matches()` finds column names that matches a regular expression anywhere in the column name.
 
-The mention of regular expressions might have disturbed the balance of the universe, but nothing to worry, `{rebus`} [@R-rebus] to the rescue. With the `month.abb` (built-in vector of three-letter abbreviations of English month names) and `paste()`, we can create the regex expression to select all the `month_year` columns with `paste(month.abb %R% "_" %R% DGT %R% DGT, collapes = "|")`^[For those who want to use regular expressions, the equivalent is `Jan_\\d\\d|Feb_\\d\\d|Mar_\\d\\d|Apr_\\d\\d|May_\\d\\d|Jun_\\d\\d|Jul_\\d\\d|Aug_\\d\\d|Sep_\\d\\d|Oct_\\d\\d|Nov_\\d\\d|Dec_\\d\\d`]. I used `collapse = "|"` because `dplyr::matches()` only takes one regular expression as argument and `|` is interpreted as the "or"" separator.
+The mention of regular expressions might have disturbed the balance of the universe, but nothing to worry, `{rebus}` [@R-rebus] is here. With the `month.abb` (built-in vector of three-letter abbreviations of English month names) and `paste()`, we can create the regular expression to select all the `month_year` columns with `paste(month.abb %R% "_" %R% DGT %R% DGT, collapes = "|")`^[For those who want to use regular expressions, the equivalent is `Jan_\\d\\d|Feb_\\d\\d|Mar_\\d\\d|Apr_\\d\\d|May_\\d\\d|Jun_\\d\\d|Jul_\\d\\d|Aug_\\d\\d|Sep_\\d\\d|Oct_\\d\\d|Nov_\\d\\d|Dec_\\d\\d`]. I used `collapse = "|"` because `dplyr::matches()` only takes one regular expression as argument, and `|` is interpreted as the "or"" separator.
 
 ```{r gather-month-year}
 
@@ -169,7 +171,7 @@ long_cpi_data <-
 
 ```
 
-Here is the sample of what we have done so far.
+Here is the sample of the elongated data so far.
 
 ```{r show-gathered-cpi-data, fig.cap="The Data so Far. No Ave_yy Columns and month_year Columns Gathered in One Column."}
 
@@ -187,13 +189,15 @@ long_cpi_data %>%
 
 ```
 
-Looking good so far. The data went from wide (`r paste(ncol(raw_cpi_data), "rows by", nrow(raw_cpi_data) %>% scales::comma(), "columns")`) to long (`r paste(ncol(long_cpi_data), "rows by", nrow(long_cpi_data) %>% scales::comma(), "columns")`) in just a few lines of code. However, the `month_year` column is still not in ISO 8601 format. The next step will be tricky.
+Looking good so far. The data went from wide (`r paste(ncol(raw_cpi_data), "rows by", nrow(raw_cpi_data) %>% scales::comma(), "columns")`) to long (`r paste(ncol(long_cpi_data), "rows by", nrow(long_cpi_data) %>% scales::comma(), "columns")`) in just a few lines of code. However, the `month_year` column is still not in ISO 8601 format. This step will be tricky.
 
 ## Convert to YYYY-MM-DD
 
-Years in the CPI data are abbreviated to only the last two digits of the year. This makes it very difficult for future encoding of data. What happens when the data goes beyond 2094 or if we obtained data since 1800? This another reason why ISO 8601 format is prefferable, there is no confusion about the year because it is spelled out. However, this is why we are tidying the data, so that future data analysts and gatherers can update the data with consistency and ease. 
+Years in the CPI data are abbreviated to only the last two digits of the year. This makes it very difficult for future encoding of data. What happens when the data goes beyond 2094 or if we obtained data since 1800? This is another reason why ISO 8601 format is preferable, there is no confusion about the year because it is spelled out. However, this is why we are tidying the data, so that future data analysts and gatherers can update the data with consistency and ease. 
 
-To manipulate the two-digit years, I first split the `month_year` column to `month` and `year` using `tidyr::separate()` [@R-tidyr]. With the two-digit `year` column, I added 1900 when years are in the 90s and 2000 otherwise. I work on dates with `{lubridate}` [@R-lubridate]. A "YYYY-MM-DD" string can be converted to a YYYY-MM-DD date with `lubridate::ymd()`. Since the original CPI data only had months and year, and we can assume that this is end of months CPI values, I had to arbitrarily add a day field. I used 1 because all months begin with 1; months end at different days then there is also the leap year. My initial date is `ymd(paste(year, month, 1, sep = "-"))`. To convert this to end-of-month dates, I used `lubridate::ceiling_date()`, specifying `unit = "month"` for rounding-up in by month. However, `lubridate::ceiling_date()` rounds up a month to the first day of the next month (See the `?lubridate::ceiling_date()` for more information). To obtain the real end-of-month date, I had to subtract a period of 1 day using `lubridate::days(1)`.
+To manipulate the two-digit years, I first split the `month_year` column to `month` and `year` using `tidyr::separate()` [@R-tidyr]. With the two-digit `year` column, I added 1900 when years are in the 90s and 2000 otherwise. 
+
+I like working with dates using `{lubridate}` [@R-lubridate]. A "YYYY-MM-DD" string can be converted to a YYYY-MM-DD date with `lubridate::ymd()`. Since the original CPI data only had months and year, and we can assume that these end-of-month CPI values, I had to arbitrarily add a day field. I used 1 because all months begin with 1; months end at different days, then there is also the leap year. My initial date is `ymd(paste(year, month, 1, sep = "-"))`. To convert this to end-of-month dates, I used `lubridate::ceiling_date()`, specifying `unit = "month"` for rounding-up by month. However, `lubridate::ceiling_date()` rounds up a month to the first day of the next month (see the `?lubridate::ceiling_date()` for more information). To obtain the real end-of-month date, I had to subtract a period of 1 day using `lubridate::days(1)`.
 
 ```{r convert-iso-8601}
 
@@ -227,13 +231,13 @@ iso_8601_cpi_data <-
 
 ```
 
-Converting to ISO 8601 looks easier in code, but it was a tricky process to get here when you are just thinking about to handle the messy data for the first time.
+Converting to ISO 8601 looks easier in code, but it was a tricky process to get here when you are just thinking about how to handle the messy data for the first time.
 
 # Not Yet Tidy, A Little Less Messy
 
-Here is the first twenty rows of the data so far. 
+Here is a sample of the data so far. 
 
-```{r show-iso-8601-data, fig.cap="Sample CPI Data after Converting Dates to ISO 8601 Format."}
+```{r show-iso-8601-data, fig.cap="First 20 Rows of the CPI Data after Converting Dates to ISO 8601 Format."}
 
 # SHow data after converting dates to ISO 8601 format
 
@@ -261,7 +265,7 @@ Up Next: What is that `Code` column?
 
 # Code {#code}
 
-The following codes show what I did in this post. The logic of each code should have been captured in the discussion. I added comments here and there to further clarify my thought process.
+The following codes show what I did in this post. The logic of each code should have been captured in the discussion, but I added comments here and there to further clarify my thought process.
 
 ```{r all-codes, ref.label = all_labels(), echo=TRUE, eval=FALSE}
 
