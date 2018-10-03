@@ -1,0 +1,833 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta http-equiv="content-type" content="text/html; charset=utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="description" content="">
+  <meta name="generator" content="Hugo 0.49" />
+
+  <title>Waves Intersecting at Right Angles and a Folded Paper &middot; The Amateur Data Scientist</title>
+
+  
+  
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/pure/1.0.0/pure-min.css">
+
+  <!--[if lte IE 8]>
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/pure/1.0.0/grids-responsive-old-ie-min.css">
+  <![endif]-->
+  <!--[if gt IE 8]><!-->
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/pure/1.0.0/grids-responsive-min.css">
+  <!--<![endif]-->
+
+  <!--[if lte IE 8]>
+  <link rel="stylesheet" href="/css/side-menu-old-ie.css">
+  <![endif]-->
+  <!--[if gt IE 8]><!-->
+  <link rel="stylesheet" href="/css/side-menu.css">
+  <!--<![endif]-->
+
+  <link rel="stylesheet" href="/css/blackburn.css">
+
+  
+  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css">
+
+  
+  <link href="https://fonts.googleapis.com/css?family=Raleway" rel="stylesheet" type="text/css">
+
+  
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.1/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
+
+ 
+  
+
+  
+  <link rel="stylesheet" href="//cdnjs.cloudflare.com/ajax/libs/highlight.js/9.12.0/styles/androidstudio.min.css">
+  <script src="//cdnjs.cloudflare.com/ajax/libs/highlight.js/9.12.0/highlight.min.js"></script>
+  
+  <script>hljs.initHighlightingOnLoad();</script>
+  
+
+  <link rel="shortcut icon" href="/img/favicon.ico" type="image/x-icon" />
+
+  
+  
+
+</head>
+
+
+<body>
+<div id="layout">
+
+  
+<a href="#menu" id="menuLink" class="menu-link">
+  
+  <span></span>
+</a>
+<div id="menu">
+
+  
+  <a class="pure-menu-heading brand" href="/">Blackburn</a>
+
+
+  <div class="pure-menu">
+    <ul class="pure-menu-list">
+      
+      
+        <li class="pure-menu-item">
+          <a class="pure-menu-link" href="/"><i class='fa fa-home fa-fw'></i>Home</a>
+      
+        </li>
+      
+      
+        <li class="pure-menu-item">
+          <a class="pure-menu-link" href="/post/"><i class='fa fa-list fa-fw'></i>Posts</a>
+      
+        </li>
+      
+      
+        <li class="pure-menu-item">
+          <a class="pure-menu-link" href="/about/"><i class='fa fa-user fa-fw'></i>About</a>
+      
+        </li>
+      
+      
+        <li class="pure-menu-item">
+          <a class="pure-menu-link" href="/contact/"><i class='fa fa-phone fa-fw'></i>Contact</a>
+      
+        </li>
+      
+    </ul>
+  </div>
+
+  <div class="pure-menu social">
+  <ul class="pure-menu-list">
+
+    
+
+    
+
+    
+    <li class="pure-menu-item">
+      <a class="pure-menu-link" href="https://twitter.com/recleev" target="_blank"><i class="fa fa-twitter-square fa-fw"></i>Twitter</a>
+    </li>
+    
+
+    
+
+    
+    <li class="pure-menu-item">
+      <a class="pure-menu-link" href="https://facebook.com/recleev" target="_blank"><i class="fa fa-facebook-square fa-fw"></i>Facebook</a>
+    </li>
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+    <li class="pure-menu-item">
+      <a class="pure-menu-link" href="https://linkedin.com/in/recleev" target="_blank"><i class="fa fa-linkedin-square fa-fw"></i>LinkedIn</a>
+    </li>
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+    <li class="pure-menu-item">
+      <a class="pure-menu-link" href="https://github.com/recleev" target="_blank"><i class="fa fa-github-square fa-fw"></i>GitHub</a>
+    </li>
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+  </ul>
+</div>
+
+
+  <div>
+  <div class="small-print">
+    <small></small>
+  </div>
+  <div class="small-print">
+    <small>Built with&nbsp;<a href="https://gohugo.io/" target="_blank">Hugo</a></small>
+    <small>Theme&nbsp;<a href="https://github.com/yoshiharuyamashita/blackburn" target="_blank">Blackburn</a></small>
+  </div>
+</div>
+
+</div>
+
+
+  <div id="main">
+
+
+<div class="header">
+  <h1>Waves Intersecting at Right Angles and a Folded Paper</h1>
+  <h2></h2>
+</div>
+<div class="content">
+
+  <div class="post-meta">
+
+  <div>
+    <i class="fa fa-calendar fa-fw"></i>
+    <time>2018 Aug 21</time>
+  </div>
+
+  
+
+  
+
+  
+  
+  
+  <div>
+    <i class="fa fa-tags fa-fw"></i>
+    
+      <a class="post-taxonomy-tag" href="/tags/ggplot2">ggplot2</a>&nbsp;&#47;
+    
+      <a class="post-taxonomy-tag" href="/tags/maxima">maxima</a>&nbsp;&#47;
+    
+      <a class="post-taxonomy-tag" href="/tags/minima">minima</a>&nbsp;&#47;
+    
+      <a class="post-taxonomy-tag" href="/tags/simulation">simulation</a>&nbsp;&#47;
+    
+      <a class="post-taxonomy-tag" href="/tags/slopes">slopes</a>&nbsp;&#47;
+    
+      <a class="post-taxonomy-tag" href="/tags/tangents">tangents</a>
+    
+  </div>
+  
+  
+
+</div>
+
+  <div id="TOC">
+<ul>
+<li><a href="#perpendicular-intersecting-waves"><span class="toc-section-number">1</span> Perpendicular Intersecting Waves</a><ul>
+<li><a href="#problem"><span class="toc-section-number">1.1</span> Problem</a></li>
+<li><a href="#solution"><span class="toc-section-number">1.2</span> Solution</a></li>
+</ul></li>
+<li><a href="#a-folded-paper"><span class="toc-section-number">2</span> A Folded Paper</a><ul>
+<li><a href="#problem-1"><span class="toc-section-number">2.1</span> Problem</a></li>
+<li><a href="#solution-minimum-area"><span class="toc-section-number">2.2</span> Solution: Minimum Area</a></li>
+<li><a href="#solution-minimum-crease-length"><span class="toc-section-number">2.3</span> Solution: Minimum Crease Length</a></li>
+<li><a href="#solution-using-r-without-differentiations"><span class="toc-section-number">2.4</span> Solution: Using R (Without Differentiations)</a></li>
+</ul></li>
+<li><a href="#reference"><span class="toc-section-number">3</span> Reference</a></li>
+</ul>
+</div>
+
+<pre class="r"><code>library(knitr)
+library(tidyverse)
+library(ggthemes)
+
+opts_chunk$set(
+  fig.align = &quot;center&quot;,
+  message = FALSE,
+  warning = FALSE
+)</code></pre>
+<p>I found these two problems in <span class="citation">Simmons (2016)</span>. I enjoyed these problems because they require more thinking than just a mechanical application of derivatives.</p>
+<div id="perpendicular-intersecting-waves" class="section level1">
+<h1><span class="header-section-number">1</span> Perpendicular Intersecting Waves</h1>
+<div id="problem" class="section level2">
+<h2><span class="header-section-number">1.1</span> Problem</h2>
+<p>This problem appears in <span class="citation">Simmons (2016)</span> on page 119, item 24.</p>
+<p>Find <span class="math inline">\(a \gt 0\)</span> so that the curves <span class="math inline">\(y = \sin {ax}\)</span> and <span class="math inline">\(y = \cos {ax}\)</span> intersect at right angles.</p>
+</div>
+<div id="solution" class="section level2">
+<h2><span class="header-section-number">1.2</span> Solution</h2>
+<p>Since the curves are perpendicular on their interesections, then the tangent lines must also be perpendicular at the intersection.</p>
+<p>The slope of the tangent lines are,</p>
+<p><span class="math display">\[
+\begin{align}
+y = \sin{ax}
+\\
+\frac{dy}{dx} = a \cos{ax}
+\\
+\\
+y = \cos{ax}
+\\
+\frac{dy}{dx} = -a \sin{ax}
+\end{align}
+\]</span></p>
+<p>By definition, the slope of perpendicular lines are negative reciprocals, i.e.</p>
+<p><span class="math display">\[
+-a \sin{ax} = -\frac{1}{a \cos{ax}}
+\]</span></p>
+<p>Simplifying,</p>
+<p><span class="math display">\[
+1 = a^2 \sin{ax} \cos{ax}
+\]</span></p>
+<p>At this point, I was stuck. It was very difficult to compute for <span class="math inline">\(a\)</span>. My first light bulb was realizing that the point of interest is at the intersection and that means <span class="math inline">\(y = \sin{ax} = \cos{ax}\)</span>. Upon substitution,</p>
+<p><span class="math display">\[
+1 = a^2 {\sin}^2{ax} 
+\\ 
+\\
+or
+\\
+\\
+1 = a^2 {\cos}^2{ax} 
+\]</span></p>
+<p>I was stuck again for a moment because how can one compute for <span class="math inline">\(a\)</span> in this situation. I was set free when I realized that <span class="math inline">\(\sin{\theta} = \cos{\theta}\)</span> when <span class="math inline">\(\theta = \frac{\pi}{4}\)</span>. This simplifies the equation and allowed me to compute for <span class="math inline">\(a\)</span>.</p>
+<p><span class="math display">\[
+\begin{align}
+1 = a^2{\sin}^2{ax}
+\\
+1 = a^2{\sin}^2{\frac{\pi}{4}}
+\\
+a^2 = \frac{1}{{\sin}^2{\frac{\pi}{4}}}
+\\
+a = \frac{1}{\sin{\frac{\pi}{4}}}
+\\
+\\
+a = \sqrt{2}
+\end{align}
+\]</span></p>
+<p>We can confirm my answer by plotting the curves with <span class="math inline">\(a = \sqrt{2}\)</span>.</p>
+<pre class="r"><code>factor = 1 / sin(pi / 4)
+
+tibble(
+  theta = seq(0, 1, by = 0.05) * pi
+) %&gt;% 
+  mutate(
+    sin_y = sin(factor * theta),
+    cos_y = cos(factor * theta)
+  ) %&gt;% 
+  ggplot(
+    aes(
+      theta,
+      sin_y
+    )
+  ) +
+  geom_line(color = ggthemes::palette_pander(1)) +
+  geom_line(
+    aes(
+      y = cos_y
+    ),
+    color = ggthemes::palette_pander(2)[2]
+  ) +
+  coord_fixed() +
+  ggthemes::theme_pander(
+    gl = 0
+  ) +
+  labs(
+    title = &quot;Intersecting Sine and Cosine Functions&quot;,
+    x = &quot;x&quot;,
+    y = &quot;y&quot;
+  ) +
+  annotate(
+    &quot;text&quot;,
+    x = 2,
+    y = 0.7,
+    label = latex2exp::TeX(&quot;$y = \\sin{\\left(x\\sqrt{2}\\right)}$&quot;),
+    parse = TRUE
+  ) +
+  annotate(
+    &quot;text&quot;,
+    x = 1,
+    y = -0.25,
+    label = latex2exp::TeX(&quot;$y = \\cos{\\left(x\\sqrt{2}\\right)}$&quot;),
+    parse = TRUE
+  )</code></pre>
+<p><img src="/post/2018-08-21-waves-right-angles-folded-paper_files/figure-html/sine_cosine-1.png" width="672" style="display: block; margin: auto;" /></p>
+<p>It is hard to determine for sure, but I think the curves do interesect at right angles.</p>
+<p>I would like to highlight my use of <a href="https://cran.r-project.org/web/packages/latex2exp/vignettes/using-latex2exp.html"><code>{latex2exp}</code></a> that help converts Mathjax expressions to <code>R</code>’s plotmath expressions. This may not be necessary because I can also do the labels with plotmath syntax, but I prefer Mathjax syntax. Note the use of <code>\\</code> instead of the usual <code>\</code>. It seems that these are <code>regex</code> strings, <code>\</code> is the usual escape, i.e. <code>\</code> is not rendered as a backslash but as an escape tag. To use <code>\</code> in a string, we must use <code>\\</code>.</p>
+</div>
+</div>
+<div id="a-folded-paper" class="section level1">
+<h1><span class="header-section-number">2</span> A Folded Paper</h1>
+<p>This problem on page 130, item 30 in <span class="citation">Simmons (2016)</span> really took me a long time and proves that I am really rusty at math. I am happy I started reviewing calculus again.</p>
+<div id="problem-1" class="section level2">
+<h2><span class="header-section-number">2.1</span> Problem</h2>
+<p>A long sheet of paper is a units wide. One corner of the paper is folded over as shown. Find the value of <span class="math inline">\(x\)</span> that minimizes (a) the area of <span class="math inline">\(\triangle ABC\)</span>, and (b) the length of crease <span class="math inline">\(\overline {AC}\)</span>.</p>
+<pre class="r"><code>paper_width &lt;- 40
+
+paper_height &lt;- 60
+
+fold &lt;- 25
+
+ggplot() +
+  aes(
+    c(0, fold, paper_width, paper_width),
+    c(0, paper_height, paper_height, 0)
+  ) +
+  geom_polygon(
+    fill = &quot;palegreen&quot;
+  ) +
+  geom_polygon(
+    aes(
+      c(0, fold, paper_width),
+      c(0, paper_height, paper_height - sqrt(fold**2 - (paper_width - fold)**2))
+    ),
+    fill = &quot;seagreen&quot;
+  ) +
+  geom_polygon(
+    aes(
+      c(0, 0, fold),
+      c(0, paper_height, paper_height)
+    ),
+    linetype = 2,
+    fill = &quot;white&quot;,
+    size = 2,
+    color = &quot;forestgreen&quot;
+  ) +
+  annotate(
+    &quot;text&quot;, 
+    x = -1, 
+    y = 0, 
+    label = &quot;C&quot;, 
+    color = &quot;darkred&quot;, 
+    size = 6
+  ) +
+  annotate(
+    &quot;text&quot;, 
+    x = fold + 1.5, 
+    y = paper_height + 0.75, 
+    label = &quot;A&quot;, 
+    color = &quot;darkred&quot;, 
+    size = 6
+  ) +
+  annotate(
+    &quot;text&quot;, 
+    x = paper_width + 0.75, 
+    y = paper_height - sqrt(fold**2 - (paper_width - fold)**2), 
+    label = &quot;B&quot;, 
+    color = &quot;darkred&quot;, 
+    size = 6
+  ) +
+  annotate(
+    &quot;segment&quot;,
+    x = 0, 
+    y = paper_height + 2,
+    xend = fold,
+    yend = paper_height + 2,
+    color = &quot;orange&quot;, 
+    size = 2
+  ) +
+  annotate(
+    &quot;text&quot;,
+    x = fold / 2,
+    y = paper_height + 4,
+    label = &quot;x&quot;
+  ) +
+  annotate(
+    &quot;segment&quot;,
+    x = fold, 
+    y = paper_height + 2,
+    xend = paper_width,
+    yend = paper_height + 2,
+    color = &quot;yellow&quot;, 
+    size = 2
+  ) +
+  annotate(
+    &quot;text&quot;,
+    x = fold + (paper_width - fold) / 2, 
+    y = paper_height + 4,
+    label = &quot;a - x&quot;
+  ) +
+  annotate(
+    &quot;segment&quot;,
+    x = 0, 
+    y = -2,
+    xend = paper_width,
+    yend = -2,
+    color = &quot;darkblue&quot;, 
+    size = 2
+  ) +
+  annotate(
+    &quot;text&quot;,
+    x = paper_width / 2, 
+    y = -4,
+    label = &quot;a&quot;
+  ) +
+  theme_void() +
+  coord_fixed() +
+  labs(title = &quot;A Folded Paper&quot;)</code></pre>
+<p><img src="/post/2018-08-21-waves-right-angles-folded-paper_files/figure-html/folded_paper-1.png" width="576" style="display: block; margin: auto;" /></p>
+<p>I made this folded paper diagram with <code>ggplot2::geom_polygon()</code>. I only needed to specify the vertices, and the shapes drew themselves. I may have overused <code>ggplot2::annotate()</code>, but I also enjoyed using it.</p>
+<p>Note in the problem that the paper is very long, so there is still paper <span class="math inline">\(C\)</span>. I drew it this way for a reason that will be clear later. The position of <span class="math inline">\(C\)</span> does not really matter as the solution will generalize later.</p>
+<p>The blue line indicates the width of the paper <code>a</code>. The orange line is the width of paper used in the fold, <span class="math inline">\(x\)</span>. The yellow line, <span class="math inline">\(a-x\)</span> indicates the remaining edge of the paper not involved in the fold.</p>
+</div>
+<div id="solution-minimum-area" class="section level2">
+<h2><span class="header-section-number">2.2</span> Solution: Minimum Area</h2>
+<p>This problem took me a while to solve, so bear with as I discuss my thought process.</p>
+<p>First thing I realized was I needed to find the area of a triangle using three vertices. I chose <span class="math inline">\(C\)</span> to be at <span class="math inline">\(\left(0,0\right)\)</span> to simplify matters, and that also explains the way I drew the diagram. <span class="math inline">\(A\)</span> is at point <span class="math inline">\(\left(x, y\right)\)</span> where <span class="math inline">\(y\)</span> is the length of paper we will use in the fold, i.e. from <span class="math inline">\(C\)</span> to the edge of the paper.</p>
+<p><span class="math inline">\(B\)</span> is a big more complicated, but here is how I found it. Observe <span class="math inline">\(\overline{AB}\)</span> is just <span class="math inline">\(x\)</span>. From <span class="math inline">\(A\)</span> to the corner of the paper is <span class="math inline">\(a - x\)</span>. That leaves us with the distance from <span class="math inline">\(B\)</span> to the corner of the paper. Here is where geometry comes in. Notice that the triangle formed by <span class="math inline">\(A\)</span>, <span class="math inline">\(B\)</span>, and the corner of the paper is a right triangle. <span class="math inline">\(\overline{AB}\)</span> is the hypotenuse; one side is <span class="math inline">\(a - x\)</span>. The distance from <span class="math inline">\(B\)</span> to the corner of the paper is</p>
+<p><span class="math display">\[
+\begin{align}
+\sqrt{x^2 - (a - x)^2} &amp;= \sqrt{x^2 - (a^2 - 2ax + x^2)}
+\\
+\\
+&amp;= \sqrt{x^2 - a^2 + 2ax - x^2}
+\\
+\\
+&amp;= \sqrt{2ax - a^2}
+\end{align}
+\]</span></p>
+<p>From this we can already say that <span class="math inline">\(\frac{1}{2}a \le x \le a\)</span>. If <span class="math inline">\(x \lt \frac{1}{2}a\)</span>, then we will get an imaginary side.</p>
+<p>If the vertical distance of <span class="math inline">\(A\)</span> from the x-axis is <span class="math inline">\(y\)</span> and the vertical distance of <span class="math inline">\(B\)</span> from the edge of the paper is <span class="math inline">\(\sqrt{2ax - a^2}\)</span>, then the distance of <span class="math inline">\(B\)</span> from the x-axis is <span class="math inline">\(y - \sqrt{2ax - a^2}\)</span>. We can designated <span class="math inline">\(B\)</span> to be at point <span class="math inline">\(\left(a, y - \sqrt{2ax - a^2}\right)\)</span>. We now have three points, but this is becoming more and more complicated.</p>
+<p>To compute the area of a triangle from its three vertices, I used the <a href="https://en.wikipedia.org/wiki/Shoelace_formula">shoelace formula</a>. For any polygon, we can find its area from its vertices using the equation,</p>
+<p><span class="math display" id="eq:shoelace">\[
+\begin{equation}
+A_{\triangle} = \frac{1}{2} \lvert \sum_{i = 1}^n x_i (y_{i + 1} - y_{i - 1}) \rvert \tag{2.1}
+\end{equation}
+\]</span></p>
+<p>The absolute value is necessary as the summation can result to a negative value. Area cannot be negative. The summation only produces negative values because of the order and sign of the vertices. For this form of the shoelace formula, note that <span class="math inline">\(x_{n+1} = x_1\)</span>, <span class="math inline">\(x_0 = x_n\)</span>, <span class="math inline">\(y_{n+1} = {y_1}\)</span>, and <span class="math inline">\(y_0 = y_n\)</span>.</p>
+<p>Applying <a href="#eq:shoelace">(2.1)</a> to a triangle,</p>
+<p><span class="math display">\[
+\begin{equation}
+A_{\triangle} = \frac{1}{2} \lvert x_1(y_2 - y_0) + x_2(y_3 - y_1) + x_3(y_4 - y_2) \rvert 
+\end{equation}
+\]</span></p>
+<p>When I specified <span class="math inline">\(C\)</span> to be at <span class="math inline">\(\left(0,0\right)\)</span>, my intention was to have a simplified shoelace formula. If we let <span class="math inline">\(B \left(a, y - \sqrt{2ax - a^2}\right)\)</span> to be <span class="math inline">\(\left(x_1, y_1\right)\)</span>, <span class="math inline">\(A \left(x, y\right)\)</span> as <span class="math inline">\(\left(x_2, y_2\right)\)</span>, and <span class="math inline">\(C\left(0, 0\right)\)</span> as <span class="math inline">\(\left(x_3, y_3\right)\)</span>, then</p>
+<p><span class="math display" id="eq:area-1">\[
+\begin{align}
+A_{\triangle} &amp;= \frac{1}{2} \lvert a(y - 0) + x\left[0 - \left(y - \sqrt{2ax - a^2}\right)\right] + 0 \cdot \left(y - \sqrt{2ax - a^2} - y\right) \rvert
+\\
+\\
+&amp;= \frac{1}{2} \lvert ay  - x\left(y - \sqrt{2ax - a^2}\right)\rvert
+\\
+\\
+A_{\triangle} &amp;= \frac{1}{2}ay - \frac{1}{2}xy + \frac{1}{2} x \sqrt{2ax - a^2} \tag{2.2}
+\end{align}
+\]</span></p>
+<p>Note that I freely removed the absolute value sign since the expression will always be positive, i.e. <span class="math inline">\(a \gt x\)</span> and <span class="math inline">\(y \gt y - \sqrt{2ax - a^2}\)</span>. Unfortunately, I hit another roadblock after this. How can I find the minimum area, when the area is a function of <span class="math inline">\(x\)</span> and <span class="math inline">\(y\)</span>.</p>
+<p>The key to proceed with this problem is to realize that the area of <span class="math inline">\(\triangle ABC\)</span> is the same as the area of the right triangle indicated by the dashed lines in the figure, i.e.</p>
+<p><span class="math display" id="eq:area-2">\[
+\begin{equation}
+A_{\triangle} = \frac{1}{2}xy 
+\tag{2.3}
+\end{equation}
+\]</span></p>
+<p>This also gives us <span class="math inline">\(y\)</span> as a function of <span class="math inline">\(x\)</span> and the <span class="math inline">\(A_{\triangle}\)</span>,</p>
+<p><span class="math display" id="eq:y1">\[
+\begin{equation}
+y = \frac{2A_{\triangle}}{x} 
+\tag{2.4}
+\end{equation}
+\]</span></p>
+<p>Substituting <a href="#eq:area-2">(2.3)</a> and <a href="#eq:y1">(2.4)</a> in <a href="#eq:area-1">(2.2)</a>,</p>
+<p><span class="math display" id="eq:area3">\[
+\begin{align}
+A_{\triangle} &amp;= \frac{1}{2}a \left(\frac{2 A_{\triangle}}{x}\right) - A_{\triangle} + \frac{1}{2} x \sqrt{2ax - a^2}
+\\
+\\
+A_{\triangle} + A_{\triangle} &amp;= \frac{aA_{\triangle}}{x} + \frac{1}{2} x \sqrt{2ax - a^2}
+\\
+\\
+2A_{\triangle} - \frac{aA_{\triangle}}{x} &amp;= \frac{1}{2} x \sqrt{2ax - a^2}
+\\
+\\
+\frac{2A_{\triangle} x - aA_{\triangle}}{x} &amp;= \frac{1}{2} x \sqrt{2ax - a^2}
+\\
+\\
+A_{\triangle} \left( 2x - a \right) &amp;= \frac{1}{2} x^2 \sqrt{2ax - a^2}
+\\
+\\
+A_{\triangle} &amp;= \frac{x^2 \sqrt{2ax - a^2}}{4x - 2a} = x^2 \left( 2ax - a^2 \right)^{1/2} \left( 4x -2a \right)^{\text -1} \tag{2.5}
+\end{align}
+\]</span></p>
+<p>I am showing <a href="#eq:area3">(2.5)</a> in alternate form, a product of terms rather than a quotient, as this is easier to differentiate.</p>
+<p><span class="math display">\[
+\begin{align}
+\frac{d}{dx}A_{\triangle} &amp;= 2x \left(2ax - a^2\right)^{1/2} \left(4x - 2a\right)^{\text -1} + x^2 \left( \frac{1}{2}  \right) \left( 2a \right)\left(2ax - a^2\right)^{\text -1/2} \left(4x - 2a\right)^{\text -1} + x^2 \left(2ax - a^2\right)^{1/2} \left(-1 \right) \left(4x - 2a\right)^{\text -2} \left( 4 \right)
+\\
+\\
+&amp;= \frac{2x \left(2a - a^2\right)^{1/2}}{4x - 2a} + \frac{a x^2}{\left(2ax - a^2\right)^{1/2} \left(4x - 2a\right)} - \frac {4x^2 \left(2ax - a^2\right)^{1/2}}{\left(4x - 2a\right)^2}
+\\
+\\
+&amp;= \frac{2x \left(2ax - a^2\right) \left( 4x - 2a \right) + ax^2 \left( 4x - 2a \right) - 4x^2 \left( 2ax - a^2\right)}{\left(2ax - a^2\right)^{1/2}\left(4x - 2a\right)^2}
+\\
+\\
+&amp;= \frac{2x \left( 8ax^2 - 4a^2x - 4a^2x + 2a^3 \right) + 4ax^3 - 2a^2x^2 - 8ax^3 + 4a^2x^2}{\left( 2ax - a^2 \right)^{1/2}\left( 4x - 2a \right)^2}
+\\
+\\
+&amp;= \frac{16ax^3 - 8a^2x^2 - 8a^2x^2 + 4a^3x + 4ax^3 - 2a^2x^2 - 8ax^3 + 4a^2x^2}{\left( 2ax - a^2 \right)^{1/2}\left( 4x - 2a \right)^2}
+\\
+\\
+&amp;= \frac{12ax^3 - 14a^2x^2 + 4a^3x}{\left( 2ax - a^2 \right)^{1/2}\left( 4x - 2a \right)^2}
+\\
+\\
+\frac{d}{dx}A_{\triangle} &amp;= \frac{\left( 6x - 4a \right) \left( 2x - a \right)}{\left( 2ax - a^2 \right)^{1/2}\left( 4x - 2a \right)^2}
+\end{align}
+\]</span></p>
+<p>To find the minimum area, find the value of <span class="math inline">\(x\)</span> when <span class="math inline">\(\frac{d}{dx}A_{\triangle} = 0\)</span>.</p>
+<p><span class="math display">\[
+\begin{align}
+\frac{d}{dx}A_{\triangle} &amp;= 0 = \frac{\left( 6x - 4a \right) \left( 2x - a \right)}{\left( 2ax - a^2 \right)^{1/2}\left( 4x - 2a \right)^2}
+\\
+\\
+0 &amp;= \left( 6x - 4a \right) \left( 2x - a \right)
+\\
+\\
+x &amp;= \frac{2}{3}a \ , \ \frac{1}{2}a
+\end{align}
+\]</span></p>
+<p>The solution <span class="math inline">\(x = \frac{1}{2}a\)</span> is not possible because it results to a denaminator of <span class="math inline">\(0\)</span>, so the the minimum area is achieved when <span class="math inline">\(x = \frac{2}{3}a\)</span>.</p>
+</div>
+<div id="solution-minimum-crease-length" class="section level2">
+<h2><span class="header-section-number">2.3</span> Solution: Minimum Crease Length</h2>
+<p>The first thing to realize is that the length of the crease, <span class="math inline">\(l_{AC}\)</span>, is equal to <span class="math inline">\(x^2 + y^2\)</span>. The second thing to realize is that <span class="math inline">\(y = l_{BC}\)</span> such that,</p>
+<p><span class="math display">\[
+\begin{align}
+y &amp;= l_{BC} = \sqrt{a^2 + \left( y - \sqrt{2ax - a^2} \right)^2}
+\\
+\\
+y^2 &amp;= a^2 + \left( y - \sqrt{2ax - a^2} \right)^2
+\\
+\\
+y^2 &amp;= a^2 + y^2 - 2y\sqrt{2ax - a^2} + \left( 2ax - a^2 \right)
+\\
+\\
+y^2 - y^2 + 2y \sqrt{2ax - a^2} &amp;= a^2 + 2ax - a^2
+\\
+\\
+2y \sqrt{2ax - a^2} &amp;= 2ax
+\\
+\\
+y &amp;= \frac{ax}{\sqrt{2ax - a^2}}
+\end{align}
+\]</span></p>
+<p>Now that we have <span class="math inline">\(y\)</span> as a function of <span class="math inline">\(x\)</span>,</p>
+<p><span class="math display" id="eq:crease">\[
+\begin{align}
+l_{AC}^2 &amp;= x^2 + y^2
+\\
+\\
+&amp;= x^2 + \left( \frac{ax}{\sqrt{2ax - a^2}} \right)^2
+\\
+\\
+&amp;= x^2 + \frac{a^2x^2}{2ax - a^2}
+\\
+\\
+&amp;= \frac{x^2 \left( 2ax - a^2 \right) + a^2x^2}{2ax - a^2}
+\\
+\\
+&amp;= \frac{2ax^3 - a^2x^2 + a^2x^2}{2ax - a^2}
+\\
+\\
+l_{AC}^2 &amp;= \frac{2ax^3}{2ax - a^2}
+\\
+\\
+l_{AC} &amp;= \left( \frac{2ax^3}{2ax - a^2} \right)^{\text 1/2}
+\\
+\\
+l_{AC} &amp;= \left( 2ax^3 \right)^{\text 1/2} \left( 2ax -a^2 \right)^{\text -1/2} \tag{2.6}
+\end{align}
+\]</span></p>
+<p>Now we have <span class="math inline">\(l_{AC}\)</span> as a function of <span class="math inline">\(x\)</span>. To find the value of <span class="math inline">\(x\)</span> that will give the minimum value of <span class="math inline">\(l_{AC}\)</span>, find <span class="math inline">\(x\)</span> such that <span class="math inline">\(\frac{d}{dx}l_{AC} = 0\)</span>.</p>
+<p><span class="math display">\[
+\begin{align}
+\frac{d}{dx}l_{AC} &amp;= \frac{1}{2} \left( 2ax^3 \right)^{\text -1/2} \left( 6ax^2 \right) \left( 2ax -a^2 \right)^{\text -1/2} + \left( 2ax^3 \right)^{\text 1/2} \left( - \frac{1}{2} \right) \left( 2ax - a^2 \right)^{\text -3/2} \left( 2a \right)
+\\
+\\
+&amp;= \frac{3ax^2}{\left( 2ax^3 \right)^{\text 1/2} \left( 2ax - a^2 \right)^{\text 1/2}} - \frac{2^{\text 1/2} \left( ax \right)^{\text 3/2}}{\left( 2ax - a^2 \right)^{\text 3/2}}
+\\
+\\
+&amp;= \frac{3ax^2 \left( 2ax - a^2 \right) - 2^{\text 1/2} \left( ax \right)^{\text 3/2} \left( 2ax^3 \right)^{\text 1/2}}{\left( 2ax^3 \right)^{\text 1/2} \left( 2ax - a^2 \right)^{\text 3/2}}
+\\
+\\
+&amp;= \frac{6a^2x^3 - 3a^3x^2 - 2a^2x^3}{\left( 2ax^3 \right)^{\text 1/2} \left( 2ax - a^2 \right)^{\text 3/2}}
+\\
+\\
+\frac{d}{dx}l_{AC} &amp;= \frac{4a^2x^3 - 3a^3x^2}{\left( 2ax^3 \right)^{\text 1/2} \left( 2ax - a^2 \right)^{\text 3/2}}
+\\
+\\
+\frac{d}{dx}l_{AC} &amp;= 0 = \frac{4a^2x^3 - 3a^3x^2}{\left( 2ax^3 \right)^{\text 1/2} \left( 2ax - a^2 \right)^{\text 3/2}}
+\\
+\\
+0 &amp;= 4a^2x^3 - 3a^3x^2
+\\
+\\
+4a^2x^3 &amp;= 3a^3x^2
+\\
+\\
+x &amp;= \frac{3}{4}a
+\end{align}
+\]</span></p>
+</div>
+<div id="solution-using-r-without-differentiations" class="section level2">
+<h2><span class="header-section-number">2.4</span> Solution: Using R (Without Differentiations)</h2>
+<p>All of the above steps are the traditional way of finding the extremas of a value as a function of another value. We can solve the same problems using only <a href="#eq:area3">(2.5)</a> and <a href="#eq:crease">(2.6)</a> without differentiation.</p>
+<p>I set <span class="math inline">\(a = 1\)</span> so that any <span class="math inline">\(x\)</span> will be a factor multiplied to any value of <span class="math inline">\(a\)</span> and used values of <span class="math inline">\(x \in \left[ \frac{1}{2}, 1 \right]\)</span> and filtered the minimum values of <span class="math inline">\(A_{\triangle}\)</span> and <span class="math inline">\(l_{AC}\)</span>.</p>
+<pre class="r"><code># Create Domain -----------------------------------------------------------
+
+domain &lt;- 
+  # the assumption is the thickness of the paper is one unit
+  dplyr::tibble(width = seq(0.50001, 1, by = 0.00001))
+
+# Find Minimum Area -------------------------------------------------------
+
+area_min &lt;- 
+  domain %&gt;% 
+  mutate(
+    area = (width ** 2) * sqrt(2 * width - 1) /
+      (4 * width - 2)
+  ) %&gt;% 
+  filter(area == min(area)) %&gt;% 
+  dplyr::pull(width)
+
+# Find Minimum Crease Length ----------------------------------------------
+
+crease_min &lt;- 
+  domain %&gt;% 
+  mutate(
+    crease_length = sqrt(
+      (2 * (width ** 3)) / (2 * width - 1)
+    )
+  ) %&gt;% 
+  filter(crease_length == min(crease_length)) %&gt;% 
+  dplyr::pull(width)</code></pre>
+<p>From this simulation we find that the minimum <span class="math inline">\(A_{\triangle}\)</span> is obtained when <span class="math inline">\(x\)</span> is 0.66667 or <span class="math inline">\(\frac{2}{3}\)</span> of <span class="math inline">\(a\)</span> and the minimum <span class="math inline">\(l_{AC}\)</span> is obtained when <span class="math inline">\(x\)</span> is 0.75 or <span class="math inline">\(\frac{3}{4}\)</span>. This confirms the answer we obtained using the traditional steps of differentiation. However, we will not be able to use this method if we cannot derive <a href="#eq:area3">(2.5)</a> and <a href="#eq:crease">(2.6)</a>.</p>
+</div>
+</div>
+<div id="reference" class="section level1">
+<h1><span class="header-section-number">3</span> Reference</h1>
+<p>Problems and lessons from</p>
+<div id="refs" class="references">
+<div id="ref-cwag2016">
+<p>Simmons, George F. 2016. <em>Calculus with Analytic Geometry</em>. 2nd Edition. McGraw-Hill Education.</p>
+</div>
+</div>
+</div>
+
+
+  
+<div class="prev-next-post pure-g">
+  <div class="pure-u-1-24" style="text-align: left;">
+    
+    <a href="/post/deriving-quotient-rule-product-rule/"><i class="fa fa-chevron-left"></i></a>
+    
+  </div>
+  <div class="pure-u-10-24">
+    
+    <nav class="prev">
+      <a href="/post/deriving-quotient-rule-product-rule/">Deriving the Quotient Rule from the Product Rule</a>
+    </nav>
+    
+  </div>
+  <div class="pure-u-2-24">
+    &nbsp;
+  </div>
+  <div class="pure-u-10-24">
+    
+    <nav class="next">
+      <a href="/post/sliding-ladder-filling-bowl/">Sliding a Ladder and Filling a Bowl</a>
+    </nav>
+    
+  </div>
+  <div class="pure-u-1-24" style="text-align: right;">
+    
+    <a href="/post/sliding-ladder-filling-bowl/"><i class="fa fa-chevron-right"></i></a>
+    
+  </div>
+</div>
+
+
+
+  
+<div id="disqus_thread"></div>
+<script type="text/javascript">
+
+(function() {
+    
+    
+    if (window.location.hostname == "localhost")
+        return;
+
+    var dsq = document.createElement('script'); dsq.type = 'text/javascript'; dsq.async = true;
+    var disqus_shortname = 'the-amateur-data-scientist';
+    dsq.src = '//' + disqus_shortname + '.disqus.com/embed.js';
+    (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(dsq);
+})();
+</script>
+<noscript>Please enable JavaScript to view the <a href="http://disqus.com/?ref_noscript">comments powered by Disqus.</a></noscript>
+<a href="http://disqus.com/" class="dsq-brlink">comments powered by <span class="logo-disqus">Disqus</span></a>
+
+
+</div>
+
+</div>
+</div>
+<script src="/js/ui.js"></script>
+
+
+<script>
+  
+  if (window.location.hostname != "localhost") {
+    (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+    (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+    m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+    })(window,document,'script','//www.google-analytics.com/analytics.js','ga');
+
+    ga('create', 'UA-119602814-1', 'auto');
+    ga('send', 'pageview');
+  }
+</script>
+
+
+
+
+
+<script src="//https://amateurdatasci.rbind.io/js/math-code.js"></script>
+
+    <script type="text/javascript"
+      src="https://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML">
+    </script>
+
+</body>
+</html>
+

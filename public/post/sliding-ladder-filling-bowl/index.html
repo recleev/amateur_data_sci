@@ -1,0 +1,557 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta http-equiv="content-type" content="text/html; charset=utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="description" content="">
+  <meta name="generator" content="Hugo 0.49" />
+
+  <title>Sliding a Ladder and Filling a Bowl &middot; The Amateur Data Scientist</title>
+
+  
+  
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/pure/1.0.0/pure-min.css">
+
+  <!--[if lte IE 8]>
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/pure/1.0.0/grids-responsive-old-ie-min.css">
+  <![endif]-->
+  <!--[if gt IE 8]><!-->
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/pure/1.0.0/grids-responsive-min.css">
+  <!--<![endif]-->
+
+  <!--[if lte IE 8]>
+  <link rel="stylesheet" href="/css/side-menu-old-ie.css">
+  <![endif]-->
+  <!--[if gt IE 8]><!-->
+  <link rel="stylesheet" href="/css/side-menu.css">
+  <!--<![endif]-->
+
+  <link rel="stylesheet" href="/css/blackburn.css">
+
+  
+  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css">
+
+  
+  <link href="https://fonts.googleapis.com/css?family=Raleway" rel="stylesheet" type="text/css">
+
+  
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.1/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
+
+ 
+  
+
+  
+  <link rel="stylesheet" href="//cdnjs.cloudflare.com/ajax/libs/highlight.js/9.12.0/styles/androidstudio.min.css">
+  <script src="//cdnjs.cloudflare.com/ajax/libs/highlight.js/9.12.0/highlight.min.js"></script>
+  
+  <script>hljs.initHighlightingOnLoad();</script>
+  
+
+  <link rel="shortcut icon" href="/img/favicon.ico" type="image/x-icon" />
+
+  
+  
+
+</head>
+
+
+<body>
+<div id="layout">
+
+  
+<a href="#menu" id="menuLink" class="menu-link">
+  
+  <span></span>
+</a>
+<div id="menu">
+
+  
+  <a class="pure-menu-heading brand" href="/">Blackburn</a>
+
+
+  <div class="pure-menu">
+    <ul class="pure-menu-list">
+      
+      
+        <li class="pure-menu-item">
+          <a class="pure-menu-link" href="/"><i class='fa fa-home fa-fw'></i>Home</a>
+      
+        </li>
+      
+      
+        <li class="pure-menu-item">
+          <a class="pure-menu-link" href="/post/"><i class='fa fa-list fa-fw'></i>Posts</a>
+      
+        </li>
+      
+      
+        <li class="pure-menu-item">
+          <a class="pure-menu-link" href="/about/"><i class='fa fa-user fa-fw'></i>About</a>
+      
+        </li>
+      
+      
+        <li class="pure-menu-item">
+          <a class="pure-menu-link" href="/contact/"><i class='fa fa-phone fa-fw'></i>Contact</a>
+      
+        </li>
+      
+    </ul>
+  </div>
+
+  <div class="pure-menu social">
+  <ul class="pure-menu-list">
+
+    
+
+    
+
+    
+    <li class="pure-menu-item">
+      <a class="pure-menu-link" href="https://twitter.com/recleev" target="_blank"><i class="fa fa-twitter-square fa-fw"></i>Twitter</a>
+    </li>
+    
+
+    
+
+    
+    <li class="pure-menu-item">
+      <a class="pure-menu-link" href="https://facebook.com/recleev" target="_blank"><i class="fa fa-facebook-square fa-fw"></i>Facebook</a>
+    </li>
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+    <li class="pure-menu-item">
+      <a class="pure-menu-link" href="https://linkedin.com/in/recleev" target="_blank"><i class="fa fa-linkedin-square fa-fw"></i>LinkedIn</a>
+    </li>
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+    <li class="pure-menu-item">
+      <a class="pure-menu-link" href="https://github.com/recleev" target="_blank"><i class="fa fa-github-square fa-fw"></i>GitHub</a>
+    </li>
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+  </ul>
+</div>
+
+
+  <div>
+  <div class="small-print">
+    <small></small>
+  </div>
+  <div class="small-print">
+    <small>Built with&nbsp;<a href="https://gohugo.io/" target="_blank">Hugo</a></small>
+    <small>Theme&nbsp;<a href="https://github.com/yoshiharuyamashita/blackburn" target="_blank">Blackburn</a></small>
+  </div>
+</div>
+
+</div>
+
+
+  <div id="main">
+
+
+<div class="header">
+  <h1>Sliding a Ladder and Filling a Bowl</h1>
+  <h2></h2>
+</div>
+<div class="content">
+
+  <div class="post-meta">
+
+  <div>
+    <i class="fa fa-calendar fa-fw"></i>
+    <time>2018 Sep 7</time>
+  </div>
+
+  
+
+  
+
+  
+  
+  
+  <div>
+    <i class="fa fa-tags fa-fw"></i>
+    
+      <a class="post-taxonomy-tag" href="/tags/derivatives">derivatives</a>&nbsp;&#47;
+    
+      <a class="post-taxonomy-tag" href="/tags/mathjax">mathjax</a>&nbsp;&#47;
+    
+      <a class="post-taxonomy-tag" href="/tags/maxima">maxima</a>&nbsp;&#47;
+    
+      <a class="post-taxonomy-tag" href="/tags/minima">minima</a>
+    
+  </div>
+  
+  
+
+</div>
+
+  <div id="TOC">
+<ul>
+<li><a href="#sliding-ladder"><span class="toc-section-number">1</span> Sliding Ladder</a><ul>
+<li><a href="#problem"><span class="toc-section-number">1.1</span> Problem</a></li>
+<li><a href="#solution"><span class="toc-section-number">1.2</span> Solution</a></li>
+</ul></li>
+<li><a href="#filling-a-bowl"><span class="toc-section-number">2</span> Filling a Bowl</a><ul>
+<li><a href="#problem-1"><span class="toc-section-number">2.1</span> Problem</a></li>
+<li><a href="#solution-1"><span class="toc-section-number">2.2</span> Solution</a></li>
+</ul></li>
+<li><a href="#references"><span class="toc-section-number">3</span> References</a></li>
+</ul>
+</div>
+
+<div id="sliding-ladder" class="section level1">
+<h1><span class="header-section-number">1</span> Sliding Ladder</h1>
+<div id="problem" class="section level2">
+<h2><span class="header-section-number">1.1</span> Problem</h2>
+<p>Problem 116, Page 142 in <span class="citation">Simmons (2016)</span></p>
+<p>A ladder 20 ft long is leaning against a wall 12 ft high, with its top projecting over the wall. Its bottom is being pulled away from the wall at the constant rate of 5 ft/min. Find how rapidly the top of the ladder is approaching the ground:</p>
+<ul>
+<li>when 5 ft of the ladder projects over the wall;</li>
+<li>when the top of the ladder reaches the top of the wall.</li>
+</ul>
+</div>
+<div id="solution" class="section level2">
+<h2><span class="header-section-number">1.2</span> Solution</h2>
+<p>The key to this problem is to recognize that the angle <span class="math inline">\(\theta\)</span> between the ladder and the floor relates the distance <span class="math inline">\(x\)</span> of the foot of the ladder from the wall and and the distance <span class="math inline">\(y\)</span> from the top of the ladder to the ground, such that,</p>
+<p><span class="math display">\[
+\begin{gather}
+\tan \theta = \frac{12}{x}
+\\
+\\
+\sin \theta = \frac{y}{20}
+\end{gather}
+\]</span></p>
+<p>Differentiating the two equations with respect to time,</p>
+<p><span class="math display" id="eq:height-rate" id="eq:angle-rate">\[
+\begin{align}
+\sec^2 \theta \frac{d \theta}{dt} &amp;= \frac{-12}{x^2} \frac{dx}{dt}
+\\
+\\
+\frac{d \theta}{dt} &amp;= \frac{-12}{x^2 \sec^2 \theta} \frac{dx}{dt} \tag{1.1}
+\\
+\\
+\cos \theta \frac{d \theta}{dt}&amp;= \frac{1}{20} \frac{dy}{dt}
+\\
+\\
+\frac{dy}{dt} &amp;= 20 \cos \theta \frac{d \theta}{dt} \tag{1.2}
+\end{align}
+\]</span></p>
+<p>From <a href="#eq:angle-rate">(1.1)</a> we can find the rate at which the angle <span class="math inline">\(\theta\)</span> between the ladder and the floor is decreasing as the ladder is pulled away from the wall at a rate of <span class="math inline">\(\frac{dx}{dt} = 5\)</span>. This decrease in angle will cause a decrease in the distance <span class="math inline">\(y\)</span> from the top of the ladder to the floor at a rate of <span class="math inline">\(\frac{dy}{dt}\)</span> that is related to <span class="math inline">\(\frac{d \theta}{dt}\)</span> by <a href="#eq:height-rate">(1.2)</a>.</p>
+<p>We still need the values of <span class="math inline">\(x\)</span> and the values of <span class="math inline">\(\sec \theta\)</span> and <span class="math inline">\(\cos \theta\)</span>. If we let <span class="math inline">\(l\)</span> be the length of the ladder projecting over the wall, then we know that</p>
+<p><span class="math display">\[
+\left( 20 - l \right)^2 = x^2 + 12^2
+\]</span></p>
+<p>At <span class="math inline">\(l = 5\)</span>,</p>
+<p><span class="math display" id="eq:sec-x-9" id="eq:cos-x-9" id="eq:x-9">\[
+\begin{align}
+\left( 20 - 5 \right)^2 &amp;= x^2 + 12^2
+\\
+\\
+15^2 &amp;= x^2 + 12^2
+\\
+\\
+x^2 &amp;= 15^2 - 12^2
+\\
+\\
+x^2 &amp;= 81
+\\
+\\
+x &amp;= 9 \tag{1.3}
+\\
+\\
+\cos \theta &amp;= \frac{9}{20 - 5} = \frac{3}{5} \tag{1.4}
+\\
+\\
+\sec \theta &amp;= \frac{5}{3} \tag{1.5}
+\end{align}
+\]</span></p>
+<p>At <span class="math inline">\(l = 0\)</span>,</p>
+<p><span class="math display" id="eq:sec-x-16" id="eq:cos-x-16" id="eq:x-16">\[
+\begin{align}
+\left( 20 - 0 \right)^2 &amp;= x^2 + 12^2
+\\
+\\
+20^2 &amp;= x^2 + 12^2
+\\
+\\
+x^2 &amp;= 20^2 - 12^2
+\\
+\\
+x^2 &amp;= 256
+\\
+\\
+x &amp;= 16 \tag{1.6}
+\\
+\\
+\cos \theta &amp;= \frac{16}{20} = \frac{4}{5} \tag{1.7}
+\\
+\\
+\sec \theta &amp;= \frac{5}{4} \tag{1.8}
+\end{align} 
+\]</span></p>
+<p>We now have everything we need.</p>
+<p>For <span class="math inline">\(l = 5\)</span>, using <a href="#eq:angle-rate">(1.1)</a>, <a href="#eq:height-rate">(1.2)</a>, <a href="#eq:x-9">(1.3)</a>, <a href="#eq:cos-x-9">(1.4)</a>, and <a href="#eq:sec-x-9">(1.5)</a>,</p>
+<p><span class="math display">\[
+\begin{align}
+\frac {d \theta}{dt} &amp;= \frac{-12}{x^2 \sec^2 \theta} \frac{dx}{dt}
+\\
+\\
+\frac {d \theta}{dt} &amp;= \frac{-12}{9^2 \left( \frac{15}{9} \right)^2} \left( 5 \right)
+\\
+\\
+\frac{d \theta}{dt} &amp;= - \frac{12}{45} = - \frac{4}{15}
+\\
+\\
+\frac{dy}{dt} &amp;= 20 \cos \theta \frac{d \theta}{dt}
+\\
+\\
+\frac {dy}{dt} &amp;= 20 \left( \frac{3}{5} \right) \left( - \frac{4}{15} \right)
+\\
+\\
+\frac {dy}{dt} &amp;= - \frac{16}{5}
+\end{align}
+\]</span></p>
+<p>For <span class="math inline">\(l = 5\)</span>, using <a href="#eq:angle-rate">(1.1)</a>, <a href="#eq:height-rate">(1.2)</a>, <a href="#eq:x-16">(1.6)</a>, <a href="#eq:cos-x-16">(1.7)</a>, and <a href="#eq:sec-x-16">(1.8)</a>,</p>
+<p><span class="math display">\[
+\begin{align}
+\frac {d \theta}{dt} &amp;= \frac{-12}{x^2 \sec^2 \theta} \frac{dx}{dt}
+\\
+\\
+\frac {d \theta}{dt} &amp;= \frac{-12}{16^2 \left( \frac{5}{4} \right)^2} \left( 5 \right)
+\\
+\\
+\frac{d \theta}{dt} &amp;= - \frac{60}{400} = - \frac{3}{20}
+\\
+\\
+\frac{dy}{dt} &amp;= 20 \cos \theta \frac{d \theta}{dt}
+\\
+\\
+\frac {dy}{dt} &amp;= 20 \left( \frac{4}{5} \right) \left( - \frac{3}{20} \right)
+\\
+\\
+\frac {dy}{dt} &amp;= - \frac{12}{5}
+\end{align}
+\]</span></p>
+</div>
+</div>
+<div id="filling-a-bowl" class="section level1">
+<h1><span class="header-section-number">2</span> Filling a Bowl</h1>
+<div id="problem-1" class="section level2">
+<h2><span class="header-section-number">2.1</span> Problem</h2>
+<p>Problem 20, Page 143 in <span class="citation">Simmons (2016)</span></p>
+<p>Water is being poured into a hemispherical bowl of radius 3 inches at the rate of 1 <span class="math inline">\(in^3/s\)</span>. The bowl contains a lead ball 2 inches in diameter. How fast is the water level rising when the ball is half submerged?</p>
+</div>
+<div id="solution-1" class="section level2">
+<h2><span class="header-section-number">2.2</span> Solution</h2>
+<p>I took a shortcut with this problem using the volume of a <a href="https://en.wikipedia.org/wiki/Spherical_cap">spherical cap</a>.</p>
+<p><span class="math display">\[
+\begin{align}
+V &amp;= \frac{\pi h^2}{3} \left( 3r - h \right)
+\\
+\text{where:} ~ V &amp;= \text{volume of the spherical cap}
+\\
+r &amp;= \text{radius of the sphere}
+\\
+h &amp;= \text{height of the cap}
+\end{align}
+\]</span></p>
+<p>The volume of the water inside the bowl will be equal to the volume of the bowl’s cap minus the volume occupied by the lead ball’s cap both at water level <span class="math inline">\(h\)</span>.</p>
+<p><span class="math display" id="eq:volume-water">\[
+\begin{align}
+V_{water} &amp;= V_{bowl} - V_{ball}
+\\
+\\
+V_{water} &amp;= \frac{\pi h^2}{3} \left( 3 \times 3 - h \right) - \frac{\pi h^2}{3} \left( 3 \times 1 - h \right)
+\\
+\\
+V_{water} &amp;= 9 \frac{\pi h^2}{3} - \frac{\pi h^3}{3} - 3\frac{\pi h^2}{3} + \frac{\pi h^3}{3}
+\\
+\\
+V_{water} &amp;= 3 \pi h^2 - \pi h^2
+\\
+\\
+V_{water} &amp;= 2 \pi h^2 \tag{2.1}
+\end{align}
+\]</span></p>
+<p>Differentiating <a href="#eq:volume-water">(2.1)</a> with respect to time,</p>
+<p><span class="math display">\[
+\begin{align}
+\frac{d V_{water}}{dt} &amp;= 4 \pi h \frac{dh}{dt}
+\\
+\\
+\frac{dh}{dt} &amp;= \frac{1}{4 \pi h} \frac{d V_{water}}{dt}
+\end{align}
+\]</span></p>
+<p>If the ball is half-submerged, then <span class="math inline">\(h = 1\)</span>, and we know that <span class="math inline">\(\frac{d V_{water}}{dt} = 1\)</span>,</p>
+<p><span class="math display">\[
+\begin{align}
+\frac{dh}{dt} &amp;= \frac{1}{4 \pi \times 1} \times 1
+\\
+\\
+\frac{dh}{dt} &amp;= \frac{1}{4 \pi}
+\end{align}
+\]</span></p>
+</div>
+</div>
+<div id="references" class="section level1">
+<h1><span class="header-section-number">3</span> References</h1>
+<p>Problems and lessons from</p>
+<div id="refs" class="references">
+<div id="ref-cwag2016">
+<p>Simmons, George F. 2016. <em>Calculus with Analytic Geometry</em>. 2nd Edition. McGraw-Hill Education.</p>
+</div>
+</div>
+</div>
+
+
+  
+<div class="prev-next-post pure-g">
+  <div class="pure-u-1-24" style="text-align: left;">
+    
+    <a href="/post/waves-right-angles-folded-paper/"><i class="fa fa-chevron-left"></i></a>
+    
+  </div>
+  <div class="pure-u-10-24">
+    
+    <nav class="prev">
+      <a href="/post/waves-right-angles-folded-paper/">Waves Intersecting at Right Angles and a Folded Paper</a>
+    </nav>
+    
+  </div>
+  <div class="pure-u-2-24">
+    &nbsp;
+  </div>
+  <div class="pure-u-10-24">
+    
+    <nav class="next">
+      <a href="/post/rain-drops-condensation-acceleration/">Rain Drops: Condensation and Acceleration</a>
+    </nav>
+    
+  </div>
+  <div class="pure-u-1-24" style="text-align: right;">
+    
+    <a href="/post/rain-drops-condensation-acceleration/"><i class="fa fa-chevron-right"></i></a>
+    
+  </div>
+</div>
+
+
+
+  
+<div id="disqus_thread"></div>
+<script type="text/javascript">
+
+(function() {
+    
+    
+    if (window.location.hostname == "localhost")
+        return;
+
+    var dsq = document.createElement('script'); dsq.type = 'text/javascript'; dsq.async = true;
+    var disqus_shortname = 'the-amateur-data-scientist';
+    dsq.src = '//' + disqus_shortname + '.disqus.com/embed.js';
+    (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(dsq);
+})();
+</script>
+<noscript>Please enable JavaScript to view the <a href="http://disqus.com/?ref_noscript">comments powered by Disqus.</a></noscript>
+<a href="http://disqus.com/" class="dsq-brlink">comments powered by <span class="logo-disqus">Disqus</span></a>
+
+
+</div>
+
+</div>
+</div>
+<script src="/js/ui.js"></script>
+
+
+<script>
+  
+  if (window.location.hostname != "localhost") {
+    (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+    (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+    m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+    })(window,document,'script','//www.google-analytics.com/analytics.js','ga');
+
+    ga('create', 'UA-119602814-1', 'auto');
+    ga('send', 'pageview');
+  }
+</script>
+
+
+
+
+
+<script src="//https://amateurdatasci.rbind.io/js/math-code.js"></script>
+
+    <script type="text/javascript"
+      src="https://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML">
+    </script>
+
+</body>
+</html>
+

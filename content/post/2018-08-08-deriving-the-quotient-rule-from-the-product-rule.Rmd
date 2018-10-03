@@ -1,0 +1,261 @@
+---
+title: Deriving the Quotient Rule from the Product Rule
+author: Recle Etino Vibal
+date: '2018-08-08'
+categories:
+  - Calculus
+  - lessons
+  - Mathematics
+tags:
+  - derivatives
+  - ggplot2
+  - mathjax
+  - tangents
+slug: deriving-quotient-rule-product-rule
+output:
+  blogdown::html_page:
+    toc: yes
+    number_sections: true
+bibliography:
+  - references/cwag2016.bib
+biblio-style: apalike
+---
+
+# From Product to Quotient
+
+I have always had a hard time remembering the quotient rule for derivatives. I do not know how I remembered it while studying calculus, but today I learned from @cwag2016 that I can derive it from the product rule.
+
+## Product Rule of Differentiation
+
+$$\frac{d}{dx}uv = u\frac{dv}{dx} \ + \ v\frac{du}{dx}$$
+
+I think this is a very easy pattern to memorize.
+
+## Quotient Rule of Differentiation
+
+$$\frac{d}{dx} \left( \frac{u}{v} \right) = \frac{v \frac{du}{dx} - u \frac{dv}{dx}}{v^2}$$
+
+I find this one difficult and boring to remember.
+
+## Derive the Quotient Rule from the Product Rule
+
+We can also write $\cfrac{u}{v}$ as $uv^\text{-1}$. We also know from the power rule that,
+
+$$
+\frac{d}{dx}x^n = nx^{n-1}
+$$
+
+Then we can show,
+
+$$
+\begin{align}
+\frac{d}{dx}uv^\text{-1} &= u\frac{dv^\text{-1}}{dx} + v^\text{-1}\frac{du}{dx}
+\\
+\\
+&= u\left(-v^\text{-2}\frac{dv}{dx}\right) + \frac{1}{v}\frac{du}{dx}
+\\
+\\
+&= \left(\frac{-u}{v^2}\right)\frac{dv}{du} + \frac{1}{v}\frac{du}{dx}
+\\
+\\
+&= \frac{-u \frac{dv}{dx} + v \frac{du}{dx}}{v^2}
+\\
+\\
+\frac{d}{dx} \left( \frac{u}{v} \right) &= \frac{v \frac{du}{dx} - u \frac{dv}{dx}}{v^2}
+\end{align}
+$$
+
+I always prefered deriving rules than memorizing them.
+
+# Problems
+
+## Extend the Product Rule and Prove
+
+$$
+\frac{d}{dx}uvw = vw\frac{du}{dx} + uw\frac{dv}{du} + uv\frac{dw}{dx}
+$$
+
+We can rewrite $\frac{d}{dx}uvw$ as $\frac{d}{dx}(uv)w$. After this, we already know what $\frac{d}{dx}uv$ is.
+
+$$
+\begin{align}
+\frac{d}{dx}(uv)w &= (uv)\frac{dw}{dx} + w\frac{d(uv)}{dx}
+\\
+\\
+&= uv\frac{dw}{dx} + w \left( v\frac{du}{dx} + u\frac{dv}{dx}\right)
+\\
+\\
+&= uv\frac{dw}{dx} + vw\frac{du}{dx} + uw\frac{dv}{dx}
+\\
+\\
+\frac{d}{dx}uvw &= vw\frac{du}{dx} + uw\frac{dv}{du} + uv\frac{dw}{dx}
+\end{align}
+$$
+
+## Tangent Lines Intersecting on a Curve
+
+Show that the tangents to the curve $y = x^2$ at points $(a, a^2)$ and $(a + 2, (a + 2)^2)$ intersect on the curve $y = x^2 - 1$.
+
+```{r parabola, fig.align='center', message=FALSE, warning=FALSE}
+
+library(tidyverse)
+library(ggthemes)
+
+parabolas <- 
+  dplyr::tibble(
+  abscissa = seq(-3, 3, by = 0.03),
+  ordinate_1 = abscissa ^ 2,
+  ordinate_2 = ordinate_1 - 1
+) %>% 
+  tidyr::gather(
+    ordinate_type,
+    ordinate,
+    ordinate_1, ordinate_2
+  ) %>%
+  ggplot(aes(
+    abscissa,
+    ordinate,
+    color = ordinate_type
+  )) +
+  geom_line(show.legend = FALSE) +
+  # gl = o to remove the grid lines
+  ggthemes::theme_pander(gl = 0) +
+  ggthemes::scale_color_pander() +
+  ggplot2::labs(
+    x = "x",
+    y = "y"
+  ) +
+  # parse = TRUE ensures that the label gets printed as an equation and not as
+  # it appears in the string
+  ggplot2::annotate(
+    "text", 
+    x = 0.5, 
+    y = 0.8,
+    label = "y == x^2",
+    parse = TRUE
+  ) +
+  ggplot2::annotate(
+    "text", 
+    x = 1.75, 
+    y = 1,
+    label = "y == x^2 - 1",
+    parse = TRUE
+  )
+
+parabolas
+
+```
+
+Find the slope of tangent lines on $y = x^2$,
+
+$$
+m = \frac{dy}{dx} = 2x
+$$
+
+At $(a, a^2)$, 
+
+$$
+\begin{align}
+m &= 2a
+\\
+\\
+a^2 &= 2a(a) + b
+\\
+\\
+a^2 &= 2a^2 + b
+\\
+\\
+b &= -a^2
+\\
+\\
+y &= 2a(x) - a^2
+\end{align}
+$$
+
+At $(a + 2 , (a + 2)^2)$, 
+
+$$
+\begin{align}
+m &= 2(a + 2)
+\\
+\\
+(a + 2)^2 &= 2(a + 2)(a + 2) + b
+\\
+\\
+(a + 2)^2 &= 2(a + 2)^2 + b
+\\
+\\
+b &= -(a + 2)^2
+\\
+\\
+y &= 2(a + 2)x - (a + 2)^2
+\end{align}
+$$
+
+Since we have to prove that the two tangent lines intersect on the curve $y = x^2 - 1$, then the two tangent lines should have the same $y$ at a given $x$ on the curve.
+
+$$
+\begin{align}
+2a(x) - a^2 &= 2(a + 2)x - (a + 2)^2
+\\
+\\
+2ax - a^2 &= 2ax + 4x - (a^2 + 4a + 4)
+\\
+\\
+2ax - a^2 &= 2ax + 4x - a^2 - 4a - 4
+\\
+\\
+0 &= 4x - 4a - 4
+\\
+\\
+a &= x - 1
+\end{align}
+$$
+
+From one of the tangent lines,
+
+$$
+\begin{align}
+y &= 2ax - a^2
+\\
+&= 2(x - 1)x - (x - 1^2)
+\\
+&= 2x^2 - 2x - (x^2 - 2x + 1)
+\\
+&= 2x^2 - 2x - x^2 + 2x - 1
+\\
+y &= x^2 - 1
+\end{align}
+$$
+
+```{r parabola_tangents, fig.align='center'}
+
+a <- -0.3
+
+slope_1 = 2 * a
+
+intercept_1 = -a^2
+
+slope_2 = 2 * (a + 2)
+
+intercept_2 = -(a + 2)^2
+
+parabolas +
+  geom_abline(
+    slope = slope_1,
+    intercept = intercept_1,
+    color = ggthemes::palette_pander(3)[3]
+  ) +
+  geom_abline(
+    slope = slope_2,
+    intercept = intercept_2,
+    color = ggthemes::palette_pander(5)[5]
+  )
+  
+```
+
+Graphically, this proves that the tangent lines of $y = x^2$ at $(a, a^2)$ and $(a + 2, (a + 2)^2)$ intersect at $y = x^2 - 1$.
+
+# Reference
+
+Problems and lessons from

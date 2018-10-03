@@ -1,0 +1,489 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta http-equiv="content-type" content="text/html; charset=utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="description" content="">
+  <meta name="generator" content="Hugo 0.49" />
+
+  <title>Rain Drops: Condensation and Acceleration &middot; The Amateur Data Scientist</title>
+
+  
+  
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/pure/1.0.0/pure-min.css">
+
+  <!--[if lte IE 8]>
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/pure/1.0.0/grids-responsive-old-ie-min.css">
+  <![endif]-->
+  <!--[if gt IE 8]><!-->
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/pure/1.0.0/grids-responsive-min.css">
+  <!--<![endif]-->
+
+  <!--[if lte IE 8]>
+  <link rel="stylesheet" href="/css/side-menu-old-ie.css">
+  <![endif]-->
+  <!--[if gt IE 8]><!-->
+  <link rel="stylesheet" href="/css/side-menu.css">
+  <!--<![endif]-->
+
+  <link rel="stylesheet" href="/css/blackburn.css">
+
+  
+  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css">
+
+  
+  <link href="https://fonts.googleapis.com/css?family=Raleway" rel="stylesheet" type="text/css">
+
+  
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.1/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
+
+ 
+  
+
+  
+  <link rel="stylesheet" href="//cdnjs.cloudflare.com/ajax/libs/highlight.js/9.12.0/styles/androidstudio.min.css">
+  <script src="//cdnjs.cloudflare.com/ajax/libs/highlight.js/9.12.0/highlight.min.js"></script>
+  
+  <script>hljs.initHighlightingOnLoad();</script>
+  
+
+  <link rel="shortcut icon" href="/img/favicon.ico" type="image/x-icon" />
+
+  
+  
+
+</head>
+
+
+<body>
+<div id="layout">
+
+  
+<a href="#menu" id="menuLink" class="menu-link">
+  
+  <span></span>
+</a>
+<div id="menu">
+
+  
+  <a class="pure-menu-heading brand" href="/">Blackburn</a>
+
+
+  <div class="pure-menu">
+    <ul class="pure-menu-list">
+      
+      
+        <li class="pure-menu-item">
+          <a class="pure-menu-link" href="/"><i class='fa fa-home fa-fw'></i>Home</a>
+      
+        </li>
+      
+      
+        <li class="pure-menu-item">
+          <a class="pure-menu-link" href="/post/"><i class='fa fa-list fa-fw'></i>Posts</a>
+      
+        </li>
+      
+      
+        <li class="pure-menu-item">
+          <a class="pure-menu-link" href="/about/"><i class='fa fa-user fa-fw'></i>About</a>
+      
+        </li>
+      
+      
+        <li class="pure-menu-item">
+          <a class="pure-menu-link" href="/contact/"><i class='fa fa-phone fa-fw'></i>Contact</a>
+      
+        </li>
+      
+    </ul>
+  </div>
+
+  <div class="pure-menu social">
+  <ul class="pure-menu-list">
+
+    
+
+    
+
+    
+    <li class="pure-menu-item">
+      <a class="pure-menu-link" href="https://twitter.com/recleev" target="_blank"><i class="fa fa-twitter-square fa-fw"></i>Twitter</a>
+    </li>
+    
+
+    
+
+    
+    <li class="pure-menu-item">
+      <a class="pure-menu-link" href="https://facebook.com/recleev" target="_blank"><i class="fa fa-facebook-square fa-fw"></i>Facebook</a>
+    </li>
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+    <li class="pure-menu-item">
+      <a class="pure-menu-link" href="https://linkedin.com/in/recleev" target="_blank"><i class="fa fa-linkedin-square fa-fw"></i>LinkedIn</a>
+    </li>
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+    <li class="pure-menu-item">
+      <a class="pure-menu-link" href="https://github.com/recleev" target="_blank"><i class="fa fa-github-square fa-fw"></i>GitHub</a>
+    </li>
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+  </ul>
+</div>
+
+
+  <div>
+  <div class="small-print">
+    <small></small>
+  </div>
+  <div class="small-print">
+    <small>Built with&nbsp;<a href="https://gohugo.io/" target="_blank">Hugo</a></small>
+    <small>Theme&nbsp;<a href="https://github.com/yoshiharuyamashita/blackburn" target="_blank">Blackburn</a></small>
+  </div>
+</div>
+
+</div>
+
+
+  <div id="main">
+
+
+<div class="header">
+  <h1>Rain Drops: Condensation and Acceleration</h1>
+  <h2></h2>
+</div>
+<div class="content">
+
+  <div class="post-meta">
+
+  <div>
+    <i class="fa fa-calendar fa-fw"></i>
+    <time>2018 Sep 21</time>
+  </div>
+
+  
+
+  
+
+  
+  
+  
+  <div>
+    <i class="fa fa-tags fa-fw"></i>
+    
+      <a class="post-taxonomy-tag" href="/tags/integration">integration</a>&nbsp;&#47;
+    
+      <a class="post-taxonomy-tag" href="/tags/antidifferentation">antidifferentation</a>&nbsp;&#47;
+    
+      <a class="post-taxonomy-tag" href="/tags/derivatives">derivatives</a>&nbsp;&#47;
+    
+      <a class="post-taxonomy-tag" href="/tags/mathjax">mathjax</a>
+    
+  </div>
+  
+  
+
+</div>
+
+  <div id="TOC">
+<ul>
+<li><a href="#problem"><span class="toc-section-number">1</span> Problem</a></li>
+<li><a href="#solution"><span class="toc-section-number">2</span> Solution</a></li>
+<li><a href="#reference"><span class="toc-section-number">3</span> Reference</a></li>
+</ul>
+</div>
+
+<div id="problem" class="section level1">
+<h1><span class="header-section-number">1</span> Problem</h1>
+<p>Problem 49, page 189 in <span class="citation">Simmons (2016)</span></p>
+<p>Newton’s second law of motion</p>
+<p><span class="math display">\[
+F = ma = m \frac{dv}{dt}
+\]</span></p>
+<p>can be written in the form</p>
+<p><span class="math display" id="eq:momentum-rate">\[
+\begin{equation}
+F = \frac{d \left( mv \right)}{dt} 
+\tag{1.1}
+\end{equation}
+\]</span></p>
+<p>in terms of the momentum <span class="math inline">\(mv\)</span> of a particle of mass <span class="math inline">\(m\)</span> and velocity <span class="math inline">\(v\)</span>, and remains valid even if <span class="math inline">\(m\)</span> is not constant.</p>
+<p>A spherical raindrop falls through air with water vapor, and assume that by condensation the mass of the raindrop increases at a rate proportional to its surface area, with <span class="math inline">\(c\)</span> the constant of proportionality. If the intial radius and velocity of the raindrop are both zero, show that the drag exerted by the condensation of the water vapor has the effect of making the raindrop fall with acceleration <span class="math inline">\(a = \cfrac{g}{4}\)</span>.</p>
+<p><em>Hint:</em> Show that</p>
+<p><span class="math display" id="eq:hint">\[
+\begin{align}
+\frac{d}{dr} \left( r^3 v \right) &amp;= \left( \frac{\delta}{c} \right) r^3 g \tag{1.2}
+\\
+\\
+\text{where:} ~ r &amp;= \text{radius of raindrop}
+\\
+v &amp;= \text{velocity of raindrop}
+\\
+\delta &amp;= \text{density of raindrop}
+\\
+g &amp;= \text{acceleration due to gravity} 
+\end{align}
+\]</span></p>
+</div>
+<div id="solution" class="section level1">
+<h1><span class="header-section-number">2</span> Solution</h1>
+<p>The first key to this problem is to realize that the phrase <em>mass of the raindrop increases at a rate proportional to its surface area, with <span class="math inline">\(c\)</span> the constant of proportionality</em> is interpreted as</p>
+<p><span class="math display" id="eq:mass-rate">\[
+\begin{equation}
+\frac{dm}{dt} = 4 \pi r^2 c \tag{2.1}
+\end{equation}
+\]</span></p>
+<p>The hint <a href="#eq:hint">(1.2)</a> only confused me at the beginning, but it gave me clues on how to solve the problem. The first clue was the presence of the raindrop’s density <span class="math inline">\(\delta\)</span>.</p>
+<p>Mass is the product of volume and density. Since the raindrop is assumed to be spherical,</p>
+<p><span class="math display" id="eq:volume-density">\[
+\begin{equation}
+m = \frac{4}{3} \pi r^3 \delta \tag{2.2}
+\end{equation}
+\]</span></p>
+<p>Keeping in mind that <span class="math inline">\(m\)</span>, <span class="math inline">\(r\)</span>, and <span class="math inline">\(v\)</span> all vary with time and all other values are constant, I expanded <a href="#eq:momentum-rate">(1.1)</a> both from itself and by using <a href="#eq:volume-density">(2.2)</a>. By the <a href="https://amateurdatasci.rbind.io/blog/deriving-quotient-rule-product-rule/">product rule</a>,</p>
+<p><span class="math display">\[
+\begin{align}
+\frac{d}{dt} \left( mv \right) &amp;= \frac{d}{dt} \left( \frac{4}{3} \pi r^3 \delta \times v \right)
+\\
+\\
+m \frac{dv}{dt} + v \frac{dm}{dt} &amp;= \frac{4}{3} \pi \delta \frac{d}{dt}\left( r^3 v \right)
+\\
+\\
+m \frac{dv}{dt} + v \frac{dm}{dt} &amp;= \frac{4}{3} \pi \delta \left[ r^3 \frac{dv}{dt} + v \left( 3 r^2 \right) \frac{dr}{dt} \right]
+\end{align}
+\]</span></p>
+<p>Substituting <a href="#eq:mass-rate">(2.1)</a> and <a href="#eq:volume-density">(2.2)</a> again,</p>
+<p><span class="math display" id="eq:radius-time">\[
+\begin{align}
+\frac{4}{3} \pi r^3 \delta \frac{dv}{dt} + v \left( 4 \pi r^2 c \right) &amp;= \frac{4}{3} \pi r^3 \delta \frac{dv}{dt} + \frac{4}{3} \pi \delta \left( 3 r^2 v \right) \frac{dr}{dt}
+\\
+\\
+\frac{4}{3} \pi r^3 \delta \frac{dv}{dt} + 4 \pi r^2 c v &amp;= \frac{4}{3} \pi r^3 \delta \frac{dv}{dt} + 4 \pi \delta r^2 v \frac{dr}{dt}
+\\
+\\
+4 \pi r^2 c v &amp;= 4 \pi \delta r^2 v \frac{dr}{dt}
+\\
+\\
+\frac{c}{\delta} &amp;= \frac{dr}{dt}
+\\
+\\
+dt &amp;= \frac{\delta}{c} dr \tag{2.3}
+\end{align}
+\]</span></p>
+<p>Another thing to remember: the force acting on the raindrop, despite it’s variable mass, is always equal to it’s weight,</p>
+<p><span class="math display">\[
+\begin{align}
+\frac{4}{3} \pi \delta \frac{d}{dt} \left( r^3 v \right) &amp;= mg
+\\
+\\
+\frac{4}{3} \pi \delta \frac{d}{dt} \left( r^3 v \right) &amp;= \left( \frac{4}{3} \pi r^3 \delta \right) g
+\end{align}
+\]</span></p>
+<p>Using <a href="#eq:radius-time">(2.3)</a>,</p>
+<p><span class="math display" id="eq:hint-proof">\[
+\begin{align}
+\frac{4}{3} \pi \delta \cfrac{d}{\cfrac{\delta}{c} dr} \left( r^3 v \right) &amp;= \frac{4}{3} \pi r^3 \delta g
+\\
+\\
+\frac{4}{3} \pi c \frac{d}{dr} \left( r^3 v \right) &amp;= \frac{4}{3} \pi r^3 \delta g
+\\
+\\
+\frac{d}{dr} \left( r^3 v \right) &amp;= \frac{\delta}{c} r^3 g \tag{2.4}
+\end{align}
+\]</span></p>
+<p>This is proving <a href="#eq:hint">(1.2)</a> and also sets up integration with respect to <span class="math inline">\(r\)</span>.</p>
+<p><span class="math display">\[
+\begin{align}
+\int d\left( r^3 v \right) &amp;= \int \left( \frac{\delta}{c} r^3 g \right) dr
+\\
+\\
+r^3 v &amp;= \frac{\delta}{c} g \left( \frac{r^4}{4} \right) + C
+\end{align}
+\]</span></p>
+<p>Before simplifying, note from the given that at <span class="math inline">\(t = 0\)</span>, <span class="math inline">\(r = 0\)</span>, and <span class="math inline">\(v = 0\)</span>, thus <span class="math inline">\(C = 0\)</span>.</p>
+<p><span class="math display" id="eq:velocity-radius">\[
+\begin{align}
+r^3 v &amp;= \frac{\delta g r^4}{4c}
+\\
+\\
+v &amp;= \frac{\delta g r}{4c} \tag{2.5}
+\end{align}
+\]</span></p>
+<p>Differentiating <a href="#eq:velocity-radius">(2.5)</a> with respect to time,</p>
+<p><span class="math display">\[
+\begin{equation}
+\frac{dv}{dt} = \frac{\delta g}{4c} \frac{dr}{dt}
+\end{equation}
+\]</span></p>
+<p>However, from <a href="#eq:radius-time">(2.3)</a>, <span class="math inline">\(\cfrac{dr}{dt} = \cfrac{c}{\delta}\)</span></p>
+<p><span class="math display">\[
+\begin{align}
+\frac{dv}{dt} &amp;= \frac{\delta g}{4c} \frac{c}{\delta}
+\\
+\\
+\frac{dv}{dt} &amp;= a = \frac{g}{4}
+\end{align}
+\]</span></p>
+</div>
+<div id="reference" class="section level1">
+<h1><span class="header-section-number">3</span> Reference</h1>
+<p>Problems and lessons from</p>
+<div id="refs" class="references">
+<div id="ref-cwag2016">
+<p>Simmons, George F. 2016. <em>Calculus with Analytic Geometry</em>. 2nd Edition. McGraw-Hill Education.</p>
+</div>
+</div>
+</div>
+
+
+  
+<div class="prev-next-post pure-g">
+  <div class="pure-u-1-24" style="text-align: left;">
+    
+    <a href="/post/sliding-ladder-filling-bowl/"><i class="fa fa-chevron-left"></i></a>
+    
+  </div>
+  <div class="pure-u-10-24">
+    
+    <nav class="prev">
+      <a href="/post/sliding-ladder-filling-bowl/">Sliding a Ladder and Filling a Bowl</a>
+    </nav>
+    
+  </div>
+  <div class="pure-u-2-24">
+    &nbsp;
+  </div>
+  <div class="pure-u-10-24">
+    
+    <nav class="next">
+      <a href="/post/messy-tidy-tidyr-gather/">From Messy to Tidy: Gather All Those Dates</a>
+    </nav>
+    
+  </div>
+  <div class="pure-u-1-24" style="text-align: right;">
+    
+    <a href="/post/messy-tidy-tidyr-gather/"><i class="fa fa-chevron-right"></i></a>
+    
+  </div>
+</div>
+
+
+
+  
+<div id="disqus_thread"></div>
+<script type="text/javascript">
+
+(function() {
+    
+    
+    if (window.location.hostname == "localhost")
+        return;
+
+    var dsq = document.createElement('script'); dsq.type = 'text/javascript'; dsq.async = true;
+    var disqus_shortname = 'the-amateur-data-scientist';
+    dsq.src = '//' + disqus_shortname + '.disqus.com/embed.js';
+    (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(dsq);
+})();
+</script>
+<noscript>Please enable JavaScript to view the <a href="http://disqus.com/?ref_noscript">comments powered by Disqus.</a></noscript>
+<a href="http://disqus.com/" class="dsq-brlink">comments powered by <span class="logo-disqus">Disqus</span></a>
+
+
+</div>
+
+</div>
+</div>
+<script src="/js/ui.js"></script>
+
+
+<script>
+  
+  if (window.location.hostname != "localhost") {
+    (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+    (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+    m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+    })(window,document,'script','//www.google-analytics.com/analytics.js','ga');
+
+    ga('create', 'UA-119602814-1', 'auto');
+    ga('send', 'pageview');
+  }
+</script>
+
+
+
+
+
+<script src="//https://amateurdatasci.rbind.io/js/math-code.js"></script>
+
+    <script type="text/javascript"
+      src="https://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML">
+    </script>
+
+</body>
+</html>
+

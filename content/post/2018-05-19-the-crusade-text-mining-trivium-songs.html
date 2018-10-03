@@ -1,0 +1,918 @@
+---
+title: 'The Crusade: Text Mining Trivium Songs'
+author: Recle Etino Vibal
+date: '2018-05-19'
+slug: trivium-songs
+categories: ["text mining", "tidyverse"]
+tags: ["trivium", "heavy metal", "lyrics", "geniusR"]
+output:
+  blogdown::html_page:
+    toc: true
+    number_sections: true
+---
+
+
+<div id="TOC">
+<ul>
+<li><a href="#a-view-of-mining-lyrics"><span class="toc-section-number">1</span> A View of Mining Lyrics</a></li>
+<li><a href="#into-the-mouth-of-r-we-march"><span class="toc-section-number">2</span> Into the Mouth of R We March</a></li>
+<li><a href="#pull-harder-on-the-strings-of-lyrics-with-geniusr"><span class="toc-section-number">3</span> Pull Harder on the Strings of Lyrics with geniusR</a></li>
+<li><a href="#text-dismantled"><span class="toc-section-number">4</span> Text Dismantled</a></li>
+<li><a href="#anthem-we-are-the-functions"><span class="toc-section-number">5</span> Anthem (We are the Functions)</a></li>
+<li><a href="#album-that-spawned-the-most-words"><span class="toc-section-number">6</span> Album That Spawned the Most Words</a></li>
+<li><a href="#tread-the-words"><span class="toc-section-number">7</span> Tread the Words</a></li>
+<li><a href="#torn-between-term-frequency-and-inverse-document-frequency"><span class="toc-section-number">8</span> Torn Between Term Frequency and Inverse Document Frequency</a></li>
+<li><a href="#negativity-thrives"><span class="toc-section-number">9</span> Negativity Thrives</a></li>
+<li><a href="#these-sentiments-cant-tear-us-apart"><span class="toc-section-number">10</span> These Sentiments Can’t Tear Us Apart</a></li>
+</ul>
+</div>
+
+<p><strong>(Warning: NSFW Language)</strong></p>
+<div id="a-view-of-mining-lyrics" class="section level1">
+<h1><span class="header-section-number">1</span> A View of Mining Lyrics</h1>
+<p>Trivium is my favorite heavy metal band. They also did a wonderful cover of <em>Master of Puppets</em>, one of my favorite Metallica songs.</p>
+<p>I found <a href="https://www.r-bloggers.com/hardwired-for-tidy-text/">this article</a> by <a href="https://www.r-bloggers.com/author/highlandr/">HighlandR</a> on the tidy text analysis of Metallica albums. I really enjoyed it, and it also introduced me to the <a href="https://cran.r-project.org/web/packages/tidytext/index.html"><code>tidytext</code></a> package and text mining.</p>
+<p>With my new found passion with R and my fondness of Trivium, I decided to do a tidy text analysis of Trivium song lyrics.</p>
+<pre class="r"><code>library(knitr)
+library(tidyverse)
+library(geniusR)
+library(rebus)
+library(tidytext)
+library(drlib)
+library(wordcloud)
+library(extrafont)
+library(scales)
+library(tinytex)
+
+opts_chunk$set(message = FALSE,
+               warning = FALSE,
+               fig.align = &#39;center&#39;)</code></pre>
+</div>
+<div id="into-the-mouth-of-r-we-march" class="section level1">
+<h1><span class="header-section-number">2</span> Into the Mouth of R We March</h1>
+<p>A few words on the packages I used here.</p>
+<p><code>tidyverse</code> and <code>knitr</code> are my most used packages. I use <code>rebus</code> so I can avoid regex. <code>rebus</code> requires more typing, but it is more intuitive when you want to attacks strings, like song titles and lyrics. I used <code>wordcloud</code> to make a wordcloud and <code>extrafont</code> to change the default fonts in my plots.</p>
+<p>The <code>tidytext</code> package, the main tool I will use here, is new to me, but it has become one of my favorites. Another entertaining use of tidytext is <a href="https://juliasilge.com/blog/sherlock-holmes-stm/">Julia Silge’s blog post about Sherlock Holmes</a>. I would like to imitate this kind of analysis of a classic text soon.</p>
+<p>One gem I found in Silge’s Holmes post is <a href="http://varianceexplained.org/">David Robinson’s</a> personal R package <a href="https://github.com/dgrtwo/drlib"><code>drlib</code></a>. It has several useful functions, but I used the combination of <code>reorder_within()</code> and <code>scale_x_reorder()</code> to make my plots prettier.</p>
+</div>
+<div id="pull-harder-on-the-strings-of-lyrics-with-geniusr" class="section level1">
+<h1><span class="header-section-number">3</span> Pull Harder on the Strings of Lyrics with geniusR</h1>
+<p>One thing I learned from HighlandR’s post is the existence of the <a href="https://github.com/JosiahParry/geniusR"><code>geniusR</code></a> package by <a href="https://twitter.com/josiahparry">Josiah Parry</a>. <code>geniusR</code> gives access to lyrics from <a href="https://genius.com/">Genius</a> as text data.</p>
+<p>The first problem I encountered with downloading all Trivium albums is that Snøfall, an instrumental track at the beginning of Silence in the Snow, results to an error. The reason behind this is the presence of the special character “ø” in the title and it’s absence in the url (<a href="https://genius.com/Trivium-snfall-lyrics" class="uri">https://genius.com/Trivium-snfall-lyrics</a>).</p>
+<pre class="r"><code># Get Silence in the Snow Album -------------------------------------------
+
+genius_album(&quot;Trivium&quot;,
+             &quot;Silence in the snow&quot;)</code></pre>
+<pre><code>## # A tibble: 463 x 3
+##    title             track_n text                                         
+##    &lt;chr&gt;               &lt;int&gt; &lt;chr&gt;                                        
+##  1 Silence In The S~       2 Here we all stand on this canvas of white    
+##  2 Silence In The S~       2 Our palette holds but only one shade tonight 
+##  3 Silence In The S~       2 Silence snows in, in her wintery chill       
+##  4 Silence In The S~       2 Let&#39;s paint the ground red with the blood of~
+##  5 Silence In The S~       2 Kill                                         
+##  6 Silence In The S~       2 The battle goes                              
+##  7 Silence In The S~       2 Silence in the snow                          
+##  8 Silence In The S~       2 We must fight till they all die              
+##  9 Silence In The S~       2 In their cold blood                          
+## 10 Silence In The S~       2 Silence in the snow                          
+## # ... with 453 more rows</code></pre>
+<p>Since Snøfall is an instrumental track, I decided to get the tracklist of Silence in the Snow first using <code>genius_tracklist()</code>, then filter out Snøfall before downloading the lyrics with <code>genius_lyrics()</code> and the help of <code>map()</code> from the <code>purrr</code> package.</p>
+<pre class="r"><code>genius_tracklist(&quot;Trivium&quot;,
+                   &quot;Silence in the snow&quot;) %&gt;% 
+  filter(title != &quot;Snøfall&quot;) %&gt;% 
+  mutate(lyrics = map(title,
+                      genius_lyrics,
+                      artist = &quot;Trivium&quot;),
+         album = &quot;Silence in the snow&quot;) %&gt;% 
+  unnest() %&gt;% 
+  head(10) %&gt;% 
+  kable(caption = &quot;Sample Tibbe of Trivium Lyrics Gathered from Genius&quot;)</code></pre>
+<table>
+<caption><span id="tab:silence-success">Table 3.1: </span>Sample Tibbe of Trivium Lyrics Gathered from Genius</caption>
+<thead>
+<tr class="header">
+<th align="left">title</th>
+<th align="right">track_n</th>
+<th align="left">track_url</th>
+<th align="left">album</th>
+<th align="left">title1</th>
+<th align="left">text</th>
+<th align="right">line</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td align="left">Silence In The Snow</td>
+<td align="right">2</td>
+<td align="left"><a href="https://genius.com/Trivium-silence-in-the-snow-lyrics" class="uri">https://genius.com/Trivium-silence-in-the-snow-lyrics</a></td>
+<td align="left">Silence in the snow</td>
+<td align="left">Silence In The Snow</td>
+<td align="left">Here we all stand on this canvas of white</td>
+<td align="right">1</td>
+</tr>
+<tr class="even">
+<td align="left">Silence In The Snow</td>
+<td align="right">2</td>
+<td align="left"><a href="https://genius.com/Trivium-silence-in-the-snow-lyrics" class="uri">https://genius.com/Trivium-silence-in-the-snow-lyrics</a></td>
+<td align="left">Silence in the snow</td>
+<td align="left">Silence In The Snow</td>
+<td align="left">Our palette holds but only one shade tonight</td>
+<td align="right">2</td>
+</tr>
+<tr class="odd">
+<td align="left">Silence In The Snow</td>
+<td align="right">2</td>
+<td align="left"><a href="https://genius.com/Trivium-silence-in-the-snow-lyrics" class="uri">https://genius.com/Trivium-silence-in-the-snow-lyrics</a></td>
+<td align="left">Silence in the snow</td>
+<td align="left">Silence In The Snow</td>
+<td align="left">Silence snows in, in her wintery chill</td>
+<td align="right">3</td>
+</tr>
+<tr class="even">
+<td align="left">Silence In The Snow</td>
+<td align="right">2</td>
+<td align="left"><a href="https://genius.com/Trivium-silence-in-the-snow-lyrics" class="uri">https://genius.com/Trivium-silence-in-the-snow-lyrics</a></td>
+<td align="left">Silence in the snow</td>
+<td align="left">Silence In The Snow</td>
+<td align="left">Let’s paint the ground red with the blood of our kill</td>
+<td align="right">4</td>
+</tr>
+<tr class="odd">
+<td align="left">Silence In The Snow</td>
+<td align="right">2</td>
+<td align="left"><a href="https://genius.com/Trivium-silence-in-the-snow-lyrics" class="uri">https://genius.com/Trivium-silence-in-the-snow-lyrics</a></td>
+<td align="left">Silence in the snow</td>
+<td align="left">Silence In The Snow</td>
+<td align="left">Kill</td>
+<td align="right">5</td>
+</tr>
+<tr class="even">
+<td align="left">Silence In The Snow</td>
+<td align="right">2</td>
+<td align="left"><a href="https://genius.com/Trivium-silence-in-the-snow-lyrics" class="uri">https://genius.com/Trivium-silence-in-the-snow-lyrics</a></td>
+<td align="left">Silence in the snow</td>
+<td align="left">Silence In The Snow</td>
+<td align="left">The battle goes</td>
+<td align="right">6</td>
+</tr>
+<tr class="odd">
+<td align="left">Silence In The Snow</td>
+<td align="right">2</td>
+<td align="left"><a href="https://genius.com/Trivium-silence-in-the-snow-lyrics" class="uri">https://genius.com/Trivium-silence-in-the-snow-lyrics</a></td>
+<td align="left">Silence in the snow</td>
+<td align="left">Silence In The Snow</td>
+<td align="left">Silence in the snow</td>
+<td align="right">7</td>
+</tr>
+<tr class="even">
+<td align="left">Silence In The Snow</td>
+<td align="right">2</td>
+<td align="left"><a href="https://genius.com/Trivium-silence-in-the-snow-lyrics" class="uri">https://genius.com/Trivium-silence-in-the-snow-lyrics</a></td>
+<td align="left">Silence in the snow</td>
+<td align="left">Silence In The Snow</td>
+<td align="left">We must fight till they all die</td>
+<td align="right">8</td>
+</tr>
+<tr class="odd">
+<td align="left">Silence In The Snow</td>
+<td align="right">2</td>
+<td align="left"><a href="https://genius.com/Trivium-silence-in-the-snow-lyrics" class="uri">https://genius.com/Trivium-silence-in-the-snow-lyrics</a></td>
+<td align="left">Silence in the snow</td>
+<td align="left">Silence In The Snow</td>
+<td align="left">In their cold blood</td>
+<td align="right">9</td>
+</tr>
+<tr class="even">
+<td align="left">Silence In The Snow</td>
+<td align="right">2</td>
+<td align="left"><a href="https://genius.com/Trivium-silence-in-the-snow-lyrics" class="uri">https://genius.com/Trivium-silence-in-the-snow-lyrics</a></td>
+<td align="left">Silence in the snow</td>
+<td align="left">Silence In The Snow</td>
+<td align="left">Silence in the snow</td>
+<td align="right">10</td>
+</tr>
+</tbody>
+</table>
+<p>What I did here is similar to how <code>genius_album()</code> works. We get a tibble with each song divided into verse lines. I included an album column so I know what album the tracks are from. I used this as a template to create the <code>get_trivium_album()</code> function that allowed me to download all lyrics at once in tidy format. I used <code>map()</code> again to accomplish this.</p>
+<pre class="r"><code>trivium_albums &lt;- 
+  c(&quot;Ember to Inferno&quot;,
+    &quot;Ascendancy&quot;,
+    &quot;The Crusade&quot;,
+    &quot;Shogun&quot;,
+    &quot;In Waves&quot;,
+    &quot;Vengeance Falls&quot;,
+    &quot;Silence in the Snow&quot;,
+    &quot;The Sin and the Sentence&quot;)
+
+get_trivium_album &lt;- function(trivium_album) {
+  genius_tracklist(&quot;Trivium&quot;,
+                   trivium_album) %&gt;%
+    filter(title != &quot;Snøfall&quot;) %&gt;% 
+    mutate(lyrics = map(title,
+                        genius_lyrics,
+                        artist = &quot;Trivium&quot;),
+           album = trivium_album) %&gt;% 
+    unnest()
+}
+
+trivium &lt;- 
+  map_dfr(trivium_albums,
+          possibly(get_trivium_album,
+                   tibble(title = NA,
+                          track_n = NA,
+                          album = NA,
+                          text = NA,
+                          line = NA))) %&gt;% 
+  drop_na()</code></pre>
+<p>Prior to this, I tested each album to make sure I will not encounter the same problem with Silence. I still included <code>possibly()</code> as an added safety feature then drop all <code>NA</code> rows, if any, with <code>drop_na()</code>.</p>
+<pre class="r"><code>trivium_covers &lt;- paste(c(&quot;Master Of Puppets&quot;, 
+                          &quot;Iron Maiden&quot;, 
+                          &quot;Slave New World&quot;, 
+                          &quot;Skulls... We Are 138&quot;, 
+                          &quot;Losing My Religion&quot;),
+                         collapse = &quot;|&quot;)
+trivium &lt;-
+  trivium %&gt;% 
+  filter(str_detect(title,
+                    trivium_covers) == FALSE)</code></pre>
+<p>After downloading all the Trivium albums, I still had to remove the cover songs because I only wanted to focus on the originals. Trivium’s cover of Master of Puppets affected the results in the preliminary analysis. I think it is not proper to allow a cover song to overpower the originals.</p>
+</div>
+<div id="text-dismantled" class="section level1">
+<h1><span class="header-section-number">4</span> Text Dismantled</h1>
+<p>The tibble <code>geniusR</code> gives is not yet very useful, so I had to make some cleaning like removing stop words.</p>
+<pre class="r"><code>SMART_stop_words &lt;- 
+  stop_words %&gt;% 
+  filter(lexicon == &quot;SMART&quot;)
+
+apostrophe &lt;- paste(c(&quot;&#39;&quot; %R% one_or_more(ALPHA),
+                      &quot;’&quot; %R% one_or_more(ALPHA)),
+                    collapse = &quot;|&quot;)</code></pre>
+<p>One important part of <code>tidytext</code> is the <code>stop_words</code> data frame. It contains 1149 stop words from three lexicons. I used the SMART lexicon because it contained the most number of stop words.</p>
+<p>One annoying thing I discovered is that lyrics from Genius contains curly apostrophes. R detects curly and straight apostrophes differently. Since the <code>stop_words</code> data frame contains straight apostrophes only, I had to manually remove curly and straight apostrophes from the text. I checked beforehand, so I know I am only removing apostrophes and letters after it in contractions and possessives.</p>
+<pre class="r"><code>clean_trivium_lyrics &lt;- 
+  trivium %&gt;% 
+  mutate(text = str_replace_all(text,
+                                &quot;asun-der&quot;,
+                                &quot;asunder&quot;)) %&gt;% 
+  unnest_tokens(lyrics, text) %&gt;%
+  mutate(lyrics = str_replace(lyrics,
+                              apostrophe,
+                              &quot;&quot;),
+         album = factor(album,levels = trivium_albums)) %&gt;%
+  anti_join(SMART_stop_words,
+            by = c(&quot;lyrics&quot; = &quot;word&quot;))</code></pre>
+<p>Another annoying string is asun-der. It should be asunder, so I had to change this manually also. After solving the asunder problem, I used <code>unnest_tokens()</code> to split the text column into words, or lyrics in my case. I then removed all the apostrophes from the lyrics before using <code>anti_join()</code> to remove all the stop words.</p>
+<p>Trivium lyrics gathered. Trivium lyrics cleaned. Time to make sense and visualize the data.</p>
+</div>
+<div id="anthem-we-are-the-functions" class="section level1">
+<h1><span class="header-section-number">5</span> Anthem (We are the Functions)</h1>
+<p>During my preliminaries, I discovered I used some code multiple times. I believe in <a href="https://twitter.com/drob/status/928447584712253440">David Robinson’s advice</a>, so I made some of this code into functions, or at least the ones I could. I also made color palette for Trivium inspired by the album covers.</p>
+<pre class="r"><code>trivium_palette &lt;- c(&quot;yellow2&quot;, # Ember
+                     &quot;orange2&quot;, # Ascendancy
+                     &quot;royalblue4&quot;, # Crusade
+                     &quot;darkred&quot;, # Shogun
+                     &quot;darkgrey&quot;, # Waves
+                     &quot;steelblue4&quot;, # Vengeance
+                     &quot;whitesmoke&quot;, # Silence
+                     &quot;saddlebrown&quot;) # Sin
+
+theme_trivium &lt;- function(...) {
+  theme(panel.background = element_rect(fill = &quot;black&quot;),
+        panel.grid = element_blank(),
+        plot.background = element_rect(fill = &quot;black&quot;),
+        axis.ticks = element_blank(),
+        strip.background = element_rect(fill = &quot;black&quot;),
+        legend.background = element_rect(fill = &quot;black&quot;),
+        legend.key = element_blank(),
+        text = element_text(family = &quot;Georgia&quot;,
+                            color = &quot;grey&quot;),
+        axis.text = element_text(color = &quot;grey&quot;),
+        strip.text = element_text(color = &quot;grey&quot;),
+        ...)
+}
+
+scale_fill_trivium &lt;- function(...) {
+  scale_fill_manual(...,
+                    values = trivium_palette)
+}
+
+trivium_album_col &lt;- 
+  trivium_albums %&gt;% 
+  length() %&gt;% 
+  sqrt() %&gt;% 
+  floor()
+
+facet_trivium_albums &lt;- function(album, trivium_albums, ...) {
+  facet_wrap(vars(album),
+             scales = &quot;free_y&quot;,
+             ncol = trivium_album_col,
+             ...)
+}</code></pre>
+</div>
+<div id="album-that-spawned-the-most-words" class="section level1">
+<h1><span class="header-section-number">6</span> Album That Spawned the Most Words</h1>
+<p>One thing I wanted to know was which album had the most words, both in count and unique.</p>
+<pre class="r"><code>clean_trivium_lyrics %&gt;% 
+  count(album) %&gt;% 
+  ggplot(aes(album,
+             n)) +
+  geom_col(fill = &quot;darkred&quot;) +
+  coord_flip() +
+  labs(x = &quot;Album&quot;,
+       y = &quot;Number of Words&quot;) +
+  theme_trivium()</code></pre>
+<div class="figure" style="text-align: center"><span id="fig:most-words-per-album"></span>
+<img src="/post/2018-05-19-the-crusade-text-mining-trivium-songs_files/figure-html/most-words-per-album-1.png" alt="Number of Words in Each Trivium Album" width="768" />
+<p class="caption">
+Figure 6.1: Number of Words in Each Trivium Album
+</p>
+</div>
+<p>The first three albums had almost the same number of words. Trivium went crazy with the lyrics in Shogun. This is not surprising for an album that features a lot Greek mythology. Trivium toned down the lyrics after Shogun and really took a dip in word count in Silence in the Snow. I think this has something to do with Matt Heafy’s change in vocal style. I think the decreased lyrics allowed Matt to relax his vocal cords a little. Fortunately, there is a resurgence in the number of lyrics, but it has not returned to pre-Shogun days.</p>
+<p>These are absolute count of words. I also wanted to see how many unique words (a measure of creativity maybe) an album contains.</p>
+<pre class="r"><code>clean_trivium_lyrics %&gt;% 
+  group_by(album) %&gt;% 
+  summarise(n = n_distinct(lyrics)) %&gt;%  
+  ggplot(aes(album,
+             n)) +
+  geom_col(fill = &quot;darkred&quot;) +
+  coord_flip() +
+  labs(x = &quot;Album&quot;,
+       y = &quot;Number of Unique Words&quot;) +
+  theme_trivium()</code></pre>
+<div class="figure" style="text-align: center"><span id="fig:most-unique-words-per-album"></span>
+<img src="/post/2018-05-19-the-crusade-text-mining-trivium-songs_files/figure-html/most-unique-words-per-album-1.png" alt="Number of Unique Words in Each Trivium Album" width="768" />
+<p class="caption">
+Figure 6.2: Number of Unique Words in Each Trivium Album
+</p>
+</div>
+<p>We almost got the same story, but The Crusade and Vengeance Falls also stands out with the number of unique words. Shogun again takes first because of its reference to a lot of Greek mythology. The Crusade is my favorite album and with its reference to a lot of famous killings, I am not surprised it takes second place in unique words. Vengeance is a bit surprising I would have expected In Waves or Ascendancy to be third, but come to think of it, Vengeance is less repetitive than Waves or Ascendancy.</p>
+</div>
+<div id="tread-the-words" class="section level1">
+<h1><span class="header-section-number">7</span> Tread the Words</h1>
+<p>What is Trivium’s most used word?</p>
+<pre class="r"><code>clean_trivium_lyrics %&gt;% 
+  count(lyrics, sort = TRUE) %&gt;%
+  top_n(20, n) %&gt;%
+  ggplot(aes(reorder(lyrics, n),
+             n)) +
+  scale_x_reordered() +
+  geom_col(fill = &quot;darkred&quot;) +
+  coord_flip() +
+  labs(title = &quot;Most Common Words in Trivium Songs&quot;,
+       y = &quot;Frequency&quot;,
+       x = &quot;Word&quot;) +
+  theme_trivium() +
+  scale_fill_trivium()</code></pre>
+<p><img src="/post/2018-05-19-the-crusade-text-mining-trivium-songs_files/figure-html/most-common-words-1.png" width="672" style="display: block; margin: auto;" /></p>
+<p>What are the most common words in each album?</p>
+<pre class="r"><code>clean_trivium_lyrics %&gt;% 
+  count(album, lyrics, sort = TRUE) %&gt;%
+  group_by(album) %&gt;%
+  top_n(5, n) %&gt;%
+  ggplot(aes(reorder_within(lyrics,
+                            n,
+                            within = album),
+             n,
+             fill = album)) +
+  scale_x_reordered() +
+  geom_col(show.legend = FALSE) +
+  facet_trivium_albums() +
+  coord_flip() +
+  labs(y = &quot;Frequency&quot;,
+       x = &quot;Word&quot;) +
+  theme_trivium() +
+  scale_fill_trivium()</code></pre>
+<div class="figure" style="text-align: center"><span id="fig:common-words-per-album"></span>
+<img src="/post/2018-05-19-the-crusade-text-mining-trivium-songs_files/figure-html/common-words-per-album-1.png" alt="Most Common Words in Every Trivium Album" width="672" />
+<p class="caption">
+Figure 7.1: Most Common Words in Every Trivium Album
+</p>
+</div>
+<p>Nothing much to interpret here. It is just nice to see what words are most frequently used. Trivium seems concerned much with World and life more often as both words are quite common across multiple albums. It seems like Trivium shifted focus from a single plane of a world to a multiverse of worlds in The Sin and the Sentence, but the popularity of worlds in this album is mainly because of one song.</p>
+</div>
+<div id="torn-between-term-frequency-and-inverse-document-frequency" class="section level1">
+<h1><span class="header-section-number">8</span> Torn Between Term Frequency and Inverse Document Frequency</h1>
+<p>I also wanted to know how what words are important to each album. The <a href="https://en.wikipedia.org/wiki/Tf%E2%80%93idf">term frequency-inverse document frequency</a> or tf-idf helped me to determine these words. The <code>tidytext</code> package also has the <code>bind_tf_idf()</code> that makes tf-idf analysis quick and easy. I am still new to tf-idf, but this is how I understand it: we will give points to a word every time it appears in an album, but we will also deduct points to it if it appears in other albums. In the end, the words with the biggest tf-idf are the most important or tied to an album.</p>
+<pre class="r"><code>clean_trivium_lyrics %&gt;% 
+  count(album, lyrics) %&gt;% 
+  bind_tf_idf(lyrics,
+              album,
+              n) %&gt;% 
+  group_by(album) %&gt;% 
+  top_n(5, tf_idf) %&gt;%
+  ggplot(aes(reorder_within(lyrics,
+                            tf_idf,
+                            album),
+         tf_idf,
+         fill = album)) +
+  scale_x_reordered() +
+  geom_col(show.legend = FALSE) +
+  facet_trivium_albums() +
+  coord_flip() +
+  labs(y = &quot;TF-IDF&quot;,
+       x = &quot;Word&quot;) +
+  theme_trivium() +
+  scale_fill_trivium()</code></pre>
+<div class="figure" style="text-align: center"><span id="fig:lyrics-tfidf"></span>
+<img src="/post/2018-05-19-the-crusade-text-mining-trivium-songs_files/figure-html/lyrics-tfidf-1.png" alt="TF-IDF of Words in Every Trivium Album" width="672" />
+<p class="caption">
+Figure 8.1: TF-IDF of Words in Every Trivium Album
+</p>
+</div>
+<p>I am not sure how to interpret this, but it seems that after Shogun, Trivium is starting to focus on specific words or themes for each album. A topic model would be helpful to verify this, but that can wait for another post.</p>
+</div>
+<div id="negativity-thrives" class="section level1">
+<h1><span class="header-section-number">9</span> Negativity Thrives</h1>
+<p>Another nice feature of <code>tidytext</code> is that it allows for sentiment analysis with the <code>sentiments</code> data frame. It contains four lexicons that associates a word with a sentiment or a score.</p>
+<pre class="r"><code>bing &lt;- 
+  sentiments %&gt;% 
+  filter(lexicon == &quot;bing&quot;) %&gt;% 
+  select(-score)
+
+trivium_bing &lt;- 
+  clean_trivium_lyrics %&gt;% 
+  inner_join(bing,
+             by = c(&quot;lyrics&quot; = &quot;word&quot;))
+
+trivium_bing %&gt;% 
+  count(lyrics, sentiment, sort = TRUE) %&gt;% 
+  head(20) %&gt;% 
+  kable(caption = &quot;Sample Bing Sentiment of Trivium Lyrics&quot;)</code></pre>
+<table>
+<caption><span id="tab:trivium-bing">Table 9.1: </span>Sample Bing Sentiment of Trivium Lyrics</caption>
+<thead>
+<tr class="header">
+<th align="left">lyrics</th>
+<th align="left">sentiment</th>
+<th align="right">n</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td align="left">burn</td>
+<td align="left">negative</td>
+<td align="right">68</td>
+</tr>
+<tr class="even">
+<td align="left">pain</td>
+<td align="left">negative</td>
+<td align="right">68</td>
+</tr>
+<tr class="odd">
+<td align="left">fall</td>
+<td align="left">negative</td>
+<td align="right">60</td>
+</tr>
+<tr class="even">
+<td align="left">hell</td>
+<td align="left">negative</td>
+<td align="right">57</td>
+</tr>
+<tr class="odd">
+<td align="left">lost</td>
+<td align="left">negative</td>
+<td align="right">53</td>
+</tr>
+<tr class="even">
+<td align="left">hate</td>
+<td align="left">negative</td>
+<td align="right">52</td>
+</tr>
+<tr class="odd">
+<td align="left">won</td>
+<td align="left">positive</td>
+<td align="right">48</td>
+</tr>
+<tr class="even">
+<td align="left">break</td>
+<td align="left">negative</td>
+<td align="right">45</td>
+</tr>
+<tr class="odd">
+<td align="left">die</td>
+<td align="left">negative</td>
+<td align="right">40</td>
+</tr>
+<tr class="even">
+<td align="left">free</td>
+<td align="left">positive</td>
+<td align="right">38</td>
+</tr>
+<tr class="odd">
+<td align="left">cold</td>
+<td align="left">negative</td>
+<td align="right">37</td>
+</tr>
+<tr class="even">
+<td align="left">fear</td>
+<td align="left">negative</td>
+<td align="right">37</td>
+</tr>
+<tr class="odd">
+<td align="left">dead</td>
+<td align="left">negative</td>
+<td align="right">35</td>
+</tr>
+<tr class="even">
+<td align="left">death</td>
+<td align="left">negative</td>
+<td align="right">35</td>
+</tr>
+<tr class="odd">
+<td align="left">bleed</td>
+<td align="left">negative</td>
+<td align="right">34</td>
+</tr>
+<tr class="even">
+<td align="left">lie</td>
+<td align="left">negative</td>
+<td align="right">34</td>
+</tr>
+<tr class="odd">
+<td align="left">dark</td>
+<td align="left">negative</td>
+<td align="right">29</td>
+</tr>
+<tr class="even">
+<td align="left">destroy</td>
+<td align="left">negative</td>
+<td align="right">27</td>
+</tr>
+<tr class="odd">
+<td align="left">sin</td>
+<td align="left">negative</td>
+<td align="right">27</td>
+</tr>
+<tr class="even">
+<td align="left">burning</td>
+<td align="left">negative</td>
+<td align="right">26</td>
+</tr>
+</tbody>
+</table>
+<p>First, I will look into the <a href="https://www.cs.uic.edu/~liub/FBS/sentiment-analysis.html">Bing</a> lexicon. Note that while the Bing lexicon categorizes 6788 words into negative and positive sentiments, only 2748 lyrics out of 9964 were categorized.</p>
+<pre class="r"><code>trivium_bing %&gt;% 
+  count(album,
+        sentiment) %&gt;% 
+  group_by(album) %&gt;% 
+  mutate(prop = n / sum(n)) %&gt;% 
+  ggplot(aes(album,
+             prop,
+             fill = factor(sentiment,
+                           levels = c(&quot;positive&quot;,
+                                      &quot;negative&quot;)))) +
+  geom_col(position = &quot;dodge&quot;) +
+  labs(x = &quot;Album&quot;,
+       y = &quot;Proportion of Words&quot;,
+       fill = &quot;Sentiment&quot;) +
+  coord_flip() +
+  scale_y_percent() +
+  theme_trivium() +
+  scale_fill_manual(values = c(&quot;steelblue&quot;,
+                               &quot;darkred&quot;))</code></pre>
+<div class="figure" style="text-align: center"><span id="fig:proportion-positive-negative"></span>
+<img src="/post/2018-05-19-the-crusade-text-mining-trivium-songs_files/figure-html/proportion-positive-negative-1.png" alt="Proportion of Positive and Negative Words in Every Trivium Album. Based on Bing Liu's Sentiment Lexicon" width="672" />
+<p class="caption">
+Figure 9.1: Proportion of Positive and Negative Words in Every Trivium Album. Based on Bing Liu’s Sentiment Lexicon
+</p>
+</div>
+<p>Trivium is consistent in using more negative words than positive, not surprising for a heavy metal band.</p>
+<pre class="r"><code>afinn &lt;- 
+  sentiments %&gt;% 
+  filter(lexicon == &quot;AFINN&quot;) %&gt;% 
+  select(-sentiment)
+
+trivium_afinn &lt;- 
+  clean_trivium_lyrics %&gt;% 
+  inner_join(afinn,
+             by = c(&quot;lyrics&quot; = &quot;word&quot;)) 
+
+trivium_afinn %&gt;% 
+  head(20) %&gt;% 
+  kable(caption = &quot;Sample AFINN Scores of Trivium Lyrics&quot;)</code></pre>
+<table>
+<caption><span id="tab:trivium-afinn">Table 9.2: </span>Sample AFINN Scores of Trivium Lyrics</caption>
+<thead>
+<tr class="header">
+<th align="left">title</th>
+<th align="right">track_n</th>
+<th align="left">track_url</th>
+<th align="left">album</th>
+<th align="left">title1</th>
+<th align="right">line</th>
+<th align="left">lyrics</th>
+<th align="left">lexicon</th>
+<th align="right">score</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td align="left">Pillars Of Serpents</td>
+<td align="right">2</td>
+<td align="left"><a href="https://genius.com/Trivium-pillars-of-serpents-lyrics" class="uri">https://genius.com/Trivium-pillars-of-serpents-lyrics</a></td>
+<td align="left">Ember to Inferno</td>
+<td align="left">Pillars Of Serpents</td>
+<td align="right">1</td>
+<td align="left">alive</td>
+<td align="left">AFINN</td>
+<td align="right">1</td>
+</tr>
+<tr class="even">
+<td align="left">Pillars Of Serpents</td>
+<td align="right">2</td>
+<td align="left"><a href="https://genius.com/Trivium-pillars-of-serpents-lyrics" class="uri">https://genius.com/Trivium-pillars-of-serpents-lyrics</a></td>
+<td align="left">Ember to Inferno</td>
+<td align="left">Pillars Of Serpents</td>
+<td align="right">2</td>
+<td align="left">alive</td>
+<td align="left">AFINN</td>
+<td align="right">1</td>
+</tr>
+<tr class="odd">
+<td align="left">Pillars Of Serpents</td>
+<td align="right">2</td>
+<td align="left"><a href="https://genius.com/Trivium-pillars-of-serpents-lyrics" class="uri">https://genius.com/Trivium-pillars-of-serpents-lyrics</a></td>
+<td align="left">Ember to Inferno</td>
+<td align="left">Pillars Of Serpents</td>
+<td align="right">3</td>
+<td align="left">god</td>
+<td align="left">AFINN</td>
+<td align="right">1</td>
+</tr>
+<tr class="even">
+<td align="left">Pillars Of Serpents</td>
+<td align="right">2</td>
+<td align="left"><a href="https://genius.com/Trivium-pillars-of-serpents-lyrics" class="uri">https://genius.com/Trivium-pillars-of-serpents-lyrics</a></td>
+<td align="left">Ember to Inferno</td>
+<td align="left">Pillars Of Serpents</td>
+<td align="right">4</td>
+<td align="left">alive</td>
+<td align="left">AFINN</td>
+<td align="right">1</td>
+</tr>
+<tr class="odd">
+<td align="left">Pillars Of Serpents</td>
+<td align="right">2</td>
+<td align="left"><a href="https://genius.com/Trivium-pillars-of-serpents-lyrics" class="uri">https://genius.com/Trivium-pillars-of-serpents-lyrics</a></td>
+<td align="left">Ember to Inferno</td>
+<td align="left">Pillars Of Serpents</td>
+<td align="right">5</td>
+<td align="left">alive</td>
+<td align="left">AFINN</td>
+<td align="right">1</td>
+</tr>
+<tr class="even">
+<td align="left">Pillars Of Serpents</td>
+<td align="right">2</td>
+<td align="left"><a href="https://genius.com/Trivium-pillars-of-serpents-lyrics" class="uri">https://genius.com/Trivium-pillars-of-serpents-lyrics</a></td>
+<td align="left">Ember to Inferno</td>
+<td align="left">Pillars Of Serpents</td>
+<td align="right">9</td>
+<td align="left">strength</td>
+<td align="left">AFINN</td>
+<td align="right">2</td>
+</tr>
+<tr class="odd">
+<td align="left">Pillars Of Serpents</td>
+<td align="right">2</td>
+<td align="left"><a href="https://genius.com/Trivium-pillars-of-serpents-lyrics" class="uri">https://genius.com/Trivium-pillars-of-serpents-lyrics</a></td>
+<td align="left">Ember to Inferno</td>
+<td align="left">Pillars Of Serpents</td>
+<td align="right">17</td>
+<td align="left">wasting</td>
+<td align="left">AFINN</td>
+<td align="right">-2</td>
+</tr>
+<tr class="even">
+<td align="left">Pillars Of Serpents</td>
+<td align="right">2</td>
+<td align="left"><a href="https://genius.com/Trivium-pillars-of-serpents-lyrics" class="uri">https://genius.com/Trivium-pillars-of-serpents-lyrics</a></td>
+<td align="left">Ember to Inferno</td>
+<td align="left">Pillars Of Serpents</td>
+<td align="right">21</td>
+<td align="left">spark</td>
+<td align="left">AFINN</td>
+<td align="right">1</td>
+</tr>
+<tr class="odd">
+<td align="left">Pillars Of Serpents</td>
+<td align="right">2</td>
+<td align="left"><a href="https://genius.com/Trivium-pillars-of-serpents-lyrics" class="uri">https://genius.com/Trivium-pillars-of-serpents-lyrics</a></td>
+<td align="left">Ember to Inferno</td>
+<td align="left">Pillars Of Serpents</td>
+<td align="right">28</td>
+<td align="left">spark</td>
+<td align="left">AFINN</td>
+<td align="right">1</td>
+</tr>
+<tr class="even">
+<td align="left">Pillars Of Serpents</td>
+<td align="right">2</td>
+<td align="left"><a href="https://genius.com/Trivium-pillars-of-serpents-lyrics" class="uri">https://genius.com/Trivium-pillars-of-serpents-lyrics</a></td>
+<td align="left">Ember to Inferno</td>
+<td align="left">Pillars Of Serpents</td>
+<td align="right">32</td>
+<td align="left">dreams</td>
+<td align="left">AFINN</td>
+<td align="right">1</td>
+</tr>
+<tr class="odd">
+<td align="left">Pillars Of Serpents</td>
+<td align="right">2</td>
+<td align="left"><a href="https://genius.com/Trivium-pillars-of-serpents-lyrics" class="uri">https://genius.com/Trivium-pillars-of-serpents-lyrics</a></td>
+<td align="left">Ember to Inferno</td>
+<td align="left">Pillars Of Serpents</td>
+<td align="right">33</td>
+<td align="left">tears</td>
+<td align="left">AFINN</td>
+<td align="right">-2</td>
+</tr>
+<tr class="even">
+<td align="left">If I Could Collapse The Masses</td>
+<td align="right">3</td>
+<td align="left"><a href="https://genius.com/Trivium-if-i-could-collapse-the-masses-lyrics" class="uri">https://genius.com/Trivium-if-i-could-collapse-the-masses-lyrics</a></td>
+<td align="left">Ember to Inferno</td>
+<td align="left">If I Could Collapse The Masses</td>
+<td align="right">5</td>
+<td align="left">broken</td>
+<td align="left">AFINN</td>
+<td align="right">-1</td>
+</tr>
+<tr class="odd">
+<td align="left">If I Could Collapse The Masses</td>
+<td align="right">3</td>
+<td align="left"><a href="https://genius.com/Trivium-if-i-could-collapse-the-masses-lyrics" class="uri">https://genius.com/Trivium-if-i-could-collapse-the-masses-lyrics</a></td>
+<td align="left">Ember to Inferno</td>
+<td align="left">If I Could Collapse The Masses</td>
+<td align="right">7</td>
+<td align="left">fit</td>
+<td align="left">AFINN</td>
+<td align="right">1</td>
+</tr>
+<tr class="even">
+<td align="left">If I Could Collapse The Masses</td>
+<td align="right">3</td>
+<td align="left"><a href="https://genius.com/Trivium-if-i-could-collapse-the-masses-lyrics" class="uri">https://genius.com/Trivium-if-i-could-collapse-the-masses-lyrics</a></td>
+<td align="left">Ember to Inferno</td>
+<td align="left">If I Could Collapse The Masses</td>
+<td align="right">10</td>
+<td align="left">broken</td>
+<td align="left">AFINN</td>
+<td align="right">-1</td>
+</tr>
+<tr class="odd">
+<td align="left">If I Could Collapse The Masses</td>
+<td align="right">3</td>
+<td align="left"><a href="https://genius.com/Trivium-if-i-could-collapse-the-masses-lyrics" class="uri">https://genius.com/Trivium-if-i-could-collapse-the-masses-lyrics</a></td>
+<td align="left">Ember to Inferno</td>
+<td align="left">If I Could Collapse The Masses</td>
+<td align="right">11</td>
+<td align="left">swear</td>
+<td align="left">AFINN</td>
+<td align="right">-2</td>
+</tr>
+<tr class="even">
+<td align="left">If I Could Collapse The Masses</td>
+<td align="right">3</td>
+<td align="left"><a href="https://genius.com/Trivium-if-i-could-collapse-the-masses-lyrics" class="uri">https://genius.com/Trivium-if-i-could-collapse-the-masses-lyrics</a></td>
+<td align="left">Ember to Inferno</td>
+<td align="left">If I Could Collapse The Masses</td>
+<td align="right">12</td>
+<td align="left">battle</td>
+<td align="left">AFINN</td>
+<td align="right">-1</td>
+</tr>
+<tr class="odd">
+<td align="left">If I Could Collapse The Masses</td>
+<td align="right">3</td>
+<td align="left"><a href="https://genius.com/Trivium-if-i-could-collapse-the-masses-lyrics" class="uri">https://genius.com/Trivium-if-i-could-collapse-the-masses-lyrics</a></td>
+<td align="left">Ember to Inferno</td>
+<td align="left">If I Could Collapse The Masses</td>
+<td align="right">19</td>
+<td align="left">free</td>
+<td align="left">AFINN</td>
+<td align="right">1</td>
+</tr>
+<tr class="even">
+<td align="left">If I Could Collapse The Masses</td>
+<td align="right">3</td>
+<td align="left"><a href="https://genius.com/Trivium-if-i-could-collapse-the-masses-lyrics" class="uri">https://genius.com/Trivium-if-i-could-collapse-the-masses-lyrics</a></td>
+<td align="left">Ember to Inferno</td>
+<td align="left">If I Could Collapse The Masses</td>
+<td align="right">21</td>
+<td align="left">broken</td>
+<td align="left">AFINN</td>
+<td align="right">-1</td>
+</tr>
+<tr class="odd">
+<td align="left">If I Could Collapse The Masses</td>
+<td align="right">3</td>
+<td align="left"><a href="https://genius.com/Trivium-if-i-could-collapse-the-masses-lyrics" class="uri">https://genius.com/Trivium-if-i-could-collapse-the-masses-lyrics</a></td>
+<td align="left">Ember to Inferno</td>
+<td align="left">If I Could Collapse The Masses</td>
+<td align="right">22</td>
+<td align="left">swear</td>
+<td align="left">AFINN</td>
+<td align="right">-2</td>
+</tr>
+<tr class="even">
+<td align="left">If I Could Collapse The Masses</td>
+<td align="right">3</td>
+<td align="left"><a href="https://genius.com/Trivium-if-i-could-collapse-the-masses-lyrics" class="uri">https://genius.com/Trivium-if-i-could-collapse-the-masses-lyrics</a></td>
+<td align="left">Ember to Inferno</td>
+<td align="left">If I Could Collapse The Masses</td>
+<td align="right">23</td>
+<td align="left">battle</td>
+<td align="left">AFINN</td>
+<td align="right">-1</td>
+</tr>
+</tbody>
+</table>
+<p>The <a href="http://www2.imm.dtu.dk/pubdb/views/publication_details.php?id=6010">AFINN</a> lexicon in the <code>sentiments</code> data frame gives integer sentiment scores from -5 to +5 for 2476 words. Note again that AFINN scored only 2294 words out of 9964 Trivium lyrics.</p>
+<pre class="r"><code>trivium_afinn %&gt;% 
+  group_by(album) %&gt;% 
+  summarise(total_score = sum(score,
+                              na.rm = TRUE)) %&gt;%
+  ggplot(aes(album,
+             -total_score)) +
+  geom_col(fill = &quot;darkred&quot;) +
+  labs(x = &quot;Album&quot;,
+       y = &quot;Negative AFINN Score&quot;) +
+  coord_flip() +
+  theme_trivium()</code></pre>
+<div class="figure" style="text-align: center"><span id="fig:afinn-scores-album"></span>
+<img src="/post/2018-05-19-the-crusade-text-mining-trivium-songs_files/figure-html/afinn-scores-album-1.png" alt="Total Negative AFINN Scores of Trivium Albums" width="672" />
+<p class="caption">
+Figure 9.2: Total Negative AFINN Scores of Trivium Albums
+</p>
+</div>
+<p>Again this much negative sentiment score is not unexpected in a heavy metal band. Shogun takes first again because of its word count.</p>
+<p>Shogun has the most word count, so Shogun’s big negative score might be misleading. I looked at the mean AFINN scores next.</p>
+<pre class="r"><code>trivium_afinn %&gt;% 
+  group_by(album) %&gt;% 
+  summarise(mean_score = mean(score,
+                              na.rm = TRUE)) %&gt;%
+  ggplot(aes(album,
+             -mean_score)) +
+  geom_col(fill = &quot;darkred&quot;) +
+  coord_flip() +
+  labs(x = &quot;Album&quot;,
+       y = &quot;Negative Mean AFINN Score&quot;) +
+  theme_trivium()</code></pre>
+<div class="figure" style="text-align: center"><span id="fig:mean-afinn-scores-album"></span>
+<img src="/post/2018-05-19-the-crusade-text-mining-trivium-songs_files/figure-html/mean-afinn-scores-album-1.png" alt="Negative Mean AFINN Scores of Trivium Albums" width="672" />
+<p class="caption">
+Figure 9.3: Negative Mean AFINN Scores of Trivium Albums
+</p>
+</div>
+<p>Shogun still takes the lead, but Sin is a close second.</p>
+<p>How about songs? What Trivium songs are the most negative per album?</p>
+<pre class="r"><code>trivium_afinn %&gt;% 
+  group_by(album, title) %&gt;%
+  summarise(mean_score = mean(score,
+                              na.rm = TRUE)) %&gt;% 
+  top_n(5, -mean_score) %&gt;% 
+  ggplot(aes(reorder_within(title,
+                            -mean_score,
+                            album),
+             -mean_score,
+             fill = album)) +
+  scale_x_reordered() +
+  geom_col(show.legend = FALSE) +
+  coord_flip() +
+  facet_trivium_albums() +
+  labs(x = &quot;Song Title&quot;,
+       y = &quot;Negative Mean AFINN Score&quot;) +
+  theme_trivium() +
+  scale_fill_trivium()</code></pre>
+<div class="figure" style="text-align: center"><span id="fig:afinn-negative-trivium-songs"></span>
+<img src="/post/2018-05-19-the-crusade-text-mining-trivium-songs_files/figure-html/afinn-negative-trivium-songs-1.png" alt="Top Five Most Negative Trivum Songs per Album. Based on AFINN Scores" width="672" />
+<p class="caption">
+Figure 9.4: Top Five Most Negative Trivum Songs per Album. Based on AFINN Scores
+</p>
+</div>
+<p>One can actually feel the negative words already just from the song titles.</p>
+</div>
+<div id="these-sentiments-cant-tear-us-apart" class="section level1">
+<h1><span class="header-section-number">10</span> These Sentiments Can’t Tear Us Apart</h1>
+<p>As a parting image, let’s go back to the Bing lexicon and see what negative and positive words appear most frequently in Trivium songs.</p>
+<pre class="r"><code>par(bg = &quot;black&quot;)
+trivium_bing %&gt;% 
+  count(lyrics, sentiment, sort = TRUE) %&gt;%
+  with(wordcloud(lyrics,
+                 n,
+                 scale = c(5, 0.25),
+                 ordered.colors = TRUE,
+                 random.order = FALSE,
+                 rot.per = 0,
+                 colors = c(&quot;darkred&quot;, &quot;steelblue4&quot;)[factor(sentiment)],
+                 max.words = 100,
+                 fixed.asp = FALSE))</code></pre>
+<div class="figure" style="text-align: center"><span id="fig:trivium-lyrics-wordcloud"></span>
+<img src="/post/2018-05-19-the-crusade-text-mining-trivium-songs_files/figure-html/trivium-lyrics-wordcloud-1.png" alt="Most Frequent Words in Trivum Songs" width="672" />
+<p class="caption">
+Figure 10.1: Most Frequent Words in Trivum Songs
+</p>
+</div>
+</div>

@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes" ?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>Limits on The Amateur Data Scientist</title>
+    <link>/tags/limits/</link>
+    <description>Recent content in Limits on The Amateur Data Scientist</description>
+    <generator>Hugo -- gohugo.io</generator>
+    <language>en-us</language>
+    <lastBuildDate>Mon, 06 Aug 2018 00:00:00 +0000</lastBuildDate>
+    
+	<atom:link href="/tags/limits/index.xml" rel="self" type="application/rss+xml" />
+    
+    
+    <item>
+      <title>Tangent Lines and Non-Existent Ones</title>
+      <link>/post/tangent-non-existent/</link>
+      <pubDate>Mon, 06 Aug 2018 00:00:00 +0000</pubDate>
+      
+      <guid>/post/tangent-non-existent/</guid>
+      <description>1 Definition of a Tangent Line2 Slope of a Tangent Line on a Curve3 Condition for Existence4 Limit of an Absolute Value4.1 Problem4.2 Solution5 Reference1 Definition of a Tangent LineConsider a curve \(y = f(x)\), and let \(P\) be a given fixed point on this curve. Let \(Q\) be a second nearby point on the curve, and draw the secant line \(PQ\).</description>
+    </item>
+    
+  </channel>
+</rss>

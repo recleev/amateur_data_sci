@@ -1,0 +1,140 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes" ?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>The Amateur Data Scientist</title>
+    <link>/</link>
+    <description>Recent content on The Amateur Data Scientist</description>
+    <generator>Hugo -- gohugo.io</generator>
+    <language>en-us</language>
+    <lastBuildDate>Wed, 03 Oct 2018 00:00:00 +0000</lastBuildDate>
+    
+	<atom:link href="/index.xml" rel="self" type="application/rss+xml" />
+    
+    
+    <item>
+      <title>From Messy to Tidy: Gather All Those Dates</title>
+      <link>/post/messy-tidy-tidyr-gather/</link>
+      <pubDate>Wed, 03 Oct 2018 00:00:00 +0000</pubDate>
+      
+      <guid>/post/messy-tidy-tidyr-gather/</guid>
+      <description>1 Tidy Data: Long But Machine Readable2 Consumer Price Index of the Philippines3 Messy Data Cues3.1 Wide not Long3.2 Dates as Columns3.3 Average Columns4 Short Steps to a Long Table4.1 Remove Columns with Names that Starts with the Same Characters4.2 Gather the Date Columns4.3 Convert to YYYY-MM-DD5 Not Yet Tidy, A Little Less Messy6 Code7 References1 Tidy Data: Long But Machine ReadableWorking with data made me conscious of how we compile, store, and share data.</description>
+    </item>
+    
+    <item>
+      <title>Rain Drops: Condensation and Acceleration</title>
+      <link>/post/rain-drops-condensation-acceleration/</link>
+      <pubDate>Fri, 21 Sep 2018 00:00:00 +0000</pubDate>
+      
+      <guid>/post/rain-drops-condensation-acceleration/</guid>
+      <description>1 Problem2 Solution3 Reference1 ProblemProblem 49, page 189 in Simmons (2016)
+Newton’s second law of motion
+\[F = ma = m \frac{dv}{dt}\]
+can be written in the form
+\[\begin{equation}F = \frac{d \left( mv \right)}{dt} \tag{1.1}\end{equation}\]
+in terms of the momentum \(mv\) of a particle of mass \(m\) and velocity \(v\), and remains valid even if \(m\) is not constant.</description>
+    </item>
+    
+    <item>
+      <title>Sliding a Ladder and Filling a Bowl</title>
+      <link>/post/sliding-ladder-filling-bowl/</link>
+      <pubDate>Fri, 07 Sep 2018 00:00:00 +0000</pubDate>
+      
+      <guid>/post/sliding-ladder-filling-bowl/</guid>
+      <description>1 Sliding Ladder1.1 Problem1.2 Solution2 Filling a Bowl2.1 Problem2.2 Solution3 References1 Sliding Ladder1.1 ProblemProblem 116, Page 142 in Simmons (2016)
+A ladder 20 ft long is leaning against a wall 12 ft high, with its top projecting over the wall. Its bottom is being pulled away from the wall at the constant rate of 5 ft/min. Find how rapidly the top of the ladder is approaching the ground:</description>
+    </item>
+    
+    <item>
+      <title>Waves Intersecting at Right Angles and a Folded Paper</title>
+      <link>/post/waves-right-angles-folded-paper/</link>
+      <pubDate>Tue, 21 Aug 2018 00:00:00 +0000</pubDate>
+      
+      <guid>/post/waves-right-angles-folded-paper/</guid>
+      <description>1 Perpendicular Intersecting Waves1.1 Problem1.2 Solution2 A Folded Paper2.1 Problem2.2 Solution: Minimum Area2.3 Solution: Minimum Crease Length2.4 Solution: Using R (Without Differentiations)3 Referencelibrary(knitr)library(tidyverse)library(ggthemes)opts_chunk$set(fig.align = &amp;quot;center&amp;quot;,message = FALSE,warning = FALSE)I found these two problems in Simmons (2016). I enjoyed these problems because they require more thinking than just a mechanical application of derivatives.</description>
+    </item>
+    
+    <item>
+      <title>Deriving the Quotient Rule from the Product Rule</title>
+      <link>/post/deriving-quotient-rule-product-rule/</link>
+      <pubDate>Wed, 08 Aug 2018 00:00:00 +0000</pubDate>
+      
+      <guid>/post/deriving-quotient-rule-product-rule/</guid>
+      <description>1 From Product to Quotient1.1 Product Rule of Differentiation1.2 Quotient Rule of Differentiation1.3 Derive the Quotient Rule from the Product Rule2 Problems2.1 Extend the Product Rule and Prove2.2 Tangent Lines Intersecting on a Curve3 Reference1 From Product to QuotientI have always had a hard time remembering the quotient rule for derivatives. I do not know how I remembered it while studying calculus, but today I learned from Simmons (2016) that I can derive it from the product rule.</description>
+    </item>
+    
+    <item>
+      <title>Tangent Lines and Non-Existent Ones</title>
+      <link>/post/tangent-non-existent/</link>
+      <pubDate>Mon, 06 Aug 2018 00:00:00 +0000</pubDate>
+      
+      <guid>/post/tangent-non-existent/</guid>
+      <description>1 Definition of a Tangent Line2 Slope of a Tangent Line on a Curve3 Condition for Existence4 Limit of an Absolute Value4.1 Problem4.2 Solution5 Reference1 Definition of a Tangent LineConsider a curve \(y = f(x)\), and let \(P\) be a given fixed point on this curve. Let \(Q\) be a second nearby point on the curve, and draw the secant line \(PQ\).</description>
+    </item>
+    
+    <item>
+      <title>Three Decades of the Philippine Stock Exchange Index: Closing Prices, Returns, and a Naive Simulation</title>
+      <link>/post/three-decades-psei-prices-returns-naive-simulation/</link>
+      <pubDate>Fri, 20 Jul 2018 00:00:00 +0000</pubDate>
+      
+      <guid>/post/three-decades-psei-prices-returns-naive-simulation/</guid>
+      <description>1 Rise and Fall of Stocks2 Thirty Years of PSEi Prices3 Ups and Downs but Going Up4 Month-to-Month Returns5 Buy and Hold5.1 Simulating Buy and Hold Over Three Decades of PSEi5.2 More Than a Million6 Bank Deposit vs Buy and Hold Investment7 Next Thirty Years: Another Million?library(knitr)library(tidyverse)library(quantmod)library(magrittr)library(janitor)library(ggthemes)library(ggsci)library(drlib)library(lubridate)library(scales)opts_chunk$set(message = FALSE,warning = FALSE,echo = TRUE,fig.</description>
+    </item>
+    
+    <item>
+      <title>Gathering the Wolf Packs: Scraping World Cup 2018 Squads from Wikipedia</title>
+      <link>/post/2018-06-14-world-cup-2018-squads-scrape-wikipedia/</link>
+      <pubDate>Thu, 14 Jun 2018 00:00:00 +0000</pubDate>
+      
+      <guid>/post/2018-06-14-world-cup-2018-squads-scrape-wikipedia/</guid>
+      <description>1 The Hunt for a Decent List of World Cup 2018 Squads2 A Template for Scraping Tables from Wikipedia2.1 Inspect Element2.2 Find and Copy the XPath2.3 Scrape Tables with rvest3 Scraping World Cup 2018 Squads All at Once3.1 National Teams and Groupings3.2 The Scraping Function3.3 Gather All the Squads4 Tidying the World Cup Squads5 World Cup 2018 Squads and Group1 The Hunt for a Decent List of World Cup 2018 SquadsWith World Cup 2018 to kick off today, I was in search for the past days for a list all the players that will represent their country in the tournament.</description>
+    </item>
+    
+    <item>
+      <title>All About Git and Github in RStudio: A Step-by-Step Guide for Beginners Like Me (With Pictures!)</title>
+      <link>/post/2018-05-24-all-about-git/</link>
+      <pubDate>Thu, 24 May 2018 00:00:00 +0000</pubDate>
+      
+      <guid>/post/2018-05-24-all-about-git/</guid>
+      <description>1 Git Newbie2 Commit, Push, and Pull3 Let’s Git It On!3.1 Create an account in Github3.2 Once we have an account, we can immediately create a repository.3.3 Configure Git in R Studio3.4 Create new project with version control3.5 Copy Repository URL and Create Project4 Git Up, Git Down4.1 R Studio’s Easy Git Interface.4.2 First Commit4.3 Push the Changes4.</description>
+    </item>
+    
+    <item>
+      <title>Hideous Progeny: Tidytext Analysis of Frankenstein</title>
+      <link>/post/hideous-progeny-tidytext-frankenstein/</link>
+      <pubDate>Sat, 19 May 2018 00:00:00 +0000</pubDate>
+      
+      <guid>/post/hideous-progeny-tidytext-frankenstein/</guid>
+      <description>1 The Moden Prometheus2 Pursuit for Frankenstein Begins3 Emptiness Filled4 Destruction and Creation5 Of Man, Of Life6 A Big Ending7 Uncontrollable Feelings7.1 Waves of Emotions7.2 Down the Precipice7.3 Fear the Daemon8 Ice and Hearts of FireAnd now, once again, I bid my hideous progeny go forth and prosper. — Mary Wollstonecraft Shelley (London, 15 October 1831)</description>
+    </item>
+    
+    <item>
+      <title>The Crusade: Text Mining Trivium Songs</title>
+      <link>/post/trivium-songs/</link>
+      <pubDate>Sat, 19 May 2018 00:00:00 +0000</pubDate>
+      
+      <guid>/post/trivium-songs/</guid>
+      <description>1 A View of Mining Lyrics2 Into the Mouth of R We March3 Pull Harder on the Strings of Lyrics with geniusR4 Text Dismantled5 Anthem (We are the Functions)6 Album That Spawned the Most Words7 Tread the Words8 Torn Between Term Frequency and Inverse Document Frequency9 Negativity Thrives10 These Sentiments Can’t Tear Us Apart(Warning: NSFW Language)
+1 A View of Mining LyricsTrivium is my favorite heavy metal band.</description>
+    </item>
+    
+    <item>
+      <title>About</title>
+      <link>/about/</link>
+      <pubDate>Wed, 09 Apr 2014 00:00:00 +0000</pubDate>
+      
+      <guid>/about/</guid>
+      <description>An amateur&amp;hellip;is someone not quite up to par, a person not to be taken seriously, one whose performance falls short of professional standards. But originally, &amp;ldquo;amateur&amp;rdquo;, from the Latin verb amare, &amp;ldquo;to love&amp;rdquo;, referred to a person who loved what he was doing. &amp;mdash; Mihaly Czikszentmihalyi, Flow: The Psychology of Optimal Experience
+ I started learning R in November 2016. I never stopped learning it and using it since then.</description>
+    </item>
+    
+    <item>
+      <title>Contact</title>
+      <link>/contact/</link>
+      <pubDate>Wed, 09 Apr 2014 00:00:00 +0000</pubDate>
+      
+      <guid>/contact/</guid>
+      <description> First Name  Last Name  E-Mail  City  State AL CA IL      Send   </description>
+    </item>
+    
+  </channel>
+</rss>

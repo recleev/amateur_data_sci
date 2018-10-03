@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes" ?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>Integration on The Amateur Data Scientist</title>
+    <link>/tags/integration/</link>
+    <description>Recent content in Integration on The Amateur Data Scientist</description>
+    <generator>Hugo -- gohugo.io</generator>
+    <language>en-us</language>
+    <lastBuildDate>Fri, 21 Sep 2018 00:00:00 +0000</lastBuildDate>
+    
+	<atom:link href="/tags/integration/index.xml" rel="self" type="application/rss+xml" />
+    
+    
+    <item>
+      <title>Rain Drops: Condensation and Acceleration</title>
+      <link>/post/rain-drops-condensation-acceleration/</link>
+      <pubDate>Fri, 21 Sep 2018 00:00:00 +0000</pubDate>
+      
+      <guid>/post/rain-drops-condensation-acceleration/</guid>
+      <description>1 Problem2 Solution3 Reference1 ProblemProblem 49, page 189 in Simmons (2016)
+Newton’s second law of motion
+\[F = ma = m \frac{dv}{dt}\]
+can be written in the form
+\[\begin{equation}F = \frac{d \left( mv \right)}{dt} \tag{1.1}\end{equation}\]
+in terms of the momentum \(mv\) of a particle of mass \(m\) and velocity \(v\), and remains valid even if \(m\) is not constant.</description>
+    </item>
+    
+  </channel>
+</rss>

@@ -1,0 +1,34 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes" ?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>Maxima on The Amateur Data Scientist</title>
+    <link>/tags/maxima/</link>
+    <description>Recent content in Maxima on The Amateur Data Scientist</description>
+    <generator>Hugo -- gohugo.io</generator>
+    <language>en-us</language>
+    <lastBuildDate>Fri, 07 Sep 2018 00:00:00 +0000</lastBuildDate>
+    
+	<atom:link href="/tags/maxima/index.xml" rel="self" type="application/rss+xml" />
+    
+    
+    <item>
+      <title>Sliding a Ladder and Filling a Bowl</title>
+      <link>/post/sliding-ladder-filling-bowl/</link>
+      <pubDate>Fri, 07 Sep 2018 00:00:00 +0000</pubDate>
+      
+      <guid>/post/sliding-ladder-filling-bowl/</guid>
+      <description>1 Sliding Ladder1.1 Problem1.2 Solution2 Filling a Bowl2.1 Problem2.2 Solution3 References1 Sliding Ladder1.1 ProblemProblem 116, Page 142 in Simmons (2016)
+A ladder 20 ft long is leaning against a wall 12 ft high, with its top projecting over the wall. Its bottom is being pulled away from the wall at the constant rate of 5 ft/min. Find how rapidly the top of the ladder is approaching the ground:</description>
+    </item>
+    
+    <item>
+      <title>Waves Intersecting at Right Angles and a Folded Paper</title>
+      <link>/post/waves-right-angles-folded-paper/</link>
+      <pubDate>Tue, 21 Aug 2018 00:00:00 +0000</pubDate>
+      
+      <guid>/post/waves-right-angles-folded-paper/</guid>
+      <description>1 Perpendicular Intersecting Waves1.1 Problem1.2 Solution2 A Folded Paper2.1 Problem2.2 Solution: Minimum Area2.3 Solution: Minimum Crease Length2.4 Solution: Using R (Without Differentiations)3 Referencelibrary(knitr)library(tidyverse)library(ggthemes)opts_chunk$set(fig.align = &amp;quot;center&amp;quot;,message = FALSE,warning = FALSE)I found these two problems in Simmons (2016). I enjoyed these problems because they require more thinking than just a mechanical application of derivatives.</description>
+    </item>
+    
+  </channel>
+</rss>

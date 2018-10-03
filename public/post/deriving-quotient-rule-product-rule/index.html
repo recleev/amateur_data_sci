@@ -1,0 +1,573 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta http-equiv="content-type" content="text/html; charset=utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="description" content="">
+  <meta name="generator" content="Hugo 0.49" />
+
+  <title>Deriving the Quotient Rule from the Product Rule &middot; The Amateur Data Scientist</title>
+
+  
+  
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/pure/1.0.0/pure-min.css">
+
+  <!--[if lte IE 8]>
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/pure/1.0.0/grids-responsive-old-ie-min.css">
+  <![endif]-->
+  <!--[if gt IE 8]><!-->
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/pure/1.0.0/grids-responsive-min.css">
+  <!--<![endif]-->
+
+  <!--[if lte IE 8]>
+  <link rel="stylesheet" href="/css/side-menu-old-ie.css">
+  <![endif]-->
+  <!--[if gt IE 8]><!-->
+  <link rel="stylesheet" href="/css/side-menu.css">
+  <!--<![endif]-->
+
+  <link rel="stylesheet" href="/css/blackburn.css">
+
+  
+  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css">
+
+  
+  <link href="https://fonts.googleapis.com/css?family=Raleway" rel="stylesheet" type="text/css">
+
+  
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.1/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
+
+ 
+  
+
+  
+  <link rel="stylesheet" href="//cdnjs.cloudflare.com/ajax/libs/highlight.js/9.12.0/styles/androidstudio.min.css">
+  <script src="//cdnjs.cloudflare.com/ajax/libs/highlight.js/9.12.0/highlight.min.js"></script>
+  
+  <script>hljs.initHighlightingOnLoad();</script>
+  
+
+  <link rel="shortcut icon" href="/img/favicon.ico" type="image/x-icon" />
+
+  
+  
+
+</head>
+
+
+<body>
+<div id="layout">
+
+  
+<a href="#menu" id="menuLink" class="menu-link">
+  
+  <span></span>
+</a>
+<div id="menu">
+
+  
+  <a class="pure-menu-heading brand" href="/">Blackburn</a>
+
+
+  <div class="pure-menu">
+    <ul class="pure-menu-list">
+      
+      
+        <li class="pure-menu-item">
+          <a class="pure-menu-link" href="/"><i class='fa fa-home fa-fw'></i>Home</a>
+      
+        </li>
+      
+      
+        <li class="pure-menu-item">
+          <a class="pure-menu-link" href="/post/"><i class='fa fa-list fa-fw'></i>Posts</a>
+      
+        </li>
+      
+      
+        <li class="pure-menu-item">
+          <a class="pure-menu-link" href="/about/"><i class='fa fa-user fa-fw'></i>About</a>
+      
+        </li>
+      
+      
+        <li class="pure-menu-item">
+          <a class="pure-menu-link" href="/contact/"><i class='fa fa-phone fa-fw'></i>Contact</a>
+      
+        </li>
+      
+    </ul>
+  </div>
+
+  <div class="pure-menu social">
+  <ul class="pure-menu-list">
+
+    
+
+    
+
+    
+    <li class="pure-menu-item">
+      <a class="pure-menu-link" href="https://twitter.com/recleev" target="_blank"><i class="fa fa-twitter-square fa-fw"></i>Twitter</a>
+    </li>
+    
+
+    
+
+    
+    <li class="pure-menu-item">
+      <a class="pure-menu-link" href="https://facebook.com/recleev" target="_blank"><i class="fa fa-facebook-square fa-fw"></i>Facebook</a>
+    </li>
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+    <li class="pure-menu-item">
+      <a class="pure-menu-link" href="https://linkedin.com/in/recleev" target="_blank"><i class="fa fa-linkedin-square fa-fw"></i>LinkedIn</a>
+    </li>
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+    <li class="pure-menu-item">
+      <a class="pure-menu-link" href="https://github.com/recleev" target="_blank"><i class="fa fa-github-square fa-fw"></i>GitHub</a>
+    </li>
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+  </ul>
+</div>
+
+
+  <div>
+  <div class="small-print">
+    <small></small>
+  </div>
+  <div class="small-print">
+    <small>Built with&nbsp;<a href="https://gohugo.io/" target="_blank">Hugo</a></small>
+    <small>Theme&nbsp;<a href="https://github.com/yoshiharuyamashita/blackburn" target="_blank">Blackburn</a></small>
+  </div>
+</div>
+
+</div>
+
+
+  <div id="main">
+
+
+<div class="header">
+  <h1>Deriving the Quotient Rule from the Product Rule</h1>
+  <h2></h2>
+</div>
+<div class="content">
+
+  <div class="post-meta">
+
+  <div>
+    <i class="fa fa-calendar fa-fw"></i>
+    <time>2018 Aug 8</time>
+  </div>
+
+  
+
+  
+
+  
+  
+  
+  <div>
+    <i class="fa fa-tags fa-fw"></i>
+    
+      <a class="post-taxonomy-tag" href="/tags/derivatives">derivatives</a>&nbsp;&#47;
+    
+      <a class="post-taxonomy-tag" href="/tags/ggplot2">ggplot2</a>&nbsp;&#47;
+    
+      <a class="post-taxonomy-tag" href="/tags/mathjax">mathjax</a>&nbsp;&#47;
+    
+      <a class="post-taxonomy-tag" href="/tags/tangents">tangents</a>
+    
+  </div>
+  
+  
+
+</div>
+
+  <div id="TOC">
+<ul>
+<li><a href="#from-product-to-quotient"><span class="toc-section-number">1</span> From Product to Quotient</a><ul>
+<li><a href="#product-rule-of-differentiation"><span class="toc-section-number">1.1</span> Product Rule of Differentiation</a></li>
+<li><a href="#quotient-rule-of-differentiation"><span class="toc-section-number">1.2</span> Quotient Rule of Differentiation</a></li>
+<li><a href="#derive-the-quotient-rule-from-the-product-rule"><span class="toc-section-number">1.3</span> Derive the Quotient Rule from the Product Rule</a></li>
+</ul></li>
+<li><a href="#problems"><span class="toc-section-number">2</span> Problems</a><ul>
+<li><a href="#extend-the-product-rule-and-prove"><span class="toc-section-number">2.1</span> Extend the Product Rule and Prove</a></li>
+<li><a href="#tangent-lines-intersecting-on-a-curve"><span class="toc-section-number">2.2</span> Tangent Lines Intersecting on a Curve</a></li>
+</ul></li>
+<li><a href="#reference"><span class="toc-section-number">3</span> Reference</a></li>
+</ul>
+</div>
+
+<div id="from-product-to-quotient" class="section level1">
+<h1><span class="header-section-number">1</span> From Product to Quotient</h1>
+<p>I have always had a hard time remembering the quotient rule for derivatives. I do not know how I remembered it while studying calculus, but today I learned from <span class="citation">Simmons (2016)</span> that I can derive it from the product rule.</p>
+<div id="product-rule-of-differentiation" class="section level2">
+<h2><span class="header-section-number">1.1</span> Product Rule of Differentiation</h2>
+<p><span class="math display">\[\frac{d}{dx}uv = u\frac{dv}{dx} \ + \ v\frac{du}{dx}\]</span></p>
+<p>I think this is a very easy pattern to memorize.</p>
+</div>
+<div id="quotient-rule-of-differentiation" class="section level2">
+<h2><span class="header-section-number">1.2</span> Quotient Rule of Differentiation</h2>
+<p><span class="math display">\[\frac{d}{dx} \left( \frac{u}{v} \right) = \frac{v \frac{du}{dx} - u \frac{dv}{dx}}{v^2}\]</span></p>
+<p>I find this one difficult and boring to remember.</p>
+</div>
+<div id="derive-the-quotient-rule-from-the-product-rule" class="section level2">
+<h2><span class="header-section-number">1.3</span> Derive the Quotient Rule from the Product Rule</h2>
+<p>We can also write <span class="math inline">\(\cfrac{u}{v}\)</span> as <span class="math inline">\(uv^\text{-1}\)</span>. We also know from the power rule that,</p>
+<p><span class="math display">\[
+\frac{d}{dx}x^n = nx^{n-1}
+\]</span></p>
+<p>Then we can show,</p>
+<p><span class="math display">\[
+\begin{align}
+\frac{d}{dx}uv^\text{-1} &amp;= u\frac{dv^\text{-1}}{dx} + v^\text{-1}\frac{du}{dx}
+\\
+\\
+&amp;= u\left(-v^\text{-2}\frac{dv}{dx}\right) + \frac{1}{v}\frac{du}{dx}
+\\
+\\
+&amp;= \left(\frac{-u}{v^2}\right)\frac{dv}{du} + \frac{1}{v}\frac{du}{dx}
+\\
+\\
+&amp;= \frac{-u \frac{dv}{dx} + v \frac{du}{dx}}{v^2}
+\\
+\\
+\frac{d}{dx} \left( \frac{u}{v} \right) &amp;= \frac{v \frac{du}{dx} - u \frac{dv}{dx}}{v^2}
+\end{align}
+\]</span></p>
+<p>I always prefered deriving rules than memorizing them.</p>
+</div>
+</div>
+<div id="problems" class="section level1">
+<h1><span class="header-section-number">2</span> Problems</h1>
+<div id="extend-the-product-rule-and-prove" class="section level2">
+<h2><span class="header-section-number">2.1</span> Extend the Product Rule and Prove</h2>
+<p><span class="math display">\[
+\frac{d}{dx}uvw = vw\frac{du}{dx} + uw\frac{dv}{du} + uv\frac{dw}{dx}
+\]</span></p>
+<p>We can rewrite <span class="math inline">\(\frac{d}{dx}uvw\)</span> as <span class="math inline">\(\frac{d}{dx}(uv)w\)</span>. After this, we already know what <span class="math inline">\(\frac{d}{dx}uv\)</span> is.</p>
+<p><span class="math display">\[
+\begin{align}
+\frac{d}{dx}(uv)w &amp;= (uv)\frac{dw}{dx} + w\frac{d(uv)}{dx}
+\\
+\\
+&amp;= uv\frac{dw}{dx} + w \left( v\frac{du}{dx} + u\frac{dv}{dx}\right)
+\\
+\\
+&amp;= uv\frac{dw}{dx} + vw\frac{du}{dx} + uw\frac{dv}{dx}
+\\
+\\
+\frac{d}{dx}uvw &amp;= vw\frac{du}{dx} + uw\frac{dv}{du} + uv\frac{dw}{dx}
+\end{align}
+\]</span></p>
+</div>
+<div id="tangent-lines-intersecting-on-a-curve" class="section level2">
+<h2><span class="header-section-number">2.2</span> Tangent Lines Intersecting on a Curve</h2>
+<p>Show that the tangents to the curve <span class="math inline">\(y = x^2\)</span> at points <span class="math inline">\((a, a^2)\)</span> and <span class="math inline">\((a + 2, (a + 2)^2)\)</span> intersect on the curve <span class="math inline">\(y = x^2 - 1\)</span>.</p>
+<pre class="r"><code>library(tidyverse)
+library(ggthemes)
+
+parabolas &lt;- 
+  dplyr::tibble(
+  abscissa = seq(-3, 3, by = 0.03),
+  ordinate_1 = abscissa ^ 2,
+  ordinate_2 = ordinate_1 - 1
+) %&gt;% 
+  tidyr::gather(
+    ordinate_type,
+    ordinate,
+    ordinate_1, ordinate_2
+  ) %&gt;%
+  ggplot(aes(
+    abscissa,
+    ordinate,
+    color = ordinate_type
+  )) +
+  geom_line(show.legend = FALSE) +
+  # gl = o to remove the grid lines
+  ggthemes::theme_pander(gl = 0) +
+  ggthemes::scale_color_pander() +
+  ggplot2::labs(
+    x = &quot;x&quot;,
+    y = &quot;y&quot;
+  ) +
+  # parse = TRUE ensures that the label gets printed as an equation and not as
+  # it appears in the string
+  ggplot2::annotate(
+    &quot;text&quot;, 
+    x = 0.5, 
+    y = 0.8,
+    label = &quot;y == x^2&quot;,
+    parse = TRUE
+  ) +
+  ggplot2::annotate(
+    &quot;text&quot;, 
+    x = 1.75, 
+    y = 1,
+    label = &quot;y == x^2 - 1&quot;,
+    parse = TRUE
+  )
+
+parabolas</code></pre>
+<p><img src="/post/2018-08-08-deriving-the-quotient-rule-from-the-product-rule_files/figure-html/parabola-1.png" width="672" style="display: block; margin: auto;" /></p>
+<p>Find the slope of tangent lines on <span class="math inline">\(y = x^2\)</span>,</p>
+<p><span class="math display">\[
+m = \frac{dy}{dx} = 2x
+\]</span></p>
+<p>At <span class="math inline">\((a, a^2)\)</span>,</p>
+<p><span class="math display">\[
+\begin{align}
+m &amp;= 2a
+\\
+\\
+a^2 &amp;= 2a(a) + b
+\\
+\\
+a^2 &amp;= 2a^2 + b
+\\
+\\
+b &amp;= -a^2
+\\
+\\
+y &amp;= 2a(x) - a^2
+\end{align}
+\]</span></p>
+<p>At <span class="math inline">\((a + 2 , (a + 2)^2)\)</span>,</p>
+<p><span class="math display">\[
+\begin{align}
+m &amp;= 2(a + 2)
+\\
+\\
+(a + 2)^2 &amp;= 2(a + 2)(a + 2) + b
+\\
+\\
+(a + 2)^2 &amp;= 2(a + 2)^2 + b
+\\
+\\
+b &amp;= -(a + 2)^2
+\\
+\\
+y &amp;= 2(a + 2)x - (a + 2)^2
+\end{align}
+\]</span></p>
+<p>Since we have to prove that the two tangent lines intersect on the curve <span class="math inline">\(y = x^2 - 1\)</span>, then the two tangent lines should have the same <span class="math inline">\(y\)</span> at a given <span class="math inline">\(x\)</span> on the curve.</p>
+<p><span class="math display">\[
+\begin{align}
+2a(x) - a^2 &amp;= 2(a + 2)x - (a + 2)^2
+\\
+\\
+2ax - a^2 &amp;= 2ax + 4x - (a^2 + 4a + 4)
+\\
+\\
+2ax - a^2 &amp;= 2ax + 4x - a^2 - 4a - 4
+\\
+\\
+0 &amp;= 4x - 4a - 4
+\\
+\\
+a &amp;= x - 1
+\end{align}
+\]</span></p>
+<p>From one of the tangent lines,</p>
+<p><span class="math display">\[
+\begin{align}
+y &amp;= 2ax - a^2
+\\
+&amp;= 2(x - 1)x - (x - 1^2)
+\\
+&amp;= 2x^2 - 2x - (x^2 - 2x + 1)
+\\
+&amp;= 2x^2 - 2x - x^2 + 2x - 1
+\\
+y &amp;= x^2 - 1
+\end{align}
+\]</span></p>
+<pre class="r"><code>a &lt;- -0.3
+
+slope_1 = 2 * a
+
+intercept_1 = -a^2
+
+slope_2 = 2 * (a + 2)
+
+intercept_2 = -(a + 2)^2
+
+parabolas +
+  geom_abline(
+    slope = slope_1,
+    intercept = intercept_1,
+    color = ggthemes::palette_pander(3)[3]
+  ) +
+  geom_abline(
+    slope = slope_2,
+    intercept = intercept_2,
+    color = ggthemes::palette_pander(5)[5]
+  )</code></pre>
+<p><img src="/post/2018-08-08-deriving-the-quotient-rule-from-the-product-rule_files/figure-html/parabola_tangents-1.png" width="672" style="display: block; margin: auto;" /></p>
+<p>Graphically, this proves that the tangent lines of <span class="math inline">\(y = x^2\)</span> at <span class="math inline">\((a, a^2)\)</span> and <span class="math inline">\((a + 2, (a + 2)^2)\)</span> intersect at <span class="math inline">\(y = x^2 - 1\)</span>.</p>
+</div>
+</div>
+<div id="reference" class="section level1">
+<h1><span class="header-section-number">3</span> Reference</h1>
+<p>Problems and lessons from</p>
+<div id="refs" class="references">
+<div id="ref-cwag2016">
+<p>Simmons, George F. 2016. <em>Calculus with Analytic Geometry</em>. 2nd Edition. McGraw-Hill Education.</p>
+</div>
+</div>
+</div>
+
+
+  
+<div class="prev-next-post pure-g">
+  <div class="pure-u-1-24" style="text-align: left;">
+    
+    <a href="/post/tangent-non-existent/"><i class="fa fa-chevron-left"></i></a>
+    
+  </div>
+  <div class="pure-u-10-24">
+    
+    <nav class="prev">
+      <a href="/post/tangent-non-existent/">Tangent Lines and Non-Existent Ones</a>
+    </nav>
+    
+  </div>
+  <div class="pure-u-2-24">
+    &nbsp;
+  </div>
+  <div class="pure-u-10-24">
+    
+    <nav class="next">
+      <a href="/post/waves-right-angles-folded-paper/">Waves Intersecting at Right Angles and a Folded Paper</a>
+    </nav>
+    
+  </div>
+  <div class="pure-u-1-24" style="text-align: right;">
+    
+    <a href="/post/waves-right-angles-folded-paper/"><i class="fa fa-chevron-right"></i></a>
+    
+  </div>
+</div>
+
+
+
+  
+<div id="disqus_thread"></div>
+<script type="text/javascript">
+
+(function() {
+    
+    
+    if (window.location.hostname == "localhost")
+        return;
+
+    var dsq = document.createElement('script'); dsq.type = 'text/javascript'; dsq.async = true;
+    var disqus_shortname = 'the-amateur-data-scientist';
+    dsq.src = '//' + disqus_shortname + '.disqus.com/embed.js';
+    (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(dsq);
+})();
+</script>
+<noscript>Please enable JavaScript to view the <a href="http://disqus.com/?ref_noscript">comments powered by Disqus.</a></noscript>
+<a href="http://disqus.com/" class="dsq-brlink">comments powered by <span class="logo-disqus">Disqus</span></a>
+
+
+</div>
+
+</div>
+</div>
+<script src="/js/ui.js"></script>
+
+
+<script>
+  
+  if (window.location.hostname != "localhost") {
+    (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+    (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+    m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+    })(window,document,'script','//www.google-analytics.com/analytics.js','ga');
+
+    ga('create', 'UA-119602814-1', 'auto');
+    ga('send', 'pageview');
+  }
+</script>
+
+
+
+
+
+<script src="//https://amateurdatasci.rbind.io/js/math-code.js"></script>
+
+    <script type="text/javascript"
+      src="https://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML">
+    </script>
+
+</body>
+</html>
+

@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes" ?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>Git on The Amateur Data Scientist</title>
+    <link>/tags/git/</link>
+    <description>Recent content in Git on The Amateur Data Scientist</description>
+    <generator>Hugo -- gohugo.io</generator>
+    <language>en-us</language>
+    <lastBuildDate>Thu, 24 May 2018 00:00:00 +0000</lastBuildDate>
+    
+	<atom:link href="/tags/git/index.xml" rel="self" type="application/rss+xml" />
+    
+    
+    <item>
+      <title>All About Git and Github in RStudio: A Step-by-Step Guide for Beginners Like Me (With Pictures!)</title>
+      <link>/post/2018-05-24-all-about-git/</link>
+      <pubDate>Thu, 24 May 2018 00:00:00 +0000</pubDate>
+      
+      <guid>/post/2018-05-24-all-about-git/</guid>
+      <description>1 Git Newbie2 Commit, Push, and Pull3 Let’s Git It On!3.1 Create an account in Github3.2 Once we have an account, we can immediately create a repository.3.3 Configure Git in R Studio3.4 Create new project with version control3.5 Copy Repository URL and Create Project4 Git Up, Git Down4.1 R Studio’s Easy Git Interface.4.2 First Commit4.3 Push the Changes4.</description>
+    </item>
+    
+  </channel>
+</rss>

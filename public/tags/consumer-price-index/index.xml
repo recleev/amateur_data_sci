@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes" ?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>Consumer Price Index on The Amateur Data Scientist</title>
+    <link>/tags/consumer-price-index/</link>
+    <description>Recent content in Consumer Price Index on The Amateur Data Scientist</description>
+    <generator>Hugo -- gohugo.io</generator>
+    <language>en-us</language>
+    <lastBuildDate>Wed, 03 Oct 2018 00:00:00 +0000</lastBuildDate>
+    
+	<atom:link href="/tags/consumer-price-index/index.xml" rel="self" type="application/rss+xml" />
+    
+    
+    <item>
+      <title>From Messy to Tidy: Gather All Those Dates</title>
+      <link>/post/messy-tidy-tidyr-gather/</link>
+      <pubDate>Wed, 03 Oct 2018 00:00:00 +0000</pubDate>
+      
+      <guid>/post/messy-tidy-tidyr-gather/</guid>
+      <description>1 Tidy Data: Long But Machine Readable2 Consumer Price Index of the Philippines3 Messy Data Cues3.1 Wide not Long3.2 Dates as Columns3.3 Average Columns4 Short Steps to a Long Table4.1 Remove Columns with Names that Starts with the Same Characters4.2 Gather the Date Columns4.3 Convert to YYYY-MM-DD5 Not Yet Tidy, A Little Less Messy6 Code7 References1 Tidy Data: Long But Machine ReadableWorking with data made me conscious of how we compile, store, and share data.</description>
+    </item>
+    
+  </channel>
+</rss>

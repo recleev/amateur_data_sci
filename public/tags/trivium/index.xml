@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes" ?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>Trivium on The Amateur Data Scientist</title>
+    <link>/tags/trivium/</link>
+    <description>Recent content in Trivium on The Amateur Data Scientist</description>
+    <generator>Hugo -- gohugo.io</generator>
+    <language>en-us</language>
+    <lastBuildDate>Sat, 19 May 2018 00:00:00 +0000</lastBuildDate>
+    
+	<atom:link href="/tags/trivium/index.xml" rel="self" type="application/rss+xml" />
+    
+    
+    <item>
+      <title>The Crusade: Text Mining Trivium Songs</title>
+      <link>/post/trivium-songs/</link>
+      <pubDate>Sat, 19 May 2018 00:00:00 +0000</pubDate>
+      
+      <guid>/post/trivium-songs/</guid>
+      <description>1 A View of Mining Lyrics2 Into the Mouth of R We March3 Pull Harder on the Strings of Lyrics with geniusR4 Text Dismantled5 Anthem (We are the Functions)6 Album That Spawned the Most Words7 Tread the Words8 Torn Between Term Frequency and Inverse Document Frequency9 Negativity Thrives10 These Sentiments Can’t Tear Us Apart(Warning: NSFW Language)
+1 A View of Mining LyricsTrivium is my favorite heavy metal band.</description>
+    </item>
+    
+  </channel>
+</rss>

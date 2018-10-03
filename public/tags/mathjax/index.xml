@@ -1,0 +1,48 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes" ?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>Mathjax on The Amateur Data Scientist</title>
+    <link>/tags/mathjax/</link>
+    <description>Recent content in Mathjax on The Amateur Data Scientist</description>
+    <generator>Hugo -- gohugo.io</generator>
+    <language>en-us</language>
+    <lastBuildDate>Fri, 21 Sep 2018 00:00:00 +0000</lastBuildDate>
+    
+	<atom:link href="/tags/mathjax/index.xml" rel="self" type="application/rss+xml" />
+    
+    
+    <item>
+      <title>Rain Drops: Condensation and Acceleration</title>
+      <link>/post/rain-drops-condensation-acceleration/</link>
+      <pubDate>Fri, 21 Sep 2018 00:00:00 +0000</pubDate>
+      
+      <guid>/post/rain-drops-condensation-acceleration/</guid>
+      <description>1 Problem2 Solution3 Reference1 ProblemProblem 49, page 189 in Simmons (2016)
+Newton’s second law of motion
+\[F = ma = m \frac{dv}{dt}\]
+can be written in the form
+\[\begin{equation}F = \frac{d \left( mv \right)}{dt} \tag{1.1}\end{equation}\]
+in terms of the momentum \(mv\) of a particle of mass \(m\) and velocity \(v\), and remains valid even if \(m\) is not constant.</description>
+    </item>
+    
+    <item>
+      <title>Sliding a Ladder and Filling a Bowl</title>
+      <link>/post/sliding-ladder-filling-bowl/</link>
+      <pubDate>Fri, 07 Sep 2018 00:00:00 +0000</pubDate>
+      
+      <guid>/post/sliding-ladder-filling-bowl/</guid>
+      <description>1 Sliding Ladder1.1 Problem1.2 Solution2 Filling a Bowl2.1 Problem2.2 Solution3 References1 Sliding Ladder1.1 ProblemProblem 116, Page 142 in Simmons (2016)
+A ladder 20 ft long is leaning against a wall 12 ft high, with its top projecting over the wall. Its bottom is being pulled away from the wall at the constant rate of 5 ft/min. Find how rapidly the top of the ladder is approaching the ground:</description>
+    </item>
+    
+    <item>
+      <title>Deriving the Quotient Rule from the Product Rule</title>
+      <link>/post/deriving-quotient-rule-product-rule/</link>
+      <pubDate>Wed, 08 Aug 2018 00:00:00 +0000</pubDate>
+      
+      <guid>/post/deriving-quotient-rule-product-rule/</guid>
+      <description>1 From Product to Quotient1.1 Product Rule of Differentiation1.2 Quotient Rule of Differentiation1.3 Derive the Quotient Rule from the Product Rule2 Problems2.1 Extend the Product Rule and Prove2.2 Tangent Lines Intersecting on a Curve3 Reference1 From Product to QuotientI have always had a hard time remembering the quotient rule for derivatives. I do not know how I remembered it while studying calculus, but today I learned from Simmons (2016) that I can derive it from the product rule.</description>
+    </item>
+    
+  </channel>
+</rss>

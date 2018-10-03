@@ -1,0 +1,464 @@
+---
+title: 'Three Decades of the Philippine Stock Exchange Index: Closing Prices, Returns,
+  and a Naive Simulation'
+author: Recle Etino Vibal
+date: '2018-07-20'
+categories:
+  - economics
+  - finance
+  - time series
+tags:
+  - investment
+  - portfolio
+  - psei
+  - returns
+  - stocks
+slug: three-decades-psei-prices-returns-naive-simulation
+output:
+  blogdown::html_page:
+    toc: yes
+    number_sections: true
+editor_options:
+  chunk_output_type: console
+---
+
+```{r libraries-opts, message=FALSE, warning=FALSE, include=TRUE}
+
+library(knitr)
+library(tidyverse)
+library(quantmod)
+library(magrittr)
+library(janitor)
+library(ggthemes)
+library(ggsci)
+library(drlib)
+library(lubridate)
+library(scales)
+
+opts_chunk$set(
+  message = FALSE,
+  warning = FALSE,
+  echo = TRUE,
+  fig.align = "center",
+  fig.width = 10,
+  fig.height = 7
+)
+
+```
+
+
+# Rise and Fall of Stocks
+
+I recently regained my interest in stocks after news of a bearish Philippine stock market was speculated in 2018 June. Stock prices go up and down on a regular basis and some people cannot live with that kind of volatility on a daily basis. The most appealing stocks investment strategy for me is the buy and hold because it requires the least amount of monitoring of stock prices and therefore less stress. Which led me to ask: If we follow a buy and hold strategy for the [Philippine Stock Exchange Index](http://www.pse.com.ph/stockMarket/marketInfo-marketActivity.html?tab=1&indexName=PSEi) for the last 30 years, what would have been our earnings/loss from such an investment?
+
+# Thirty Years of PSEi Prices
+
+Before I can answer my question, I must have PSEi data first. Luckily, (1) `Yahoo!` keeps PSEi data, and (2) `quantmod::getSymbols()` allows us to retrieve the PSEi historical prices from `Yahoo!` via `R`.
+
+```{r get-psei_data}
+
+psei_historical_data <- 
+  # obtain historical psei data from yahoo; I am only interested on closing
+  # prices from 1987 Jun to 2018 Jun; yahoo has psei up to 1987 Jan I think
+  getSymbols(
+    "PSEI.PS", 
+    from = "1987-06-01", 
+    auto.assign = FALSE
+  ) %>% 
+  # convert to tibble for tidy analysis
+  as_tibble() %>% 
+  # convert rownames of dates to a column of dates, because tibbles do not
+  # support rownames
+  rownames_to_column("trading_date")
+
+```
+
+Note the added steps I did after retrieving the historical PSEi prices. The output of `getSymbols()` is a time series object. I am not that versed yet with time series like `zoo` and `xts`, and I also prefer working with tidy data in general even if I have to work with time. [tibbletime](https://cran.r-project.org/web/packages/tibbletime/index.html) comes to mind when talking about time series and tibbles, but I am not yet familiar with its functions, so I chose to avoid it for now and just work with what I know with `{dplyr}`.
+
+After converting to a tibble, I had to use `tibble::rownames_to_column()` because `xts` and `zoo` objects are matrices with time index as row names. Again, I prefer tibbles, and since [tibbles do not support row names](https://adv-r.hadley.nz/vectors-chap.html#rownames), this is a necessary step.
+
+Next is to select only the end-of-month closing prices. The logic behind my code is in the chunk.
+
+```{r monthly-psei}
+
+# convert daily data to monthly data
+monthly_psei <- 
+  psei_historical_data %>%
+  # choose only the relevant date and closing prices
+  select(trading_date, PSEI.PS.Close) %>% 
+  # convert date string column to date and create a new column to tag year
+  # dates; this step is necessary in selecting only the closing prices at the
+  # end of the month
+  mutate(
+    trading_date = ymd(trading_date),
+    year_month_trading_psei = make_date(
+      year(trading_date), 
+      month(trading_date)
+    )
+  ) %>% 
+  # yahoo somehow has missing closing prices on some dates; I am not sure why,
+  # but I think it is safe to remove for this casual study
+  drop_na(PSEI.PS.Close) %>%
+  # remove dates after 2018 Jul
+  dplyr::filter(trading_date < ymd("2018-07-01")) %>% 
+  # select only end-of-month closing prices by taking only the max day on every
+  # year month; ungroup for good measure and clean names for tidy column names
+  group_by(year_month_trading_psei) %>% 
+  dplyr::filter(trading_date == max(trading_date)) %>% 
+  ungroup() %>%
+  clean_names()
+
+# I will be using this date caption in the plots
+start_date <- 
+  monthly_psei %$%
+  min(trading_date) %>% 
+  ymd() %>% 
+  format(format = "%Y %b %d")
+
+end_date <- 
+  monthly_psei %$%
+  max(trading_date) %>% 
+  ymd() %>% 
+  format(format = "%Y %b %d")
+
+date_caption <- 
+  sprintf(
+    "Data from %s to %s",
+    start_date,
+    end_date
+  )
+
+# Create Peso Formater ----------------------------------------------------
+
+# this is for the labels of graphs later
+peso <- 
+  dollar_format(prefix = "\u20B1")
+
+max_price <- 
+  psei_historical_data %$%
+  max(PSEI.PS.Close, na.rm = TRUE) %>% 
+  peso()
+
+max_price_date <- 
+  psei_historical_data %>% 
+  dplyr::filter(PSEI.PS.Close == max(PSEI.PS.Close, na.rm = TRUE)) %>% 
+  pull(trading_date) %>% 
+  ymd() %>% 
+  format(format = "%Y %b %d")
+
+min_price <- 
+  psei_historical_data %$%
+  min(PSEI.PS.Close, na.rm = TRUE) %>% 
+  peso()
+
+min_price_date <- 
+  psei_historical_data %>% 
+  dplyr::filter(PSEI.PS.Close == min(PSEI.PS.Close, na.rm = TRUE)) %>% 
+  pull(trading_date) %>% 
+  ymd() %>% 
+  format(format = "%Y %b %d")
+
+```
+
+# Ups and Downs but Going Up
+
+```{r plot-psei-monthly, fig.cap="Historical Monthly Closing Prices of PSEi"}
+
+monthly_psei %>% 
+  ggplot(aes(trading_date, psei_ps_close)) +
+  geom_line(color = palette_pander(1), size = 1) +
+  # this is a nice way to handle date breaks and labels; expand is just to
+  # ensure that no label is outside the boundaries of the plot
+  scale_x_date(
+    date_breaks = "4 years", 
+    date_labels = "%Y",
+    expand = c(0.03, 0.03)
+  ) +
+  # peso currency needed for clarity
+  scale_y_continuous(labels = peso) +
+  # gl = 0 removes the grid lines from the plot; I just don't think the lines
+  # are necessary
+  theme_pander(gl = 0) +
+  labs(
+    x = "Year",
+    y = "Monthly Closing Price",
+    caption = date_caption
+  )
+
+```
+
+Since `r start_date`, the historical PSEi end-of-month closing prices show a typical stock behavior. The price goes up sometimes, then goes down, but after 31 years, the overall trend is up. It seems that if we invested money on PSEi on `r start_date`, we would have a very good amount by `r end_date`.
+
+**Trivia**: The lowest end-of-month closing price of PSEi was at `r min_price` on `r min_price_date`, and the highest was at `r max_price` on `r max_price_date`.
+
+# Month-to-Month Returns
+
+```{r psei-earnings}
+
+returns_monthly <- 
+  monthly_psei %>%
+  # returns is just the net change of the current price from the previous price;
+  # an increase in price is a positive return; otherwise, it is a negative
+  # return
+  mutate(
+    psei_returns = (psei_ps_close - dplyr::lag(psei_ps_close)) / dplyr::lag(psei_ps_close)
+  )
+
+max_return <- 
+  returns_monthly %$%
+  max(psei_returns, na.rm = TRUE) %>% 
+  percent()
+
+max_return_date <- 
+  returns_monthly %>% 
+  dplyr::filter(psei_returns == max(psei_returns, na.rm = TRUE)) %>% 
+  pull(trading_date) %>% 
+  format(format = "%Y %b %d")
+
+min_return <- 
+  returns_monthly %$%
+  min(psei_returns, na.rm = TRUE) %>% 
+  percent()
+
+min_return_date <- 
+  returns_monthly %>% 
+  dplyr::filter(psei_returns == min(psei_returns, na.rm = TRUE)) %>% 
+  pull(trading_date) %>% 
+  format(format = "%Y %b %d")
+
+```
+
+A stock's return is the gain or loss of the current price relative to the previous price. We want to know if we buy a stock now, will we gain or lose money if we sell it at the next available price after a period.
+
+```{r plot-psei-earnings, fig.cap="Percent Monthly Returns of PSEi"}
+
+returns_monthly %>%
+  ggplot(aes(trading_date, psei_returns)) +
+  geom_line(color = palette_pander(2)[2], size = 1) +
+  # add a reference for the zero return to emphasize the gains and losses;
+  # linetype = 2 is to make the line dashed
+  geom_hline(
+    yintercept = 0, 
+    color = palette_pander(5)[5],
+    linetype = 2,
+    size = 1
+  ) +
+  scale_y_percent() +
+  scale_x_date(date_breaks = "3 years", date_labels = "%Y") +
+  theme_pander(gl = 0) +
+  labs(
+    x = "Year",
+    y = "Percent Return",
+    caption = date_caption
+  )
+
+```
+
+The PSEi's returns over time emphasizes a stock's price volatility and randomness. Once we buy a stock, we cannot be sure if the next price will give us profits. It becomes more stressful if we keep seeing negative returns and wonder if we can wait for a positive return. That is assuming the price will be positive at some time in the future.
+
+**Trivia**: The biggest monthly return of PSEi was `r max_return` on `r max_return_date` and the lowest monthly return was `r min_return` on `r min_return_date`.
+
+# Buy and Hold
+
+The randomness of stock prices are usually enough to push away people from investing in the stock market. Monitoring prices can be very stressful when you see the market and the stocks in your portfolio all going down.
+
+There are different opinions and strategies on how to invest in stocks and to ensure low risks and decent rewards. My favorite strategy is the *buy and hold*, buy a stock, hold it for the long run. I like this strategy because it is less stressful than watching the prices everyday and buying/selling at opportune moments.
+
+Another strategy I like with stocks is the regular buying of stocks at fixed intervals with a fixed budget. For example, we can promise ourselves that we will invest `r peso(6000)` every six months on the stock market. When the price of our portfolio is up, we buy less. When the price of our portfolio is down, we buy more. Then we hold.
+
+Buy and hold is not a sure way to win in the stock market. If the market goes down, and stays down for 100 years, then buy and hold will fail for the investor who wants to benefit from the investment. However, I think this is the simplest, easiest, and less stressful strategy one can adopt.
+
+To illustrate buy and hold, I will simulate the strategy over the PSEi data.
+
+*Note: This is only for illustration purposes. I am only using PSEi as a representative stock. One cannot really buy PSEi as a stock and not as fractions of stocks either. Investing a fixed amount on stocks and indices is a little bit more complicated than what I am about to do here.*
+
+## Simulating Buy and Hold Over Three Decades of PSEi
+
+```{r buy-hold-simulation}
+
+invest_psei_simulation <-
+  monthly_psei %>% 
+  # choose only Jun and Dec
+  dplyr::filter(month(trading_date) %in% c(6, 12)) %>% 
+  arrange(trading_date) %>%
+  mutate(
+    budget = 6000,
+    stocks_bought = budget / psei_ps_close,
+    cumulative_cost = cumsum(budget),
+    buy_hold_stocks = cumsum(stocks_bought),
+    buy_hold = buy_hold_stocks * psei_ps_close
+  )
+
+```
+
+The simulation is as follows: Starting `r start_date`, the hypothetical investor uses `r peso(6000)` to buy PSEi stocks every six months until `r end_date`. The hypothetical investor will accumulate a `r (6000 * nrow(invest_psei_simulation)) %>% peso()` over this period.
+
+## More Than a Million
+
+```{r plot-buy-hold-simulation, fig.cap=paste("Simulated Portfolio Value of a PSEi Investment.", sprintf("%s Investment Every Six Months from %s to %s",peso(6000),format(start_date, format = "%Y %b %d"),format(end_date, format = "%Y %b %d")))}
+
+invest_psei_simulation %>% 
+   ggplot(aes(
+    trading_date,
+    buy_hold
+   )) +
+   geom_line(color = palette_pander(6)[6], size = 1) +
+   geom_hline(
+     yintercept = 10^6, 
+     color = palette_pander(4)[4],
+     linetype = 2,
+     size = 1
+   ) +
+   scale_x_date(date_breaks = "3 years", date_labels = "%Y") +
+   scale_color_pander() +
+   scale_y_continuous(labels = peso) +
+   theme_pander(gl = 0) +
+  labs(
+    x = "Year",
+    y = "Portfolio Value"
+  )
+
+```
+
+Our hypothetical investor breaches the `r peso(1000000)` mark long before the end of the simulation. The final value of the buy and hold portfolio is `r invest_psei_simulation %>% filter(trading_date == max(trading_date)) %>% pull(buy_hold) %>% peso()`.
+
+# Bank Deposit vs Buy and Hold Investment
+
+Our hypothetical investor reached a million, but is it worth risking money in the stock market when one can just save in the bank. In the Philippines, if we save `r peso(6000)` every six months for 30 years, I think the best interest rate we can get is 0.75% per annum. What is the annual and final interest rate of our hypothetical buy and hold investment in the PSEi?
+
+I had to revisit the equation for ordinary annuity:
+
+$$
+\begin{equation}
+FV=A\frac{(1+i)^n - 1}{i}
+(\#eq:annuity)
+\end{equation}
+$$
+
+$FV$ is the future value or the money we have after a certain period, $A$ is the annuity or the regular payment per period, $i$ is the interest rate, and $n$ is the number of interest periods. 
+
+Equation \@ref(eq:annuity) is easy to use when we want to find $FV$, $A$, or $n$. Finding $i$ needs a bit of iteration. However, equation \@ref(eq:annuity) gave me problems when working with years with negative interest. My solution was to go back to the definition of an annuity, i.e. a series of compound interest of periodic payments with fixed rate, and work on that definition to iterate the interest rate. The simulation takes longer because of this method, so if anyone has a better way to determine this, I am willing to listen. 
+
+```{r annuity-rate-function}
+
+compute_interest_rate_annuity <- function(
+  future_value, 
+  annuity, 
+  period_annuity
+) {
+  
+  # the choice of -0.15 as a starting point is arbitrary and what is only the
+  # best for this report given the pattern; for general purposes I think the
+  # best starting point is -1 to account for negative interest and assuming that
+  # one only loses money and will not go into debt
+  interest_rate <- -0.15
+  
+  while (
+    # this is the definition of annuity
+    sum((annuity * (1 + interest_rate) ^ (period_annuity:1))) < future_value
+  ) {
+    interest_rate <- interest_rate + 0.000001
+  }
+  
+  interest_rate
+}
+
+```
+
+*Note: The equation above has the assumption that the ordinary annuity starts at the end of year one, like the case in this investment simulation, and the future value also at year n, seemingly like this simulation. However, the protfolio value after the investment already incurs a gain / loss because of price differences. This makes this investment schedule act like an annuity due where the future value is at a year ahead of the last annuity period. For my simulation and the equation above to be consistent, find the future value using the interest at any year n using ordinary annuity, then add an interest, i.e.* $FV * (1 + i)$.
+
+```{r iterate-annuity-rate}
+
+annual_interest_rate_estimated <- 
+  invest_psei_simulation %>%
+  # select only Dec because the full payment of 12k was made on Dec and will
+  # mature on Dec the following period
+  dplyr::filter(month(trading_date) == 12) %>%
+  arrange(trading_date) %>% 
+  # this number of year/s is the end of the year investment was made; the
+  # implication is future value at the end of year one is equal to the portfolio
+  # value at the end of year one
+  mutate(n_years = row_number()) %>%
+  dplyr::filter(n_years > 0) %>% 
+  mutate(
+    avg_interest_rate = map2_dbl(
+      # note that this keeps that assumption that end of year investments are
+      # part of the portfolio value; i.e. annuity is a part of the future value
+      # at the end of the year
+      buy_hold, 
+      n_years,
+      # possibly ensures that any error will not stop the simulation, just to be
+      # safe :)
+      possibly(compute_interest_rate_annuity, NA),
+      # 12000 is the yearly annuity for a 6000 annuity every six months
+      annuity = 12000
+    )
+  )
+
+```
+
+The interests estimated here are the equivalent growth rate of the investment at certain years. Given the current portfolio value, the annual `r peso(12000)` investment after $n$ years will have an equivalent of $i$ growth / decay rate. This redistributes the portfolio value's increase or decrease equally in terms of interest every year despite the variability of PSEi's price in those years.
+
+```{r plot-annual-interest, fig.cap=paste("Estimated Annual Interest Rate of PSEi Investment.", sprintf("%s Investment Every Six Months from %s to %s",peso(6000),format(start_date, format = "%Y %b %d"),format(end_date, format = "%Y %b %d")))}
+
+annual_interest_rate_estimated %>% 
+  ggplot(aes(
+    trading_date, 
+    avg_interest_rate,
+    label = percent(avg_interest_rate),
+    vjust = if_else(
+      avg_interest_rate > 0,
+      -0.5, 1
+    ),
+    fill = avg_interest_rate > 0
+  )) +
+  geom_col(show.legend = FALSE) +
+  geom_text(position = position_dodge(0.9), size = 3) +
+  geom_hline(
+    yintercept = 0, 
+    color = palette_pander(5)[5],
+    linetype = 2,
+    size = 1
+  ) +
+  scale_y_percent() +
+  scale_x_date(date_breaks = "2 years", date_labels = "%Y") +
+  theme_pander(gl = 0) +
+  scale_fill_pander() +
+  labs(
+    x = "Year",
+    y = "Interest Rate"
+  )
+
+min_rate <-
+  annual_interest_rate_estimated %>% 
+  filter(avg_interest_rate == min(avg_interest_rate)) %>% 
+  pull(avg_interest_rate)
+
+min_rate_year <- 
+  annual_interest_rate_estimated %>% 
+  filter(avg_interest_rate == min_rate) %>% 
+  pull(trading_date) %>% 
+  year()
+
+max_rate <- 
+  annual_interest_rate_estimated %>% 
+  filter(avg_interest_rate == max(avg_interest_rate)) %>% 
+  pull(avg_interest_rate)
+
+max_rate_year <- 
+  annual_interest_rate_estimated %>% 
+  filter(avg_interest_rate == max_rate) %>% 
+  pull(trading_date) %>% 
+  year()
+
+```
+
+The PSEi was not consistently profitable in the past three decades, but it seems like if one stayed with it for the long run, i.e. buy and hold, then one can expect a rate of `r filter(annual_interest_rate_estimated, n_years == max(n_years)) %>% pull(avg_interest_rate) %>% percent()` after waiting patiently for `r annual_interest_rate_estimated %>% nrow()` years. If a bank account with an annual interest rate of more than `r filter(annual_interest_rate_estimated, n_years == max(n_years)) %>% pull(avg_interest_rate) %>% percent()` existed in the past three decades, then saving in that account would have been better than risking money in the PSEi. Please inform me of a bank that offers this kind of saving interest rate.
+
+Impatience and early panicking cost. If one panicked and gave up with PSEi after experiencing a net decay rate of `r min_rate %>% percent()` at the end of `r min_rate_year` then one would have missed the `r max_rate %>% percent()` at the end of `r max_rate_year`. However, buying out at the maximum rate would only gain our hypothetical investor `r filter(annual_interest_rate_estimated, avg_interest_rate == max_rate) %>% mutate(gain = buy_hold - cumulative_cost) %>% pull(gain) %>% peso()` and miss the `r filter(annual_interest_rate_estimated, n_years == max(n_years)) %>% mutate(gain = buy_hold - cumulative_cost) %>% pull(gain) %>% peso()` after three decades of patience.
+
+# Next Thirty Years: Another Million?
+
+Not really. While PSEi seems like a good investment for the past three decades, this does not ensure that it will be profitable for the next thirty years. Just to be clear, I am not saying that that investing in stocks is a sure way to get a million pesos in your retirement fund. It is always the best to go into an investment thinking that it will fail. If you want to invest in stocks, I suggest investing the amount you are willing or financially capable to lose anyway. In case the stocks you are buying plunges to zero, it will not hurt because you can afford to lose it anyway. If you gain money from stocks, just shrug, think buy and hold, and do not buy out until you need to, if there is anything to buy out.
+
+That being said, I do not think I am the best financial adviser when it comes to stock market investments.

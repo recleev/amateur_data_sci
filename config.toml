@@ -1,0 +1,56 @@
+baseurl = "https://amateurdatasci.rbind.io/"
+languageCode = "en-us"
+title = "The Amateur Data Scientist"
+theme = "blackburn"
+author = "Recle E. Vibal"
+ignoreFiles = ["\\.Rmd$", "\\.Rmarkdown$", "\\.R$", "_files$", "_cache$"]
+canonifyurls = true
+paginate = 10
+
+[indexes]
+  tag = "tags"
+  topic = "topics"
+
+[params]
+  # Shown in the home page
+  subtitle = "Data science in all aspects of life just for the love of it."
+  brand = "Blackburn"
+  googleAnalytics = "UA-119602814-1"
+  disqus = "the-amateur-data-scientist"
+  # CSS name for highlight.js
+  highlightjs = "androidstudio"
+  dateFormat = "2006 Jan 2"
+
+[menu]
+  # Shown in the side menu.
+  [[menu.main]]
+    name = "Home"
+    pre = "<i class='fa fa-home fa-fw'></i>"
+    weight = 1
+    identifier = "home"
+    url = "/"
+  [[menu.main]]
+    name = "Posts"
+    pre = "<i class='fa fa-list fa-fw'></i>"
+    weight = 2
+    identifier = "post"
+    url = "/post/"
+  [[menu.main]]
+    name = "About"
+    pre = "<i class='fa fa-user fa-fw'></i>"
+    weight = 3
+    identifier = "about"
+    url = "/about/"
+  [[menu.main]]
+    name = "Contact"
+    pre = "<i class='fa fa-phone fa-fw'></i>"
+    weight = 4
+    url = "/contact/"
+
+[social]
+  # Link your social networking accouns to the side menu
+  # by entering your username or ID.
+  twitter = "recleev"
+  facebook = "recleev"
+  github = "recleev"
+  linkedin = "recleev"

@@ -1,0 +1,33 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes" ?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>Slopes on The Amateur Data Scientist</title>
+    <link>/tags/slopes/</link>
+    <description>Recent content in Slopes on The Amateur Data Scientist</description>
+    <generator>Hugo -- gohugo.io</generator>
+    <language>en-us</language>
+    <lastBuildDate>Tue, 21 Aug 2018 00:00:00 +0000</lastBuildDate>
+    
+	<atom:link href="/tags/slopes/index.xml" rel="self" type="application/rss+xml" />
+    
+    
+    <item>
+      <title>Waves Intersecting at Right Angles and a Folded Paper</title>
+      <link>/post/waves-right-angles-folded-paper/</link>
+      <pubDate>Tue, 21 Aug 2018 00:00:00 +0000</pubDate>
+      
+      <guid>/post/waves-right-angles-folded-paper/</guid>
+      <description>1 Perpendicular Intersecting Waves1.1 Problem1.2 Solution2 A Folded Paper2.1 Problem2.2 Solution: Minimum Area2.3 Solution: Minimum Crease Length2.4 Solution: Using R (Without Differentiations)3 Referencelibrary(knitr)library(tidyverse)library(ggthemes)opts_chunk$set(fig.align = &amp;quot;center&amp;quot;,message = FALSE,warning = FALSE)I found these two problems in Simmons (2016). I enjoyed these problems because they require more thinking than just a mechanical application of derivatives.</description>
+    </item>
+    
+    <item>
+      <title>Tangent Lines and Non-Existent Ones</title>
+      <link>/post/tangent-non-existent/</link>
+      <pubDate>Mon, 06 Aug 2018 00:00:00 +0000</pubDate>
+      
+      <guid>/post/tangent-non-existent/</guid>
+      <description>1 Definition of a Tangent Line2 Slope of a Tangent Line on a Curve3 Condition for Existence4 Limit of an Absolute Value4.1 Problem4.2 Solution5 Reference1 Definition of a Tangent LineConsider a curve \(y = f(x)\), and let \(P\) be a given fixed point on this curve. Let \(Q\) be a second nearby point on the curve, and draw the secant line \(PQ\).</description>
+    </item>
+    
+  </channel>
+</rss>
