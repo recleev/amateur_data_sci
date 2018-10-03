@@ -1,0 +1,51 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes" ?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>Lessons on The Amateur Data Scientist</title>
+    <link>/categories/lessons/</link>
+    <description>Recent content in Lessons on The Amateur Data Scientist</description>
+    <generator>Hugo -- gohugo.io</generator>
+    <language>en-us</language>
+    <lastBuildDate>Wed, 03 Oct 2018 00:00:00 +0000</lastBuildDate>
+    
+	<atom:link href="/categories/lessons/index.xml" rel="self" type="application/rss+xml" />
+    
+    
+    <item>
+      <title>From Messy to Tidy: Gather All Those Dates</title>
+      <link>/blog/messy-tidy-tidyr-gather/</link>
+      <pubDate>Wed, 03 Oct 2018 00:00:00 +0000</pubDate>
+      
+      <guid>/blog/messy-tidy-tidyr-gather/</guid>
+      <description>1 Tidy Data: Long But Machine Readable2 Consumer Price Index of the Philippines3 Messy Data Cues3.1 Wide not Long3.2 Dates as Columns3.3 Average Columns4 Short Steps to a Long Table4.1 Remove Columns with Names that Starts with the Same Characters4.2 Gather the Date Columns4.3 Convert to YYYY-MM-DD5 Not Yet Tidy, A Little Less Messy6 Code7 References1 Tidy Data: Long But Machine ReadableWorking with data made me conscious of how we compile, store, and share data.</description>
+    </item>
+    
+    <item>
+      <title>Deriving the Quotient Rule from the Product Rule</title>
+      <link>/blog/deriving-quotient-rule-product-rule/</link>
+      <pubDate>Wed, 08 Aug 2018 00:00:00 +0000</pubDate>
+      
+      <guid>/blog/deriving-quotient-rule-product-rule/</guid>
+      <description>1 From Product to Quotient1.1 Product Rule of Differentiation1.2 Quotient Rule of Differentiation1.3 Derive the Quotient Rule from the Product Rule2 Problems2.1 Extend the Product Rule and Prove2.2 Tangent Lines Intersecting on a Curve3 Reference1 From Product to QuotientI have always had a hard time remembering the quotient rule for derivatives. I do not know how I remembered it while studying calculus, but today I learned from Simmons (2016) that I can derive it from the product rule.</description>
+    </item>
+    
+    <item>
+      <title>Gathering the Wolf Packs: Scraping World Cup 2018 Squads from Wikipedia</title>
+      <link>/blog/world-cup-2018-squads-scrape-wikipedia/</link>
+      <pubDate>Thu, 14 Jun 2018 00:00:00 +0000</pubDate>
+      
+      <guid>/blog/world-cup-2018-squads-scrape-wikipedia/</guid>
+      <description>1 The Hunt for a Decent List of World Cup 2018 Squads2 A Template for Scraping Tables from Wikipedia2.1 Inspect Element2.2 Find and Copy the XPath2.3 Scrape Tables with rvest3 Scraping World Cup 2018 Squads All at Once3.1 National Teams and Groupings3.2 The Scraping Function3.3 Gather All the Squads4 Tidying the World Cup Squads5 World Cup 2018 Squads and Group1 The Hunt for a Decent List of World Cup 2018 SquadsWith World Cup 2018 to kick off today, I was in search for the past days for a list all the players that will represent their country in the tournament.</description>
+    </item>
+    
+    <item>
+      <title>All About Git and Github in RStudio: A Step-by-Step Guide for Beginners Like Me (With Pictures!)</title>
+      <link>/blog/all-about-git/</link>
+      <pubDate>Thu, 24 May 2018 00:00:00 +0000</pubDate>
+      
+      <guid>/blog/all-about-git/</guid>
+      <description>1 Git Newbie2 Commit, Push, and Pull3 Let’s Git It On!3.1 Create an account in Github3.2 Once we have an account, we can immediately create a repository.3.3 Configure Git in R Studio3.4 Create new project with version control3.5 Copy Repository URL and Create Project4 Git Up, Git Down4.1 R Studio’s Easy Git Interface.4.2 First Commit4.3 Push the Changes4.</description>
+    </item>
+    
+  </channel>
+</rss>

@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes" ?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>Sports on The Amateur Data Scientist</title>
+    <link>/categories/sports/</link>
+    <description>Recent content in Sports on The Amateur Data Scientist</description>
+    <generator>Hugo -- gohugo.io</generator>
+    <language>en-us</language>
+    <lastBuildDate>Thu, 14 Jun 2018 00:00:00 +0000</lastBuildDate>
+    
+	<atom:link href="/categories/sports/index.xml" rel="self" type="application/rss+xml" />
+    
+    
+    <item>
+      <title>Gathering the Wolf Packs: Scraping World Cup 2018 Squads from Wikipedia</title>
+      <link>/blog/world-cup-2018-squads-scrape-wikipedia/</link>
+      <pubDate>Thu, 14 Jun 2018 00:00:00 +0000</pubDate>
+      
+      <guid>/blog/world-cup-2018-squads-scrape-wikipedia/</guid>
+      <description>1 The Hunt for a Decent List of World Cup 2018 Squads2 A Template for Scraping Tables from Wikipedia2.1 Inspect Element2.2 Find and Copy the XPath2.3 Scrape Tables with rvest3 Scraping World Cup 2018 Squads All at Once3.1 National Teams and Groupings3.2 The Scraping Function3.3 Gather All the Squads4 Tidying the World Cup Squads5 World Cup 2018 Squads and Group1 The Hunt for a Decent List of World Cup 2018 SquadsWith World Cup 2018 to kick off today, I was in search for the past days for a list all the players that will represent their country in the tournament.</description>
+    </item>
+    
+  </channel>
+</rss>

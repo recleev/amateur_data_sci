@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes" ?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>Finance on The Amateur Data Scientist</title>
+    <link>/categories/finance/</link>
+    <description>Recent content in Finance on The Amateur Data Scientist</description>
+    <generator>Hugo -- gohugo.io</generator>
+    <language>en-us</language>
+    <lastBuildDate>Fri, 20 Jul 2018 00:00:00 +0000</lastBuildDate>
+    
+	<atom:link href="/categories/finance/index.xml" rel="self" type="application/rss+xml" />
+    
+    
+    <item>
+      <title>Three Decades of the Philippine Stock Exchange Index: Closing Prices, Returns, and a Naive Simulation</title>
+      <link>/blog/three-decades-psei-prices-returns-naive-simulation/</link>
+      <pubDate>Fri, 20 Jul 2018 00:00:00 +0000</pubDate>
+      
+      <guid>/blog/three-decades-psei-prices-returns-naive-simulation/</guid>
+      <description>1 Rise and Fall of Stocks2 Thirty Years of PSEi Prices3 Ups and Downs but Going Up4 Month-to-Month Returns5 Buy and Hold5.1 Simulating Buy and Hold Over Three Decades of PSEi5.2 More Than a Million6 Bank Deposit vs Buy and Hold Investment7 Next Thirty Years: Another Million?library(knitr)library(tidyverse)library(quantmod)library(magrittr)library(janitor)library(ggthemes)library(ggsci)library(drlib)library(lubridate)library(scales)opts_chunk$set(message = FALSE,warning = FALSE,echo = TRUE,fig.</description>
+    </item>
+    
+  </channel>
+</rss>
