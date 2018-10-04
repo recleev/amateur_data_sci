@@ -4,7 +4,6 @@ date = "2014-04-09"
 sidemenu = "true"
 description = "About me and this site"
 +++
-=======
 
 > An amateur...is someone not quite up to par, a person not to be taken seriously, one whose performance falls short of professional standards. But originally, "amateur", from the Latin verb *amare*, "to love", referred to a person who loved what he was doing. 
 > --- Mihaly Czikszentmihalyi, Flow: The Psychology of Optimal Experience
