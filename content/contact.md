@@ -28,15 +28,6 @@ description = "Have a question about R, data science, or about me? Want to colla
         <input id="city" class="pure-u-23-24" type="text">
       </div>
 
-      <div class="pure-u-1 pure-u-md-1-3">
-        <label for="state">State</label>
-        <select id="state" class="pure-input-1-2">
-          <option>AL</option>
-          <option>CA</option>
-          <option>IL</option>
-        </select>
-      </div>
-    </div>
     <fieldset class="pure-group">
       <input type="text" class="pure-input-1-2" placeholder="A title">
       <textarea class="pure-input-1-2" placeholder="Your message"></textarea>
