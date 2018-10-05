@@ -16,6 +16,7 @@ output:
     number_sections: true
 ---
 
+<script src="/rmarkdown-libs/kePrint/kePrint.js"></script>
 
 <div id="TOC">
 <ul>
@@ -50,95 +51,173 @@ output:
 
 frankenstein %&gt;% 
   head(20) %&gt;% 
-  kable(caption = &quot;Sample Raw Downloaded Frankenstein Text from Guntenberg&quot;)</code></pre>
-<table>
-<caption><span id="tab:guternberg">Table 2.1: </span>Sample Raw Downloaded Frankenstein Text from Guntenberg</caption>
+  kable(caption = &quot;Sample Raw Downloaded Frankenstein Text from Guntenberg&quot;) %&gt;% 
+  kableExtra::kable_styling(
+    bootstrap_options = &quot;striped&quot;,
+    full_width = TRUE
+  )</code></pre>
+<table class="table table-striped" style="margin-left: auto; margin-right: auto;">
+<caption>
+<span id="tab:guternberg">Table 2.1: </span>Sample Raw Downloaded Frankenstein Text from Guntenberg
+</caption>
 <thead>
-<tr class="header">
-<th align="right">gutenberg_id</th>
-<th align="left">text</th>
+<tr>
+<th style="text-align:right;">
+gutenberg_id
+</th>
+<th style="text-align:left;">
+text
+</th>
 </tr>
 </thead>
 <tbody>
-<tr class="odd">
-<td align="right">84</td>
-<td align="left">Frankenstein,</td>
+<tr>
+<td style="text-align:right;">
+84
+</td>
+<td style="text-align:left;">
+Frankenstein,
+</td>
 </tr>
-<tr class="even">
-<td align="right">84</td>
-<td align="left"></td>
+<tr>
+<td style="text-align:right;">
+84
+</td>
+<td style="text-align:left;">
+</td>
 </tr>
-<tr class="odd">
-<td align="right">84</td>
-<td align="left">or the Modern Prometheus</td>
+<tr>
+<td style="text-align:right;">
+84
+</td>
+<td style="text-align:left;">
+or the Modern Prometheus
+</td>
 </tr>
-<tr class="even">
-<td align="right">84</td>
-<td align="left"></td>
+<tr>
+<td style="text-align:right;">
+84
+</td>
+<td style="text-align:left;">
+</td>
 </tr>
-<tr class="odd">
-<td align="right">84</td>
-<td align="left"></td>
+<tr>
+<td style="text-align:right;">
+84
+</td>
+<td style="text-align:left;">
+</td>
 </tr>
-<tr class="even">
-<td align="right">84</td>
-<td align="left">by</td>
+<tr>
+<td style="text-align:right;">
+84
+</td>
+<td style="text-align:left;">
+by
+</td>
 </tr>
-<tr class="odd">
-<td align="right">84</td>
-<td align="left"></td>
+<tr>
+<td style="text-align:right;">
+84
+</td>
+<td style="text-align:left;">
+</td>
 </tr>
-<tr class="even">
-<td align="right">84</td>
-<td align="left">Mary Wollstonecraft (Godwin) Shelley</td>
+<tr>
+<td style="text-align:right;">
+84
+</td>
+<td style="text-align:left;">
+Mary Wollstonecraft (Godwin) Shelley
+</td>
 </tr>
-<tr class="odd">
-<td align="right">84</td>
-<td align="left"></td>
+<tr>
+<td style="text-align:right;">
+84
+</td>
+<td style="text-align:left;">
+</td>
 </tr>
-<tr class="even">
-<td align="right">84</td>
-<td align="left"></td>
+<tr>
+<td style="text-align:right;">
+84
+</td>
+<td style="text-align:left;">
+</td>
 </tr>
-<tr class="odd">
-<td align="right">84</td>
-<td align="left"></td>
+<tr>
+<td style="text-align:right;">
+84
+</td>
+<td style="text-align:left;">
+</td>
 </tr>
-<tr class="even">
-<td align="right">84</td>
-<td align="left"></td>
+<tr>
+<td style="text-align:right;">
+84
+</td>
+<td style="text-align:left;">
+</td>
 </tr>
-<tr class="odd">
-<td align="right">84</td>
-<td align="left">Letter 1</td>
+<tr>
+<td style="text-align:right;">
+84
+</td>
+<td style="text-align:left;">
+Letter 1
+</td>
 </tr>
-<tr class="even">
-<td align="right">84</td>
-<td align="left"></td>
+<tr>
+<td style="text-align:right;">
+84
+</td>
+<td style="text-align:left;">
+</td>
 </tr>
-<tr class="odd">
-<td align="right">84</td>
-<td align="left"></td>
+<tr>
+<td style="text-align:right;">
+84
+</td>
+<td style="text-align:left;">
+</td>
 </tr>
-<tr class="even">
-<td align="right">84</td>
-<td align="left">St. Petersburgh, Dec. 11th, 17–</td>
+<tr>
+<td style="text-align:right;">
+84
+</td>
+<td style="text-align:left;">
+St. Petersburgh, Dec. 11th, 17–
+</td>
 </tr>
-<tr class="odd">
-<td align="right">84</td>
-<td align="left"></td>
+<tr>
+<td style="text-align:right;">
+84
+</td>
+<td style="text-align:left;">
+</td>
 </tr>
-<tr class="even">
-<td align="right">84</td>
-<td align="left">TO Mrs. Saville, England</td>
+<tr>
+<td style="text-align:right;">
+84
+</td>
+<td style="text-align:left;">
+TO Mrs. Saville, England
+</td>
 </tr>
-<tr class="odd">
-<td align="right">84</td>
-<td align="left"></td>
+<tr>
+<td style="text-align:right;">
+84
+</td>
+<td style="text-align:left;">
+</td>
 </tr>
-<tr class="even">
-<td align="right">84</td>
-<td align="left">You will rejoice to hear that no disaster has accompanied the</td>
+<tr>
+<td style="text-align:right;">
+84
+</td>
+<td style="text-align:left;">
+You will rejoice to hear that no disaster has accompanied the
+</td>
 </tr>
 </tbody>
 </table>
@@ -306,127 +385,249 @@ Figure 7.1: Net AFINN Score per Chapter of Frankenstein
            into = c(&quot;chapter&quot;,
                     &quot;title&quot;),
            sep = &quot; - &quot;) %&gt;% 
-  kable(caption = &quot;My Titles for Each Frankenstein Chapter&quot;)</code></pre>
-<table>
-<caption><span id="tab:chapter-titles">Table 7.1: </span>My Titles for Each Frankenstein Chapter</caption>
+  kable(caption = &quot;My Titles for Each Frankenstein Chapter&quot;) %&gt;% 
+  kableExtra::kable_styling(
+    bootstrap_options = &quot;striped&quot;,
+    full_width = TRUE
+  )</code></pre>
+<table class="table table-striped" style="margin-left: auto; margin-right: auto;">
+<caption>
+<span id="tab:chapter-titles">Table 7.1: </span>My Titles for Each Frankenstein Chapter
+</caption>
 <thead>
-<tr class="header">
-<th align="left">chapter</th>
-<th align="left">title</th>
+<tr>
+<th style="text-align:left;">
+chapter
+</th>
+<th style="text-align:left;">
+title
+</th>
 </tr>
 </thead>
 <tbody>
-<tr class="odd">
-<td align="left">Letter 1</td>
-<td align="left">Robert Walton</td>
+<tr>
+<td style="text-align:left;">
+Letter 1
+</td>
+<td style="text-align:left;">
+Robert Walton
+</td>
 </tr>
-<tr class="even">
-<td align="left">Letter 2</td>
-<td align="left">Vessel and Crew</td>
+<tr>
+<td style="text-align:left;">
+Letter 2
+</td>
+<td style="text-align:left;">
+Vessel and Crew
+</td>
 </tr>
-<tr class="odd">
-<td align="left">Letter 3</td>
-<td align="left">In Haste</td>
+<tr>
+<td style="text-align:left;">
+Letter 3
+</td>
+<td style="text-align:left;">
+In Haste
+</td>
 </tr>
-<tr class="even">
-<td align="left">Letter 4</td>
-<td align="left">Two Strangers on the Ice</td>
+<tr>
+<td style="text-align:left;">
+Letter 4
+</td>
+<td style="text-align:left;">
+Two Strangers on the Ice
+</td>
 </tr>
-<tr class="odd">
-<td align="left">Chapter 1</td>
-<td align="left">Alphonse, Caroline, Elizabeth</td>
+<tr>
+<td style="text-align:left;">
+Chapter 1
+</td>
+<td style="text-align:left;">
+Alphonse, Caroline, Elizabeth
+</td>
 </tr>
-<tr class="even">
-<td align="left">Chapter 2</td>
-<td align="left">Victor Frankenstein</td>
+<tr>
+<td style="text-align:left;">
+Chapter 2
+</td>
+<td style="text-align:left;">
+Victor Frankenstein
+</td>
 </tr>
-<tr class="odd">
-<td align="left">Chapter 3</td>
-<td align="left">Ingolstadt</td>
+<tr>
+<td style="text-align:left;">
+Chapter 3
+</td>
+<td style="text-align:left;">
+Ingolstadt
+</td>
 </tr>
-<tr class="even">
-<td align="left">Chapter 4</td>
-<td align="left">Eight Feet in Height</td>
+<tr>
+<td style="text-align:left;">
+Chapter 4
+</td>
+<td style="text-align:left;">
+Eight Feet in Height
+</td>
 </tr>
-<tr class="odd">
-<td align="left">Chapter 5</td>
-<td align="left">Daemon</td>
+<tr>
+<td style="text-align:left;">
+Chapter 5
+</td>
+<td style="text-align:left;">
+Daemon
+</td>
 </tr>
-<tr class="even">
-<td align="left">Chapter 6</td>
-<td align="left">News from Home</td>
+<tr>
+<td style="text-align:left;">
+Chapter 6
+</td>
+<td style="text-align:left;">
+News from Home
+</td>
 </tr>
-<tr class="odd">
-<td align="left">Chapter 7</td>
-<td align="left">Strangled</td>
+<tr>
+<td style="text-align:left;">
+Chapter 7
+</td>
+<td style="text-align:left;">
+Strangled
+</td>
 </tr>
-<tr class="even">
-<td align="left">Chapter 8</td>
-<td align="left">The Trial</td>
+<tr>
+<td style="text-align:left;">
+Chapter 8
+</td>
+<td style="text-align:left;">
+The Trial
+</td>
 </tr>
-<tr class="odd">
-<td align="left">Chapter 9</td>
-<td align="left">Solitude in Nature</td>
+<tr>
+<td style="text-align:left;">
+Chapter 9
+</td>
+<td style="text-align:left;">
+Solitude in Nature
+</td>
 </tr>
-<tr class="even">
-<td align="left">Chapter 10</td>
-<td align="left">The Daemon’s Proposal</td>
+<tr>
+<td style="text-align:left;">
+Chapter 10
+</td>
+<td style="text-align:left;">
+The Daemon’s Proposal
+</td>
 </tr>
-<tr class="odd">
-<td align="left">Chapter 11</td>
-<td align="left">Awakening</td>
+<tr>
+<td style="text-align:left;">
+Chapter 11
+</td>
+<td style="text-align:left;">
+Awakening
+</td>
 </tr>
-<tr class="even">
-<td align="left">Chapter 12</td>
-<td align="left">The Cottagers</td>
+<tr>
+<td style="text-align:left;">
+Chapter 12
+</td>
+<td style="text-align:left;">
+The Cottagers
+</td>
 </tr>
-<tr class="odd">
-<td align="left">Chapter 13</td>
-<td align="left">Safie and the Gift of Knowledge</td>
+<tr>
+<td style="text-align:left;">
+Chapter 13
+</td>
+<td style="text-align:left;">
+Safie and the Gift of Knowledge
+</td>
 </tr>
-<tr class="even">
-<td align="left">Chapter 14</td>
-<td align="left">Fall of the De Laceys</td>
+<tr>
+<td style="text-align:left;">
+Chapter 14
+</td>
+<td style="text-align:left;">
+Fall of the De Laceys
+</td>
 </tr>
-<tr class="odd">
-<td align="left">Chapter 15</td>
-<td align="left">Paradise Lost, Plutarch’s Lives and Sorrows of Werter</td>
+<tr>
+<td style="text-align:left;">
+Chapter 15
+</td>
+<td style="text-align:left;">
+Paradise Lost, Plutarch’s Lives and Sorrows of Werter
+</td>
 </tr>
-<tr class="even">
-<td align="left">Chapter 16</td>
-<td align="left">Burned Down</td>
+<tr>
+<td style="text-align:left;">
+Chapter 16
+</td>
+<td style="text-align:left;">
+Burned Down
+</td>
 </tr>
-<tr class="odd">
-<td align="left">Chapter 17</td>
-<td align="left">The Agreement</td>
+<tr>
+<td style="text-align:left;">
+Chapter 17
+</td>
+<td style="text-align:left;">
+The Agreement
+</td>
 </tr>
-<tr class="even">
-<td align="left">Chapter 18</td>
-<td align="left">To England</td>
+<tr>
+<td style="text-align:left;">
+Chapter 18
+</td>
+<td style="text-align:left;">
+To England
+</td>
 </tr>
-<tr class="odd">
-<td align="left">Chapter 19</td>
-<td align="left">Calm Before the Storm</td>
+<tr>
+<td style="text-align:left;">
+Chapter 19
+</td>
+<td style="text-align:left;">
+Calm Before the Storm
+</td>
 </tr>
-<tr class="even">
-<td align="left">Chapter 20</td>
-<td align="left">The Threat</td>
+<tr>
+<td style="text-align:left;">
+Chapter 20
+</td>
+<td style="text-align:left;">
+The Threat
+</td>
 </tr>
-<tr class="odd">
-<td align="left">Chapter 21</td>
-<td align="left">Accused</td>
+<tr>
+<td style="text-align:left;">
+Chapter 21
+</td>
+<td style="text-align:left;">
+Accused
+</td>
 </tr>
-<tr class="even">
-<td align="left">Chapter 22</td>
-<td align="left">Overshadowed Marriage</td>
+<tr>
+<td style="text-align:left;">
+Chapter 22
+</td>
+<td style="text-align:left;">
+Overshadowed Marriage
+</td>
 </tr>
-<tr class="odd">
-<td align="left">Chapter 23</td>
-<td align="left">Bridal Bier</td>
+<tr>
+<td style="text-align:left;">
+Chapter 23
+</td>
+<td style="text-align:left;">
+Bridal Bier
+</td>
 </tr>
-<tr class="even">
-<td align="left">Chapter 24</td>
-<td align="left">Unconquerable Ice</td>
+<tr>
+<td style="text-align:left;">
+Chapter 24
+</td>
+<td style="text-align:left;">
+Unconquerable Ice
+</td>
 </tr>
 </tbody>
 </table>
