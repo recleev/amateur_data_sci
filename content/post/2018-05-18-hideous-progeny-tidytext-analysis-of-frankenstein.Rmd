@@ -62,8 +62,7 @@ frankenstein %>%
     align = rep("c", ncol(frankenstein))
   ) %>% 
   kableExtra::kable_styling(
-    full_width = TRUE,
-    font_size = 10
+    full_width = TRUE
   )
 
 ```
@@ -260,8 +259,7 @@ tibble(chapter_title = c(
     align = c("c", "c")
   ) %>% 
   kableExtra::kable_styling(
-    full_width = TRUE,
-    font_size = 10
+    full_width = TRUE
   )
 
 ```

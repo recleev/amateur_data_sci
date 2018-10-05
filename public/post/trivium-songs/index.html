@@ -250,7 +250,9 @@
 
 </div>
 
-  <div id="TOC">
+  <script src="/rmarkdown-libs/kePrint/kePrint.js"></script>
+
+<div id="TOC">
 <ul>
 <li><a href="#a-view-of-mining-lyrics"><span class="toc-section-number">1</span> A View of Mining Lyrics</a></li>
 <li><a href="#into-the-mouth-of-r-we-march"><span class="toc-section-number">2</span> Into the Mouth of R We March</a></li>
@@ -327,9 +329,7 @@ genius_album(&quot;Trivium&quot;,
   head(10) %&gt;% 
   kable(caption = &quot;Sample Tibble of Trivium Lyrics Gathered from Genius&quot;) %&gt;% 
   kableExtra::kable_styling(
-    bootstrap_options = &quot;basic&quot;,
-    full_width = TRUE,
-    font_size = 8
+    full_width = TRUE
   )</code></pre>
 <table>
 <caption><span id="tab:silence-success">Table 3.1: </span>Sample Tibble of Trivium Lyrics Gathered from Genius</caption>
@@ -681,8 +681,11 @@ trivium_bing &lt;-
 trivium_bing %&gt;% 
   count(lyrics, sentiment, sort = TRUE) %&gt;% 
   head(20) %&gt;% 
-  kable(caption = &quot;Sample Bing Sentiment of Trivium Lyrics&quot;)</code></pre>
-<table>
+  kable(caption = &quot;Sample Bing Sentiment of Trivium Lyrics&quot;) %&gt;% 
+  kableExtra::kable_styling(
+    full_width = TRUE
+  )</code></pre>
+<table class="table" style="margin-left: auto; margin-right: auto;">
 <caption>
 <span id="tab:trivium-bing">Table 9.1: </span>Sample Bing Sentiment of Trivium Lyrics
 </caption>
@@ -961,8 +964,11 @@ trivium_afinn &lt;-
 
 trivium_afinn %&gt;% 
   head(20) %&gt;% 
-  kable(caption = &quot;Sample AFINN Scores of Trivium Lyrics&quot;)</code></pre>
-<table>
+  kable(caption = &quot;Sample AFINN Scores of Trivium Lyrics&quot;) %&gt;% 
+  kableExtra::kable_styling(
+    full_width = TRUE
+  )</code></pre>
+<table class="table" style="margin-left: auto; margin-right: auto;">
 <caption>
 <span id="tab:trivium-afinn">Table 9.2: </span>Sample AFINN Scores of Trivium Lyrics
 </caption>

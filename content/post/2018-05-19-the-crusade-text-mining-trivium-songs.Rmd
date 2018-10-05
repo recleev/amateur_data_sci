@@ -80,9 +80,7 @@ genius_tracklist("Trivium",
   head(10) %>% 
   kable(caption = "Sample Tibble of Trivium Lyrics Gathered from Genius") %>% 
   kableExtra::kable_styling(
-    bootstrap_options = "basic",
-    full_width = TRUE,
-    font_size = 8
+    full_width = TRUE
   )
 
 ```
@@ -367,7 +365,10 @@ trivium_bing <-
 trivium_bing %>% 
   count(lyrics, sentiment, sort = TRUE) %>% 
   head(20) %>% 
-  kable(caption = "Sample Bing Sentiment of Trivium Lyrics")
+  kable(caption = "Sample Bing Sentiment of Trivium Lyrics") %>% 
+  kableExtra::kable_styling(
+    full_width = TRUE
+  )
 
 ```
 
@@ -412,7 +413,11 @@ trivium_afinn <-
 
 trivium_afinn %>% 
   head(20) %>% 
-  kable(caption = "Sample AFINN Scores of Trivium Lyrics")
+  kable(caption = "Sample AFINN Scores of Trivium Lyrics") %>% 
+  kableExtra::kable_styling(
+    full_width = TRUE
+  )
+
 ```
 
 The [AFINN ](http://www2.imm.dtu.dk/pubdb/views/publication_details.php?id=6010) lexicon in the `sentiments` data frame gives integer sentiment scores from -5 to +5 for `r afinn %>% nrow()` words. Note again that AFINN scored only `r trivium_afinn %>% nrow()` words out of `r clean_trivium_lyrics %>% nrow()` Trivium lyrics.
