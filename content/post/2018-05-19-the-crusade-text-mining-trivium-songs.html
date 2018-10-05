@@ -87,9 +87,14 @@ genius_album(&quot;Trivium&quot;,
          album = &quot;Silence in the snow&quot;) %&gt;% 
   unnest() %&gt;% 
   head(10) %&gt;% 
-  kable(caption = &quot;Sample Tibbe of Trivium Lyrics Gathered from Genius&quot;)</code></pre>
+  kable(caption = &quot;Sample Tibble of Trivium Lyrics Gathered from Genius&quot;) %&gt;% 
+  kableExtra::kable_styling(
+    bootstrap_options = &quot;basic&quot;,
+    full_width = TRUE,
+    font_size = 8
+  )</code></pre>
 <table>
-<caption><span id="tab:silence-success">Table 3.1: </span>Sample Tibbe of Trivium Lyrics Gathered from Genius</caption>
+<caption><span id="tab:silence-success">Table 3.1: </span>Sample Tibble of Trivium Lyrics Gathered from Genius</caption>
 <thead>
 <tr class="header">
 <th align="left">title</th>
@@ -440,114 +445,242 @@ trivium_bing %&gt;%
   head(20) %&gt;% 
   kable(caption = &quot;Sample Bing Sentiment of Trivium Lyrics&quot;)</code></pre>
 <table>
-<caption><span id="tab:trivium-bing">Table 9.1: </span>Sample Bing Sentiment of Trivium Lyrics</caption>
+<caption>
+<span id="tab:trivium-bing">Table 9.1: </span>Sample Bing Sentiment of Trivium Lyrics
+</caption>
 <thead>
-<tr class="header">
-<th align="left">lyrics</th>
-<th align="left">sentiment</th>
-<th align="right">n</th>
+<tr>
+<th style="text-align:left;">
+lyrics
+</th>
+<th style="text-align:left;">
+sentiment
+</th>
+<th style="text-align:right;">
+n
+</th>
 </tr>
 </thead>
 <tbody>
-<tr class="odd">
-<td align="left">burn</td>
-<td align="left">negative</td>
-<td align="right">68</td>
+<tr>
+<td style="text-align:left;">
+burn
+</td>
+<td style="text-align:left;">
+negative
+</td>
+<td style="text-align:right;">
+68
+</td>
 </tr>
-<tr class="even">
-<td align="left">pain</td>
-<td align="left">negative</td>
-<td align="right">68</td>
+<tr>
+<td style="text-align:left;">
+pain
+</td>
+<td style="text-align:left;">
+negative
+</td>
+<td style="text-align:right;">
+68
+</td>
 </tr>
-<tr class="odd">
-<td align="left">fall</td>
-<td align="left">negative</td>
-<td align="right">60</td>
+<tr>
+<td style="text-align:left;">
+fall
+</td>
+<td style="text-align:left;">
+negative
+</td>
+<td style="text-align:right;">
+60
+</td>
 </tr>
-<tr class="even">
-<td align="left">hell</td>
-<td align="left">negative</td>
-<td align="right">57</td>
+<tr>
+<td style="text-align:left;">
+hell
+</td>
+<td style="text-align:left;">
+negative
+</td>
+<td style="text-align:right;">
+57
+</td>
 </tr>
-<tr class="odd">
-<td align="left">lost</td>
-<td align="left">negative</td>
-<td align="right">53</td>
+<tr>
+<td style="text-align:left;">
+lost
+</td>
+<td style="text-align:left;">
+negative
+</td>
+<td style="text-align:right;">
+53
+</td>
 </tr>
-<tr class="even">
-<td align="left">hate</td>
-<td align="left">negative</td>
-<td align="right">52</td>
+<tr>
+<td style="text-align:left;">
+hate
+</td>
+<td style="text-align:left;">
+negative
+</td>
+<td style="text-align:right;">
+52
+</td>
 </tr>
-<tr class="odd">
-<td align="left">won</td>
-<td align="left">positive</td>
-<td align="right">48</td>
+<tr>
+<td style="text-align:left;">
+won
+</td>
+<td style="text-align:left;">
+positive
+</td>
+<td style="text-align:right;">
+48
+</td>
 </tr>
-<tr class="even">
-<td align="left">break</td>
-<td align="left">negative</td>
-<td align="right">45</td>
+<tr>
+<td style="text-align:left;">
+break
+</td>
+<td style="text-align:left;">
+negative
+</td>
+<td style="text-align:right;">
+45
+</td>
 </tr>
-<tr class="odd">
-<td align="left">die</td>
-<td align="left">negative</td>
-<td align="right">40</td>
+<tr>
+<td style="text-align:left;">
+die
+</td>
+<td style="text-align:left;">
+negative
+</td>
+<td style="text-align:right;">
+40
+</td>
 </tr>
-<tr class="even">
-<td align="left">free</td>
-<td align="left">positive</td>
-<td align="right">38</td>
+<tr>
+<td style="text-align:left;">
+free
+</td>
+<td style="text-align:left;">
+positive
+</td>
+<td style="text-align:right;">
+38
+</td>
 </tr>
-<tr class="odd">
-<td align="left">cold</td>
-<td align="left">negative</td>
-<td align="right">37</td>
+<tr>
+<td style="text-align:left;">
+cold
+</td>
+<td style="text-align:left;">
+negative
+</td>
+<td style="text-align:right;">
+37
+</td>
 </tr>
-<tr class="even">
-<td align="left">fear</td>
-<td align="left">negative</td>
-<td align="right">37</td>
+<tr>
+<td style="text-align:left;">
+fear
+</td>
+<td style="text-align:left;">
+negative
+</td>
+<td style="text-align:right;">
+37
+</td>
 </tr>
-<tr class="odd">
-<td align="left">dead</td>
-<td align="left">negative</td>
-<td align="right">35</td>
+<tr>
+<td style="text-align:left;">
+dead
+</td>
+<td style="text-align:left;">
+negative
+</td>
+<td style="text-align:right;">
+35
+</td>
 </tr>
-<tr class="even">
-<td align="left">death</td>
-<td align="left">negative</td>
-<td align="right">35</td>
+<tr>
+<td style="text-align:left;">
+death
+</td>
+<td style="text-align:left;">
+negative
+</td>
+<td style="text-align:right;">
+35
+</td>
 </tr>
-<tr class="odd">
-<td align="left">bleed</td>
-<td align="left">negative</td>
-<td align="right">34</td>
+<tr>
+<td style="text-align:left;">
+bleed
+</td>
+<td style="text-align:left;">
+negative
+</td>
+<td style="text-align:right;">
+34
+</td>
 </tr>
-<tr class="even">
-<td align="left">lie</td>
-<td align="left">negative</td>
-<td align="right">34</td>
+<tr>
+<td style="text-align:left;">
+lie
+</td>
+<td style="text-align:left;">
+negative
+</td>
+<td style="text-align:right;">
+34
+</td>
 </tr>
-<tr class="odd">
-<td align="left">dark</td>
-<td align="left">negative</td>
-<td align="right">29</td>
+<tr>
+<td style="text-align:left;">
+dark
+</td>
+<td style="text-align:left;">
+negative
+</td>
+<td style="text-align:right;">
+29
+</td>
 </tr>
-<tr class="even">
-<td align="left">destroy</td>
-<td align="left">negative</td>
-<td align="right">27</td>
+<tr>
+<td style="text-align:left;">
+destroy
+</td>
+<td style="text-align:left;">
+negative
+</td>
+<td style="text-align:right;">
+27
+</td>
 </tr>
-<tr class="odd">
-<td align="left">sin</td>
-<td align="left">negative</td>
-<td align="right">27</td>
+<tr>
+<td style="text-align:left;">
+sin
+</td>
+<td style="text-align:left;">
+negative
+</td>
+<td style="text-align:right;">
+27
+</td>
 </tr>
-<tr class="even">
-<td align="left">burning</td>
-<td align="left">negative</td>
-<td align="right">26</td>
+<tr>
+<td style="text-align:left;">
+burning
+</td>
+<td style="text-align:left;">
+negative
+</td>
+<td style="text-align:right;">
+26
+</td>
 </tr>
 </tbody>
 </table>
@@ -592,240 +725,620 @@ trivium_afinn %&gt;%
   head(20) %&gt;% 
   kable(caption = &quot;Sample AFINN Scores of Trivium Lyrics&quot;)</code></pre>
 <table>
-<caption><span id="tab:trivium-afinn">Table 9.2: </span>Sample AFINN Scores of Trivium Lyrics</caption>
+<caption>
+<span id="tab:trivium-afinn">Table 9.2: </span>Sample AFINN Scores of Trivium Lyrics
+</caption>
 <thead>
-<tr class="header">
-<th align="left">title</th>
-<th align="right">track_n</th>
-<th align="left">track_url</th>
-<th align="left">album</th>
-<th align="left">title1</th>
-<th align="right">line</th>
-<th align="left">lyrics</th>
-<th align="left">lexicon</th>
-<th align="right">score</th>
+<tr>
+<th style="text-align:left;">
+title
+</th>
+<th style="text-align:right;">
+track_n
+</th>
+<th style="text-align:left;">
+track_url
+</th>
+<th style="text-align:left;">
+album
+</th>
+<th style="text-align:left;">
+title1
+</th>
+<th style="text-align:right;">
+line
+</th>
+<th style="text-align:left;">
+lyrics
+</th>
+<th style="text-align:left;">
+lexicon
+</th>
+<th style="text-align:right;">
+score
+</th>
 </tr>
 </thead>
 <tbody>
-<tr class="odd">
-<td align="left">Pillars Of Serpents</td>
-<td align="right">2</td>
-<td align="left"><a href="https://genius.com/Trivium-pillars-of-serpents-lyrics" class="uri">https://genius.com/Trivium-pillars-of-serpents-lyrics</a></td>
-<td align="left">Ember to Inferno</td>
-<td align="left">Pillars Of Serpents</td>
-<td align="right">1</td>
-<td align="left">alive</td>
-<td align="left">AFINN</td>
-<td align="right">1</td>
+<tr>
+<td style="text-align:left;">
+Pillars Of Serpents
+</td>
+<td style="text-align:right;">
+2
+</td>
+<td style="text-align:left;">
+<a href="https://genius.com/Trivium-pillars-of-serpents-lyrics" class="uri">https://genius.com/Trivium-pillars-of-serpents-lyrics</a>
+</td>
+<td style="text-align:left;">
+Ember to Inferno
+</td>
+<td style="text-align:left;">
+Pillars Of Serpents
+</td>
+<td style="text-align:right;">
+1
+</td>
+<td style="text-align:left;">
+alive
+</td>
+<td style="text-align:left;">
+AFINN
+</td>
+<td style="text-align:right;">
+1
+</td>
 </tr>
-<tr class="even">
-<td align="left">Pillars Of Serpents</td>
-<td align="right">2</td>
-<td align="left"><a href="https://genius.com/Trivium-pillars-of-serpents-lyrics" class="uri">https://genius.com/Trivium-pillars-of-serpents-lyrics</a></td>
-<td align="left">Ember to Inferno</td>
-<td align="left">Pillars Of Serpents</td>
-<td align="right">2</td>
-<td align="left">alive</td>
-<td align="left">AFINN</td>
-<td align="right">1</td>
+<tr>
+<td style="text-align:left;">
+Pillars Of Serpents
+</td>
+<td style="text-align:right;">
+2
+</td>
+<td style="text-align:left;">
+<a href="https://genius.com/Trivium-pillars-of-serpents-lyrics" class="uri">https://genius.com/Trivium-pillars-of-serpents-lyrics</a>
+</td>
+<td style="text-align:left;">
+Ember to Inferno
+</td>
+<td style="text-align:left;">
+Pillars Of Serpents
+</td>
+<td style="text-align:right;">
+2
+</td>
+<td style="text-align:left;">
+alive
+</td>
+<td style="text-align:left;">
+AFINN
+</td>
+<td style="text-align:right;">
+1
+</td>
 </tr>
-<tr class="odd">
-<td align="left">Pillars Of Serpents</td>
-<td align="right">2</td>
-<td align="left"><a href="https://genius.com/Trivium-pillars-of-serpents-lyrics" class="uri">https://genius.com/Trivium-pillars-of-serpents-lyrics</a></td>
-<td align="left">Ember to Inferno</td>
-<td align="left">Pillars Of Serpents</td>
-<td align="right">3</td>
-<td align="left">god</td>
-<td align="left">AFINN</td>
-<td align="right">1</td>
+<tr>
+<td style="text-align:left;">
+Pillars Of Serpents
+</td>
+<td style="text-align:right;">
+2
+</td>
+<td style="text-align:left;">
+<a href="https://genius.com/Trivium-pillars-of-serpents-lyrics" class="uri">https://genius.com/Trivium-pillars-of-serpents-lyrics</a>
+</td>
+<td style="text-align:left;">
+Ember to Inferno
+</td>
+<td style="text-align:left;">
+Pillars Of Serpents
+</td>
+<td style="text-align:right;">
+3
+</td>
+<td style="text-align:left;">
+god
+</td>
+<td style="text-align:left;">
+AFINN
+</td>
+<td style="text-align:right;">
+1
+</td>
 </tr>
-<tr class="even">
-<td align="left">Pillars Of Serpents</td>
-<td align="right">2</td>
-<td align="left"><a href="https://genius.com/Trivium-pillars-of-serpents-lyrics" class="uri">https://genius.com/Trivium-pillars-of-serpents-lyrics</a></td>
-<td align="left">Ember to Inferno</td>
-<td align="left">Pillars Of Serpents</td>
-<td align="right">4</td>
-<td align="left">alive</td>
-<td align="left">AFINN</td>
-<td align="right">1</td>
+<tr>
+<td style="text-align:left;">
+Pillars Of Serpents
+</td>
+<td style="text-align:right;">
+2
+</td>
+<td style="text-align:left;">
+<a href="https://genius.com/Trivium-pillars-of-serpents-lyrics" class="uri">https://genius.com/Trivium-pillars-of-serpents-lyrics</a>
+</td>
+<td style="text-align:left;">
+Ember to Inferno
+</td>
+<td style="text-align:left;">
+Pillars Of Serpents
+</td>
+<td style="text-align:right;">
+4
+</td>
+<td style="text-align:left;">
+alive
+</td>
+<td style="text-align:left;">
+AFINN
+</td>
+<td style="text-align:right;">
+1
+</td>
 </tr>
-<tr class="odd">
-<td align="left">Pillars Of Serpents</td>
-<td align="right">2</td>
-<td align="left"><a href="https://genius.com/Trivium-pillars-of-serpents-lyrics" class="uri">https://genius.com/Trivium-pillars-of-serpents-lyrics</a></td>
-<td align="left">Ember to Inferno</td>
-<td align="left">Pillars Of Serpents</td>
-<td align="right">5</td>
-<td align="left">alive</td>
-<td align="left">AFINN</td>
-<td align="right">1</td>
+<tr>
+<td style="text-align:left;">
+Pillars Of Serpents
+</td>
+<td style="text-align:right;">
+2
+</td>
+<td style="text-align:left;">
+<a href="https://genius.com/Trivium-pillars-of-serpents-lyrics" class="uri">https://genius.com/Trivium-pillars-of-serpents-lyrics</a>
+</td>
+<td style="text-align:left;">
+Ember to Inferno
+</td>
+<td style="text-align:left;">
+Pillars Of Serpents
+</td>
+<td style="text-align:right;">
+5
+</td>
+<td style="text-align:left;">
+alive
+</td>
+<td style="text-align:left;">
+AFINN
+</td>
+<td style="text-align:right;">
+1
+</td>
 </tr>
-<tr class="even">
-<td align="left">Pillars Of Serpents</td>
-<td align="right">2</td>
-<td align="left"><a href="https://genius.com/Trivium-pillars-of-serpents-lyrics" class="uri">https://genius.com/Trivium-pillars-of-serpents-lyrics</a></td>
-<td align="left">Ember to Inferno</td>
-<td align="left">Pillars Of Serpents</td>
-<td align="right">9</td>
-<td align="left">strength</td>
-<td align="left">AFINN</td>
-<td align="right">2</td>
+<tr>
+<td style="text-align:left;">
+Pillars Of Serpents
+</td>
+<td style="text-align:right;">
+2
+</td>
+<td style="text-align:left;">
+<a href="https://genius.com/Trivium-pillars-of-serpents-lyrics" class="uri">https://genius.com/Trivium-pillars-of-serpents-lyrics</a>
+</td>
+<td style="text-align:left;">
+Ember to Inferno
+</td>
+<td style="text-align:left;">
+Pillars Of Serpents
+</td>
+<td style="text-align:right;">
+9
+</td>
+<td style="text-align:left;">
+strength
+</td>
+<td style="text-align:left;">
+AFINN
+</td>
+<td style="text-align:right;">
+2
+</td>
 </tr>
-<tr class="odd">
-<td align="left">Pillars Of Serpents</td>
-<td align="right">2</td>
-<td align="left"><a href="https://genius.com/Trivium-pillars-of-serpents-lyrics" class="uri">https://genius.com/Trivium-pillars-of-serpents-lyrics</a></td>
-<td align="left">Ember to Inferno</td>
-<td align="left">Pillars Of Serpents</td>
-<td align="right">17</td>
-<td align="left">wasting</td>
-<td align="left">AFINN</td>
-<td align="right">-2</td>
+<tr>
+<td style="text-align:left;">
+Pillars Of Serpents
+</td>
+<td style="text-align:right;">
+2
+</td>
+<td style="text-align:left;">
+<a href="https://genius.com/Trivium-pillars-of-serpents-lyrics" class="uri">https://genius.com/Trivium-pillars-of-serpents-lyrics</a>
+</td>
+<td style="text-align:left;">
+Ember to Inferno
+</td>
+<td style="text-align:left;">
+Pillars Of Serpents
+</td>
+<td style="text-align:right;">
+17
+</td>
+<td style="text-align:left;">
+wasting
+</td>
+<td style="text-align:left;">
+AFINN
+</td>
+<td style="text-align:right;">
+-2
+</td>
 </tr>
-<tr class="even">
-<td align="left">Pillars Of Serpents</td>
-<td align="right">2</td>
-<td align="left"><a href="https://genius.com/Trivium-pillars-of-serpents-lyrics" class="uri">https://genius.com/Trivium-pillars-of-serpents-lyrics</a></td>
-<td align="left">Ember to Inferno</td>
-<td align="left">Pillars Of Serpents</td>
-<td align="right">21</td>
-<td align="left">spark</td>
-<td align="left">AFINN</td>
-<td align="right">1</td>
+<tr>
+<td style="text-align:left;">
+Pillars Of Serpents
+</td>
+<td style="text-align:right;">
+2
+</td>
+<td style="text-align:left;">
+<a href="https://genius.com/Trivium-pillars-of-serpents-lyrics" class="uri">https://genius.com/Trivium-pillars-of-serpents-lyrics</a>
+</td>
+<td style="text-align:left;">
+Ember to Inferno
+</td>
+<td style="text-align:left;">
+Pillars Of Serpents
+</td>
+<td style="text-align:right;">
+21
+</td>
+<td style="text-align:left;">
+spark
+</td>
+<td style="text-align:left;">
+AFINN
+</td>
+<td style="text-align:right;">
+1
+</td>
 </tr>
-<tr class="odd">
-<td align="left">Pillars Of Serpents</td>
-<td align="right">2</td>
-<td align="left"><a href="https://genius.com/Trivium-pillars-of-serpents-lyrics" class="uri">https://genius.com/Trivium-pillars-of-serpents-lyrics</a></td>
-<td align="left">Ember to Inferno</td>
-<td align="left">Pillars Of Serpents</td>
-<td align="right">28</td>
-<td align="left">spark</td>
-<td align="left">AFINN</td>
-<td align="right">1</td>
+<tr>
+<td style="text-align:left;">
+Pillars Of Serpents
+</td>
+<td style="text-align:right;">
+2
+</td>
+<td style="text-align:left;">
+<a href="https://genius.com/Trivium-pillars-of-serpents-lyrics" class="uri">https://genius.com/Trivium-pillars-of-serpents-lyrics</a>
+</td>
+<td style="text-align:left;">
+Ember to Inferno
+</td>
+<td style="text-align:left;">
+Pillars Of Serpents
+</td>
+<td style="text-align:right;">
+28
+</td>
+<td style="text-align:left;">
+spark
+</td>
+<td style="text-align:left;">
+AFINN
+</td>
+<td style="text-align:right;">
+1
+</td>
 </tr>
-<tr class="even">
-<td align="left">Pillars Of Serpents</td>
-<td align="right">2</td>
-<td align="left"><a href="https://genius.com/Trivium-pillars-of-serpents-lyrics" class="uri">https://genius.com/Trivium-pillars-of-serpents-lyrics</a></td>
-<td align="left">Ember to Inferno</td>
-<td align="left">Pillars Of Serpents</td>
-<td align="right">32</td>
-<td align="left">dreams</td>
-<td align="left">AFINN</td>
-<td align="right">1</td>
+<tr>
+<td style="text-align:left;">
+Pillars Of Serpents
+</td>
+<td style="text-align:right;">
+2
+</td>
+<td style="text-align:left;">
+<a href="https://genius.com/Trivium-pillars-of-serpents-lyrics" class="uri">https://genius.com/Trivium-pillars-of-serpents-lyrics</a>
+</td>
+<td style="text-align:left;">
+Ember to Inferno
+</td>
+<td style="text-align:left;">
+Pillars Of Serpents
+</td>
+<td style="text-align:right;">
+32
+</td>
+<td style="text-align:left;">
+dreams
+</td>
+<td style="text-align:left;">
+AFINN
+</td>
+<td style="text-align:right;">
+1
+</td>
 </tr>
-<tr class="odd">
-<td align="left">Pillars Of Serpents</td>
-<td align="right">2</td>
-<td align="left"><a href="https://genius.com/Trivium-pillars-of-serpents-lyrics" class="uri">https://genius.com/Trivium-pillars-of-serpents-lyrics</a></td>
-<td align="left">Ember to Inferno</td>
-<td align="left">Pillars Of Serpents</td>
-<td align="right">33</td>
-<td align="left">tears</td>
-<td align="left">AFINN</td>
-<td align="right">-2</td>
+<tr>
+<td style="text-align:left;">
+Pillars Of Serpents
+</td>
+<td style="text-align:right;">
+2
+</td>
+<td style="text-align:left;">
+<a href="https://genius.com/Trivium-pillars-of-serpents-lyrics" class="uri">https://genius.com/Trivium-pillars-of-serpents-lyrics</a>
+</td>
+<td style="text-align:left;">
+Ember to Inferno
+</td>
+<td style="text-align:left;">
+Pillars Of Serpents
+</td>
+<td style="text-align:right;">
+33
+</td>
+<td style="text-align:left;">
+tears
+</td>
+<td style="text-align:left;">
+AFINN
+</td>
+<td style="text-align:right;">
+-2
+</td>
 </tr>
-<tr class="even">
-<td align="left">If I Could Collapse The Masses</td>
-<td align="right">3</td>
-<td align="left"><a href="https://genius.com/Trivium-if-i-could-collapse-the-masses-lyrics" class="uri">https://genius.com/Trivium-if-i-could-collapse-the-masses-lyrics</a></td>
-<td align="left">Ember to Inferno</td>
-<td align="left">If I Could Collapse The Masses</td>
-<td align="right">5</td>
-<td align="left">broken</td>
-<td align="left">AFINN</td>
-<td align="right">-1</td>
+<tr>
+<td style="text-align:left;">
+If I Could Collapse The Masses
+</td>
+<td style="text-align:right;">
+3
+</td>
+<td style="text-align:left;">
+<a href="https://genius.com/Trivium-if-i-could-collapse-the-masses-lyrics" class="uri">https://genius.com/Trivium-if-i-could-collapse-the-masses-lyrics</a>
+</td>
+<td style="text-align:left;">
+Ember to Inferno
+</td>
+<td style="text-align:left;">
+If I Could Collapse The Masses
+</td>
+<td style="text-align:right;">
+5
+</td>
+<td style="text-align:left;">
+broken
+</td>
+<td style="text-align:left;">
+AFINN
+</td>
+<td style="text-align:right;">
+-1
+</td>
 </tr>
-<tr class="odd">
-<td align="left">If I Could Collapse The Masses</td>
-<td align="right">3</td>
-<td align="left"><a href="https://genius.com/Trivium-if-i-could-collapse-the-masses-lyrics" class="uri">https://genius.com/Trivium-if-i-could-collapse-the-masses-lyrics</a></td>
-<td align="left">Ember to Inferno</td>
-<td align="left">If I Could Collapse The Masses</td>
-<td align="right">7</td>
-<td align="left">fit</td>
-<td align="left">AFINN</td>
-<td align="right">1</td>
+<tr>
+<td style="text-align:left;">
+If I Could Collapse The Masses
+</td>
+<td style="text-align:right;">
+3
+</td>
+<td style="text-align:left;">
+<a href="https://genius.com/Trivium-if-i-could-collapse-the-masses-lyrics" class="uri">https://genius.com/Trivium-if-i-could-collapse-the-masses-lyrics</a>
+</td>
+<td style="text-align:left;">
+Ember to Inferno
+</td>
+<td style="text-align:left;">
+If I Could Collapse The Masses
+</td>
+<td style="text-align:right;">
+7
+</td>
+<td style="text-align:left;">
+fit
+</td>
+<td style="text-align:left;">
+AFINN
+</td>
+<td style="text-align:right;">
+1
+</td>
 </tr>
-<tr class="even">
-<td align="left">If I Could Collapse The Masses</td>
-<td align="right">3</td>
-<td align="left"><a href="https://genius.com/Trivium-if-i-could-collapse-the-masses-lyrics" class="uri">https://genius.com/Trivium-if-i-could-collapse-the-masses-lyrics</a></td>
-<td align="left">Ember to Inferno</td>
-<td align="left">If I Could Collapse The Masses</td>
-<td align="right">10</td>
-<td align="left">broken</td>
-<td align="left">AFINN</td>
-<td align="right">-1</td>
+<tr>
+<td style="text-align:left;">
+If I Could Collapse The Masses
+</td>
+<td style="text-align:right;">
+3
+</td>
+<td style="text-align:left;">
+<a href="https://genius.com/Trivium-if-i-could-collapse-the-masses-lyrics" class="uri">https://genius.com/Trivium-if-i-could-collapse-the-masses-lyrics</a>
+</td>
+<td style="text-align:left;">
+Ember to Inferno
+</td>
+<td style="text-align:left;">
+If I Could Collapse The Masses
+</td>
+<td style="text-align:right;">
+10
+</td>
+<td style="text-align:left;">
+broken
+</td>
+<td style="text-align:left;">
+AFINN
+</td>
+<td style="text-align:right;">
+-1
+</td>
 </tr>
-<tr class="odd">
-<td align="left">If I Could Collapse The Masses</td>
-<td align="right">3</td>
-<td align="left"><a href="https://genius.com/Trivium-if-i-could-collapse-the-masses-lyrics" class="uri">https://genius.com/Trivium-if-i-could-collapse-the-masses-lyrics</a></td>
-<td align="left">Ember to Inferno</td>
-<td align="left">If I Could Collapse The Masses</td>
-<td align="right">11</td>
-<td align="left">swear</td>
-<td align="left">AFINN</td>
-<td align="right">-2</td>
+<tr>
+<td style="text-align:left;">
+If I Could Collapse The Masses
+</td>
+<td style="text-align:right;">
+3
+</td>
+<td style="text-align:left;">
+<a href="https://genius.com/Trivium-if-i-could-collapse-the-masses-lyrics" class="uri">https://genius.com/Trivium-if-i-could-collapse-the-masses-lyrics</a>
+</td>
+<td style="text-align:left;">
+Ember to Inferno
+</td>
+<td style="text-align:left;">
+If I Could Collapse The Masses
+</td>
+<td style="text-align:right;">
+11
+</td>
+<td style="text-align:left;">
+swear
+</td>
+<td style="text-align:left;">
+AFINN
+</td>
+<td style="text-align:right;">
+-2
+</td>
 </tr>
-<tr class="even">
-<td align="left">If I Could Collapse The Masses</td>
-<td align="right">3</td>
-<td align="left"><a href="https://genius.com/Trivium-if-i-could-collapse-the-masses-lyrics" class="uri">https://genius.com/Trivium-if-i-could-collapse-the-masses-lyrics</a></td>
-<td align="left">Ember to Inferno</td>
-<td align="left">If I Could Collapse The Masses</td>
-<td align="right">12</td>
-<td align="left">battle</td>
-<td align="left">AFINN</td>
-<td align="right">-1</td>
+<tr>
+<td style="text-align:left;">
+If I Could Collapse The Masses
+</td>
+<td style="text-align:right;">
+3
+</td>
+<td style="text-align:left;">
+<a href="https://genius.com/Trivium-if-i-could-collapse-the-masses-lyrics" class="uri">https://genius.com/Trivium-if-i-could-collapse-the-masses-lyrics</a>
+</td>
+<td style="text-align:left;">
+Ember to Inferno
+</td>
+<td style="text-align:left;">
+If I Could Collapse The Masses
+</td>
+<td style="text-align:right;">
+12
+</td>
+<td style="text-align:left;">
+battle
+</td>
+<td style="text-align:left;">
+AFINN
+</td>
+<td style="text-align:right;">
+-1
+</td>
 </tr>
-<tr class="odd">
-<td align="left">If I Could Collapse The Masses</td>
-<td align="right">3</td>
-<td align="left"><a href="https://genius.com/Trivium-if-i-could-collapse-the-masses-lyrics" class="uri">https://genius.com/Trivium-if-i-could-collapse-the-masses-lyrics</a></td>
-<td align="left">Ember to Inferno</td>
-<td align="left">If I Could Collapse The Masses</td>
-<td align="right">19</td>
-<td align="left">free</td>
-<td align="left">AFINN</td>
-<td align="right">1</td>
+<tr>
+<td style="text-align:left;">
+If I Could Collapse The Masses
+</td>
+<td style="text-align:right;">
+3
+</td>
+<td style="text-align:left;">
+<a href="https://genius.com/Trivium-if-i-could-collapse-the-masses-lyrics" class="uri">https://genius.com/Trivium-if-i-could-collapse-the-masses-lyrics</a>
+</td>
+<td style="text-align:left;">
+Ember to Inferno
+</td>
+<td style="text-align:left;">
+If I Could Collapse The Masses
+</td>
+<td style="text-align:right;">
+19
+</td>
+<td style="text-align:left;">
+free
+</td>
+<td style="text-align:left;">
+AFINN
+</td>
+<td style="text-align:right;">
+1
+</td>
 </tr>
-<tr class="even">
-<td align="left">If I Could Collapse The Masses</td>
-<td align="right">3</td>
-<td align="left"><a href="https://genius.com/Trivium-if-i-could-collapse-the-masses-lyrics" class="uri">https://genius.com/Trivium-if-i-could-collapse-the-masses-lyrics</a></td>
-<td align="left">Ember to Inferno</td>
-<td align="left">If I Could Collapse The Masses</td>
-<td align="right">21</td>
-<td align="left">broken</td>
-<td align="left">AFINN</td>
-<td align="right">-1</td>
+<tr>
+<td style="text-align:left;">
+If I Could Collapse The Masses
+</td>
+<td style="text-align:right;">
+3
+</td>
+<td style="text-align:left;">
+<a href="https://genius.com/Trivium-if-i-could-collapse-the-masses-lyrics" class="uri">https://genius.com/Trivium-if-i-could-collapse-the-masses-lyrics</a>
+</td>
+<td style="text-align:left;">
+Ember to Inferno
+</td>
+<td style="text-align:left;">
+If I Could Collapse The Masses
+</td>
+<td style="text-align:right;">
+21
+</td>
+<td style="text-align:left;">
+broken
+</td>
+<td style="text-align:left;">
+AFINN
+</td>
+<td style="text-align:right;">
+-1
+</td>
 </tr>
-<tr class="odd">
-<td align="left">If I Could Collapse The Masses</td>
-<td align="right">3</td>
-<td align="left"><a href="https://genius.com/Trivium-if-i-could-collapse-the-masses-lyrics" class="uri">https://genius.com/Trivium-if-i-could-collapse-the-masses-lyrics</a></td>
-<td align="left">Ember to Inferno</td>
-<td align="left">If I Could Collapse The Masses</td>
-<td align="right">22</td>
-<td align="left">swear</td>
-<td align="left">AFINN</td>
-<td align="right">-2</td>
+<tr>
+<td style="text-align:left;">
+If I Could Collapse The Masses
+</td>
+<td style="text-align:right;">
+3
+</td>
+<td style="text-align:left;">
+<a href="https://genius.com/Trivium-if-i-could-collapse-the-masses-lyrics" class="uri">https://genius.com/Trivium-if-i-could-collapse-the-masses-lyrics</a>
+</td>
+<td style="text-align:left;">
+Ember to Inferno
+</td>
+<td style="text-align:left;">
+If I Could Collapse The Masses
+</td>
+<td style="text-align:right;">
+22
+</td>
+<td style="text-align:left;">
+swear
+</td>
+<td style="text-align:left;">
+AFINN
+</td>
+<td style="text-align:right;">
+-2
+</td>
 </tr>
-<tr class="even">
-<td align="left">If I Could Collapse The Masses</td>
-<td align="right">3</td>
-<td align="left"><a href="https://genius.com/Trivium-if-i-could-collapse-the-masses-lyrics" class="uri">https://genius.com/Trivium-if-i-could-collapse-the-masses-lyrics</a></td>
-<td align="left">Ember to Inferno</td>
-<td align="left">If I Could Collapse The Masses</td>
-<td align="right">23</td>
-<td align="left">battle</td>
-<td align="left">AFINN</td>
-<td align="right">-1</td>
+<tr>
+<td style="text-align:left;">
+If I Could Collapse The Masses
+</td>
+<td style="text-align:right;">
+3
+</td>
+<td style="text-align:left;">
+<a href="https://genius.com/Trivium-if-i-could-collapse-the-masses-lyrics" class="uri">https://genius.com/Trivium-if-i-could-collapse-the-masses-lyrics</a>
+</td>
+<td style="text-align:left;">
+Ember to Inferno
+</td>
+<td style="text-align:left;">
+If I Could Collapse The Masses
+</td>
+<td style="text-align:right;">
+23
+</td>
+<td style="text-align:left;">
+battle
+</td>
+<td style="text-align:left;">
+AFINN
+</td>
+<td style="text-align:right;">
+-1
+</td>
 </tr>
 </tbody>
 </table>
