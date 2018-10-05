@@ -51,171 +51,173 @@ output:
 
 frankenstein %&gt;% 
   head(20) %&gt;% 
-  kable(caption = &quot;Sample Raw Downloaded Frankenstein Text from Guntenberg&quot;) %&gt;% 
+  kable(
+    caption = &quot;Sample Raw Downloaded Frankenstein Text from Guntenberg&quot;,
+    align = rep(&quot;c&quot;, ncol(frankenstein))
+  ) %&gt;% 
   kableExtra::kable_styling(
-    bootstrap_options = &quot;striped&quot;,
     full_width = TRUE
   )</code></pre>
-<table class="table table-striped" style="margin-left: auto; margin-right: auto;">
+<table class="table" style="margin-left: auto; margin-right: auto;">
 <caption>
 <span id="tab:guternberg">Table 2.1: </span>Sample Raw Downloaded Frankenstein Text from Guntenberg
 </caption>
 <thead>
 <tr>
-<th style="text-align:right;">
+<th style="text-align:center;">
 gutenberg_id
 </th>
-<th style="text-align:left;">
+<th style="text-align:center;">
 text
 </th>
 </tr>
 </thead>
 <tbody>
 <tr>
-<td style="text-align:right;">
+<td style="text-align:center;">
 84
 </td>
-<td style="text-align:left;">
+<td style="text-align:center;">
 Frankenstein,
 </td>
 </tr>
 <tr>
-<td style="text-align:right;">
+<td style="text-align:center;">
 84
 </td>
-<td style="text-align:left;">
+<td style="text-align:center;">
 </td>
 </tr>
 <tr>
-<td style="text-align:right;">
+<td style="text-align:center;">
 84
 </td>
-<td style="text-align:left;">
+<td style="text-align:center;">
 or the Modern Prometheus
 </td>
 </tr>
 <tr>
-<td style="text-align:right;">
+<td style="text-align:center;">
 84
 </td>
-<td style="text-align:left;">
+<td style="text-align:center;">
 </td>
 </tr>
 <tr>
-<td style="text-align:right;">
+<td style="text-align:center;">
 84
 </td>
-<td style="text-align:left;">
+<td style="text-align:center;">
 </td>
 </tr>
 <tr>
-<td style="text-align:right;">
+<td style="text-align:center;">
 84
 </td>
-<td style="text-align:left;">
+<td style="text-align:center;">
 by
 </td>
 </tr>
 <tr>
-<td style="text-align:right;">
+<td style="text-align:center;">
 84
 </td>
-<td style="text-align:left;">
+<td style="text-align:center;">
 </td>
 </tr>
 <tr>
-<td style="text-align:right;">
+<td style="text-align:center;">
 84
 </td>
-<td style="text-align:left;">
+<td style="text-align:center;">
 Mary Wollstonecraft (Godwin) Shelley
 </td>
 </tr>
 <tr>
-<td style="text-align:right;">
+<td style="text-align:center;">
 84
 </td>
-<td style="text-align:left;">
+<td style="text-align:center;">
 </td>
 </tr>
 <tr>
-<td style="text-align:right;">
+<td style="text-align:center;">
 84
 </td>
-<td style="text-align:left;">
+<td style="text-align:center;">
 </td>
 </tr>
 <tr>
-<td style="text-align:right;">
+<td style="text-align:center;">
 84
 </td>
-<td style="text-align:left;">
+<td style="text-align:center;">
 </td>
 </tr>
 <tr>
-<td style="text-align:right;">
+<td style="text-align:center;">
 84
 </td>
-<td style="text-align:left;">
+<td style="text-align:center;">
 </td>
 </tr>
 <tr>
-<td style="text-align:right;">
+<td style="text-align:center;">
 84
 </td>
-<td style="text-align:left;">
+<td style="text-align:center;">
 Letter 1
 </td>
 </tr>
 <tr>
-<td style="text-align:right;">
+<td style="text-align:center;">
 84
 </td>
-<td style="text-align:left;">
+<td style="text-align:center;">
 </td>
 </tr>
 <tr>
-<td style="text-align:right;">
+<td style="text-align:center;">
 84
 </td>
-<td style="text-align:left;">
+<td style="text-align:center;">
 </td>
 </tr>
 <tr>
-<td style="text-align:right;">
+<td style="text-align:center;">
 84
 </td>
-<td style="text-align:left;">
+<td style="text-align:center;">
 St. Petersburgh, Dec. 11th, 17–
 </td>
 </tr>
 <tr>
-<td style="text-align:right;">
+<td style="text-align:center;">
 84
 </td>
-<td style="text-align:left;">
+<td style="text-align:center;">
 </td>
 </tr>
 <tr>
-<td style="text-align:right;">
+<td style="text-align:center;">
 84
 </td>
-<td style="text-align:left;">
+<td style="text-align:center;">
 TO Mrs. Saville, England
 </td>
 </tr>
 <tr>
-<td style="text-align:right;">
+<td style="text-align:center;">
 84
 </td>
-<td style="text-align:left;">
+<td style="text-align:center;">
 </td>
 </tr>
 <tr>
-<td style="text-align:right;">
+<td style="text-align:center;">
 84
 </td>
-<td style="text-align:left;">
+<td style="text-align:center;">
 You will rejoice to hear that no disaster has accompanied the
 </td>
 </tr>
@@ -385,247 +387,249 @@ Figure 7.1: Net AFINN Score per Chapter of Frankenstein
            into = c(&quot;chapter&quot;,
                     &quot;title&quot;),
            sep = &quot; - &quot;) %&gt;% 
-  kable(caption = &quot;My Titles for Each Frankenstein Chapter&quot;) %&gt;% 
+  kable(
+    caption = &quot;My Titles for Each Frankenstein Chapter&quot;,
+    align = c(&quot;c&quot;, &quot;c&quot;)
+  ) %&gt;% 
   kableExtra::kable_styling(
-    bootstrap_options = &quot;striped&quot;,
     full_width = TRUE
   )</code></pre>
-<table class="table table-striped" style="margin-left: auto; margin-right: auto;">
+<table class="table" style="margin-left: auto; margin-right: auto;">
 <caption>
 <span id="tab:chapter-titles">Table 7.1: </span>My Titles for Each Frankenstein Chapter
 </caption>
 <thead>
 <tr>
-<th style="text-align:left;">
+<th style="text-align:center;">
 chapter
 </th>
-<th style="text-align:left;">
+<th style="text-align:center;">
 title
 </th>
 </tr>
 </thead>
 <tbody>
 <tr>
-<td style="text-align:left;">
+<td style="text-align:center;">
 Letter 1
 </td>
-<td style="text-align:left;">
+<td style="text-align:center;">
 Robert Walton
 </td>
 </tr>
 <tr>
-<td style="text-align:left;">
+<td style="text-align:center;">
 Letter 2
 </td>
-<td style="text-align:left;">
+<td style="text-align:center;">
 Vessel and Crew
 </td>
 </tr>
 <tr>
-<td style="text-align:left;">
+<td style="text-align:center;">
 Letter 3
 </td>
-<td style="text-align:left;">
+<td style="text-align:center;">
 In Haste
 </td>
 </tr>
 <tr>
-<td style="text-align:left;">
+<td style="text-align:center;">
 Letter 4
 </td>
-<td style="text-align:left;">
+<td style="text-align:center;">
 Two Strangers on the Ice
 </td>
 </tr>
 <tr>
-<td style="text-align:left;">
+<td style="text-align:center;">
 Chapter 1
 </td>
-<td style="text-align:left;">
+<td style="text-align:center;">
 Alphonse, Caroline, Elizabeth
 </td>
 </tr>
 <tr>
-<td style="text-align:left;">
+<td style="text-align:center;">
 Chapter 2
 </td>
-<td style="text-align:left;">
+<td style="text-align:center;">
 Victor Frankenstein
 </td>
 </tr>
 <tr>
-<td style="text-align:left;">
+<td style="text-align:center;">
 Chapter 3
 </td>
-<td style="text-align:left;">
+<td style="text-align:center;">
 Ingolstadt
 </td>
 </tr>
 <tr>
-<td style="text-align:left;">
+<td style="text-align:center;">
 Chapter 4
 </td>
-<td style="text-align:left;">
+<td style="text-align:center;">
 Eight Feet in Height
 </td>
 </tr>
 <tr>
-<td style="text-align:left;">
+<td style="text-align:center;">
 Chapter 5
 </td>
-<td style="text-align:left;">
+<td style="text-align:center;">
 Daemon
 </td>
 </tr>
 <tr>
-<td style="text-align:left;">
+<td style="text-align:center;">
 Chapter 6
 </td>
-<td style="text-align:left;">
+<td style="text-align:center;">
 News from Home
 </td>
 </tr>
 <tr>
-<td style="text-align:left;">
+<td style="text-align:center;">
 Chapter 7
 </td>
-<td style="text-align:left;">
+<td style="text-align:center;">
 Strangled
 </td>
 </tr>
 <tr>
-<td style="text-align:left;">
+<td style="text-align:center;">
 Chapter 8
 </td>
-<td style="text-align:left;">
+<td style="text-align:center;">
 The Trial
 </td>
 </tr>
 <tr>
-<td style="text-align:left;">
+<td style="text-align:center;">
 Chapter 9
 </td>
-<td style="text-align:left;">
+<td style="text-align:center;">
 Solitude in Nature
 </td>
 </tr>
 <tr>
-<td style="text-align:left;">
+<td style="text-align:center;">
 Chapter 10
 </td>
-<td style="text-align:left;">
+<td style="text-align:center;">
 The Daemon’s Proposal
 </td>
 </tr>
 <tr>
-<td style="text-align:left;">
+<td style="text-align:center;">
 Chapter 11
 </td>
-<td style="text-align:left;">
+<td style="text-align:center;">
 Awakening
 </td>
 </tr>
 <tr>
-<td style="text-align:left;">
+<td style="text-align:center;">
 Chapter 12
 </td>
-<td style="text-align:left;">
+<td style="text-align:center;">
 The Cottagers
 </td>
 </tr>
 <tr>
-<td style="text-align:left;">
+<td style="text-align:center;">
 Chapter 13
 </td>
-<td style="text-align:left;">
+<td style="text-align:center;">
 Safie and the Gift of Knowledge
 </td>
 </tr>
 <tr>
-<td style="text-align:left;">
+<td style="text-align:center;">
 Chapter 14
 </td>
-<td style="text-align:left;">
+<td style="text-align:center;">
 Fall of the De Laceys
 </td>
 </tr>
 <tr>
-<td style="text-align:left;">
+<td style="text-align:center;">
 Chapter 15
 </td>
-<td style="text-align:left;">
+<td style="text-align:center;">
 Paradise Lost, Plutarch’s Lives and Sorrows of Werter
 </td>
 </tr>
 <tr>
-<td style="text-align:left;">
+<td style="text-align:center;">
 Chapter 16
 </td>
-<td style="text-align:left;">
+<td style="text-align:center;">
 Burned Down
 </td>
 </tr>
 <tr>
-<td style="text-align:left;">
+<td style="text-align:center;">
 Chapter 17
 </td>
-<td style="text-align:left;">
+<td style="text-align:center;">
 The Agreement
 </td>
 </tr>
 <tr>
-<td style="text-align:left;">
+<td style="text-align:center;">
 Chapter 18
 </td>
-<td style="text-align:left;">
+<td style="text-align:center;">
 To England
 </td>
 </tr>
 <tr>
-<td style="text-align:left;">
+<td style="text-align:center;">
 Chapter 19
 </td>
-<td style="text-align:left;">
+<td style="text-align:center;">
 Calm Before the Storm
 </td>
 </tr>
 <tr>
-<td style="text-align:left;">
+<td style="text-align:center;">
 Chapter 20
 </td>
-<td style="text-align:left;">
+<td style="text-align:center;">
 The Threat
 </td>
 </tr>
 <tr>
-<td style="text-align:left;">
+<td style="text-align:center;">
 Chapter 21
 </td>
-<td style="text-align:left;">
+<td style="text-align:center;">
 Accused
 </td>
 </tr>
 <tr>
-<td style="text-align:left;">
+<td style="text-align:center;">
 Chapter 22
 </td>
-<td style="text-align:left;">
+<td style="text-align:center;">
 Overshadowed Marriage
 </td>
 </tr>
 <tr>
-<td style="text-align:left;">
+<td style="text-align:center;">
 Chapter 23
 </td>
-<td style="text-align:left;">
+<td style="text-align:center;">
 Bridal Bier
 </td>
 </tr>
 <tr>
-<td style="text-align:left;">
+<td style="text-align:center;">
 Chapter 24
 </td>
-<td style="text-align:left;">
+<td style="text-align:center;">
 Unconquerable Ice
 </td>
 </tr>

@@ -57,9 +57,11 @@ frankenstein <-
 
 frankenstein %>% 
   head(20) %>% 
-  kable(caption = "Sample Raw Downloaded Frankenstein Text from Guntenberg") %>% 
+  kable(
+    caption = "Sample Raw Downloaded Frankenstein Text from Guntenberg",
+    align = rep("c", ncol(frankenstein))
+  ) %>% 
   kableExtra::kable_styling(
-    bootstrap_options = "striped",
     full_width = TRUE
   )
 
@@ -252,9 +254,11 @@ tibble(chapter_title = c(
            into = c("chapter",
                     "title"),
            sep = " - ") %>% 
-  kable(caption = "My Titles for Each Frankenstein Chapter") %>% 
+  kable(
+    caption = "My Titles for Each Frankenstein Chapter",
+    align = c("c", "c")
+  ) %>% 
   kableExtra::kable_styling(
-    bootstrap_options = "striped",
     full_width = TRUE
   )
 
