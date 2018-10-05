@@ -5,7 +5,7 @@ sidemenu = "true"
 description = "Have a question about R, data science, or about me? Want to collaborate for a certain project? Do not hesistate to contact me. I prefer messages and questions via email though I may not reply ASAP."
 +++
 
-<form class="pure-form pure-form-stacked">
+<form action="mailto:recleevibal@gmail.com" class="pure-form pure-form-stacked">
   <fieldset>
     <div class="pure-g">
       <div class="pure-u-1 pure-u-md-1-3">
