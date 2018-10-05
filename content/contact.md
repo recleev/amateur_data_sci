@@ -5,7 +5,7 @@ sidemenu = "true"
 description = "Have a question about R, data science, or about me? Want to collaborate for a certain project? Do not hesistate to contact me. I prefer messages and questions via email though I may not reply ASAP."
 +++
 
-<form action="mailto:recleevibal@gmail.com" method="post" class="pure-form pure-form-stacked">
+<form class="pure-form pure-form-stacked">
   <fieldset>
     <div class="pure-g">
       <div class="pure-u-1 pure-u-md-1-3">
@@ -42,7 +42,7 @@ description = "Have a question about R, data science, or about me? Want to colla
       <input type="text" class="pure-input-1-2" placeholder="A title">
       <textarea class="pure-input-1-2" placeholder="Your message"></textarea>
     </fieldset>
-    <button type="submit" class="pure-button pure-button-primary">Send</button>
+    <button type="submit" class="pure-button pure-button-primary"><a href="mailto:recleevibal@gmail.com">Send</a></button>
   </fieldset>
 </form>
 
