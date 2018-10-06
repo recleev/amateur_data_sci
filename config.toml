@@ -18,7 +18,7 @@ paginate = 10
   googleAnalytics = "UA-119602814-1"
   disqus = "the-amateur-data-scientist"
   # CSS name for highlight.js
-  highlightjs = "monokai"
+  highlightjs = "zenburn"
   dateFormat = "2006 Jan 2"
 
 [menu]
