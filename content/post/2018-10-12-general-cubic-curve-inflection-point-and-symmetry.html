@@ -30,7 +30,10 @@ biblio-style: apalike
 <div id="TOC">
 <ul>
 <li><a href="#problem"><span class="toc-section-number">1</span> Problem</a></li>
-<li><a href="#solution"><span class="toc-section-number">2</span> Solution</a></li>
+<li><a href="#solution"><span class="toc-section-number">2</span> Solution</a><ul>
+<li><a href="#inflection-point"><span class="toc-section-number">2.1</span> Inflection Point</a></li>
+<li><a href="#maxima-and-minima"><span class="toc-section-number">2.2</span> Maxima and Minima</a></li>
+</ul></li>
 <li><a href="#reference"><span class="toc-section-number">3</span> Reference</a></li>
 </ul>
 </div>
@@ -38,9 +41,16 @@ biblio-style: apalike
 <div id="problem" class="section level1">
 <h1><span class="header-section-number">1</span> Problem</h1>
 <p>Problem 40, page 157 in <span class="citation">Simmons (2016)</span></p>
-<p>Consider the general cubic equation <span class="math inline">\(y = a x^3 + b x^2 + c x + d\)</span>. Show that:</p>
+<p>Consider the general cubic equation</p>
+<p><span class="math display" id="eq:general-cubic">\[
+\begin{equation}
+y = a x^3 + b x^2 + c x + d
+\tag{1.1}
+\end{equation}
+\]</span></p>
+<p>Show that:</p>
 <ol style="list-style-type: decimal">
-<li>It has one and only one point of inflection at <span class="math inline">\(I (\frac{-b}{3a}, k); k = \frac{2 b^3}{27 a^2} - \frac{bc}{3a} + d\)</span>,</li>
+<li>It has one and only one point of inflection at <span class="math inline">\(I (\frac{-b}{3a}, k)\)</span> where <span class="math inline">\(k = \frac{2 b^3}{27 a^2} - \frac{bc}{3a} + d\)</span>,</li>
 <li>It has one maximum point and one minimum point if and only if <span class="math inline">\(b^2 - 3ac \gt 0\)</span>,</li>
 <li>The abscissa of <span class="math inline">\(I\)</span> is the average of the abscissas of the maximum and minimum point, and</li>
 <li>The curve is symmetric with respect to <span class="math inline">\(I\)</span> by
@@ -53,6 +63,100 @@ biblio-style: apalike
 </div>
 <div id="solution" class="section level1">
 <h1><span class="header-section-number">2</span> Solution</h1>
+<div id="inflection-point" class="section level2">
+<h2><span class="header-section-number">2.1</span> Inflection Point</h2>
+<p>The inflection point, at which the curve changes its concavity, of a curve can be determined by finding the root of the second derivative (<span class="math inline">\(f&#39;&#39; \left( x \right) = 0\)</span>).</p>
+<p>Computing for the second derivative of <a href="#eq:general-cubic">(1.1)</a>,</p>
+<p><span class="math display" id="eq:second-derivative" id="eq:first-derivative">\[
+\begin{align}
+y &amp;= f \left( x \right) = a x^3 + b x^2 + c x + d
+\\
+\\
+f&#39; \left( x \right) &amp;= 3a x^2 + 2b x + c \tag{2.1}
+\\
+\\
+f&#39;&#39; \left(x \right) &amp;= 6a x + 2b \tag{2.2}
+\end{align}
+\]</span></p>
+<p>Finding the roots of <a href="#eq:second-derivative">(2.2)</a>,</p>
+<p><span class="math display" id="eq:abscissa-inflection">\[
+\begin{align}
+6a x + 2b &amp;= 0
+\\
+6a x &amp;= -2b
+\\
+x &amp;= \frac{-2b}{6a}
+\\
+x &amp;= \frac{-b}{3a} \tag{2.3}
+\end{align}
+\]</span></p>
+<p>To find the ordinate of the point of inflection, substitute <a href="#eq:abscissa-inflection">(2.3)</a> to the <a href="#eq:general-cubic">(1.1)</a></p>
+<p><span class="math display" id="eq:ordinate-inflection">\[
+\begin{align}
+y &amp;= a \left( \frac{-b}{3a} \right)^3 + b \left( \frac{-b}{3a} \right)^2 + c \left( \frac{-b}{3a} \right) + d
+\\
+\\
+y &amp;= a \left( \frac{-b^3}{27 a^3} \right) + b \left( \frac{b^2}{9 a^2} \right) + \left( \frac{-bc}{3a} \right) + d
+\\
+\\
+y &amp;= \frac{-b^3}{27 a^2} + \frac{b^3}{9 a^2} - \frac{bc}{3a} + d
+\\
+\\
+y &amp;= \frac{-b^3 + 3 b^3}{27 a^2} - \frac{bc}{3a} + d
+\\
+\\
+y &amp;= \frac{2 b^3}{27 a^2} - \frac{bc}{3a} + d \tag{2.4}
+\end{align}
+\]</span></p>
+<p>This proves that the one and only point of inflection of <a href="#eq:general-cubic">(1.1)</a> is at <span class="math inline">\(I (\frac{-b}{3a}, \frac{2 b^3}{27 a^2} - \frac{bc}{3a} + d)\)</span>.</p>
+</div>
+<div id="maxima-and-minima" class="section level2">
+<h2><span class="header-section-number">2.2</span> Maxima and Minima</h2>
+<p>The extremas of a curve can be determined by finding the roots of the first derivative.</p>
+<p>Equating <a href="#eq:first-derivative">(2.1)</a> to zero,</p>
+<p><span class="math display" id="eq:zero-first-derivative">\[
+\begin{equation}
+3a x^2 + 2b x + c = 0
+\tag{2.5}
+\end{equation}
+\]</span></p>
+<p>Before we solve <a href="#eq:zero-frist-derivative">(<strong>??</strong>)</a>, I think this is a good opportunity to review the quadratic formula. Given a generalized quadratic equation</p>
+<p><span class="math display" id="eq:quadratic">\[
+\begin{equation}
+a x^2 + b x + c = 0
+\tag{2.6}
+\end{equation}
+\]</span></p>
+<p>We can solve the roots of <a href="#eq:quadratic">(2.6)</a> with the quadratic formula</p>
+<p><span class="math display" id="eq:quadratic-formula">\[
+\begin{equation}
+x = \frac{-b \pm \sqrt{b^2 - 4ac}}{2a}
+\tag{2.7}
+\end{equation}
+\]</span></p>
+<p>The roots of <a href="#eq:zero-first-derivative">(2.5)</a> can be calculated using <a href="#eq:quadratic-formula">(2.7)</a>. However, we must be mindful of our coefficients.</p>
+<p><span class="math display" id="eq:maximum-cubic" id="eq:minimum-cubic">\[
+\begin{align}
+x &amp;= \frac{-2b \pm \sqrt{\left( 2b \right)^2 - 4 \left( 3a \right) c}}{2 \left( 3a \right)}
+\\
+\\
+&amp;= \frac{-2b \pm \sqrt{4b^2 - 12a c}}{6a}
+\\
+\\
+&amp;= \frac{-2b \pm 2 \sqrt{b^2 - 3a c}}{6a}
+\\
+\\
+x &amp;= \frac{-b \pm \sqrt{b^2 - 3a c}}{3a}
+\\
+\\
+x_{min} &amp;= \frac{-b - \sqrt{b^2 - 3a c}}{3a} \tag{2.8}
+\\
+\\
+x_{max} &amp;= \frac{-b - \sqrt{b^2 - 3a c}}{3a} \tag{2.9}
+\end{align}
+\]</span></p>
+<p>Note that <a href="#eq:minimum-cubic">(2.8)</a> and <a href="#eq:maximum-cubic">(2.9)</a> will only exist if <span class="math inline">\(b^2 - 3ac \gt 0\)</span>.</p>
+</div>
 </div>
 <div id="reference" class="section level1">
 <h1><span class="header-section-number">3</span> Reference</h1>
