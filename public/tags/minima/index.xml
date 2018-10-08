@@ -6,10 +6,21 @@
     <description>Recent content in Minima on The Amateur Data Scientist</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>en-us</language>
-    <lastBuildDate>Fri, 07 Sep 2018 00:00:00 +0000</lastBuildDate>
+    <lastBuildDate>Fri, 12 Oct 2018 00:00:00 +0000</lastBuildDate>
     
 	<atom:link href="/tags/minima/index.xml" rel="self" type="application/rss+xml" />
     
+    
+    <item>
+      <title>General Cubic Curve: Inflection Point and Symmetry</title>
+      <link>/post/general-cubic-curve-inflection-point-and-symmetry/</link>
+      <pubDate>Fri, 12 Oct 2018 00:00:00 +0000</pubDate>
+      
+      <guid>/post/general-cubic-curve-inflection-point-and-symmetry/</guid>
+      <description>1 Problem2 Solution3 Reference1 ProblemProblem 40, page 157 in Simmons (2016)
+Consider the general cubic equation \(y = a x^3 + b x^2 + c x + d\). Show that:
+It has one and only one point of inflection at \(I (\frac{-b}{3a}, k); k = \frac{2 b^3}{27 a^2} - \frac{bc}{3a} + d\),It has one maximum point and one minimum point if and only if \(b^2 - 3ac \gt 0\),The abscissa of \(I\) is the average of the abscissas of the maximum and minimum point, andThe curve is symmetric with respect to \(I\) byIntroducing a new \(X\)-axis and \(Y\)-axis such that \(X = x + \frac{b}{3a}\) and \(Y = y - k\) and making \(I\) as the origin of the \(XY\)-system,Showing that the equation of the curve in the \(XY\)-system is \(Y = aX \left(X^2 - \frac{b^2 - 3ac}{3 a^2} \right)\), andShowing that this transformed equation is symmetric with respect to \(I\).</description>
+    </item>
     
     <item>
       <title>Sliding a Ladder and Filling a Bowl</title>

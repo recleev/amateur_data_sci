@@ -1,0 +1,47 @@
+---
+title: 'General Cubic Curve: Inflection Point and Symmetry'
+subtitle: 'Inflection Point and Symmetry'
+author: Recle Etino Vibal
+date: '2018-10-12'
+slug: general-cubic-curve-inflection-point-and-symmetry
+categories:
+  - Calculus
+  - Mathematics
+  - Mathjax
+tags:
+  - derivatives
+  - maxima
+  - minima
+  - inflection point
+  - symmetry
+  - cubic equation
+  - quadratic equation
+description: ''
+output:
+  blogdown::html_page:
+    toc: yes
+    number_sections: true
+bibliography:
+  - references/cwag2016.bib
+biblio-style: apalike
+---
+
+# Problem
+
+Problem 40, page 157 in @cwag2016
+
+Consider the general cubic equation $y = a x^3 + b x^2 + c x + d$. Show that:
+
+1. It has one and only one point of inflection at $I (\frac{-b}{3a}, k); k = \frac{2 b^3}{27 a^2} - \frac{bc}{3a} + d$,
+2. It has one maximum point and one minimum point if and only if $b^2 - 3ac \gt 0$,
+3. The abscissa of $I$ is the average of the abscissas of the maximum and minimum point, and
+4. The curve is symmetric with respect to $I$ by
+    a. Introducing a new $X$-axis and $Y$-axis such that $X = x + \frac{b}{3a}$ and $Y = y - k$ and making $I$ as the origin of the $XY$-system,
+    b. Showing that the equation of the curve in the $XY$-system is $Y = aX \left(X^2 - \frac{b^2 - 3ac}{3 a^2} \right)$, and
+    c. Showing that this transformed equation is symmetric with respect to $I$.
+  
+# Solution
+
+# Reference
+
+Problems and lessons from

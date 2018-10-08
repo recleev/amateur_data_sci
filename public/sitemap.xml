@@ -3,6 +3,11 @@
   xmlns:xhtml="http://www.w3.org/1999/xhtml">
   
   <url>
+    <loc>/post/general-cubic-curve-inflection-point-and-symmetry/</loc>
+    <lastmod>2018-10-12T00:00:00+00:00</lastmod>
+  </url>
+  
+  <url>
     <loc>/post/messy-tidy-tidyr-gather/</loc>
     <lastmod>2018-10-03T00:00:00+00:00</lastmod>
   </url>
@@ -80,8 +85,14 @@
   </url>
   
   <url>
+    <loc>/tags/cubic-equation/</loc>
+    <lastmod>2018-10-12T00:00:00+00:00</lastmod>
+    <priority>0</priority>
+  </url>
+  
+  <url>
     <loc>/tags/derivatives/</loc>
-    <lastmod>2018-09-21T00:00:00+00:00</lastmod>
+    <lastmod>2018-10-12T00:00:00+00:00</lastmod>
     <priority>0</priority>
   </url>
   
@@ -124,6 +135,12 @@
   <url>
     <loc>/tags/heavy-metal/</loc>
     <lastmod>2018-05-19T00:00:00+00:00</lastmod>
+    <priority>0</priority>
+  </url>
+  
+  <url>
+    <loc>/tags/inflection-point/</loc>
+    <lastmod>2018-10-12T00:00:00+00:00</lastmod>
     <priority>0</priority>
   </url>
   
@@ -171,13 +188,13 @@
   
   <url>
     <loc>/tags/maxima/</loc>
-    <lastmod>2018-09-07T00:00:00+00:00</lastmod>
+    <lastmod>2018-10-12T00:00:00+00:00</lastmod>
     <priority>0</priority>
   </url>
   
   <url>
     <loc>/tags/minima/</loc>
-    <lastmod>2018-09-07T00:00:00+00:00</lastmod>
+    <lastmod>2018-10-12T00:00:00+00:00</lastmod>
     <priority>0</priority>
   </url>
   
@@ -189,13 +206,19 @@
   
   <url>
     <loc>/post/</loc>
-    <lastmod>2018-10-03T00:00:00+00:00</lastmod>
+    <lastmod>2018-10-12T00:00:00+00:00</lastmod>
     <priority>0</priority>
   </url>
   
   <url>
     <loc>/tags/psei/</loc>
     <lastmod>2018-07-20T00:00:00+00:00</lastmod>
+    <priority>0</priority>
+  </url>
+  
+  <url>
+    <loc>/tags/quadratic-equation/</loc>
+    <lastmod>2018-10-12T00:00:00+00:00</lastmod>
     <priority>0</priority>
   </url>
   
@@ -248,6 +271,12 @@
   </url>
   
   <url>
+    <loc>/tags/symmetry/</loc>
+    <lastmod>2018-10-12T00:00:00+00:00</lastmod>
+    <priority>0</priority>
+  </url>
+  
+  <url>
     <loc>/tags/</loc>
     <lastmod>2018-09-21T00:00:00+00:00</lastmod>
     <priority>0</priority>
@@ -261,7 +290,7 @@
   
   <url>
     <loc>/</loc>
-    <lastmod>2018-10-03T00:00:00+00:00</lastmod>
+    <lastmod>2018-10-12T00:00:00+00:00</lastmod>
     <priority>0</priority>
   </url>
   
