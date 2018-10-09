@@ -322,7 +322,7 @@ x &amp;= \frac{-2b}{6a}
 x &amp;= \frac{-b}{3a} \tag{2.3}
 \end{align}
 \]</span></p>
-<p>To find the ordinate of the point of inflection, substitute <a href="#eq:abscissa-inflection">(2.3)</a> to the <a href="#eq:general-cubic">(1.1)</a></p>
+<p>To find the ordinate of the point of inflection, substitute <a href="#eq:abscissa-inflection">(2.3)</a> to <a href="#eq:general-cubic">(1.1)</a></p>
 <p><span class="math display" id="eq:ordinate-inflection">\[
 \begin{align}
 y &amp;= a \left( \frac{-b}{3a} \right)^3 + b \left( \frac{-b}{3a} \right)^2 + c \left( \frac{-b}{3a} \right) + d
@@ -340,11 +340,11 @@ y &amp;= \frac{-b^3 + 3 b^3}{27 a^2} - \frac{bc}{3a} + d
 y &amp;= \frac{2 b^3}{27 a^2} - \frac{bc}{3a} + d \tag{2.4}
 \end{align}
 \]</span></p>
-<p>This proves that the one and only point of inflection of <a href="#eq:general-cubic">(1.1)</a> is at <span class="math inline">\(I (\frac{-b}{3a}, \frac{2 b^3}{27 a^2} - \frac{bc}{3a} + d)\)</span>.</p>
+<p>This proves that the one and only point of inflection of <a href="#eq:general-cubic">(1.1)</a> is at <span class="math inline">\(I (\cfrac{-b}{3a}, \cfrac{2 b^3}{27 a^2} - \cfrac{bc}{3a} + d)\)</span>.</p>
 </div>
 <div id="maximum-and-minimum" class="section level2">
 <h2><span class="header-section-number">2.2</span> Maximum and Minimum</h2>
-<p>The extremas of a curve can be determined by finding the roots of the first derivative.</p>
+<p>The extrema of a curve can be determined by finding the roots of the first derivative.</p>
 <p>Equating <a href="#eq:first-derivative">(2.1)</a> to zero,</p>
 <p><span class="math display" id="eq:zero-first-derivative">\[
 \begin{equation}
@@ -384,10 +384,10 @@ x &amp;= \frac{-b \pm \sqrt{b^2 - 3a c}}{3a}
 x_{min} &amp;= \frac{-b - \sqrt{b^2 - 3a c}}{3a} \tag{2.8}
 \\
 \\
-x_{max} &amp;= \frac{-b - \sqrt{b^2 - 3a c}}{3a} \tag{2.9}
+x_{max} &amp;= \frac{-b + \sqrt{b^2 - 3a c}}{3a} \tag{2.9}
 \end{align}
 \]</span></p>
-<p>Note that <a href="#eq:minimum-cubic">(2.8)</a> and <a href="#eq:maximum-cubic">(2.9)</a> will only exist if <span class="math inline">\(b^2 - 3ac \gt 0\)</span>.</p>
+<p>Note that <a href="#eq:minimum-cubic">(2.8)</a> and <a href="#eq:maximum-cubic">(2.9)</a> will only exist if <span class="math inline">\(b^2 - 3ac \geq 0\)</span>.</p>
 </div>
 <div id="average-of-the-extrema" class="section level2">
 <h2><span class="header-section-number">2.3</span> Average of the Extrema</h2>
@@ -403,7 +403,7 @@ x_{max} &amp;= \frac{-b - \sqrt{b^2 - 3a c}}{3a} \tag{2.9}
 &amp;= \frac{-b}{3a} \tag{2.10}
 \end{align}
 \]</span></p>
-<p>The abscissa of <span class="math inline">\(I\)</span> is <span class="math inline">\(\frac{-b}{3a}\)</span>, which is also <a href="#eq:average-min-max">(2.10)</a>, the average of <span class="math inline">\(x_{min}\)</span> and <span class="math inline">\(x_{max}\)</span>.</p>
+<p>The abscissa of <span class="math inline">\(I\)</span> is <span class="math inline">\(\cfrac{-b}{3a}\)</span>, which is also <a href="#eq:average-min-max">(2.10)</a>, the average of <span class="math inline">\(x_{min}\)</span> and <span class="math inline">\(x_{max}\)</span>.</p>
 </div>
 <div id="symmetry-and-the-xy-system" class="section level2">
 <h2><span class="header-section-number">2.4</span> Symmetry and the XY-System</h2>
@@ -420,9 +420,10 @@ y &amp;= a x^3 + b x^2 + c x + d
 \\
 \\
 \left( Y + \frac{2 b^3}{27 a^2} - \frac{bc}{3a} + d \right) &amp;= a \left( X - \frac{b}{3a} \right)^3 + b \left( X - \frac{b}{3a} \right)^2 + c \left( X - \frac{b}{3a} \right) + d
-\end{align} \tag{2.11}
+\tag{2.11}
+\end{align}
 \]</span></p>
-<p>Before I proceed, I think this is a good opportunity to review two, in my opinion, must-know binomial expansion</p>
+<p>Before I proceed, I think this is a good opportunity to review two, in my opinion, must-know binomial expansions.</p>
 <p><span class="math display" id="eq:cube-binomial" id="eq:square-binomial">\[
 \begin{align}
 \left( m + n \right)^2 &amp;= m^2 + 2mn + n^2 \tag{2.12}
@@ -458,7 +459,7 @@ Y &amp;= a X^3 + \frac{-b^2X + 3 a c X}{3a}
 Y &amp;= a X \left( X^2 - \frac{b^2 - 3 a c}{3 a^2} \right) \tag{2.14}
 \end{align}
 \]</span></p>
-<p>Let’s review a curve’s symmetry. A curve defined by <span class="math inline">\(f \left( x \right)\)</span> is symmetric with respect to the <span class="math inline">\(x\)</span>-axis if <span class="math inline">\(f \left( x \right) = - f \left( x \right)\)</span>, with respect to the <span class="math inline">\(y\)</span>-axis if <span class="math inline">\(f \left( x \right) = f \left( -x \right)\)</span>, with respect to the origin if <span class="math inline">\(f \left( x \right) = - f \left( -x \right)\)</span>. Thus, we can prove that <a href="#eq:XY-cubic">(2.14)</a> is symmetric to its origin, if <span class="math inline">\(Y = F \left( X \right) = - F \left( -X \right)\)</span>.</p>
+<p>Let’s review how to determine a curve’s symmetry. A curve defined by <span class="math inline">\(f \left( x \right)\)</span> is symmetric with respect to the <span class="math inline">\(x\)</span>-axis if <span class="math inline">\(f \left( x \right) = - f \left( x \right)\)</span>, with respect to the <span class="math inline">\(y\)</span>-axis if <span class="math inline">\(f \left( x \right) = f \left( -x \right)\)</span>, with respect to the origin if <span class="math inline">\(f \left( x \right) = - f \left( -x \right)\)</span>. Thus, we can prove that <a href="#eq:XY-cubic">(2.14)</a> is symmetric to its origin, if <span class="math inline">\(Y = F \left( X \right) = - F \left( -X \right)\)</span>.</p>
 <p><span class="math display">\[
 \begin{align}
 -F\left( -X \right) &amp;= - \left[ a \left\{-X\right\} \left( \left\{-X\right\}^2 - \frac{b^2 - 3 a c}{3 a^2} \right) \right]
@@ -478,16 +479,9 @@ Y &amp;= a X \left( X^2 - \frac{b^2 - 3 a c}{3 a^2} \right) \tag{2.14}
 <p>I think we can look at how a generic cubic curve looks like with the three points (inflection, minimum, and maximum) included.</p>
 <pre class="r"><code># Attach tidyverse
 
-library(tidyverse)</code></pre>
-<pre><code>## -- Attaching packages ------------------------------------------------------------------------------------- tidyverse 1.2.1 --</code></pre>
-<pre><code>## v ggplot2 3.0.0     v purrr   0.2.5
-## v tibble  1.4.2     v dplyr   0.7.6
-## v tidyr   0.8.1     v stringr 1.3.1
-## v readr   1.1.1     v forcats 0.3.0</code></pre>
-<pre><code>## -- Conflicts ---------------------------------------------------------------------------------------- tidyverse_conflicts() --
-## x dplyr::filter() masks stats::filter()
-## x dplyr::lag()    masks stats::lag()</code></pre>
-<pre class="r"><code># Set coefficients, chosen via trial and error, note that b^2 - 3ac &gt; 0
+library(tidyverse)
+
+# Set coefficients, chosen via trial and error, note that b^2 - 3ac &gt; 0
 
 a_coeff &lt;- 0.3
 

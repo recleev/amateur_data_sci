@@ -82,7 +82,7 @@ x &= \frac{-b}{3a} (\#eq:abscissa-inflection)
 \end{align}
 $$
 
-To find the ordinate of the point of inflection, substitute \@ref(eq:abscissa-inflection) to the \@ref(eq:general-cubic)
+To find the ordinate of the point of inflection, substitute \@ref(eq:abscissa-inflection) to \@ref(eq:general-cubic)
 
 $$
 \begin{align}
@@ -102,11 +102,11 @@ y &= \frac{2 b^3}{27 a^2} - \frac{bc}{3a} + d (\#eq:ordinate-inflection)
 \end{align}
 $$
 
-This proves that the one and only point of inflection of \@ref(eq:general-cubic) is at $I (\frac{-b}{3a}, \frac{2 b^3}{27 a^2} - \frac{bc}{3a} + d)$.
+This proves that the one and only point of inflection of \@ref(eq:general-cubic) is at $I (\cfrac{-b}{3a}, \cfrac{2 b^3}{27 a^2} - \cfrac{bc}{3a} + d)$.
 
 ## Maximum and Minimum
 
-The extremas of a curve can be determined by finding the roots of the first derivative. 
+The extrema of a curve can be determined by finding the roots of the first derivative. 
 
 Equating \@ref(eq:first-derivative) to zero,
 
@@ -154,11 +154,11 @@ x &= \frac{-b \pm \sqrt{b^2 - 3a c}}{3a}
 x_{min} &= \frac{-b - \sqrt{b^2 - 3a c}}{3a} (\#eq:minimum-cubic)
 \\
 \\
-x_{max} &= \frac{-b - \sqrt{b^2 - 3a c}}{3a} (\#eq:maximum-cubic)
+x_{max} &= \frac{-b + \sqrt{b^2 - 3a c}}{3a} (\#eq:maximum-cubic)
 \end{align}
 $$
 
-Note that \@ref(eq:minimum-cubic) and \@ref(eq:maximum-cubic) will only exist if $b^2 - 3ac \gt 0$.
+Note that \@ref(eq:minimum-cubic) and \@ref(eq:maximum-cubic) will only exist if $b^2 - 3ac \geq 0$.
 
 ## Average of the Extrema
 
@@ -176,7 +176,7 @@ $$
 \end{align}
 $$
 
-The abscissa of $I$ is $\frac{-b}{3a}$, which is also \@ref(eq:average-min-max), the average of $x_{min}$ and $x_{max}$.
+The abscissa of $I$ is $\cfrac{-b}{3a}$, which is also \@ref(eq:average-min-max), the average of $x_{min}$ and $x_{max}$.
 
 ## Symmetry and the XY-System
 
@@ -194,10 +194,11 @@ y &= a x^3 + b x^2 + c x + d
 \\
 \\
 \left( Y + \frac{2 b^3}{27 a^2} - \frac{bc}{3a} + d \right) &= a \left( X - \frac{b}{3a} \right)^3 + b \left( X - \frac{b}{3a} \right)^2 + c \left( X - \frac{b}{3a} \right) + d
-\end{align} (\#eq:XY-to-expand)
+(\#eq:XY-to-expand)
+\end{align}
 $$
 
-Before I proceed, I think this is a good opportunity to review two, in my opinion, must-know binomial expansion
+Before I proceed, I think this is a good opportunity to review two, in my opinion, must-know binomial expansions.
 
 $$
 \begin{align}
@@ -237,7 +238,7 @@ Y &= a X \left( X^2 - \frac{b^2 - 3 a c}{3 a^2} \right) (\#eq:XY-cubic)
 \end{align}
 $$
 
-Let's review a curve's symmetry. A curve defined by $f \left( x \right)$ is symmetric with respect to the $x$-axis if $f \left( x \right) = - f \left( x \right)$, with respect to the $y$-axis if $f \left( x \right) = f \left( -x \right)$, with respect to the origin if $f \left( x \right) = - f \left( -x \right)$. Thus, we can prove that \@ref(eq:XY-cubic) is symmetric to its origin, if $Y = F \left( X \right) = - F \left( -X \right)$.
+Let's review how to determine a curve's symmetry. A curve defined by $f \left( x \right)$ is symmetric with respect to the $x$-axis if $f \left( x \right) = - f \left( x \right)$, with respect to the $y$-axis if $f \left( x \right) = f \left( -x \right)$, with respect to the origin if $f \left( x \right) = - f \left( -x \right)$. Thus, we can prove that \@ref(eq:XY-cubic) is symmetric to its origin, if $Y = F \left( X \right) = - F \left( -X \right)$.
 
 $$
 \begin{align}
@@ -257,7 +258,7 @@ We have proven that \@ref(eq:XY-cubic) is symmetric with respect to its origin.
 
 I think we can look at how a generic cubic curve looks like with the three points (inflection, minimum, and maximum) included.
 
-```{r plot-general-cubic, echo=TRUE,fig.align='center', fig.cap="**The Generic Cubic Curve**. The point of inflection is colored green, the minimum point blue, and the maximum point red."}
+```{r plot-general-cubic, echo=TRUE, message=FALSE, warning=FALSE, fig.align='center', fig.cap="**The Generic Cubic Curve**. The point of inflection is colored green, the minimum point blue, and the maximum point red."}
 
 # Attach tidyverse
 
