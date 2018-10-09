@@ -1,0 +1,367 @@
+---
+title: 'General Cubic Curve: Point of Inflection and Symmetry'
+author: Recle Etino Vibal
+date: '2018-10-09'
+categories:
+  - Calculus
+  - Mathematics
+  - Mathjax
+tags:
+  - cubic equation
+  - derivatives
+  - inflection point
+  - maxima
+  - minima
+  - quadratic equation
+  - symmetry
+subtitle: Inflection Point and Symmetry
+slug: general-cubic-curve-inflection-point-and-symmetry
+output:
+  blogdown::html_page:
+    toc: yes
+    number_sections: yes
+bibliography:
+  - references/cwag2016.bib
+biblio-style: apalike
+---
+
+# Problem
+
+Problem 40, page 157 in @cwag2016
+
+Consider the general cubic equation 
+
+$$
+\begin{equation}
+y = a x^3 + b x^2 + c x + d
+(\#eq:general-cubic)
+\end{equation}
+$$
+
+Show that:
+
+1. It has one and only one point of inflection at $I (\frac{-b}{3a}, k)$ where $k = \frac{2 b^3}{27 a^2} - \frac{bc}{3a} + d$,
+2. It has one maximum point and one minimum point if and only if $b^2 - 3ac \gt 0$,
+3. The abscissa of $I$ is the average of the abscissas of the maximum and minimum point, and
+4. The curve is symmetric with respect to $I$ by
+    a. Introducing a new $X$-axis and $Y$-axis such that $X = x + \frac{b}{3a}$ and $Y = y - k$ and making $I$ as the origin of the $XY$-system,
+    b. Showing that the equation of the curve in the $XY$-system is $Y = aX \left(X^2 - \frac{b^2 - 3ac}{3 a^2} \right)$, and
+    c. Showing that this transformed equation is symmetric with respect to $I$.
+  
+# Solution
+
+## Point of Inflection
+
+The point of inflection, at which the curve changes its concavity, of a curve can be determined by finding the root of the second derivative ($f'' \left( x \right) = 0$).
+
+Computing for the second derivative of \@ref(eq:general-cubic),
+
+$$
+\begin{align}
+y &= f \left( x \right) = a x^3 + b x^2 + c x + d
+\\
+\\
+f' \left( x \right) &= 3a x^2 + 2b x + c (\#eq:first-derivative)
+\\
+\\
+f'' \left(x \right) &= 6a x + 2b (\#eq:second-derivative)
+\end{align}
+$$
+
+Finding the roots of \@ref(eq:second-derivative),
+
+$$
+\begin{align}
+6a x + 2b &= 0
+\\
+6a x &= -2b
+\\
+x &= \frac{-2b}{6a}
+\\
+x &= \frac{-b}{3a} (\#eq:abscissa-inflection)
+\end{align}
+$$
+
+To find the ordinate of the point of inflection, substitute \@ref(eq:abscissa-inflection) to the \@ref(eq:general-cubic)
+
+$$
+\begin{align}
+y &= a \left( \frac{-b}{3a} \right)^3 + b \left( \frac{-b}{3a} \right)^2 + c \left( \frac{-b}{3a} \right) + d
+\\
+\\
+y &= a \left( \frac{-b^3}{27 a^3} \right) + b \left( \frac{b^2}{9 a^2} \right) + \left( \frac{-bc}{3a} \right) + d
+\\
+\\
+y &= \frac{-b^3}{27 a^2} + \frac{b^3}{9 a^2} - \frac{bc}{3a} + d
+\\
+\\
+y &= \frac{-b^3 + 3 b^3}{27 a^2} - \frac{bc}{3a} + d
+\\
+\\
+y &= \frac{2 b^3}{27 a^2} - \frac{bc}{3a} + d (\#eq:ordinate-inflection)
+\end{align}
+$$
+
+This proves that the one and only point of inflection of \@ref(eq:general-cubic) is at $I (\frac{-b}{3a}, \frac{2 b^3}{27 a^2} - \frac{bc}{3a} + d)$.
+
+## Maximum and Minimum
+
+The extremas of a curve can be determined by finding the roots of the first derivative. 
+
+Equating \@ref(eq:first-derivative) to zero,
+
+$$
+\begin{equation}
+3a x^2 + 2b x + c = 0
+(\#eq:zero-first-derivative)
+\end{equation}
+$$
+
+Before we solve \@ref(eq:zero-first-derivative), I think this is a good opportunity to review the quadratic formula. Given a generalized quadratic equation
+
+$$
+\begin{equation}
+a x^2 + b x + c = 0
+(\#eq:quadratic)
+\end{equation}
+$$
+
+We can solve the roots of \@ref(eq:quadratic) with the quadratic formula
+
+$$
+\begin{equation}
+x = \frac{-b \pm \sqrt{b^2 - 4ac}}{2a}
+(\#eq:quadratic-formula)
+\end{equation}
+$$
+
+The roots of \@ref(eq:zero-first-derivative) can be calculated using \@ref(eq:quadratic-formula). However, we must be mindful of our coefficients.
+
+$$
+\begin{align}
+x &= \frac{-2b \pm \sqrt{\left( 2b \right)^2 - 4 \left( 3a \right) c}}{2 \left( 3a \right)}
+\\
+\\
+&= \frac{-2b \pm \sqrt{4b^2 - 12a c}}{6a}
+\\
+\\
+&= \frac{-2b \pm 2 \sqrt{b^2 - 3a c}}{6a}
+\\
+\\
+x &= \frac{-b \pm \sqrt{b^2 - 3a c}}{3a}
+\\
+\\
+x_{min} &= \frac{-b - \sqrt{b^2 - 3a c}}{3a} (\#eq:minimum-cubic)
+\\
+\\
+x_{max} &= \frac{-b - \sqrt{b^2 - 3a c}}{3a} (\#eq:maximum-cubic)
+\end{align}
+$$
+
+Note that \@ref(eq:minimum-cubic) and \@ref(eq:maximum-cubic) will only exist if $b^2 - 3ac \gt 0$.
+
+## Average of the Extrema
+
+We can now determine if the abscissa of $I$ is equal to the average of $x_{min}$ and $x_{max}$.
+
+$$
+\begin{align}
+\frac{x_{min} + x_{max}}{2} &= \frac{\cfrac{-b - \sqrt{b^2 - 3a c}}{3a} + \cfrac{-b + \sqrt{b^2 - 3a c}}{3a}}{2}
+\\
+\\
+&= \frac{\cfrac{-2b}{3a}}{2}
+\\
+\\
+&= \frac{-b}{3a} (\#eq:average-min-max)
+\end{align}
+$$
+
+The abscissa of $I$ is $\frac{-b}{3a}$, which is also \@ref(eq:average-min-max), the average of $x_{min}$ and $x_{max}$.
+
+## Symmetry and the XY-System
+
+To convert the \@ref(eq:general-cubic) in terms of the $XY$-system, change $x$ and $y$ in terms of $X$ and $Y$. From the given.
+
+$$
+\begin{align}
+x &= X - \frac{b}{3a}
+\\
+\\
+y &= Y + k = Y + \frac{2 b^3}{27 a^2} - \frac{bc}{3a} + d
+\\
+\\
+y &= a x^3 + b x^2 + c x + d
+\\
+\\
+\left( Y + \frac{2 b^3}{27 a^2} - \frac{bc}{3a} + d \right) &= a \left( X - \frac{b}{3a} \right)^3 + b \left( X - \frac{b}{3a} \right)^2 + c \left( X - \frac{b}{3a} \right) + d
+\end{align} (\#eq:XY-to-expand)
+$$
+
+Before I proceed, I think this is a good opportunity to review two, in my opinion, must-know binomial expansion
+
+$$
+\begin{align}
+\left( m + n \right)^2 &= m^2 + 2mn + n^2 (\#eq:square-binomial)
+\\
+\\
+\left( m + n \right)^3 &= m^3 + 3m^2n + 3mn^2 + n^3 (\#eq:cube-binomial)
+\end{align}
+$$
+
+We can use our knowledge of \@ref(eq:square-binomial) and \@ref(eq:cube-binomial) to simplify \@ref(eq:XY-to-expand).
+
+$$
+\begin{align}
+\left( X - \frac{b}{3a} \right)^3 &= X^3 - \frac{b}{a} X^2 +  \frac{b^2}{3 a^2} X - \frac{b^3}{27 a^3}
+\\
+\\
+\left( X - \frac{b}{3a} \right)^2 &= X^2 - \frac{2b}{3a} X + \frac{b^2}{9a^2}
+\\
+\\
+Y + \frac{2 b^3}{27 a^2} - \frac{bc}{3a} + d &= a \left( X^3 - \frac{b}{a} X^2 +  \frac{b^2}{3 a^2} X - \frac{b^3}{27 a^3} \right) + b \left( X^2 - \frac{2b}{3a} X + \frac{b^2}{9a^2} \right) + c \left( X - \frac{b}{3a} \right) + d
+\\
+\\
+Y + \frac{2 b^3}{27 a^2} - \frac{bc}{3a} + d &= a X^3 - b X^2 +  \frac{b^2}{3 a} X - \frac{b^3}{27 a^2} + b X^2 - \frac{2b^2}{3a} X + \frac{b^3}{9a^2} + c X - \frac{bc}{3a} + d
+\\
+\\
+Y + \frac{2 b^3}{27 a^2} - \frac{bc}{3a} + d &= a X^3 - \frac{b^2}{3 a} X + \frac{2b^3}{27 a^2} - \frac{bc}{3a} + c X + d
+\\
+\\
+Y &= a X^3 - \frac{b^2}{3 a} X + c X 
+\\
+\\
+Y &= a X^3 + \frac{-b^2X + 3 a c X}{3a}
+\\
+\\
+Y &= a X \left( X^2 - \frac{b^2 - 3 a c}{3 a^2} \right) (\#eq:XY-cubic)
+\end{align}
+$$
+
+Let's review a curve's symmetry. A curve defined by $f \left( x \right)$ is symmetric with respect to the $x$-axis if $f \left( x \right) = - f \left( x \right)$, with respect to the $y$-axis if $f \left( x \right) = f \left( -x \right)$, with respect to the origin if $f \left( x \right) = - f \left( -x \right)$. Thus, we can prove that \@ref(eq:XY-cubic) is symmetric to its origin, if $Y = F \left( X \right) = - F \left( -X \right)$.
+
+$$
+\begin{align}
+-F\left( -X \right) &= - \left[ a \left\{-X\right\} \left( \left\{-X\right\}^2 - \frac{b^2 - 3 a c}{3 a^2} \right) \right]
+\\
+\\
+&= a X \left( X^2 - \frac{b^2 - 3 a c}{3 a^2} \right)
+\\
+\\
+&= F \left( X \right)
+\end{align}
+$$
+
+We have proven that \@ref(eq:XY-cubic) is symmetric with respect to its origin.
+
+# Plot of the Generic Cubic Curve
+
+I think we can look at how a generic cubic curve looks like with the three points (inflection, minimum, and maximum) included.
+
+```{r plot-general-cubic, echo=TRUE,fig.align='center', fig.cap="**The Generic Cubic Curve**. The point of inflection is colored green, the minimum point blue, and the maximum point red."}
+
+# Attach tidyverse
+
+library(tidyverse)
+
+# Set coefficients, chosen via trial and error, note that b^2 - 3ac > 0
+
+a_coeff <- 0.3
+
+b_coeff <- 2.2
+
+c_coeff <- -0.9
+
+d_coeff <- 17
+
+# Calculate the point of inflection
+
+inflection_x <- 
+  - b_coeff / (3 * a_coeff)
+
+inflection_y <- 
+  (2 * b_coeff^3) / (27 * a_coeff^2) - 
+  (b_coeff * c_coeff) / (3 * a_coeff) +
+  d_coeff
+
+# Calculate the maximum and minimum points
+
+max_x <- 
+  (-b_coeff - 
+     sqrt(
+       b_coeff^2 - 
+         3 * a_coeff * c_coeff
+     )) / (3 * a_coeff)
+
+min_x <- 
+  (-b_coeff + 
+     sqrt(
+       b_coeff^2 - 
+         3 * a_coeff * c_coeff
+     )) / (3 * a_coeff)
+
+max_y <- 
+  a_coeff * max_x^3 +
+  b_coeff * max_x^2 +
+  c_coeff * max_x +
+  d_coeff
+
+min_y <- 
+  a_coeff * min_x^3 +
+  b_coeff * min_x^2 +
+  c_coeff * min_x +
+  d_coeff
+
+# Plot the general cubic equation with
+
+tibble(
+  abscissa = seq(
+    inflection_x - 6, 
+    inflection_x + 6, 
+    by = 0.1
+  ),
+  ordinate = 
+    a_coeff * abscissa^3 +
+    b_coeff * abscissa^2 +
+    c_coeff * abscissa +
+    d_coeff
+) %>% 
+  ggplot(
+    aes(
+      abscissa,
+      ordinate
+    )
+  ) +
+  geom_line() +
+  annotate(
+    "point",
+    x = inflection_x,
+    y = inflection_y,
+    color = "green"
+  ) +
+  annotate(
+    "point",
+    x = max_x,
+    y = max_y,
+    color = "red"
+  ) +
+  annotate(
+    "point",
+    x = min_x,
+    y = min_y,
+    color = "blue"
+  ) +
+  geom_hline(yintercept = 0) +
+  geom_vline(xintercept = 0) +
+  theme_minimal() +
+  labs(
+    x = "x",
+    y = "y"
+  )
+  
+```
+
+Figure \@ref(fig:plot-general-cubic) shows that the extrema we computed are not absolute minimum and and maximum points of the curve.
+
+# Reference
+
+Problems and lessons from

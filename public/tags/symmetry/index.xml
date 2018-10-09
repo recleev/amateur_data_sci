@@ -6,18 +6,18 @@
     <description>Recent content in Symmetry on The Amateur Data Scientist</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>en-us</language>
-    <lastBuildDate>Fri, 12 Oct 2018 00:00:00 +0000</lastBuildDate>
+    <lastBuildDate>Tue, 09 Oct 2018 00:00:00 +0000</lastBuildDate>
     
 	<atom:link href="/tags/symmetry/index.xml" rel="self" type="application/rss+xml" />
     
     
     <item>
-      <title>General Cubic Curve: Inflection Point and Symmetry</title>
+      <title>General Cubic Curve: Point of Inflection and Symmetry</title>
       <link>/post/general-cubic-curve-inflection-point-and-symmetry/</link>
-      <pubDate>Fri, 12 Oct 2018 00:00:00 +0000</pubDate>
+      <pubDate>Tue, 09 Oct 2018 00:00:00 +0000</pubDate>
       
       <guid>/post/general-cubic-curve-inflection-point-and-symmetry/</guid>
-      <description>1 Problem2 Solution2.1 Inflection Point2.2 Maxima and Minima3 Reference1 ProblemProblem 40, page 157 in Simmons (2016)
+      <description>1 Problem2 Solution2.1 Point of Inflection2.2 Maximum and Minimum2.3 Average of the Extrema2.4 Symmetry and the XY-System3 Plot of the Generic Cubic Curve4 Reference1 ProblemProblem 40, page 157 in Simmons (2016)
 Consider the general cubic equation
 \[\begin{equation}y = a x^3 + b x^2 + c x + d\tag{1.1}\end{equation}\]
 Show that:
