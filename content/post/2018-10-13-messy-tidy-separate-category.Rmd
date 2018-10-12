@@ -1,0 +1,216 @@
+---
+title: 'From Messy to Tidy: Separate the Category'
+author: Recle Etino Vibal
+date: '2018-10-13'
+categories:
+  - lessons
+  - Philippines
+  - tidy data
+  - tidyverse
+tags:
+  - consumer price index
+  - dplyr
+  - rebus
+  - tidyr
+slug: messy-tidy-separate-category
+output:
+  blogdown::html_page:
+    toc: yes
+    number_sections: yes
+bibliography:
+  - references/messy-to-tidy.bib
+biblio-style: apalike
+---
+
+```{r packages-opts, message=FALSE, warning=FALSE, include=FALSE}
+
+# Attach packages and set chunk options
+
+xfun::pkg_attach(
+  "knitr",
+  "tidyverse",
+  "magrittr",
+  "DT",
+  "rebus",
+  "janitor"
+)
+
+opts_chunk$set(
+  message = FALSE,
+  warning = FALSE,
+  echo = FALSE
+)
+
+```
+
+# Dates in One Column
+
+The [first post](https://amateurdatasci.rbind.io/post/messy-tidy-tidyr-gather/) in the From Messy to Tidy series introduced us to the idea of tidy data (@tidy-data):
+
+>Data is tidy when 
+>1. Every column is a variable, 
+2. Every row is an observation, and 
+3. Every observational unit forms a table.
+
+Dates as column names is one sign of a **messy** data. My previous post focused on collecting the date columns into a single column and converting the dates to [ISO 8601](https://en.wikipedia.org/wiki/ISO_8601) (YYYY-MM-DD) format. 
+
+Here is a sample view of the data^[For reference, the data I am tidying here is the Philippines consumer price index from 1994 Jan to 2018 Jun retrieved [here](http://openstat.psa.gov.ph/dataset/prices-and-related-indices) on 2018 Sep 28] so far. While reading the data into this post, I also cleaned the column names to replace the unnecesary spaces with underscores. I did this, and can do more column names cleaning with `janitor::clean_names()` (@R-janitor).
+
+```{r read-show-sample, fig.cap="Sample Philippine Consumer Price Index Data with a Single ISO 8601 Date Column."}
+
+# read the partially-cleaned data and clean the column names
+
+iso_8601_cpi_data <- 
+  readr::read_rds("./data/ph-cpi-data/partial-tidy/iso-8601-cpi-data.RDS") %>% 
+  janitor::clean_names()
+
+# show sample data
+
+iso_8601_cpi_data %>% 
+  head(40) %>% 
+  DT::datatable(
+    rownames = FALSE,
+    options = list(
+      autoWidth = TRUE,
+      scrollX = TRUE,
+      pageLength = 20,
+      columnDefs = list(
+        list(
+          className = 'dt-center',
+          targets = 0:(ncol(iso_8601_cpi_data) - 1)
+        )
+      )
+    )
+  )
+
+```
+
+# Deciphering the Code Column
+
+One quick look at Figure \@ref(fig:read-show-sample) reminds us that the data is not yet tidy. For one, what does the `Code` column mean?
+
+Some of the readers might have noticed it already, but it took me a while to realize that the `code` column is related to the `description` column. We can see this better if we isolate the `code` and `description` columns. I did this with `dplyr::distinct()` (@R-dplyr).
+
+```{r code-description, fig.cap="The `code` and `description` Column Relationship."}
+
+# isoalte code and description column
+
+item_code_description <- 
+  iso_8601_cpi_data %>% 
+  distinct(code, description)
+
+# display isolated code and description column
+
+item_code_description %>% 
+  DT::datatable(
+    rownames = FALSE,
+    options = list(
+      pageLength = 20,
+      columnDefs = list(
+        list(
+          className = 'dt-center',
+          targets = 0:1
+        )
+      )
+    )
+  )
+
+```
+
+Upon reviewing Figure \@ref(fig:code-description), I noticed that the `code` and `description` columns identify the same thing, on what item the consumer price index measures. For example, a 01 `code` refers to the Food and Non-Alcoholic Beverages category. If we notice that 01.1 refers to the Food category and 01.2 to the Non-Alcoholic Bevarages category, then we get the pattern. A # `code` refers to the top category, #.# to the item's subcategory, and #.#.# to the item's sub-subcategory.
+
+The `description` can be thought of as variable because one observation of an item can only have one description. However, the `code` is a representation of at most three variables. I think this violates tidy data principles. Each level should have its own column, in my opinion. The `code` column is good for identification purposes, but this is not as useful to the data analyst. Imagine if we want to look at only the subcategories of Recreation and Culture. It will take us some time to understand the `code` column first before we can do what we want.
+
+From Figure \@ref(fig:code-description), the duplicate of `code` 01 sticks out like a sore thumb. Instead of Non-Alcoholic one description has Non-Alcholic. I removed this duplicate row before proceeding.
+
+```{r remove-alcholic}
+
+item_code_description <- 
+  item_code_description %>% 
+  filter(
+    !stringr::str_detect(
+      description,
+      "Non-Alcholic"
+    )
+  )
+
+```
+
+# Three Categories
+
+Splitting the `code` column into three looks easy. However, I realized I wanted the subcategories to have their main categories, and the sub-subcategories to have their sub- and main categories. To accomplish this, I followed the following steps:
+
+>1. Split the code column into category levels.
+2. Identify the item category level of the the description. 
+3. Distribute the description to the appropriate category level.
+4. Supply the missing levels for each item.
+
+## Cut the Dots
+
+I am thankful to the [Philippine Statistics Authority](http://openstat.psa.gov.ph/) that they encoded the `code` column with dots separating each category level because this makes it easy to extract the code levels with `tidry::separate()` (@R-tidyr).
+
+```{r separate-code}
+
+separate_item_code <- 
+  item_code_description %>% 
+  # split the code column into individual categories; this ensures that any
+  # extra category added in the future will cause an error
+  tidyr::separate(
+    code,
+    into = c(
+      "code_1",
+      "code_2",
+      "code_3"
+    ),
+    # keep the code column
+    remove = FALSE
+  )
+
+```
+
+I converted the `code` column into three^[I know that this hard coding of three columns is not good in case future data sets have a `code` column that has four category levels. However, `tidyr::separate()` will throw an error in case there are more than three categories in the future. Also, my hope is that this new format will be favored than the current one.] new columns: `code_1`, `code_2`, and `code_3`. I did not have to specify the `sep` argument because `tidyr::separate()` by default splits on non-alphanumeric characters. I did set `remove = FALSE` so that the `code` column will still be there after the split.
+
+## Count the Dots
+
+Identifying the category level of a `description` required a little creativity. We know the category level of a `description` by counting the `code` levels. The dots again becomes a blessing here because if a `code` has no dot, then it is a main category; if it has one dot, then it is a secondary category; if it has two dots, then it is a tertiary category.
+
+Counting dots can be done with `stringr::str_count()` (@R-stringr) and with the help of `rebus::DOT` (@R-rebus). 
+
+```{r identify-description-level}
+
+description_level <- 
+  separate_item_code %>% 
+  mutate(
+    # count the dots; add one to classify the correct level
+    category_level = str_count(
+      code, DOT
+    ) + 1,
+    # add item category to assist in converting to columns later
+    category_level = str_c(
+      "item_category",
+      category_level,
+      sep = "_"
+    )
+  )
+
+```
+
+## Spread the Categories
+
+With the `description` column identified into its respective category level, we can convert the column of category into three different columns with the `description` as values. This process will be the opposite of `tidyr::gather()`. Instead of taking multiple columns and collecting them in a single column, we need to transform a single column into multiple columns. The opposite of gather is spread, and the function for this task is `tidyr::spread()` (@R-tidyr).
+
+```{r spread-description}
+
+spread_description <- 
+  description_level %>% 
+  spread(
+    category_level,
+    description
+  )
+
+```
+
+The two important arguments to `tidyr::spread()`, aside from the data, is the column to spread out and the column of values that will be used to fill the new columns. Unfortunately, this will result with missing categories at each level.
+
+## Pull the One Above
+
