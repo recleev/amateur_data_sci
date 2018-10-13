@@ -70,6 +70,7 @@ iso_8601_cpi_data %>%
   head(40) %>% 
   DT::datatable(
     rownames = FALSE,
+    extensions = 'FixedColumns',
     options = list(
       autoWidth = TRUE,
       scrollX = TRUE,
@@ -85,6 +86,10 @@ iso_8601_cpi_data %>%
 
 ```
 
+I realized that I was repeatedly changing the options of `DT::datatable()` (@R-DT) when I am using it, so I just made a new function, `show_datatable()`, with all the settings I want.
+
+For all the code I used in this post, please refer to \@ref(code).
+
 # Deciphering the Code Column
 
 One quick look at Figure \@ref(fig:read-show-sample) reminds us that the data is not yet tidy. For one, what does the `Code` column mean?
@@ -99,21 +104,29 @@ item_code_description <-
   iso_8601_cpi_data %>% 
   distinct(code, description)
 
-# display isolated code and description column
+# create standard datatable function to be used in all tables in this post
 
-item_code_description %>% 
-  DT::datatable(
-    rownames = FALSE,
-    options = list(
-      pageLength = 20,
-      columnDefs = list(
-        list(
-          className = 'dt-center',
-          targets = 0:1
+show_datatable <- function(cpi_data) {
+  cpi_data %>% 
+    DT::datatable(
+      rownames = FALSE,
+      extensions = 'FixedColumns',
+      options = list(
+        pageLength = 20,
+        columnDefs = list(
+          list(
+            className = 'dt-center',
+            targets = 0:(ncol(cpi_data) - 1)
+          )
         )
       )
     )
-  )
+}
+
+# display isolated code and description column
+
+item_code_description %>% 
+  show_datatable()
 
 ```
 
@@ -121,9 +134,11 @@ Upon reviewing Figure \@ref(fig:code-description), I noticed that the `code` and
 
 The `description` can be thought of as variable because one observation of an item can only have one description. However, the `code` is a representation of at most three variables. I think this violates tidy data principles. Each level should have its own column, in my opinion. The `code` column is good for identification purposes, but this is not as useful to the data analyst. Imagine if we want to look at only the subcategories of Recreation and Culture. It will take us some time to understand the `code` column first before we can do what we want.
 
-From Figure \@ref(fig:code-description), the duplicate of `code` 01 sticks out like a sore thumb. Instead of Non-Alcoholic one description has Non-Alcholic. I removed this duplicate row before proceeding.
+From Figure \@ref(fig:code-description), the duplicate of `code` 01 sticks out like a sore thumb. Instead of Non-Alcoholic one description has Non-Alcholic. I removed this duplicate row in the item description table I was making before proceeding. I used `stringr::str_detect()` (@R-stringr) to do this. We don't need to worry about the Non-Alcholic in the original consumer price index data set because we will remove the original description colum later anyway.
 
 ```{r remove-alcholic}
+
+# remove the Non-Alcholic row
 
 item_code_description <- 
   item_code_description %>% 
@@ -134,11 +149,12 @@ item_code_description <-
     )
   )
 
+
 ```
 
-# Three Categories
+# Split, Stretch, and Trickle Down
 
-Splitting the `code` column into three looks easy. However, I realized I wanted the subcategories to have their main categories, and the sub-subcategories to have their sub- and main categories. To accomplish this, I followed the following steps:
+Splitting the `code` column into three looks easy. However, I realized I wanted the subcategories to have their main categories, and the sub-subcategories to have their sub- and main categories, making things more complicated. To accomplish this, I followed the following steps:
 
 >1. Split the code column into category levels.
 2. Identify the item category level of the the description. 
@@ -147,9 +163,11 @@ Splitting the `code` column into three looks easy. However, I realized I wanted 
 
 ## Cut the Dots
 
-I am thankful to the [Philippine Statistics Authority](http://openstat.psa.gov.ph/) that they encoded the `code` column with dots separating each category level because this makes it easy to extract the code levels with `tidry::separate()` (@R-tidyr).
+I am thankful to the [Philippine Statistics Authority](http://openstat.psa.gov.ph/) that they encoded the `code` column with dots separating each category level because this makes it easy to extract the code levels with `tidry::separate()` (@R-tidyr). See Figure \@ref(fig:separate-code).
 
-```{r separate-code}
+```{r separate-code, fig.cap="`The code` Separated. Cut Along the Dots."}
+
+# separate code into category level pieces
 
 separate_item_code <- 
   item_code_description %>% 
@@ -166,6 +184,11 @@ separate_item_code <-
     remove = FALSE
   )
 
+# show the result of separate
+
+separate_item_code %>% 
+  show_datatable()
+
 ```
 
 I converted the `code` column into three^[I know that this hard coding of three columns is not good in case future data sets have a `code` column that has four category levels. However, `tidyr::separate()` will throw an error in case there are more than three categories in the future. Also, my hope is that this new format will be favored than the current one.] new columns: `code_1`, `code_2`, and `code_3`. I did not have to specify the `sep` argument because `tidyr::separate()` by default splits on non-alphanumeric characters. I did set `remove = FALSE` so that the `code` column will still be there after the split.
@@ -176,7 +199,9 @@ Identifying the category level of a `description` required a little creativity. 
 
 Counting dots can be done with `stringr::str_count()` (@R-stringr) and with the help of `rebus::DOT` (@R-rebus). 
 
-```{r identify-description-level}
+```{r identify-description-level, fig.cap="The `description` Identified. A Category Level for Each Item Description."}
+
+# identify the category level of the description
 
 description_level <- 
   separate_item_code %>% 
@@ -193,13 +218,22 @@ description_level <-
     )
   )
 
+# show the result of the spread 
+
+description_level %>% 
+  show_datatable()
+
 ```
+
+From Figure \@ref(fig:identify-description-level), observe that I could also identify which `description` where main, sub, or sub-sub by determining if a `description` was missing either `code_1`, `code_2`, or `code_3`. However, I think this method is more tedious. Counting the dots just felt simpler. 
 
 ## Spread the Categories
 
 With the `description` column identified into its respective category level, we can convert the column of category into three different columns with the `description` as values. This process will be the opposite of `tidyr::gather()`. Instead of taking multiple columns and collecting them in a single column, we need to transform a single column into multiple columns. The opposite of gather is spread, and the function for this task is `tidyr::spread()` (@R-tidyr).
 
-```{r spread-description}
+```{r spread-description, fig.cap="A Spread Out `description` per Item Category Level."}
+
+# spread description column using category levels as variables/column heads
 
 spread_description <- 
   description_level %>% 
@@ -208,9 +242,160 @@ spread_description <-
     description
   )
 
+# show result of spread
+
+spread_description %>% 
+  show_datatable()
+
 ```
 
 The two important arguments to `tidyr::spread()`, aside from the data, is the column to spread out and the column of values that will be used to fill the new columns. Unfortunately, this will result with missing categories at each level.
 
 ## Pull the One Above
 
+The encoding of the `code` column becomes a blessing once again when we use `dplyr::arrange()` (@R-dplyr). Figure \@ref(fig:spread-description) shows that when it is arranged by `code`, the main categories are above the subcategories, and the subcategories are above the sub-subcategories. Also, the missing categories are underneath the categories they should belong too. This allows us to use `tidyr::fill()` to supply the missing categories.
+
+`tidyr::fill()` takes the value above the row as a replacement if the row is empty or `NA`. I had to be careful though. I did not want the subcategories and sub-subcategories leaking to the main categories. I avoided this by sequentially using `dplyr::group_by()` and `tidyr::fill()`. I grouped by `code_1` first, filled the main categories, then grouped by `item_category_1`, filled the subcategories. Nothing should be done with the sub-subcategories.
+
+```{r fill-category-level, fig.cap="No More Missing Categories."}
+
+# fill the missing categories; arrange first by code then sequentially use
+# group_by and fill
+
+complete_item_description_code <- 
+  spread_description %>% 
+  # ensure tibble is arranged by code column
+  arrange(code) %>% 
+  # fill main categories first
+  group_by(code_1) %>% 
+  fill(item_category_1) %>%
+  # fill subcategories, making sure subcategories do not leak out to main
+  # categories by grouping by mainc ategory first
+  group_by(item_category_1) %>% 
+  fill(item_category_2) %>% 
+  # remove the unnecessary columns
+  select(-matches(START %R% "code_" %R% DGT %R% END)) %>% 
+  # fix default arrangement that was ruined by grouping
+  ungroup() %>% 
+  arrange(code)
+
+# show final item description code and level guide
+
+complete_item_description_code %>% 
+  show_datatable()
+  
+
+```
+
+As the reader can see in Figure \@ref(fig:fill-category-level), I also removed the helper columns and kept only what is necessary.
+
+# Join and Split
+
+The third tidy data principal is every observational unit should form a table. I think observations of item categories are better separated into different data sets. Combining them will be easier later, but working with this amount of data with different observational unit is not conducive for easy analysis, in my opinion.
+
+I joined the table we just completed above with the original^[The one with single column of dates in ISO 8601 format.] consumer price index data using `dplyr::inner_join()` with the `code` column as the joining column. Each row will then have columns that will identify its category group. 
+
+```{r join-cpi-description, fig.cap="The Philippine Consumer Price Index Data Categorized by Item."}
+
+# join item categories to original data
+
+categorized_cpi_data <- 
+  iso_8601_cpi_data %>% 
+  inner_join(
+    complete_item_description_code,
+    by = "code"
+  )
+
+# show sample of categorized data
+
+categorized_cpi_data %>% 
+  head(80) %>% 
+  show_datatable()
+
+```
+
+I split the table by categories by counting the dots again. If the `code` column has zero dots, then it should be in the primary categories table, one dot to secondary categories, and three dots to tertiary categories.
+
+```{r separate-by-category-level}
+
+# separate the table by category levels
+
+primary_item_cpi <- 
+  categorized_cpi_data %>% 
+  filter(
+    str_count(
+      code,
+      DOT
+    ) == 0
+  ) %>% 
+  select(-item_category_2, -item_category_3)
+
+secondary_item_cpi <- 
+  categorized_cpi_data %>% 
+  filter(
+    str_count(
+      code,
+      DOT
+    ) == 1
+  ) %>% 
+  select(-item_category_3)
+
+tertiary_item_cpi <- 
+  categorized_cpi_data %>% 
+  filter(
+    str_count(
+      code,
+      DOT
+    ) == 2
+  )
+
+# create saving function
+
+save_categorized_tibble <- function(object_name) {
+  saveRDS(
+    get(object_name), 
+    sprintf(
+      "./data/ph-cpi-data/partial-tidy/categorized-cpi/%s",
+      str_replace(object_name, "_", "-")
+    )
+  )
+}
+
+# save the new data sets
+
+map(
+  paste0(
+    c("primary", "secondary", "tertiary"),
+    "_item_cpi"
+  ),
+  save_categorized_tibble
+)
+
+
+```
+
+Observed that I created a function and use `purrr::map()` (@R-purrr) to save the three data sets. I think I will use this next time too. `purrr::map()` returns a list, but since I ma just saving and expecting no output, I get this `NULL` results. I wonder if there is a function to avoid this. I tried `lapply`, but I got the same result. Anyway, what is important is that the new data sets are now saved.
+
+# Up Next
+
+Looking at Figure \@ref(fig:join-cpi-description), we see three columns that refers to location. We will work on this next time.
+
+# Code {#code}
+
+The following codes show what I did in this post. The logic of each code should have been captured in the discussion, but I added comments here and there to further clarify my thought process.
+
+```{r all-codes, ref.label = all_labels(), echo=TRUE, eval=FALSE}
+
+```
+
+My session info for reproducibility.
+
+```{r session-info}
+
+sessionInfo()
+
+```
+
+# References
+
+For more information on tidy principles, techniques, and good practices, and the packages and functions I used in this post, please read

@@ -73,7 +73,7 @@ raw_cpi_data <-
 
 ```
 
-The data I will use here is the Philippines consumer price index from 1994 Jan to 2018 Jun retrieved [here](http://openstat.psa.gov.ph/dataset/prices-and-related-indices) on 2018 Sep 28.
+The data I will use here is the Philippines consumer price index from 1994 Jan to 2018 Jun retrieved [here](http://openstat.psa.gov.ph/dataset/prices-and-related-indices) on 2018 Sep 28. All the tables in this post are displayed using `DT::datatable()` (@R-DT).
 
 ```{r show-raw-data-sample, fig.cap="First 20 Rows of the Philippines Monthly Consumer Price Index (CPI) for All Income Households by Commodity Group and Geographic Area from 1994 Jan to 2018 Jun. CPI from 1994 to 2005 are the equivalent/estimated 2006-based CPI using the splicing method. Data from Philippine Statistics Authority (http://openstat.psa.gov.ph)."}
 
@@ -82,6 +82,7 @@ The data I will use here is the Philippines consumer price index from 1994 Jan t
 raw_cpi_data %>% 
   head(20) %>% 
   DT::datatable(
+    rownames = FALSE,
     extensions = 'FixedColumns',
     options = list(
       scrollX = TRUE,
@@ -179,6 +180,7 @@ Here is the sample of the elongated data so far.
 long_cpi_data %>%
   head(20) %>% 
   DT::datatable(
+    rownames = FALSE,
     extensions = 'FixedColumns',
     options = list(
       scrollX = TRUE,
@@ -243,6 +245,7 @@ Here is a sample of the data so far.
 iso_8601_cpi_data %>%
   head(20) %>% 
   DT::datatable(
+    rownames = FALSE,
     extensions = 'FixedColumns',
     options = list(
       scrollX = TRUE,
@@ -260,7 +263,9 @@ saveRDS(iso_8601_cpi_data, "./data/ph-cpi-data/partial-tidy/iso-8601-cpi-data.RD
 
 ```
 
-Up Next: What is that `Code` column?
+# Up Next
+
+What is that `Code` column?
 
 # Code {#code}
 
@@ -280,7 +285,7 @@ sessionInfo()
 
 # References
 
-For more information tidy principles, techniques, and good practices, and the packages and functions I used in this post, please read
+For more information on tidy principles, techniques, and good practices, and the packages and functions I used in this post, please read
 
 
 

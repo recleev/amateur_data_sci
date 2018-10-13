@@ -17,7 +17,7 @@
       <pubDate>Wed, 03 Oct 2018 00:00:00 +0000</pubDate>
       
       <guid>/post/messy-tidy-tidyr-gather/</guid>
-      <description>1 Tidy Data: Long But Machine Readable2 Consumer Price Index of the Philippines3 Messy Data Cues3.1 Wide not Long3.2 Dates as Columns3.3 Average Columns4 Short Steps to a Long Table4.1 Remove Columns with Names that Starts with the Same Characters4.2 Gather the Date Columns4.3 Convert to YYYY-MM-DD5 Not Yet Tidy, A Little Less Messy6 Code7 References1 Tidy Data: Long But Machine ReadableWorking with data made me conscious of how we compile, store, and share data.</description>
+      <description>1 Tidy Data: Long But Machine Readable2 Consumer Price Index of the Philippines3 Messy Data Cues3.1 Wide not Long3.2 Dates as Columns3.3 Average Columns4 Short Steps to a Long Table4.1 Remove Columns with Names that Starts with the Same Characters4.2 Gather the Date Columns4.3 Convert to YYYY-MM-DD5 Not Yet Tidy, A Little Less Messy6 Up Next7 Code8 References1 Tidy Data: Long But Machine ReadableWorking with data made me conscious of how we compile, store, and share data.</description>
     </item>
     
   </channel>
