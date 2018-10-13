@@ -304,7 +304,7 @@ categorized_cpi_data %>%
 
 I split the table by categories by counting the dots again. If the `code` column has zero dots, then it should be in the primary categories table, one dot to secondary categories, and three dots to tertiary categories.
 
-```{r separate-by-category-level}
+```{r separate-by-category-level, eval=FALSE}
 
 # separate the table by category levels
 
@@ -362,7 +362,7 @@ map(
 
 ```
 
-Observed that I created a function and use `purrr::map()` [@R-purrr] to save the three data sets. I think I will use this next time too. `purrr::map()` returns a list, but since I ma just saving and expecting no output, I get this `NULL` results. I wonder if there is a function to avoid this. I tried `lapply`, but I got the same result. Anyway, what is important is that the new data sets are now saved.
+Observed that I created a function and use `purrr::map()` [@R-purrr] to save the three data sets. I think I will use this next time too. `purrr::map()` returns a list, but since I ma just saving and expecting no output, I get these `NULL` results. I wonder if there is a function to avoid this. I tried `lapply`, but I got the same result. Anyway, what is important is that the new data sets are now saved.
 
 # Up Next
 

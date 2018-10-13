@@ -158,15 +158,7 @@ Figure 4.1: The Philippine Consumer Price Index Data Categorized by Item.
 </p>
 </div>
 <p>I split the table by categories by counting the dots again. If the <code>code</code> column has zero dots, then it should be in the primary categories table, one dot to secondary categories, and three dots to tertiary categories.</p>
-<pre><code>## [[1]]
-## NULL
-## 
-## [[2]]
-## NULL
-## 
-## [[3]]
-## NULL</code></pre>
-<p>Observed that I created a function and use <code>purrr::map()</code> <span class="citation">(Henry and Wickham 2018)</span> to save the three data sets. I think I will use this next time too. <code>purrr::map()</code> returns a list, but since I ma just saving and expecting no output, I get this <code>NULL</code> results. I wonder if there is a function to avoid this. I tried <code>lapply</code>, but I got the same result. Anyway, what is important is that the new data sets are now saved.</p>
+<p>Observed that I created a function and use <code>purrr::map()</code> <span class="citation">(Henry and Wickham 2018)</span> to save the three data sets. I think I will use this next time too. <code>purrr::map()</code> returns a list, but since I ma just saving and expecting no output, I get these <code>NULL</code> results. I wonder if there is a function to avoid this. I tried <code>lapply</code>, but I got the same result. Anyway, what is important is that the new data sets are now saved.</p>
 </div>
 <div id="up-next" class="section level1">
 <h1><span class="header-section-number">5</span> Up Next</h1>
