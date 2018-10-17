@@ -1,0 +1,138 @@
+---
+title: Sine, Cosine, and Multiples of Angles
+author: Recle Etino Vibal
+date: '2018-10-17'
+slug: sine-cosine-multiples-angles
+categories:
+  - Mathematics
+  - trigonometry
+  - Mathjax
+tags:
+  - sine
+  - cosine
+  - trigonometric identites
+output:
+  blogdown::html_page:
+    toc: yes
+    number_sections: yes
+bibliography:
+  - references/cwag2016.bib
+biblio-style: apalike
+---
+
+# Review of Trigonometric Identities
+
+Here is an overview of some of the most important trigonometric identites. In my opinion, one can derive other trigonometric identities just by knowing these.
+
+$$
+\begin{align}
+\sin \left( - \theta \right) &= - \sin \theta (\#eq:sine-negative)
+\\
+\\
+\cos \left( - \theta \right) &= \cos \theta (\#eq:cosine-negative)
+\\
+\\
+\sin^2 \theta + \cos^2 \theta &= 1 (\#eq:pythagorean)
+\\
+\\
+\sin \left(  \theta + \phi \right) &= \sin \theta \sin \phi + \cos \theta \sin \phi (\#eq:sum-sine)
+\\
+\\
+\cos \left( \theta + \phi \right) &= \cos \theta \cos \phi - \sin \theta \sin \phi (\#eq:sum-cosine)
+\end{align}
+$$
+
+A special identity for equations \@ref(eq:sum-sine) and \@ref(eq:sum-cosine) happens when $\theta = \phi$.
+
+$$
+\begin{align}
+\sin \left( 2 \theta \right) &= 2 \sin \theta \cos \theta (\#eq:double-angle-sine)
+\\
+\\
+\cos \left( 2 \theta \right) &= \cos^2 \theta - \sin^2 \theta (\#eq:double-angle-sine)
+\end{align}
+$$
+
+# Problems
+
+## Quadruple Angle
+
+Problem 62, page 62 in @cwag2016.
+
+Verify:
+
+$$
+\begin{align}
+\sin 4 \theta &= 8 \sin \theta \cos^3 \theta - 4 \sin \theta \cos \theta (\#eq:problem-quad-sine)
+\\
+\\
+\cos 4 \theta &= 8 \cos^4 \theta - 8 \cos^2 \theta + 1 (\#eq:problem-quad-cosine)
+\end{align}
+$$
+
+## Multiple Angles Sine and Cosine Product
+
+Problem 63, page 50 in @cwag2016.
+
+Prove:
+
+$$
+\begin{align}
+\sin m \theta \sin n \theta &= \frac{1}{2} \left[ \cos \left( m - n \right) \theta - \cos \left( m + n \right) \theta \right] (\#eq:problem-sine-sine)
+\\
+\\
+\sin m \theta \cos n \theta &= \frac{1}{2} \left[ \sin \left( m + n \right) \theta - \sin \left( m - n \right) \theta \right] (\#eq:problem-sine-sine) (\#eq:problem-sine-cosine)
+\\
+\\
+\cos m \theta \cos n \theta &= \frac{1}{2} \left[ \cos \left( m + n \right) \theta + \cos \left( m - n \right) \theta \right] (\#eq:problem-cosine-cosine)
+\end{align}
+$$
+
+# Solutions
+
+## Quadruple is Double Double
+
+Problems \@ref(eq:problem-quad-sine) and \@ref(eq:problem-quad-cosine) can be solved using identities \@ref(eq:double-angle-sine), \@ref(eq:double-angle-cosine), and \@ref(eq:pythagorean).
+
+$$
+\begin{align}
+\sin 4 \theta &= \sin 2 \left( 2 \theta \right)
+\\
+&= 2 \sin 2 \theta \cos 2 \theta
+\\
+&= 2 \left( 2 \sin \theta \cos \theta \right) \left( \cos^2 \theta - \sin^2 \theta \right)
+\\
+&= 4 \sin \theta \cos \theta \left[ \cos^2 \theta - \left( 1 - \cos^2 \theta \right) \right]
+\\
+&= 4 \sin \theta \cos^3 \theta - 4 \sin \theta \cos \theta + 4 \sin \theta \cos^3 \theta
+\\
+\sin 4 \theta &= 8 \sin \theta \cos^3 \theta - 4 \sin \theta \cos \theta
+\\
+\\
+\cos 4 \theta &= \cos 2 \left( 2 \theta \right)
+\\
+&= \cos^2 2 \theta - \sin^2 2 \theta
+\\
+&= \cos^2 2 \theta - \left( 1 - \cos^2 2 \theta \right)
+\\
+&= 2 \cos^2 2 \theta - 1
+\\
+&= 2 \left( \cos 2 \theta \right)^2 - 1
+\\
+&= 2 \left( \cos^2 \theta - \sin^2 \theta \right)^2 - 1
+\\
+&= 2 (\cos^4 \theta - 2 cos^2 \theta \sin^2 \theta + \sin^4 \theta) - 1
+\\
+&= 2 \left( \cos^4 \theta - 2 cos^2 \theta \sin^2 \theta + \sin^4 \theta \right) - 1
+\\
+&= 2 \left[ \cos^4 \theta - 2 cos^2 \theta \left( 1 - \cos^2 \theta \right) + \left( 1 - \cos^2 \theta \right)^2 \right] - 1
+\\
+&= 2 \left( \cos^4 \theta - 2 cos^2 \theta + 2 \cos^4 \theta + 1 - 2 \cos^2 \theta + \cos^4 \theta \right) - 1
+\\
+&= 2 \left( 4 \cos^4 \theta - 4 cos^2 \theta + 1 \right) - 1
+\\
+&= 8 \cos^4 \theta - 8 cos^2 \theta + 2 - 1
+\\
+\cos 4 \theta &= 8 \cos^4 \theta - 8 cos^2 \theta + 1
+\end{align}
+$$
