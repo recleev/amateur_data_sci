@@ -1,0 +1,227 @@
+---
+title: Sine, Cosine, and Multiples of Angles
+author: Recle Etino Vibal
+date: '2018-10-17'
+slug: sine-cosine-multiples-angles
+categories:
+  - Mathematics
+  - trigonometry
+  - Mathjax
+tags:
+  - sine
+  - cosine
+  - trigonometric identites
+output:
+  blogdown::html_page:
+    toc: yes
+    number_sections: yes
+bibliography:
+  - references/cwag2016.bib
+biblio-style: apalike
+---
+
+
+<div id="TOC">
+<ul>
+<li><a href="#review-of-trigonometric-identities"><span class="toc-section-number">1</span> Review of Trigonometric Identities</a></li>
+<li><a href="#problems"><span class="toc-section-number">2</span> Problems</a><ul>
+<li><a href="#quadruple-angle"><span class="toc-section-number">2.1</span> Quadruple Angle</a></li>
+<li><a href="#multiple-angles-sine-and-cosine-product"><span class="toc-section-number">2.2</span> Multiple Angles Sine and Cosine Product</a></li>
+</ul></li>
+<li><a href="#solutions"><span class="toc-section-number">3</span> Solutions</a><ul>
+<li><a href="#quadruple-is-double-double"><span class="toc-section-number">3.1</span> Quadruple is Double Double</a></li>
+<li><a href="#add-and-subtract"><span class="toc-section-number">3.2</span> Add and Subtract</a></li>
+</ul></li>
+<li><a href="#reference"><span class="toc-section-number">4</span> Reference</a></li>
+</ul>
+</div>
+
+<div id="review-of-trigonometric-identities" class="section level1">
+<h1><span class="header-section-number">1</span> Review of Trigonometric Identities</h1>
+<p>Here is an overview of some of the most important trigonometric identites. In my opinion, one can derive other trigonometric identities just by knowing these.</p>
+<p><span class="math display" id="eq:sum-cosine" id="eq:sum-sine" id="eq:pythagorean" id="eq:cosine-negative" id="eq:sine-negative">\[
+\begin{align}
+\sin \left( - \theta \right) &amp;= - \sin \theta \tag{1.1}
+\\
+\\
+\cos \left( - \theta \right) &amp;= \cos \theta \tag{1.2}
+\\
+\\
+\sin^2 \theta + \cos^2 \theta &amp;= 1 \tag{1.3}
+\\
+\\
+\sin \left(  \theta + \phi \right) &amp;= \sin \theta \sin \phi + \cos \theta \sin \phi \tag{1.4}
+\\
+\\
+\cos \left( \theta + \phi \right) &amp;= \cos \theta \cos \phi - \sin \theta \sin \phi \tag{1.5}
+\end{align}
+\]</span></p>
+<p>A special identity for equations <a href="#eq:sum-sine">(1.4)</a> and <a href="#eq:sum-cosine">(1.5)</a> happens when <span class="math inline">\(\theta = \phi\)</span>.</p>
+<p><span class="math display" id="eq:double-angle-cosine" id="eq:double-angle-sine">\[
+\begin{align}
+\sin \left( 2 \theta \right) &amp;= 2 \sin \theta \cos \theta \tag{1.6}
+\\
+\\
+\cos \left( 2 \theta \right) &amp;= \cos^2 \theta - \sin^2 \theta \tag{1.7}
+\end{align}
+\]</span></p>
+</div>
+<div id="problems" class="section level1">
+<h1><span class="header-section-number">2</span> Problems</h1>
+<div id="quadruple-angle" class="section level2">
+<h2><span class="header-section-number">2.1</span> Quadruple Angle</h2>
+<p>Problem 62, page 62 in <span class="citation">Simmons (2016)</span>.</p>
+<p>Verify:</p>
+<p><span class="math display" id="eq:problem-quad-cosine" id="eq:problem-quad-sine">\[
+\begin{align}
+\sin 4 \theta &amp;= 8 \sin \theta \cos^3 \theta - 4 \sin \theta \cos \theta \tag{2.1}
+\\
+\\
+\cos 4 \theta &amp;= 8 \cos^4 \theta - 8 \cos^2 \theta + 1 \tag{2.2}
+\end{align}
+\]</span></p>
+</div>
+<div id="multiple-angles-sine-and-cosine-product" class="section level2">
+<h2><span class="header-section-number">2.2</span> Multiple Angles Sine and Cosine Product</h2>
+<p>Problem 63, page 50 in <span class="citation">Simmons (2016)</span>.</p>
+<p>Prove:</p>
+<p><span class="math display" id="eq:problem-cosine-cosine" id="eq:problem-sine-cosine" id="eq:problem-sine-sine">\[
+\begin{align}
+\sin m \theta \sin n \theta &amp;= \frac{1}{2} \left[ \cos \left( m - n \right) \theta - \cos \left( m + n \right) \theta \right] \tag{2.3}
+\\
+\\
+\sin m \theta \cos n \theta &amp;= \frac{1}{2} \left[ \sin \left( m + n \right) \theta - \sin \left( m - n \right) \theta \right] \tag{2.4}
+\\
+\\
+\cos m \theta \cos n \theta &amp;= \frac{1}{2} \left[ \cos \left( m + n \right) \theta + \cos \left( m - n \right) \theta \right] \tag{2.5}
+\end{align}
+\]</span></p>
+</div>
+</div>
+<div id="solutions" class="section level1">
+<h1><span class="header-section-number">3</span> Solutions</h1>
+<div id="quadruple-is-double-double" class="section level2">
+<h2><span class="header-section-number">3.1</span> Quadruple is Double Double</h2>
+<p>Problems <a href="#eq:problem-quad-sine">(2.1)</a> and <a href="#eq:problem-quad-cosine">(2.2)</a> can be solved using identities <a href="#eq:double-angle-sine">(1.6)</a>, <a href="#eq:double-angle-cosine">(1.7)</a>, and <a href="#eq:pythagorean">(1.3)</a>.</p>
+<p><span class="math display">\[
+\begin{align}
+\sin 4 \theta &amp;= \sin 2 \left( 2 \theta \right)
+\\
+&amp;= 2 \sin 2 \theta \cos 2 \theta
+\\
+&amp;= 2 \left( 2 \sin \theta \cos \theta \right) \left( \cos^2 \theta - \sin^2 \theta \right)
+\\
+&amp;= 4 \sin \theta \cos \theta \left[ \cos^2 \theta - \left( 1 - \cos^2 \theta \right) \right]
+\\
+&amp;= 4 \sin \theta \cos^3 \theta - 4 \sin \theta \cos \theta + 4 \sin \theta \cos^3 \theta
+\\
+\sin 4 \theta &amp;= 8 \sin \theta \cos^3 \theta - 4 \sin \theta \cos \theta
+\\
+\\
+\cos 4 \theta &amp;= \cos 2 \left( 2 \theta \right)
+\\
+&amp;= \cos^2 2 \theta - \sin^2 2 \theta
+\\
+&amp;= \cos^2 2 \theta - \left( 1 - \cos^2 2 \theta \right)
+\\
+&amp;= 2 \cos^2 2 \theta - 1
+\\
+&amp;= 2 \left( \cos 2 \theta \right)^2 - 1
+\\
+&amp;= 2 \left( \cos^2 \theta - \sin^2 \theta \right)^2 - 1
+\\
+&amp;= 2 (\cos^4 \theta - 2 cos^2 \theta \sin^2 \theta + \sin^4 \theta) - 1
+\\
+&amp;= 2 \left( \cos^4 \theta - 2 cos^2 \theta \sin^2 \theta + \sin^4 \theta \right) - 1
+\\
+&amp;= 2 \left[ \cos^4 \theta - 2 cos^2 \theta \left( 1 - \cos^2 \theta \right) + \left( 1 - \cos^2 \theta \right)^2 \right] - 1
+\\
+&amp;= 2 \left( \cos^4 \theta - 2 cos^2 \theta + 2 \cos^4 \theta + 1 - 2 \cos^2 \theta + \cos^4 \theta \right) - 1
+\\
+&amp;= 2 \left( 4 \cos^4 \theta - 4 cos^2 \theta + 1 \right) - 1
+\\
+&amp;= 8 \cos^4 \theta - 8 cos^2 \theta + 2 - 1
+\\
+\cos 4 \theta &amp;= 8 \cos^4 \theta - 8 cos^2 \theta + 1
+\end{align}
+\]</span></p>
+</div>
+<div id="add-and-subtract" class="section level2">
+<h2><span class="header-section-number">3.2</span> Add and Subtract</h2>
+<p>Problems <a href="#eq:problem-sine-sine">(2.3)</a>, <a href="#eq:problem-sine-cosine">(2.4)</a>, and <a href="#eq:problem-cosine-cosine">(2.5)</a> already offer clues on the proofs’ process. The left hand side of the equations can be seen in identities <a href="#eq:sum-sine">(1.4)</a> and <a href="#eq:sum-cosine">(1.5)</a>. We will also need identities <a href="#eq:sine-negative">(1.1)</a> and <a href="#eq:cosine-negative">(1.2)</a> to simplify the sine and cosine of the negative angles.</p>
+<p><span class="math display" id="eq:sine-m-minus-n" id="eq:sine-m-plus-n" id="eq:cosine-m-minus-n" id="eq:cosine-m-plus-n">\[
+\begin{align}
+\cos \left( m + n \right) \theta &amp;= \cos \left( m \theta + n \theta \right)
+\\
+\cos \left( m + n \right) \theta &amp;= \cos m \theta \cos n \theta - \sin m \theta \sin n \theta \tag{3.1}
+\\
+\\
+\cos \left( m - n \right) \theta &amp;= \cos \left( m \theta - n \theta \right)
+\\
+&amp;= \cos m \theta \cos \left( - n \theta \right) - \sin m \theta \sin \left( - n \theta \right)
+\\
+\cos \left( m - n \right) \theta &amp;= \cos m \theta \cos n \theta + \sin m \theta \sin n \theta \tag{3.2}
+\\
+\\
+\sin \left(m + n \right) \theta &amp;= \sin \left( m \theta + n \theta \right)
+\\
+\sin \left(m + n \right) \theta &amp;= \sin m \theta \cos n \theta + \cos m \theta \sin n \theta \tag{3.3}
+\\
+\\
+\sin \left(m - n \right) \theta &amp;= \sin \left( m \theta - n \theta \right)
+\\
+&amp;= \sin m \theta \cos \left( - n \theta \right) + \cos m \theta \sin \left( - n \theta \right)
+\\
+\sin \left(m - n \right) \theta &amp;= \sin m \theta \cos n \theta - \cos m \theta \sin n \theta \tag{3.4}
+\end{align}
+\]</span></p>
+<p>We derive <a href="#eq:problem-sine-sine">(2.3)</a> by subtracting <a href="#eq:cosine-m-minus-n">(3.2)</a> from <a href="#eq:cosine-m-plus-n">(3.1)</a>.</p>
+<p><span class="math display">\[
+\require{cancel}
+\begin{align}
+\cos \left( m + n \right) \theta - \cos \left( m - n \right) \theta &amp;= \cos m \theta \cos n \theta - \sin m \theta \sin n \theta - \left( \cos m \theta \cos n \theta + \sin m \theta \sin n \theta \right)
+\\
+ &amp;= \cancelto{0}{\cos m \theta \cos n \theta - \cos m \theta \cos n \theta} - \sin m \theta \sin n \theta- \sin m \theta \sin n \theta
+ \\
+\cos \left( m + n \right) \theta - \cos \left( m - n \right) \theta &amp;= -2 sin m \theta \sin n \theta
+\\
+\sin m \theta \sin n \theta &amp;= - \frac{1}{2} \left[ \cos \left( m + n \right) \theta - \cos \left( m - n \right) \theta \right]
+\\
+\sin m \theta \sin n \theta &amp;= \frac{1}{2} \left[ \cos \left( m - n \right) \theta - \cos \left( m + n \right) \theta \right]
+\end{align}
+\]</span></p>
+<p>Problem <a href="#eq:problem-sine-cosine">(2.4)</a> by adding <a href="#eq:sine-m-plus-n">(3.3)</a> and <a href="#eq:sine-m-minus-n">(3.4)</a>.</p>
+<p><span class="math display">\[
+\begin{align}
+\sin \left(m + n \right) \theta + \sin \left(m - n \right) \theta &amp;= \sin m \theta \cos n \theta + \cos m \theta \sin n \theta + \left( \sin m \theta \cos n \theta - \cos m \theta \sin n \theta \right)
+\\
+&amp;= \sin m \theta \cos n \theta + \sin m \theta \cos n \theta + \cancelto{0}{\cos m \theta \sin n \theta - \cos m \theta \sin n \theta}
+\\
+\sin \left(m + n \right) \theta + \sin \left(m - n \right) \theta &amp;= 2 \sin m \theta \cos n \theta
+\\
+\sin m \theta \cos n \theta &amp;= \frac{1}{2} \left[ \sin \left(m + n \right) \theta + \sin \left(m - n \right) \theta \right]
+\end{align}
+\]</span></p>
+<p>Finally, we can derive problem <a href="#eq:problem-cosine-cosine">(2.5)</a> by adding <a href="#eq:cosine-m-plus-n">(3.1)</a> and <a href="#eq:cosine-m-minus-n">(3.2)</a>.</p>
+<p><span class="math display">\[
+\begin{align}
+\cos \left( m + n \right) \theta + \cos \left( m - n \right) \theta &amp;= \cos m \theta \cos n \theta - \sin m \theta \sin n \theta + \cos m \theta \cos n \theta + \sin m \theta \sin n \theta
+\\
+&amp;= \cos m \theta \cos n \theta + \cos m \theta \cos n \theta \cancelto{0}{- \sin m \theta \sin n \theta + \sin m \theta \sin n \theta}
+\\
+\cos \left( m + n \right) \theta + \cos \left( m - n \right) \theta &amp;= 2 \cos m \theta \cos n \theta
+\\
+\cos m \theta \cos n \theta &amp;= \frac{1}{2} \left[ \cos \left( m + n \right) \theta + \cos \left( m - n \right) \theta \right]
+\end{align}
+\]</span></p>
+</div>
+</div>
+<div id="reference" class="section level1">
+<h1><span class="header-section-number">4</span> Reference</h1>
+<p>Lessons and problems from</p>
+<div id="refs" class="references">
+<div id="ref-cwag2016">
+<p>Simmons, George F. 2016. <em>Calculus with Analytic Geometry</em>. 2nd Edition. McGraw-Hill Education.</p>
+</div>
+</div>
+</div>

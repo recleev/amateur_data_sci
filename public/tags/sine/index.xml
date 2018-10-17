@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes" ?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>Sine on The Amateur Data Scientist</title>
+    <link>/tags/sine/</link>
+    <description>Recent content in Sine on The Amateur Data Scientist</description>
+    <generator>Hugo -- gohugo.io</generator>
+    <language>en-us</language>
+    <lastBuildDate>Wed, 17 Oct 2018 00:00:00 +0000</lastBuildDate>
+    
+	<atom:link href="/tags/sine/index.xml" rel="self" type="application/rss+xml" />
+    
+    
+    <item>
+      <title>Sine, Cosine, and Multiples of Angles</title>
+      <link>/post/sine-cosine-multiples-angles/</link>
+      <pubDate>Wed, 17 Oct 2018 00:00:00 +0000</pubDate>
+      
+      <guid>/post/sine-cosine-multiples-angles/</guid>
+      <description>1 Review of Trigonometric Identities2 Problems2.1 Quadruple Angle2.2 Multiple Angles Sine and Cosine Product3 Solutions3.1 Quadruple is Double Double3.2 Add and Subtract4 Reference1 Review of Trigonometric IdentitiesHere is an overview of some of the most important trigonometric identites. In my opinion, one can derive other trigonometric identities just by knowing these.
+\[\begin{align}\sin \left( - \theta \right) &amp;amp;= - \sin \theta \tag{1.</description>
+    </item>
+    
+  </channel>
+</rss>

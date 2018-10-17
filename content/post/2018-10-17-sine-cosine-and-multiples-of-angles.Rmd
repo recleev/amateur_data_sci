@@ -49,7 +49,7 @@ $$
 \sin \left( 2 \theta \right) &= 2 \sin \theta \cos \theta (\#eq:double-angle-sine)
 \\
 \\
-\cos \left( 2 \theta \right) &= \cos^2 \theta - \sin^2 \theta (\#eq:double-angle-sine)
+\cos \left( 2 \theta \right) &= \cos^2 \theta - \sin^2 \theta (\#eq:double-angle-cosine)
 \end{align}
 $$
 
@@ -81,7 +81,7 @@ $$
 \sin m \theta \sin n \theta &= \frac{1}{2} \left[ \cos \left( m - n \right) \theta - \cos \left( m + n \right) \theta \right] (\#eq:problem-sine-sine)
 \\
 \\
-\sin m \theta \cos n \theta &= \frac{1}{2} \left[ \sin \left( m + n \right) \theta - \sin \left( m - n \right) \theta \right] (\#eq:problem-sine-sine) (\#eq:problem-sine-cosine)
+\sin m \theta \cos n \theta &= \frac{1}{2} \left[ \sin \left( m + n \right) \theta - \sin \left( m - n \right) \theta \right] (\#eq:problem-sine-cosine)
 \\
 \\
 \cos m \theta \cos n \theta &= \frac{1}{2} \left[ \cos \left( m + n \right) \theta + \cos \left( m - n \right) \theta \right] (\#eq:problem-cosine-cosine)
@@ -139,7 +139,7 @@ $$
 
 ## Add and Subtract
 
-Problems \@ref(eq:problem-sine-sine), \@ref(eq:problem-sine-cosine), and \@ref(eq:problem-cosine-cosine) already offer clues on the proofs' process. The left hand side of the equations can be seen in identities \@ref(eq:sum-sine) and \@ref(eq:sum-cosine). We will also need identities \@ref(eq:negative-sine) and \@ref(eq:negative-cosine) to simplify the sine and cosine of the negative angles.
+Problems \@ref(eq:problem-sine-sine), \@ref(eq:problem-sine-cosine), and \@ref(eq:problem-cosine-cosine) already offer clues on the proofs' process. The left hand side of the equations can be seen in identities \@ref(eq:sum-sine) and \@ref(eq:sum-cosine). We will also need identities \@ref(eq:sine-negative) and \@ref(eq:cosine-negative) to simplify the sine and cosine of the negative angles.
 
 $$
 \begin{align}
@@ -168,7 +168,7 @@ $$
 \end{align}
 $$
 
-We derive \@ref(eq:problem-sine-sine) by subtracting \@ref(eq:cosine-m-minus-n) from \@ref(cosine-m-plus-n).
+We derive \@ref(eq:problem-sine-sine) by subtracting \@ref(eq:cosine-m-minus-n) from \@ref(eq:cosine-m-plus-n).
 
 $$
 \require{cancel}
@@ -185,7 +185,7 @@ $$
 \end{align}
 $$
 
-Problem \@ref(eq:problem-sine-cosine) by adding \@ref(sine-m-plus-n) and \@ref(sine-m-minus-n).
+Problem \@ref(eq:problem-sine-cosine) by adding \@ref(eq:sine-m-plus-n) and \@ref(eq:sine-m-minus-n).
 
 $$
 \begin{align}
@@ -199,4 +199,20 @@ $$
 \end{align}
 $$
 
-Finally, we can derive problem \@ref(eq:problem-cosine-cosine) by adding \@ref(eq:cosine-m-plus-n) and \@ref(eq:cosine-m-minus-n)
+Finally, we can derive problem \@ref(eq:problem-cosine-cosine) by adding \@ref(eq:cosine-m-plus-n) and \@ref(eq:cosine-m-minus-n).
+
+$$
+\begin{align}
+\cos \left( m + n \right) \theta + \cos \left( m - n \right) \theta &= \cos m \theta \cos n \theta - \sin m \theta \sin n \theta + \cos m \theta \cos n \theta + \sin m \theta \sin n \theta
+\\
+&= \cos m \theta \cos n \theta + \cos m \theta \cos n \theta \cancelto{0}{- \sin m \theta \sin n \theta + \sin m \theta \sin n \theta}
+\\
+\cos \left( m + n \right) \theta + \cos \left( m - n \right) \theta &= 2 \cos m \theta \cos n \theta
+\\
+\cos m \theta \cos n \theta &= \frac{1}{2} \left[ \cos \left( m + n \right) \theta + \cos \left( m - n \right) \theta \right]
+\end{align}
+$$
+
+# Reference
+
+Lessons and problems from

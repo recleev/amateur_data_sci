@@ -1,0 +1,536 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta http-equiv="content-type" content="text/html; charset=utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="description" content="">
+  <meta name="generator" content="Hugo 0.49" />
+
+  <title>Sine, Cosine, and Multiples of Angles &middot; The Amateur Data Scientist</title>
+
+  
+  
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/pure/1.0.0/pure-min.css">
+
+  <!--[if lte IE 8]>
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/pure/1.0.0/grids-responsive-old-ie-min.css">
+  <![endif]-->
+  <!--[if gt IE 8]><!-->
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/pure/1.0.0/grids-responsive-min.css">
+  <!--<![endif]-->
+
+  <!--[if lte IE 8]>
+  <link rel="stylesheet" href="/css/side-menu-old-ie.css">
+  <![endif]-->
+  <!--[if gt IE 8]><!-->
+  <link rel="stylesheet" href="/css/side-menu.css">
+  <!--<![endif]-->
+
+  <link rel="stylesheet" href="/css/blackburn.css">
+
+  
+  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css">
+
+  
+  <link href="https://fonts.googleapis.com/css?family=Raleway" rel="stylesheet" type="text/css">
+
+  
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.1/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
+
+ 
+  
+
+  
+  <link rel="stylesheet" href="//cdnjs.cloudflare.com/ajax/libs/highlight.js/9.12.0/styles/zenburn.min.css">
+  <script src="//cdnjs.cloudflare.com/ajax/libs/highlight.js/9.12.0/highlight.min.js"></script>
+  
+  <script>hljs.initHighlightingOnLoad();</script>
+  
+
+  <link rel="shortcut icon" href="/img/favicon.ico" type="image/x-icon" />
+
+  
+  
+
+</head>
+
+
+<body>
+<div id="layout">
+
+  
+<a href="#menu" id="menuLink" class="menu-link">
+  
+  <span></span>
+</a>
+<div id="menu">
+
+  
+  <a class="pure-menu-heading brand" href="/">recleev</a>
+
+
+  <div class="pure-menu">
+    <ul class="pure-menu-list">
+      
+      
+        <li class="pure-menu-item">
+          <a class="pure-menu-link" href="/"><i class='fa fa-home fa-fw'></i>Home</a>
+      
+        </li>
+      
+      
+        <li class="pure-menu-item">
+          <a class="pure-menu-link" href="/post/"><i class='fa fa-list fa-fw'></i>Posts</a>
+      
+        </li>
+      
+      
+        <li class="pure-menu-item">
+          <a class="pure-menu-link" href="/about/"><i class='fa fa-user fa-fw'></i>About</a>
+      
+        </li>
+      
+      
+        <li class="pure-menu-item">
+          <a class="pure-menu-link" href="/contact/"><i class='fa fa-phone fa-fw'></i>Contact</a>
+      
+        </li>
+      
+    </ul>
+  </div>
+
+  <div class="pure-menu social">
+  <ul class="pure-menu-list">
+
+    
+
+    
+
+    
+    <li class="pure-menu-item">
+      <a class="pure-menu-link" href="https://twitter.com/recleev" target="_blank"><i class="fa fa-twitter-square fa-fw"></i>Twitter</a>
+    </li>
+    
+
+    
+
+    
+    <li class="pure-menu-item">
+      <a class="pure-menu-link" href="https://facebook.com/recleev" target="_blank"><i class="fa fa-facebook-square fa-fw"></i>Facebook</a>
+    </li>
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+    <li class="pure-menu-item">
+      <a class="pure-menu-link" href="https://linkedin.com/in/recleev" target="_blank"><i class="fa fa-linkedin-square fa-fw"></i>LinkedIn</a>
+    </li>
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+    <li class="pure-menu-item">
+      <a class="pure-menu-link" href="https://github.com/recleev" target="_blank"><i class="fa fa-github-square fa-fw"></i>GitHub</a>
+    </li>
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+  </ul>
+</div>
+
+
+  <div>
+  <div class="small-print">
+    <small></small>
+  </div>
+  <div class="small-print">
+    <small>Built with <a href="https://github.com/rstudio/blogdown" target="_blank">blogdown</a> and <a href="https://gohugo.io/" target="_blank">Hugo</a>.</small>
+    <small>Theme&nbsp;<a href="https://github.com/yoshiharuyamashita/blackburn" target="_blank">Blackburn</a></small>
+  </div>
+</div>
+
+</div>
+
+
+  <div id="main">
+
+
+<div class="header">
+  <h1>Sine, Cosine, and Multiples of Angles</h1>
+  <h2></h2>
+</div>
+<div class="content">
+
+  <div class="post-meta">
+
+  <div>
+    <i class="fa fa-calendar fa-fw"></i>
+    <time>2018 Oct 17</time>
+  </div>
+
+  
+
+  
+
+  
+  
+  
+  <div>
+    <i class="fa fa-tags fa-fw"></i>
+    
+      <a class="post-taxonomy-tag" href="/tags/sine">sine</a>&nbsp;&#47;
+    
+      <a class="post-taxonomy-tag" href="/tags/cosine">cosine</a>&nbsp;&#47;
+    
+      <a class="post-taxonomy-tag" href="/tags/trigonometric-identites">trigonometric identites</a>
+    
+  </div>
+  
+  
+
+</div>
+
+  <div id="TOC">
+<ul>
+<li><a href="#review-of-trigonometric-identities"><span class="toc-section-number">1</span> Review of Trigonometric Identities</a></li>
+<li><a href="#problems"><span class="toc-section-number">2</span> Problems</a><ul>
+<li><a href="#quadruple-angle"><span class="toc-section-number">2.1</span> Quadruple Angle</a></li>
+<li><a href="#multiple-angles-sine-and-cosine-product"><span class="toc-section-number">2.2</span> Multiple Angles Sine and Cosine Product</a></li>
+</ul></li>
+<li><a href="#solutions"><span class="toc-section-number">3</span> Solutions</a><ul>
+<li><a href="#quadruple-is-double-double"><span class="toc-section-number">3.1</span> Quadruple is Double Double</a></li>
+<li><a href="#add-and-subtract"><span class="toc-section-number">3.2</span> Add and Subtract</a></li>
+</ul></li>
+<li><a href="#reference"><span class="toc-section-number">4</span> Reference</a></li>
+</ul>
+</div>
+
+<div id="review-of-trigonometric-identities" class="section level1">
+<h1><span class="header-section-number">1</span> Review of Trigonometric Identities</h1>
+<p>Here is an overview of some of the most important trigonometric identites. In my opinion, one can derive other trigonometric identities just by knowing these.</p>
+<p><span class="math display" id="eq:sum-cosine" id="eq:sum-sine" id="eq:pythagorean" id="eq:cosine-negative" id="eq:sine-negative">\[
+\begin{align}
+\sin \left( - \theta \right) &amp;= - \sin \theta \tag{1.1}
+\\
+\\
+\cos \left( - \theta \right) &amp;= \cos \theta \tag{1.2}
+\\
+\\
+\sin^2 \theta + \cos^2 \theta &amp;= 1 \tag{1.3}
+\\
+\\
+\sin \left(  \theta + \phi \right) &amp;= \sin \theta \sin \phi + \cos \theta \sin \phi \tag{1.4}
+\\
+\\
+\cos \left( \theta + \phi \right) &amp;= \cos \theta \cos \phi - \sin \theta \sin \phi \tag{1.5}
+\end{align}
+\]</span></p>
+<p>A special identity for equations <a href="#eq:sum-sine">(1.4)</a> and <a href="#eq:sum-cosine">(1.5)</a> happens when <span class="math inline">\(\theta = \phi\)</span>.</p>
+<p><span class="math display" id="eq:double-angle-cosine" id="eq:double-angle-sine">\[
+\begin{align}
+\sin \left( 2 \theta \right) &amp;= 2 \sin \theta \cos \theta \tag{1.6}
+\\
+\\
+\cos \left( 2 \theta \right) &amp;= \cos^2 \theta - \sin^2 \theta \tag{1.7}
+\end{align}
+\]</span></p>
+</div>
+<div id="problems" class="section level1">
+<h1><span class="header-section-number">2</span> Problems</h1>
+<div id="quadruple-angle" class="section level2">
+<h2><span class="header-section-number">2.1</span> Quadruple Angle</h2>
+<p>Problem 62, page 62 in <span class="citation">Simmons (2016)</span>.</p>
+<p>Verify:</p>
+<p><span class="math display" id="eq:problem-quad-cosine" id="eq:problem-quad-sine">\[
+\begin{align}
+\sin 4 \theta &amp;= 8 \sin \theta \cos^3 \theta - 4 \sin \theta \cos \theta \tag{2.1}
+\\
+\\
+\cos 4 \theta &amp;= 8 \cos^4 \theta - 8 \cos^2 \theta + 1 \tag{2.2}
+\end{align}
+\]</span></p>
+</div>
+<div id="multiple-angles-sine-and-cosine-product" class="section level2">
+<h2><span class="header-section-number">2.2</span> Multiple Angles Sine and Cosine Product</h2>
+<p>Problem 63, page 50 in <span class="citation">Simmons (2016)</span>.</p>
+<p>Prove:</p>
+<p><span class="math display" id="eq:problem-cosine-cosine" id="eq:problem-sine-cosine" id="eq:problem-sine-sine">\[
+\begin{align}
+\sin m \theta \sin n \theta &amp;= \frac{1}{2} \left[ \cos \left( m - n \right) \theta - \cos \left( m + n \right) \theta \right] \tag{2.3}
+\\
+\\
+\sin m \theta \cos n \theta &amp;= \frac{1}{2} \left[ \sin \left( m + n \right) \theta - \sin \left( m - n \right) \theta \right] \tag{2.4}
+\\
+\\
+\cos m \theta \cos n \theta &amp;= \frac{1}{2} \left[ \cos \left( m + n \right) \theta + \cos \left( m - n \right) \theta \right] \tag{2.5}
+\end{align}
+\]</span></p>
+</div>
+</div>
+<div id="solutions" class="section level1">
+<h1><span class="header-section-number">3</span> Solutions</h1>
+<div id="quadruple-is-double-double" class="section level2">
+<h2><span class="header-section-number">3.1</span> Quadruple is Double Double</h2>
+<p>Problems <a href="#eq:problem-quad-sine">(2.1)</a> and <a href="#eq:problem-quad-cosine">(2.2)</a> can be solved using identities <a href="#eq:double-angle-sine">(1.6)</a>, <a href="#eq:double-angle-cosine">(1.7)</a>, and <a href="#eq:pythagorean">(1.3)</a>.</p>
+<p><span class="math display">\[
+\begin{align}
+\sin 4 \theta &amp;= \sin 2 \left( 2 \theta \right)
+\\
+&amp;= 2 \sin 2 \theta \cos 2 \theta
+\\
+&amp;= 2 \left( 2 \sin \theta \cos \theta \right) \left( \cos^2 \theta - \sin^2 \theta \right)
+\\
+&amp;= 4 \sin \theta \cos \theta \left[ \cos^2 \theta - \left( 1 - \cos^2 \theta \right) \right]
+\\
+&amp;= 4 \sin \theta \cos^3 \theta - 4 \sin \theta \cos \theta + 4 \sin \theta \cos^3 \theta
+\\
+\sin 4 \theta &amp;= 8 \sin \theta \cos^3 \theta - 4 \sin \theta \cos \theta
+\\
+\\
+\cos 4 \theta &amp;= \cos 2 \left( 2 \theta \right)
+\\
+&amp;= \cos^2 2 \theta - \sin^2 2 \theta
+\\
+&amp;= \cos^2 2 \theta - \left( 1 - \cos^2 2 \theta \right)
+\\
+&amp;= 2 \cos^2 2 \theta - 1
+\\
+&amp;= 2 \left( \cos 2 \theta \right)^2 - 1
+\\
+&amp;= 2 \left( \cos^2 \theta - \sin^2 \theta \right)^2 - 1
+\\
+&amp;= 2 (\cos^4 \theta - 2 cos^2 \theta \sin^2 \theta + \sin^4 \theta) - 1
+\\
+&amp;= 2 \left( \cos^4 \theta - 2 cos^2 \theta \sin^2 \theta + \sin^4 \theta \right) - 1
+\\
+&amp;= 2 \left[ \cos^4 \theta - 2 cos^2 \theta \left( 1 - \cos^2 \theta \right) + \left( 1 - \cos^2 \theta \right)^2 \right] - 1
+\\
+&amp;= 2 \left( \cos^4 \theta - 2 cos^2 \theta + 2 \cos^4 \theta + 1 - 2 \cos^2 \theta + \cos^4 \theta \right) - 1
+\\
+&amp;= 2 \left( 4 \cos^4 \theta - 4 cos^2 \theta + 1 \right) - 1
+\\
+&amp;= 8 \cos^4 \theta - 8 cos^2 \theta + 2 - 1
+\\
+\cos 4 \theta &amp;= 8 \cos^4 \theta - 8 cos^2 \theta + 1
+\end{align}
+\]</span></p>
+</div>
+<div id="add-and-subtract" class="section level2">
+<h2><span class="header-section-number">3.2</span> Add and Subtract</h2>
+<p>Problems <a href="#eq:problem-sine-sine">(2.3)</a>, <a href="#eq:problem-sine-cosine">(2.4)</a>, and <a href="#eq:problem-cosine-cosine">(2.5)</a> already offer clues on the proofs’ process. The left hand side of the equations can be seen in identities <a href="#eq:sum-sine">(1.4)</a> and <a href="#eq:sum-cosine">(1.5)</a>. We will also need identities <a href="#eq:sine-negative">(1.1)</a> and <a href="#eq:cosine-negative">(1.2)</a> to simplify the sine and cosine of the negative angles.</p>
+<p><span class="math display" id="eq:sine-m-minus-n" id="eq:sine-m-plus-n" id="eq:cosine-m-minus-n" id="eq:cosine-m-plus-n">\[
+\begin{align}
+\cos \left( m + n \right) \theta &amp;= \cos \left( m \theta + n \theta \right)
+\\
+\cos \left( m + n \right) \theta &amp;= \cos m \theta \cos n \theta - \sin m \theta \sin n \theta \tag{3.1}
+\\
+\\
+\cos \left( m - n \right) \theta &amp;= \cos \left( m \theta - n \theta \right)
+\\
+&amp;= \cos m \theta \cos \left( - n \theta \right) - \sin m \theta \sin \left( - n \theta \right)
+\\
+\cos \left( m - n \right) \theta &amp;= \cos m \theta \cos n \theta + \sin m \theta \sin n \theta \tag{3.2}
+\\
+\\
+\sin \left(m + n \right) \theta &amp;= \sin \left( m \theta + n \theta \right)
+\\
+\sin \left(m + n \right) \theta &amp;= \sin m \theta \cos n \theta + \cos m \theta \sin n \theta \tag{3.3}
+\\
+\\
+\sin \left(m - n \right) \theta &amp;= \sin \left( m \theta - n \theta \right)
+\\
+&amp;= \sin m \theta \cos \left( - n \theta \right) + \cos m \theta \sin \left( - n \theta \right)
+\\
+\sin \left(m - n \right) \theta &amp;= \sin m \theta \cos n \theta - \cos m \theta \sin n \theta \tag{3.4}
+\end{align}
+\]</span></p>
+<p>We derive <a href="#eq:problem-sine-sine">(2.3)</a> by subtracting <a href="#eq:cosine-m-minus-n">(3.2)</a> from <a href="#eq:cosine-m-plus-n">(3.1)</a>.</p>
+<p><span class="math display">\[
+\require{cancel}
+\begin{align}
+\cos \left( m + n \right) \theta - \cos \left( m - n \right) \theta &amp;= \cos m \theta \cos n \theta - \sin m \theta \sin n \theta - \left( \cos m \theta \cos n \theta + \sin m \theta \sin n \theta \right)
+\\
+ &amp;= \cancelto{0}{\cos m \theta \cos n \theta - \cos m \theta \cos n \theta} - \sin m \theta \sin n \theta- \sin m \theta \sin n \theta
+ \\
+\cos \left( m + n \right) \theta - \cos \left( m - n \right) \theta &amp;= -2 sin m \theta \sin n \theta
+\\
+\sin m \theta \sin n \theta &amp;= - \frac{1}{2} \left[ \cos \left( m + n \right) \theta - \cos \left( m - n \right) \theta \right]
+\\
+\sin m \theta \sin n \theta &amp;= \frac{1}{2} \left[ \cos \left( m - n \right) \theta - \cos \left( m + n \right) \theta \right]
+\end{align}
+\]</span></p>
+<p>Problem <a href="#eq:problem-sine-cosine">(2.4)</a> by adding <a href="#eq:sine-m-plus-n">(3.3)</a> and <a href="#eq:sine-m-minus-n">(3.4)</a>.</p>
+<p><span class="math display">\[
+\begin{align}
+\sin \left(m + n \right) \theta + \sin \left(m - n \right) \theta &amp;= \sin m \theta \cos n \theta + \cos m \theta \sin n \theta + \left( \sin m \theta \cos n \theta - \cos m \theta \sin n \theta \right)
+\\
+&amp;= \sin m \theta \cos n \theta + \sin m \theta \cos n \theta + \cancelto{0}{\cos m \theta \sin n \theta - \cos m \theta \sin n \theta}
+\\
+\sin \left(m + n \right) \theta + \sin \left(m - n \right) \theta &amp;= 2 \sin m \theta \cos n \theta
+\\
+\sin m \theta \cos n \theta &amp;= \frac{1}{2} \left[ \sin \left(m + n \right) \theta + \sin \left(m - n \right) \theta \right]
+\end{align}
+\]</span></p>
+<p>Finally, we can derive problem <a href="#eq:problem-cosine-cosine">(2.5)</a> by adding <a href="#eq:cosine-m-plus-n">(3.1)</a> and <a href="#eq:cosine-m-minus-n">(3.2)</a>.</p>
+<p><span class="math display">\[
+\begin{align}
+\cos \left( m + n \right) \theta + \cos \left( m - n \right) \theta &amp;= \cos m \theta \cos n \theta - \sin m \theta \sin n \theta + \cos m \theta \cos n \theta + \sin m \theta \sin n \theta
+\\
+&amp;= \cos m \theta \cos n \theta + \cos m \theta \cos n \theta \cancelto{0}{- \sin m \theta \sin n \theta + \sin m \theta \sin n \theta}
+\\
+\cos \left( m + n \right) \theta + \cos \left( m - n \right) \theta &amp;= 2 \cos m \theta \cos n \theta
+\\
+\cos m \theta \cos n \theta &amp;= \frac{1}{2} \left[ \cos \left( m + n \right) \theta + \cos \left( m - n \right) \theta \right]
+\end{align}
+\]</span></p>
+</div>
+</div>
+<div id="reference" class="section level1">
+<h1><span class="header-section-number">4</span> Reference</h1>
+<p>Lessons and problems from</p>
+<div id="refs" class="references">
+<div id="ref-cwag2016">
+<p>Simmons, George F. 2016. <em>Calculus with Analytic Geometry</em>. 2nd Edition. McGraw-Hill Education.</p>
+</div>
+</div>
+</div>
+
+
+  
+<div class="prev-next-post pure-g">
+  <div class="pure-u-1-24" style="text-align: left;">
+    
+    <a href="/post/messy-tidy-separate-category/"><i class="fa fa-chevron-left"></i></a>
+    
+  </div>
+  <div class="pure-u-10-24">
+    
+    <nav class="prev">
+      <a href="/post/messy-tidy-separate-category/">From Messy to Tidy: Separate the Category</a>
+    </nav>
+    
+  </div>
+  <div class="pure-u-2-24">
+    &nbsp;
+  </div>
+  <div class="pure-u-10-24">
+    
+  </div>
+  <div class="pure-u-1-24" style="text-align: right;">
+    
+  </div>
+</div>
+
+
+
+  
+<div id="disqus_thread"></div>
+<script type="text/javascript">
+
+(function() {
+    
+    
+    if (window.location.hostname == "localhost")
+        return;
+
+    var dsq = document.createElement('script'); dsq.type = 'text/javascript'; dsq.async = true;
+    var disqus_shortname = 'the-amateur-data-scientist';
+    dsq.src = '//' + disqus_shortname + '.disqus.com/embed.js';
+    (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(dsq);
+})();
+</script>
+<noscript>Please enable JavaScript to view the <a href="http://disqus.com/?ref_noscript">comments powered by Disqus.</a></noscript>
+<a href="http://disqus.com/" class="dsq-brlink">comments powered by <span class="logo-disqus">Disqus</span></a>
+
+
+</div>
+
+</div>
+</div>
+<script src="/js/ui.js"></script>
+
+
+<script>
+  
+  if (window.location.hostname != "localhost") {
+    (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+    (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+    m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+    })(window,document,'script','//www.google-analytics.com/analytics.js','ga');
+
+    ga('create', 'UA-119602814-1', 'auto');
+    ga('send', 'pageview');
+  }
+</script>
+
+
+
+
+
+<script src="//https://amateurdatasci.rbind.io/js/math-code.js"></script>
+
+    <script type="text/javascript"
+      src="https://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML">
+    </script>
+
+</body>
+</html>
+

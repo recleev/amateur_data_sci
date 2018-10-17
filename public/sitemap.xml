@@ -3,6 +3,11 @@
   xmlns:xhtml="http://www.w3.org/1999/xhtml">
   
   <url>
+    <loc>/post/sine-cosine-multiples-angles/</loc>
+    <lastmod>2018-10-17T00:00:00+00:00</lastmod>
+  </url>
+  
+  <url>
     <loc>/post/messy-tidy-separate-category/</loc>
     <lastmod>2018-10-13T00:00:00+00:00</lastmod>
   </url>
@@ -86,6 +91,12 @@
   <url>
     <loc>/tags/consumer-price-index/</loc>
     <lastmod>2018-10-13T00:00:00+00:00</lastmod>
+    <priority>0</priority>
+  </url>
+  
+  <url>
+    <loc>/tags/cosine/</loc>
+    <lastmod>2018-10-17T00:00:00+00:00</lastmod>
     <priority>0</priority>
   </url>
   
@@ -211,7 +222,7 @@
   
   <url>
     <loc>/post/</loc>
-    <lastmod>2018-10-13T00:00:00+00:00</lastmod>
+    <lastmod>2018-10-17T00:00:00+00:00</lastmod>
     <priority>0</priority>
   </url>
   
@@ -264,6 +275,12 @@
   </url>
   
   <url>
+    <loc>/tags/sine/</loc>
+    <lastmod>2018-10-17T00:00:00+00:00</lastmod>
+    <priority>0</priority>
+  </url>
+  
+  <url>
     <loc>/tags/slopes/</loc>
     <lastmod>2018-08-21T00:00:00+00:00</lastmod>
     <priority>0</priority>
@@ -295,7 +312,7 @@
   
   <url>
     <loc>/</loc>
-    <lastmod>2018-10-13T00:00:00+00:00</lastmod>
+    <lastmod>2018-10-17T00:00:00+00:00</lastmod>
     <priority>0</priority>
   </url>
   
@@ -313,6 +330,12 @@
   
   <url>
     <loc>/topics/</loc>
+    <priority>0</priority>
+  </url>
+  
+  <url>
+    <loc>/tags/trigonometric-identites/</loc>
+    <lastmod>2018-10-17T00:00:00+00:00</lastmod>
     <priority>0</priority>
   </url>
   
