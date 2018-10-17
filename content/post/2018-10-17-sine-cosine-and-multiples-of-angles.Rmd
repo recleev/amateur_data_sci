@@ -136,3 +136,67 @@ $$
 \cos 4 \theta &= 8 \cos^4 \theta - 8 cos^2 \theta + 1
 \end{align}
 $$
+
+## Add and Subtract
+
+Problems \@ref(eq:problem-sine-sine), \@ref(eq:problem-sine-cosine), and \@ref(eq:problem-cosine-cosine) already offer clues on the proofs' process. The left hand side of the equations can be seen in identities \@ref(eq:sum-sine) and \@ref(eq:sum-cosine). We will also need identities \@ref(eq:negative-sine) and \@ref(eq:negative-cosine) to simplify the sine and cosine of the negative angles.
+
+$$
+\begin{align}
+\cos \left( m + n \right) \theta &= \cos \left( m \theta + n \theta \right)
+\\
+\cos \left( m + n \right) \theta &= \cos m \theta \cos n \theta - \sin m \theta \sin n \theta (\#eq:cosine-m-plus-n)
+\\
+\\
+\cos \left( m - n \right) \theta &= \cos \left( m \theta - n \theta \right)
+\\
+&= \cos m \theta \cos \left( - n \theta \right) - \sin m \theta \sin \left( - n \theta \right)
+\\
+\cos \left( m - n \right) \theta &= \cos m \theta \cos n \theta + \sin m \theta \sin n \theta (\#eq:cosine-m-minus-n)
+\\
+\\
+\sin \left(m + n \right) \theta &= \sin \left( m \theta + n \theta \right)
+\\
+\sin \left(m + n \right) \theta &= \sin m \theta \cos n \theta + \cos m \theta \sin n \theta (\#eq:sine-m-plus-n)
+\\
+\\
+\sin \left(m - n \right) \theta &= \sin \left( m \theta - n \theta \right)
+\\
+&= \sin m \theta \cos \left( - n \theta \right) + \cos m \theta \sin \left( - n \theta \right)
+\\
+\sin \left(m - n \right) \theta &= \sin m \theta \cos n \theta - \cos m \theta \sin n \theta (\#eq:sine-m-minus-n)
+\end{align}
+$$
+
+We derive \@ref(eq:problem-sine-sine) by subtracting \@ref(eq:cosine-m-minus-n) from \@ref(cosine-m-plus-n).
+
+$$
+\require{cancel}
+\begin{align}
+\cos \left( m + n \right) \theta - \cos \left( m - n \right) \theta &= \cos m \theta \cos n \theta - \sin m \theta \sin n \theta - \left( \cos m \theta \cos n \theta + \sin m \theta \sin n \theta \right)
+\\
+ &= \cancelto{0}{\cos m \theta \cos n \theta - \cos m \theta \cos n \theta} - \sin m \theta \sin n \theta- \sin m \theta \sin n \theta
+ \\
+\cos \left( m + n \right) \theta - \cos \left( m - n \right) \theta &= -2 sin m \theta \sin n \theta
+\\
+\sin m \theta \sin n \theta &= - \frac{1}{2} \left[ \cos \left( m + n \right) \theta - \cos \left( m - n \right) \theta \right]
+\\
+\sin m \theta \sin n \theta &= \frac{1}{2} \left[ \cos \left( m - n \right) \theta - \cos \left( m + n \right) \theta \right]
+\end{align}
+$$
+
+Problem \@ref(eq:problem-sine-cosine) by adding \@ref(sine-m-plus-n) and \@ref(sine-m-minus-n).
+
+$$
+\begin{align}
+\sin \left(m + n \right) \theta + \sin \left(m - n \right) \theta &= \sin m \theta \cos n \theta + \cos m \theta \sin n \theta + \left( \sin m \theta \cos n \theta - \cos m \theta \sin n \theta \right)
+\\
+&= \sin m \theta \cos n \theta + \sin m \theta \cos n \theta + \cancelto{0}{\cos m \theta \sin n \theta - \cos m \theta \sin n \theta}
+\\
+\sin \left(m + n \right) \theta + \sin \left(m - n \right) \theta &= 2 \sin m \theta \cos n \theta
+\\
+\sin m \theta \cos n \theta &= \frac{1}{2} \left[ \sin \left(m + n \right) \theta + \sin \left(m - n \right) \theta \right]
+\end{align}
+$$
+
+Finally, we can derive problem \@ref(eq:problem-cosine-cosine) by adding \@ref(eq:cosine-m-plus-n) and \@ref(eq:cosine-m-minus-n)
