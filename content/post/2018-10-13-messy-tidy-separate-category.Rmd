@@ -344,7 +344,7 @@ save_categorized_tibble <- function(object_name) {
     get(object_name), 
     sprintf(
       "./data/ph-cpi-data/partial-tidy/categorized-cpi/%s",
-      str_replace(object_name, "_", "-")
+      str_replace_all(object_name, "_", "-")
     )
   )
 }
