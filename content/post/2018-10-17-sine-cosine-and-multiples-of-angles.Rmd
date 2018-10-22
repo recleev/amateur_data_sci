@@ -57,7 +57,7 @@ $$
 
 ## Quadruple Angle
 
-Problem 62, page 62 in @cwag2016.
+Problem 62, page 50 in @cwag2016.
 
 Verify:
 
