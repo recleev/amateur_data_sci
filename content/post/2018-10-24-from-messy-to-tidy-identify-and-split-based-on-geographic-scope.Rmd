@@ -1,0 +1,53 @@
+---
+title: 'From Messy to Tidy: Identify and Split Based on Geographic Scope'
+author: Recle Etino Vibal
+date: '2018-10-24'
+categories:
+  - economics
+  - finance
+  - lessons
+  - Philippines
+  - tidyverse
+tags:
+  - consumer price index
+  - dplyr
+  - readr
+  - tidyr
+slug: messy-tidy-identify-split-geographic-scope
+output:
+  blogdown::html_page:
+    toc: yes
+    number_sections: yes
+bibliography:
+  - references/messy-to-tidy.bib
+biblio-style: apalike
+---
+
+```{r packages-opts, message=FALSE, warning=FALSE, include=FALSE}
+
+# Attach packages and set chunk options
+
+xfun::pkg_attach(
+  "knitr",
+  "tidyverse",
+  "magrittr",
+  "DT",
+  "rebus"
+)
+
+opts_chunk$set(
+  message = FALSE,
+  warning = FALSE,
+  echo = FALSE
+)
+
+```
+
+# Partially Tidy Data Sets
+
+
+
+
+
+
+
