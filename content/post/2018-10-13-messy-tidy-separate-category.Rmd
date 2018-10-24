@@ -47,10 +47,11 @@ opts_chunk$set(
 
 The [first post](https://amateurdatasci.rbind.io/post/messy-tidy-tidyr-gather/) in the From Messy to Tidy series introduced us to the idea of tidy data [@tidy-data]:
 
->Data is tidy when 
->1. Every column is a variable, 
-2. Every row is an observation, and 
-3. Every observational unit forms a table.
+Data is tidy when 
+
+  1. Every column is a variable, 
+  2. Every row is an observation, and 
+  3. Every observational unit forms a table.
 
 Dates as column names is one sign of a **messy** data. My previous post focused on collecting the date columns into a single column and converting the dates to [ISO 8601](https://en.wikipedia.org/wiki/ISO_8601) (YYYY-MM-DD) format. 
 
@@ -144,10 +145,10 @@ item_code_description <-
 
 Splitting the `code` column into three looks easy. However, I realized I wanted the subcategories to have their main categories, and the sub-subcategories to have their sub- and main categories, making things more complicated. To accomplish this, I followed the following steps:
 
->1. Split the code column into category levels.
-2. Identify the item category level of the the description. 
-3. Distribute the description to the appropriate category level.
-4. Supply the missing levels for each item.
+  1. Split the code column into category levels.
+  2. Identify the item category level of the the description. 
+  3. Distribute the description to the appropriate category level.
+  4. Supply the missing levels for each item.
 
 ## Cut the Dots
 

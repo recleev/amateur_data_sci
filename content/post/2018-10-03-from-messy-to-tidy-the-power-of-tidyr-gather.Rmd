@@ -48,10 +48,11 @@ Working with data made me conscious of how we compile, store, and share data. Mo
 @tidy-data has the following definition of a [tidy data](http://vita.had.co.nz/papers/tidy-data.html):
 
 
->Data is tidy when 
->1. Every column is a variable, 
-2. Every row is an observation, and 
-3. Every observational unit forms a table.
+Data is tidy when
+
+  1. Every column is a variable, 
+  2. Every row is an observation, and 
+  3. Every observational unit forms a table.
 
 Data that is not tidy is *messy*.
 
@@ -114,10 +115,10 @@ Before I do something about these dates, I also noticed that there are `Ave_yy` 
 
 @share-data considers raw data in the correct format if it **did not**
 
->1. Ran on software
-2. Modify data
-3. Remove data
-4. Summarise data
+  1. Ran on software
+  2. Modify data
+  3. Remove data
+  4. Summarise data
 
 I can only assume that the data encoder of the CPI data followed the first three conditions. There are missing values, but I think it was missing in the first place rather than removed. I am sure that the `Ave_yy` summarizes the data. Manipulating data to obtain any statistical value like the average is easy for any data analyst when the raw data is tidy or at least near tidy. Having summary columns are not only unnecessary, but it also may lead the data analyst into checking what these columns mean^[I wanted to verify if the `Ave_yy` columns are really the average of the CPI for each year. However, I think I was dwelling on it too much rather than focusing on how to tidy the data. My experience with `Ave_yy` columns just proves that summaries only hinder the data analysis]. From the definition of CPI, I also don't think that the annual average is a necessary and correct value to consider.
 
@@ -125,9 +126,9 @@ I can only assume that the data encoder of the CPI data followed the first three
 
 For this post, I have the following tasks:
 
->1. Remove the `Ave_yy` columns,
-2. Collect all the `month_year` and CPI values underneath into separate columns, and
-3. COnvert the new date columns in ISO 8601 format^[@share-data also advocates ISO 8601 as the preffered date format for consistency and because the YYYY-MM-DD format is not misconstrued in Excel. I agree with them. For more variable coding guidelines, see Figure 2 of @share-data].
+  1. Remove the `Ave_yy` columns,
+  2. Collect all the `month_year` and CPI values underneath into separate columns, and
+  3. COnvert the new date columns in ISO 8601 format^[@share-data also advocates ISO 8601 as the preffered date format for consistency and because the YYYY-MM-DD format is not misconstrued in Excel. I agree with them. For more variable coding guidelines, see Figure 2 of @share-data].
 
 I opted at separating the code and the discussion of my process such that the discussion will not be interrupted by code blocks and such that the reader can review my process through code in one uninterrupted pass after reading the discussion. For all the packages and code I used, please refer to \@ref(code).
 

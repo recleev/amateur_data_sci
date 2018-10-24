@@ -32,7 +32,8 @@ xfun::pkg_attach(
   "tidyverse",
   "magrittr",
   "DT",
-  "rebus"
+  "rebus",
+  "lubridate"
 )
 
 opts_chunk$set(
@@ -41,9 +42,120 @@ opts_chunk$set(
   echo = FALSE
 )
 
+# create standard datatable function to be used in all tables in this post
+
+show_datatable <- function(cpi_data) {
+  cpi_data %>% 
+    DT::datatable(
+      rownames = FALSE,
+      extensions = 'FixedColumns',
+      options = list(
+        pageLength = 20,
+        scrollX = TRUE,
+        scrollCollapse = TRUE,
+        columnDefs = list(
+          list(
+            className = 'dt-center',
+            targets = 0:(ncol(cpi_data) - 1)
+          )
+        )
+      )
+    )
+}
+
 ```
 
 # Partially Tidy Data Sets
+
+So far, we have converted the messy [Philippine Consumer Price Index data](http://openstat.psa.gov.ph/dataset/prices-and-related-indices) to a partially tidy data. We did this by [collecting the date](https://amateurdatasci.rbind.io/post/messy-tidy-tidyr-gather/) columns into one column, adapting the dates into [ISO 8601](https://en.wikipedia.org/wiki/ISO_8601) format, interpreting the code column into more meaningful item descriptions, and separating the data by item level.
+
+```{r read-primary-item-cpi}
+
+primary_item_cpi <- 
+  readr::read_rds("./data/ph-cpi-data/partial-tidy/categorized-cpi/primary-item-cpi")
+
+```
+
+This is the partially tidied primary item CPI data.
+
+(ref:primary-item-data) **Sample Paritally Tidy Data.** First 40 Rows of the Philippines Monthly Consumer Price Index (CPI) for All Income Households by Commodity Group and Geographic Area from 1994 Jan to 2018 Jun. CPI from 1994 to 2005 are the equivalent/estimated 2006-based CPI using the splicing method. Data from Philippine Statistics Authority (http://openstat.psa.gov.ph).
+
+```{r show-sample, fig.cap='(ref:primary-item-data)'}
+
+primary_item_cpi %>% 
+  head(40) %>% 
+  show_datatable()
+
+```
+
+We have done a lot, but the data is not yet completely tidy. Observe that there are three columns that refer to geogrphy, i.e. `geogrphic_code`, `geographic_code_1`, and `geographic_location`. We must make sense of these columns and handle them based on tidy principles.
+
+# Philippine Geogrphy Crash Course
+
+The Philippines is divided into regions, and each region is made up of provinces or cities. Some cities are part of a region, but may be economically independent from the region. That's why there are cities with dedicated monthly consumer price indices.
+
+Knowing this makes it easy for us to decipher what the `geographic` columns mean. `geographic_location` is the name or label of the geographic coverage of the computed CPI. `geographic_code` refers to region numbers except for 99 which pertains to the CPI computed for Areas Outside the National Capital Region^[There is always interest in comparing the National Capital Region with the rest of the Philippines. While I don't think this comparison can lead to valid conclusions, some people might find a way to use these numbers to evaluate economic conditions outside and inside NCR.] and 0 which refers to the whole country. `geographic_code_1` is a unique identifier for the provinces and zero for the whole Philippines and for regions except for the National Capital Region which is 99. I think both `geographic_code` columns can be removed since the `geographic_location` already serves as a unique and more useful identifier. 
+
+The third principle of tidy data according to @tidy-data is that each observational unit should form a table. I think provinces, regions, and the whole Philippines should serve as one observational unit.
+
+# Geography Challenge
+
+The `geography` columns are easier to understand than the `code` columns. However, we will need to do the same thing we did with the item categories. I think we need to do the following things:
+
+  1. Identify each geographic location as National, Regional, or Provincial,
+  2. Tag each province to the appropriate region,
+  3. Split the data set by location level, and
+  4. Save the data sets as csv files.
+
+## Location Level
+
+Identifying the location levels are easy now that we have deciphered the `geographic_code` columns. We just need the usual `dplyr::mutate()`, and I also used `dplyr::case_when()` [@R-dplyr] to avoid nested `ifelse()`. See \@ref(code) for the exact code.
+
+(ref:location-level) First 40 Rows of the Identified National, Regional, and Provincial Locations.
+
+```{r add-location-level-show, fig.cap='(ref:location-level)'}
+
+# Create Geographical Level Identifier ------------------------------------
+
+geographical_levels <- 
+  primary_item_cpi %>% 
+  mutate(
+    geographic_level =
+      case_when(
+        geographic_code == 0 & geographic_code_1 == 0 ~ "National",
+        geographic_code != 0 & geographic_code_1 == 0 ~ "Regional",
+        geographic_code != 0 & !geographic_code_1 %in% c(0, 99) ~ "Provincial"
+      )
+  )
+
+# show data with location levels
+
+geographical_levels %>% 
+  head(40) %>% 
+  show_datatable()
+
+
+```
+
+## Region Tags
+
+
+
+# Code {#code}
+
+The following codes show what I did in this post. The logic of each code should have been captured in the discussion, but I added comments here and there to further clarify my thought process.
+
+```{r all-codes, ref.label = all_labels(), echo=TRUE, eval=FALSE}
+
+```
+
+My session info for reproducibility.
+
+```{r session-info}
+
+sessionInfo()
+
+```
 
 
 
