@@ -265,7 +265,7 @@
 <div id="TOC">
 <ul>
 <li><a href="#partially-tidy-data-sets"><span class="toc-section-number">1</span> Partially Tidy Data Sets</a></li>
-<li><a href="#philippine-geogrphy-crash-course"><span class="toc-section-number">2</span> Philippine Geogrphy Crash Course</a></li>
+<li><a href="#philippine-geography-crash-course"><span class="toc-section-number">2</span> Philippine Geography Crash Course</a></li>
 <li><a href="#geography-challenge"><span class="toc-section-number">3</span> Geography Challenge</a><ul>
 <li><a href="#location-level"><span class="toc-section-number">3.1</span> Location Level</a></li>
 <li><a href="#region-tags"><span class="toc-section-number">3.2</span> Region Tags</a></li>
@@ -291,8 +291,8 @@ Figure 1.1: <strong>Sample Paritally Tidy Data.</strong> First 40 Rows of the Ph
 </div>
 <p>We have done a lot, but the data is not yet completely tidy. Observe that there are three columns that refer to geography, i.e. <code>geogrphic_code</code>, <code>geographic_code_1</code>, and <code>geographic_location</code>. We must make sense of these columns and handle them based on tidy principles.</p>
 </div>
-<div id="philippine-geogrphy-crash-course" class="section level1">
-<h1><span class="header-section-number">2</span> Philippine Geogrphy Crash Course</h1>
+<div id="philippine-geography-crash-course" class="section level1">
+<h1><span class="header-section-number">2</span> Philippine Geography Crash Course</h1>
 <p>The Philippines is divided into regions, and each region is made up of provinces or cities. Some cities are part of a region, but may be economically independent from the region. That’s why there are cities with dedicated monthly consumer price indices.</p>
 <p>Knowing this makes it easy for us to decipher what the <code>geographic</code> columns mean. <code>geographic_location</code> is the name or label of the geographic coverage of the computed CPI. <code>geographic_code</code> refers to region numbers except for 99 which pertains to the CPI computed for Areas Outside the National Capital Region<a href="#fn1" class="footnoteRef" id="fnref1"><sup>1</sup></a> and 0 which refers to the whole country. <code>geographic_code_1</code> is a unique identifier for the provinces and zero for the whole Philippines and for regions except for the National Capital Region which is 99. I think both <code>geographic_code</code> columns can be removed since the <code>geographic_location</code> already serves as a unique and more useful identifier.</p>
 <p>The third principle of tidy data according to <span class="citation">Wickham (2014)</span> is that each observational unit should form a table. I think provinces, regions, and the whole Philippines should serve as one observational unit.</p>
