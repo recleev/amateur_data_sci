@@ -90,7 +90,7 @@ primary_item_cpi %>%
 
 We have done a lot, but the data is not yet completely tidy. Observe that there are three columns that refer to geography, i.e. `geogrphic_code`, `geographic_code_1`, and `geographic_location`. We must make sense of these columns and handle them based on tidy principles.
 
-# Philippine Geogrphy Crash Course
+# Philippine Geography Crash Course
 
 The Philippines is divided into regions, and each region is made up of provinces or cities. Some cities are part of a region, but may be economically independent from the region. That's why there are cities with dedicated monthly consumer price indices.
 
