@@ -287,9 +287,12 @@
 <h1><span class="header-section-number">1</span> Tidy Data: Long But Machine Readable</h1>
 <p>Working with data made me conscious of how we compile, store, and share data. Most of us work with spreadsheets and most of the time we encode our data in a way that makes it easy for other people to read our data. Unfortunately, human readable data format is not necessarily machine readable data. When we want to work with data in code, human readable data is not usually the best form to begin with and to share with other people who wants to reproduce our work.</p>
 <p><span class="citation">Wickham (2014)</span> has the following definition of a <a href="http://vita.had.co.nz/papers/tidy-data.html">tidy data</a>:</p>
-<blockquote>
-<p>Data is tidy when 1. Every column is a variable, 2. Every row is an observation, and 3. Every observational unit forms a table.</p>
-</blockquote>
+<p>Data is tidy when</p>
+<ol style="list-style-type: decimal">
+<li>Every column is a variable,</li>
+<li>Every row is an observation, and</li>
+<li>Every observational unit forms a table.</li>
+</ol>
 <p>Data that is not tidy is <em>messy</em>.</p>
 <p><span class="citation">Ellis and Leek (2014)</span> also advocates tidy data principles and good practices when <a href="https://peerj.com/preprints/3139/">sharing data</a> for collaboration.</p>
 <p>I wanted to discuss these three properties in the context of a real world data in one post, but the data I will work with is quite messy, not the messiest I have seen, but messy enough for me to work on a lot of things. This post will be the first post in the “From Messy to Tidy” series.</p>
@@ -324,27 +327,23 @@ Figure 2.1: First 20 Rows of the Philippines Monthly Consumer Price Index (CPI) 
 <h2><span class="header-section-number">3.3</span> Average Columns</h2>
 <p>Before I do something about these dates, I also noticed that there are <code>Ave_yy</code> columns. These columns show the average CPI for each year.</p>
 <p><span class="citation">Ellis and Leek (2014)</span> considers raw data in the correct format if it <strong>did not</strong></p>
-<blockquote>
 <ol style="list-style-type: decimal">
 <li>Ran on software</li>
 <li>Modify data</li>
 <li>Remove data</li>
 <li>Summarise data</li>
 </ol>
-</blockquote>
 <p>I can only assume that the data encoder of the CPI data followed the first three conditions. There are missing values, but I think it was missing in the first place rather than removed. I am sure that the <code>Ave_yy</code> summarizes the data. Manipulating data to obtain any statistical value like the average is easy for any data analyst when the raw data is tidy or at least near tidy. Having summary columns are not only unnecessary, but it also may lead the data analyst into checking what these columns mean<a href="#fn1" class="footnoteRef" id="fnref1"><sup>1</sup></a>. From the definition of CPI, I also don’t think that the annual average is a necessary and correct value to consider.</p>
 </div>
 </div>
 <div id="short-steps-to-a-long-table" class="section level1">
 <h1><span class="header-section-number">4</span> Short Steps to a Long Table</h1>
 <p>For this post, I have the following tasks:</p>
-<blockquote>
 <ol style="list-style-type: decimal">
 <li>Remove the <code>Ave_yy</code> columns,</li>
 <li>Collect all the <code>month_year</code> and CPI values underneath into separate columns, and</li>
 <li>COnvert the new date columns in ISO 8601 format<a href="#fn2" class="footnoteRef" id="fnref2"><sup>2</sup></a>.</li>
 </ol>
-</blockquote>
 <p>I opted at separating the code and the discussion of my process such that the discussion will not be interrupted by code blocks and such that the reader can review my process through code in one uninterrupted pass after reading the discussion. For all the packages and code I used, please refer to <a href="#code">7</a>.</p>
 <div id="remove-columns-with-names-that-starts-with-the-same-characters" class="section level2">
 <h2><span class="header-section-number">4.1</span> Remove Columns with Names that Starts with the Same Characters</h2>
@@ -532,24 +531,24 @@ sessionInfo()</code></pre>
 ## 
 ## other attached packages:
 ##  [1] bindrcpp_0.2.2  rebus_0.1-3     DT_0.4          lubridate_1.7.4
-##  [5] magrittr_1.5    forcats_0.3.0   stringr_1.3.1   dplyr_0.7.6    
+##  [5] magrittr_1.5    forcats_0.3.0   stringr_1.3.1   dplyr_0.7.7    
 ##  [9] purrr_0.2.5     readr_1.1.1     tidyr_0.8.1     tibble_1.4.2   
 ## [13] ggplot2_3.0.0   tidyverse_1.2.1 knitr_1.20     
 ## 
 ## loaded via a namespace (and not attached):
-##  [1] rebus.unicode_0.0-2   tidyselect_0.2.4      xfun_0.3             
+##  [1] rebus.unicode_0.0-2   tidyselect_0.2.5      xfun_0.4             
 ##  [4] haven_1.1.2           lattice_0.20-35       colorspace_1.3-2     
-##  [7] htmltools_0.3.6       yaml_2.2.0            rlang_0.2.2          
+##  [7] htmltools_0.3.6       yaml_2.2.0            rlang_0.3.0          
 ## [10] later_0.7.5           pillar_1.3.0          glue_1.3.0           
 ## [13] withr_2.1.2           rebus.numbers_0.0-1   modelr_0.1.2         
 ## [16] readxl_1.1.0          bindr_0.1.1           plyr_1.8.4           
-## [19] rebus.datetimes_0.0-1 munsell_0.5.0         blogdown_0.8         
+## [19] rebus.datetimes_0.0-1 munsell_0.5.0         blogdown_0.9         
 ## [22] gtable_0.2.0          cellranger_1.1.0      rvest_0.3.2          
-## [25] htmlwidgets_1.3       evaluate_0.11         httpuv_1.4.5         
+## [25] htmlwidgets_1.3       evaluate_0.12         httpuv_1.4.5         
 ## [28] crosstalk_1.0.0       broom_0.5.0           Rcpp_0.12.19         
 ## [31] xtable_1.8-3          promises_1.0.1        scales_1.0.0         
 ## [34] backports_1.1.2       jsonlite_1.5          mime_0.6             
-## [37] hms_0.4.2             digest_0.6.17         rebus.base_0.0-3     
+## [37] hms_0.4.2             digest_0.6.18         rebus.base_0.0-3     
 ## [40] stringi_1.2.4         shiny_1.1.0           bookdown_0.7         
 ## [43] grid_3.5.1            rprojroot_1.3-2       cli_1.0.1            
 ## [46] tools_3.5.1           lazyeval_0.2.1        crayon_1.3.4         

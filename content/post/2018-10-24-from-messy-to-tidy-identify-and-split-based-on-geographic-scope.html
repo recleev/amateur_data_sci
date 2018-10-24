@@ -1,0 +1,413 @@
+---
+title: 'From Messy to Tidy: Identify and Split Based on Geographic Scope'
+author: Recle Etino Vibal
+date: '2018-10-24'
+categories:
+  - economics
+  - finance
+  - lessons
+  - Philippines
+  - tidyverse
+tags:
+  - consumer price index
+  - dplyr
+  - readr
+  - tidyr
+slug: messy-tidy-identify-split-geographic-scope
+output:
+  blogdown::html_page:
+    toc: yes
+    number_sections: yes
+bibliography:
+  - references/messy-to-tidy.bib
+biblio-style: apalike
+---
+
+<script src="/rmarkdown-libs/htmlwidgets/htmlwidgets.js"></script>
+<script src="/rmarkdown-libs/jquery/jquery.min.js"></script>
+<link href="/rmarkdown-libs/datatables-css/datatables-crosstalk.css" rel="stylesheet" />
+<script src="/rmarkdown-libs/datatables-binding/datatables.js"></script>
+<link href="/rmarkdown-libs/dt-core/css/jquery.dataTables.min.css" rel="stylesheet" />
+<link href="/rmarkdown-libs/dt-core/css/jquery.dataTables.extra.css" rel="stylesheet" />
+<script src="/rmarkdown-libs/dt-core/js/jquery.dataTables.min.js"></script>
+<link href="/rmarkdown-libs/dt-ext-fixedcolumns/css/fixedColumns.dataTables.min.css" rel="stylesheet" />
+<script src="/rmarkdown-libs/dt-ext-fixedcolumns/js/dataTables.fixedColumns.min.js"></script>
+<link href="/rmarkdown-libs/crosstalk/css/crosstalk.css" rel="stylesheet" />
+<script src="/rmarkdown-libs/crosstalk/js/crosstalk.min.js"></script>
+
+<div id="TOC">
+<ul>
+<li><a href="#partially-tidy-data-sets"><span class="toc-section-number">1</span> Partially Tidy Data Sets</a></li>
+<li><a href="#philippine-geogrphy-crash-course"><span class="toc-section-number">2</span> Philippine Geogrphy Crash Course</a></li>
+<li><a href="#geography-challenge"><span class="toc-section-number">3</span> Geography Challenge</a><ul>
+<li><a href="#location-level"><span class="toc-section-number">3.1</span> Location Level</a></li>
+<li><a href="#region-tags"><span class="toc-section-number">3.2</span> Region Tags</a></li>
+<li><a href="#split-and-save"><span class="toc-section-number">3.3</span> Split and Save</a></li>
+</ul></li>
+<li><a href="#up-next"><span class="toc-section-number">4</span> Up Next</a></li>
+<li><a href="#code"><span class="toc-section-number">5</span> Code</a></li>
+<li><a href="#references"><span class="toc-section-number">6</span> References</a></li>
+</ul>
+</div>
+
+<div id="partially-tidy-data-sets" class="section level1">
+<h1><span class="header-section-number">1</span> Partially Tidy Data Sets</h1>
+<p>So far, we have converted the messy <a href="http://openstat.psa.gov.ph/dataset/prices-and-related-indices">Philippine Consumer Price Index data</a> to a partially tidy data. We did this by <a href="https://amateurdatasci.rbind.io/post/messy-tidy-tidyr-gather/">collecting the date</a> columns into one column, adapting the dates into <a href="https://en.wikipedia.org/wiki/ISO_8601">ISO 8601</a> format, interpreting the code column into more meaningful item descriptions, and separating the data by item level.</p>
+<p>This is the partially tidied primary item CPI data.</p>
+
+<div class="figure"><span id="fig:show-sample"></span>
+<div id="htmlwidget-1" style="width:100%;height:auto;" class="datatables html-widget"></div>
+<script type="application/json" data-for="htmlwidget-1">{"x":{"filter":"none","extensions":["FixedColumns"],"data":[[0,0,0,0,0,0,0,0,0,0,0,0,13,13,13,13,13,13,13,13,13,13,13,13,99,99,99,99,99,99,99,99,99,99,99,99,14,14,14,14],[0,0,0,0,0,0,0,0,0,0,0,0,99,99,99,99,99,99,99,99,99,99,99,99,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0],["Philippines","Philippines","Philippines","Philippines","Philippines","Philippines","Philippines","Philippines","Philippines","Philippines","Philippines","Philippines","NCR - National Capital Region","NCR - National Capital Region","NCR - National Capital Region","NCR - National Capital Region","NCR - National Capital Region","NCR - National Capital Region","NCR - National Capital Region","NCR - National Capital Region","NCR - National Capital Region","NCR - National Capital Region","NCR - National Capital Region","NCR - National Capital Region","AONCR - Areas Outside National Capital Region","AONCR - Areas Outside National Capital Region","AONCR - Areas Outside National Capital Region","AONCR - Areas Outside National Capital Region","AONCR - Areas Outside National Capital Region","AONCR - Areas Outside National Capital Region","AONCR - Areas Outside National Capital Region","AONCR - Areas Outside National Capital Region","AONCR - Areas Outside National Capital Region","AONCR - Areas Outside National Capital Region","AONCR - Areas Outside National Capital Region","AONCR - Areas Outside National Capital Region","CAR - Cordillera Administrative Region","CAR - Cordillera Administrative Region","CAR - Cordillera Administrative Region","CAR - Cordillera Administrative Region"],["0","01","02","03","04","05","06","07","08","09","10","11","0","01","02","03","04","05","06","07","08","09","10","11","0","01","02","03","04","05","06","07","08","09","10","11","0","01","02","03"],["All Items","Food And Non-Alcoholic Beverages","Alcoholic Beverages And Tobacco","Clothing And Footwear","Housing, Water, Electricity, Gas And Other Fuels","Furnishings, Household Equipment And Routing Maintenance Of The House","Health","Transport","Communication","Recreation And Culture","Education","Restaurants And Miscellaneous Goods And Services","All Items","Food And Non-Alcholic Beverages","Alcoholic Beverages And Tobacco","Clothing And Footwear","Housing, Water, Electricity, Gas And Other Fuels","Furnishings, Household Equipment And Routing Maintenance Of The House","Health","Transport","Communication","Recreation And Culture","Education","Restaurants And Miscellaneous Goods And Services","All Items","Food And Non-Alcholic Beverages","Alcoholic Beverages And Tobacco","Clothing And Footwear","Housing, Water, Electricity, Gas And Other Fuels","Furnishings, Household Equipment And Routing Maintenance Of The House","Health","Transport","Communication","Recreation And Culture","Education","Restaurants And Miscellaneous Goods And Services","All Items","Food And Non-Alcholic Beverages","Alcoholic Beverages And Tobacco","Clothing And Footwear"],["49.4","54.4","54.3","58.0","43.6","56.7","41.6","35.1","50.5","68.2","23.8","54.9","48.0","55.9","52.1","51.3","39.0","51.2","40.2","35.2","50.7","67.4","22.7","58.9","49.9","54.1","54.8","60.2","45.7","58.6","42.0","35.1","50.4","68.5","24.1","53.2","50.8","56.8","59.9","56.7"],["1994-01-31","1994-01-31","1994-01-31","1994-01-31","1994-01-31","1994-01-31","1994-01-31","1994-01-31","1994-01-31","1994-01-31","1994-01-31","1994-01-31","1994-01-31","1994-01-31","1994-01-31","1994-01-31","1994-01-31","1994-01-31","1994-01-31","1994-01-31","1994-01-31","1994-01-31","1994-01-31","1994-01-31","1994-01-31","1994-01-31","1994-01-31","1994-01-31","1994-01-31","1994-01-31","1994-01-31","1994-01-31","1994-01-31","1994-01-31","1994-01-31","1994-01-31","1994-01-31","1994-01-31","1994-01-31","1994-01-31"],["All Items","Food And Non-Alcoholic Beverages","Alcoholic Beverages And Tobacco","Clothing And Footwear","Housing, Water, Electricity, Gas And Other Fuels","Furnishings, Household Equipment And Routing Maintenance Of The House","Health","Transport","Communication","Recreation And Culture","Education","Restaurants And Miscellaneous Goods And Services","All Items","Food And Non-Alcoholic Beverages","Alcoholic Beverages And Tobacco","Clothing And Footwear","Housing, Water, Electricity, Gas And Other Fuels","Furnishings, Household Equipment And Routing Maintenance Of The House","Health","Transport","Communication","Recreation And Culture","Education","Restaurants And Miscellaneous Goods And Services","All Items","Food And Non-Alcoholic Beverages","Alcoholic Beverages And Tobacco","Clothing And Footwear","Housing, Water, Electricity, Gas And Other Fuels","Furnishings, Household Equipment And Routing Maintenance Of The House","Health","Transport","Communication","Recreation And Culture","Education","Restaurants And Miscellaneous Goods And Services","All Items","Food And Non-Alcoholic Beverages","Alcoholic Beverages And Tobacco","Clothing And Footwear"]],"container":"<table class=\"display\">\n  <thead>\n    <tr>\n      <th>geographic_code<\/th>\n      <th>geographic_code_1<\/th>\n      <th>geographic_location<\/th>\n      <th>code<\/th>\n      <th>description<\/th>\n      <th>cpi<\/th>\n      <th>date_cpi<\/th>\n      <th>item_category_1<\/th>\n    <\/tr>\n  <\/thead>\n<\/table>","options":{"pageLength":20,"scrollX":true,"scrollCollapse":true,"columnDefs":[{"className":"dt-center","targets":[0,1,2,3,4,5,6,7]}],"order":[],"autoWidth":false,"orderClasses":false,"lengthMenu":[10,20,25,50,100]}},"evals":[],"jsHooks":[]}</script>
+<p class="caption">
+Figure 1.1: <strong>Sample Paritally Tidy Data.</strong> First 40 Rows of the Philippines Monthly Consumer Price Index (CPI) for All Income Households by Commodity Group and Geographic Area from 1994 Jan to 2018 Jun. CPI from 1994 to 2005 are the equivalent/estimated 2006-based CPI using the splicing method. Data from Philippine Statistics Authority (<a href="http://openstat.psa.gov.ph" class="uri">http://openstat.psa.gov.ph</a>).
+</p>
+</div>
+<p>We have done a lot, but the data is not yet completely tidy. Observe that there are three columns that refer to geography, i.e. <code>geogrphic_code</code>, <code>geographic_code_1</code>, and <code>geographic_location</code>. We must make sense of these columns and handle them based on tidy principles.</p>
+</div>
+<div id="philippine-geogrphy-crash-course" class="section level1">
+<h1><span class="header-section-number">2</span> Philippine Geogrphy Crash Course</h1>
+<p>The Philippines is divided into regions, and each region is made up of provinces or cities. Some cities are part of a region, but may be economically independent from the region. That’s why there are cities with dedicated monthly consumer price indices.</p>
+<p>Knowing this makes it easy for us to decipher what the <code>geographic</code> columns mean. <code>geographic_location</code> is the name or label of the geographic coverage of the computed CPI. <code>geographic_code</code> refers to region numbers except for 99 which pertains to the CPI computed for Areas Outside the National Capital Region<a href="#fn1" class="footnoteRef" id="fnref1"><sup>1</sup></a> and 0 which refers to the whole country. <code>geographic_code_1</code> is a unique identifier for the provinces and zero for the whole Philippines and for regions except for the National Capital Region which is 99. I think both <code>geographic_code</code> columns can be removed since the <code>geographic_location</code> already serves as a unique and more useful identifier.</p>
+<p>The third principle of tidy data according to <span class="citation">Wickham (2014)</span> is that each observational unit should form a table. I think provinces, regions, and the whole Philippines should serve as one observational unit.</p>
+</div>
+<div id="geography-challenge" class="section level1">
+<h1><span class="header-section-number">3</span> Geography Challenge</h1>
+<p>The <code>geography</code> columns are easier to understand than the <code>code</code> columns. However, we will need to do the same thing we did with the item categories. I think we need to do the following things:</p>
+<ol style="list-style-type: decimal">
+<li>Identify each geographic location as National, Regional, or Provincial,</li>
+<li>Tag each province to the appropriate region,</li>
+<li>Split the data set by location level, and</li>
+<li>Save the data sets as csv files.</li>
+</ol>
+<div id="location-level" class="section level2">
+<h2><span class="header-section-number">3.1</span> Location Level</h2>
+<p>Identifying the location levels are easy now that we have deciphered the <code>geographic_code</code> columns. We just need the usual <code>dplyr::mutate()</code>, and I also used <code>dplyr::case_when()</code> <span class="citation">(Wickham et al. 2018)</span> to avoid nested <code>ifelse()</code>. See <a href="#code">5</a> for the exact code.</p>
+
+<div class="figure"><span id="fig:add-show-location-level"></span>
+<div id="htmlwidget-2" style="width:100%;height:auto;" class="datatables html-widget"></div>
+<script type="application/json" data-for="htmlwidget-2">{"x":{"filter":"none","extensions":["FixedColumns"],"data":[[0,0,0,0,0,0,0,0,0,0,0,0,13,13,13,13,13,13,13,13,13,13,13,13,99,99,99,99,99,99,99,99,99,99,99,99,14,14,14,14],[0,0,0,0,0,0,0,0,0,0,0,0,99,99,99,99,99,99,99,99,99,99,99,99,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0],["Philippines","Philippines","Philippines","Philippines","Philippines","Philippines","Philippines","Philippines","Philippines","Philippines","Philippines","Philippines","NCR - National Capital Region","NCR - National Capital Region","NCR - National Capital Region","NCR - National Capital Region","NCR - National Capital Region","NCR - National Capital Region","NCR - National Capital Region","NCR - National Capital Region","NCR - National Capital Region","NCR - National Capital Region","NCR - National Capital Region","NCR - National Capital Region","AONCR - Areas Outside National Capital Region","AONCR - Areas Outside National Capital Region","AONCR - Areas Outside National Capital Region","AONCR - Areas Outside National Capital Region","AONCR - Areas Outside National Capital Region","AONCR - Areas Outside National Capital Region","AONCR - Areas Outside National Capital Region","AONCR - Areas Outside National Capital Region","AONCR - Areas Outside National Capital Region","AONCR - Areas Outside National Capital Region","AONCR - Areas Outside National Capital Region","AONCR - Areas Outside National Capital Region","CAR - Cordillera Administrative Region","CAR - Cordillera Administrative Region","CAR - Cordillera Administrative Region","CAR - Cordillera Administrative Region"],["0","01","02","03","04","05","06","07","08","09","10","11","0","01","02","03","04","05","06","07","08","09","10","11","0","01","02","03","04","05","06","07","08","09","10","11","0","01","02","03"],["All Items","Food And Non-Alcoholic Beverages","Alcoholic Beverages And Tobacco","Clothing And Footwear","Housing, Water, Electricity, Gas And Other Fuels","Furnishings, Household Equipment And Routing Maintenance Of The House","Health","Transport","Communication","Recreation And Culture","Education","Restaurants And Miscellaneous Goods And Services","All Items","Food And Non-Alcholic Beverages","Alcoholic Beverages And Tobacco","Clothing And Footwear","Housing, Water, Electricity, Gas And Other Fuels","Furnishings, Household Equipment And Routing Maintenance Of The House","Health","Transport","Communication","Recreation And Culture","Education","Restaurants And Miscellaneous Goods And Services","All Items","Food And Non-Alcholic Beverages","Alcoholic Beverages And Tobacco","Clothing And Footwear","Housing, Water, Electricity, Gas And Other Fuels","Furnishings, Household Equipment And Routing Maintenance Of The House","Health","Transport","Communication","Recreation And Culture","Education","Restaurants And Miscellaneous Goods And Services","All Items","Food And Non-Alcholic Beverages","Alcoholic Beverages And Tobacco","Clothing And Footwear"],["49.4","54.4","54.3","58.0","43.6","56.7","41.6","35.1","50.5","68.2","23.8","54.9","48.0","55.9","52.1","51.3","39.0","51.2","40.2","35.2","50.7","67.4","22.7","58.9","49.9","54.1","54.8","60.2","45.7","58.6","42.0","35.1","50.4","68.5","24.1","53.2","50.8","56.8","59.9","56.7"],["1994-01-31","1994-01-31","1994-01-31","1994-01-31","1994-01-31","1994-01-31","1994-01-31","1994-01-31","1994-01-31","1994-01-31","1994-01-31","1994-01-31","1994-01-31","1994-01-31","1994-01-31","1994-01-31","1994-01-31","1994-01-31","1994-01-31","1994-01-31","1994-01-31","1994-01-31","1994-01-31","1994-01-31","1994-01-31","1994-01-31","1994-01-31","1994-01-31","1994-01-31","1994-01-31","1994-01-31","1994-01-31","1994-01-31","1994-01-31","1994-01-31","1994-01-31","1994-01-31","1994-01-31","1994-01-31","1994-01-31"],["All Items","Food And Non-Alcoholic Beverages","Alcoholic Beverages And Tobacco","Clothing And Footwear","Housing, Water, Electricity, Gas And Other Fuels","Furnishings, Household Equipment And Routing Maintenance Of The House","Health","Transport","Communication","Recreation And Culture","Education","Restaurants And Miscellaneous Goods And Services","All Items","Food And Non-Alcoholic Beverages","Alcoholic Beverages And Tobacco","Clothing And Footwear","Housing, Water, Electricity, Gas And Other Fuels","Furnishings, Household Equipment And Routing Maintenance Of The House","Health","Transport","Communication","Recreation And Culture","Education","Restaurants And Miscellaneous Goods And Services","All Items","Food And Non-Alcoholic Beverages","Alcoholic Beverages And Tobacco","Clothing And Footwear","Housing, Water, Electricity, Gas And Other Fuels","Furnishings, Household Equipment And Routing Maintenance Of The House","Health","Transport","Communication","Recreation And Culture","Education","Restaurants And Miscellaneous Goods And Services","All Items","Food And Non-Alcoholic Beverages","Alcoholic Beverages And Tobacco","Clothing And Footwear"],["National","National","National","National","National","National","National","National","National","National","National","National",null,null,null,null,null,null,null,null,null,null,null,null,"Regional","Regional","Regional","Regional","Regional","Regional","Regional","Regional","Regional","Regional","Regional","Regional","Regional","Regional","Regional","Regional"]],"container":"<table class=\"display\">\n  <thead>\n    <tr>\n      <th>geographic_code<\/th>\n      <th>geographic_code_1<\/th>\n      <th>geographic_location<\/th>\n      <th>code<\/th>\n      <th>description<\/th>\n      <th>cpi<\/th>\n      <th>date_cpi<\/th>\n      <th>item_category_1<\/th>\n      <th>geographic_level<\/th>\n    <\/tr>\n  <\/thead>\n<\/table>","options":{"pageLength":20,"scrollX":true,"scrollCollapse":true,"columnDefs":[{"className":"dt-center","targets":[0,1,2,3,4,5,6,7,8]}],"order":[],"autoWidth":false,"orderClasses":false,"lengthMenu":[10,20,25,50,100]}},"evals":[],"jsHooks":[]}</script>
+<p class="caption">
+Figure 3.1: First 40 Rows of the Identified National, Regional, and Provincial Locations.
+</p>
+</div>
+</div>
+<div id="region-tags" class="section level2">
+<h2><span class="header-section-number">3.2</span> Region Tags</h2>
+<p>My strategy with the region tags was to select only the regional tags, i.e. <code>geographic_code_1</code> that are either 0 or 99, find the unique <code>geographic_code</code> and <code>geographic_location</code> combinations using <code>dplyr::distinct()</code>, then add this again to the data set with <code>dplyr::inner_join()</code> by <code>geographic_code</code> because this is the identifier for the regions.</p>
+
+</div>
+<div id="split-and-save" class="section level2">
+<h2><span class="header-section-number">3.3</span> Split and Save</h2>
+<p>At this stage, I realized I have to do several steps over and over again. Split the data by location level. Save the divided data sets as csv files as suggested by <span class="citation">Ellis and Leek (2014)</span><a href="#fn2" class="footnoteRef" id="fnref2"><sup>2</sup></a>. I have to do this again for the secondary and the tertiary category items data sets.</p>
+<p>With this much repetition, we must heed David Robinson’s advice in this tweet<a href="#fn3" class="footnoteRef" id="fnref3"><sup>3</sup></a>.</p>
+{{% tweet "928447584712253440" %}}
+<p>I created a function that will read the partially tidy data sets, fix the <code>geographic</code> columns, add region tags, split the data by location level, then save the new data sets as csv files. For the whole code, see <a href="#code">5</a>.</p>
+<p>I left comments within the code to explain my thought process. I have used most of the functions I used before. I saved the objects as csv files with <code>readr::write_csv()</code> <span class="citation">(Wickham, Hester, and Francois 2017)</span>. To avoid any more repetition, I also used <code>purrr::map()</code> <span class="citation">(Henry and Wickham 2018)</span> and <code>list.files()</code> to read the partial tidy data sets and apply the function I made to each file. I also follow declaring functions explicitly (<code>package::function()</code>) when using them within a function I made.</p>
+<p>I did not save the file in this blog’s directory because the csv files were just too big, but you can run the code and should get the desired results.</p>
+</div>
+</div>
+<div id="up-next" class="section level1">
+<h1><span class="header-section-number">4</span> Up Next</h1>
+<p>My initial plan was for the Messy to Tidy Series to end when I have turned a messy real world data into something tidier. However, I realized I was learning the packages and functions I was using better as I write these posts. I also noticed that all the functions I used were from the <code>tidyverese</code>. Nothing wrong about that, of course, as all <code>tidyverse</code> packages including <code>{dplyr}</code> are the most powerful packages one can use in <code>R</code>. That said, this is not the only way to tidy data. There are other packages we can use to wrangle and clean data. I will continue this series to explore another method of tidying data without using <code>tidyverse</code>.</p>
+</div>
+<div id="code" class="section level1">
+<h1><span class="header-section-number">5</span> Code</h1>
+<p>The following codes show what I did in this post. The logic of each code should have been captured in the discussion, but I added comments here and there to further clarify my thought process.</p>
+<pre class="r"><code># Attach packages and set chunk options
+
+xfun::pkg_attach(
+  &quot;knitr&quot;,
+  &quot;tidyverse&quot;,
+  &quot;magrittr&quot;,
+  &quot;DT&quot;,
+  &quot;rebus&quot;,
+  &quot;lubridate&quot;
+)
+
+opts_chunk$set(
+  message = FALSE,
+  warning = FALSE,
+  echo = FALSE
+)
+
+# create standard datatable function to be used in all tables in this post
+
+show_datatable &lt;- function(cpi_data) {
+  cpi_data %&gt;% 
+    DT::datatable(
+      rownames = FALSE,
+      extensions = &#39;FixedColumns&#39;,
+      options = list(
+        pageLength = 20,
+        scrollX = TRUE,
+        scrollCollapse = TRUE,
+        columnDefs = list(
+          list(
+            className = &#39;dt-center&#39;,
+            targets = 0:(ncol(cpi_data) - 1)
+          )
+        )
+      )
+    )
+}
+
+
+primary_item_cpi &lt;- 
+  readr::read_rds(&quot;./data/ph-cpi-data/partial-tidy/categorized-cpi/primary-item-cpi&quot;)
+
+
+primary_item_cpi %&gt;% 
+  head(40) %&gt;% 
+  show_datatable()
+
+
+# Create Geographical Level Identifier ------------------------------------
+
+geographical_levels &lt;- 
+  primary_item_cpi %&gt;% 
+  mutate(
+    geographic_level =
+      case_when(
+        geographic_code == 0 &amp; geographic_code_1 == 0 ~ &quot;National&quot;,
+        geographic_code != 0 &amp; geographic_code_1 == 0 ~ &quot;Regional&quot;,
+        geographic_code != 0 &amp; !geographic_code_1 %in% c(0, 99) ~ &quot;Provincial&quot;
+      )
+  )
+
+# show data with location levels
+
+geographical_levels %&gt;% 
+  head(40) %&gt;% 
+  show_datatable()
+
+
+
+# Extract Region Labels ---------------------------------------------------
+
+region_labels &lt;- 
+  primary_item_cpi %&gt;% 
+  filter(geographic_code_1 %in% c(0, 99)) %&gt;% 
+  distinct(geographic_code, geographic_location) %&gt;% 
+  rename(region = geographic_location)
+
+# Make Primary Item CPI with Regional Labels ------------------------------
+
+labeled_primary_item_cpi &lt;- 
+  geographical_levels %&gt;% 
+  inner_join(
+    region_labels,
+    by = &quot;geographic_code&quot;
+  )
+
+
+# embed David Robinson&#39;s tweet on writing the same code and functions
+
+blogdown::shortcode(&#39;tweet&#39;, &#39;928447584712253440&#39;)
+
+
+split_save_cpi &lt;- function(
+  cpi_data, 
+  origin_dir = &quot;./data/partial-tidy/categorized-cpi&quot;, 
+  destination_dir = &quot;./data/final-tidy&quot;
+) {
+  
+  # read data to split
+  raw_data &lt;- 
+    # combine
+    paste(
+      # origin directoy
+      origin_dir,
+      # and file name
+      cpi_data,
+      # make sure directory and file name is separated by a forward slash
+      sep = &quot;/&quot;
+    ) %&gt;% 
+    readr::read_rds()
+  
+  # Create Geographical Level Identifier ------------------------------------
+  
+  geographical_levels &lt;- 
+    raw_data %&gt;% 
+    dplyr::mutate(
+      # create identifiers for the geographic location levels
+      location_level =
+        dplyr::case_when(
+          geographic_code == 0 &amp; geographic_code_1 == 0 ~ &quot;National&quot;,
+          geographic_code != 0 &amp; geographic_code_1 %in% c(0, 99) ~ &quot;Regional&quot;,
+          geographic_code != 0 &amp; !geographic_code_1 %in% c(0, 99) ~ &quot;Provincial&quot;
+        )
+    )
+  
+  # Extract Region Labels ---------------------------------------------------
+  
+  region_labels &lt;- 
+    raw_data %&gt;% 
+    dplyr::filter(geographic_code_1 %in% c(0, 99)) %&gt;% 
+    distinct(geographic_code, geographic_location) %&gt;% 
+    dplyr::rename(region = geographic_location)
+  
+  # Make Primary Item CPI with Regional Labels ------------------------------
+  
+  labeled_raw_data &lt;- 
+    geographical_levels %&gt;% 
+    dplyr::inner_join(
+      region_labels,
+      by = &quot;geographic_code&quot;
+    )
+  
+  # Create Function to Divide per Location Level ----------------------------
+  
+  choose_location &lt;- function(data_location, geographic_level) {
+    data_location %&gt;% 
+      dplyr::filter(location_level == geographic_level) %&gt;% 
+      dplyr::select(-dplyr::matches(&quot;geographic_code&quot;), -description)
+  }
+  
+  # Divide Data Per Regional Location ---------------------------------------
+  
+  national_raw_data &lt;- 
+    labeled_raw_data %&gt;% 
+    choose_location(geographic_level = &quot;National&quot;) %&gt;% 
+    # remove region as it is redundant to the geographic_location at the
+    # national level
+    dplyr::select(-region)
+  
+  regional_raw_data &lt;- 
+    labeled_raw_data %&gt;% 
+    # remove region as it is redundant to the geographic_location at the
+    # regional level
+    dplyr::select(-region) %&gt;% 
+    choose_location(geographic_level = &quot;Regional&quot;)
+  
+  provincial_raw_data &lt;- 
+    labeled_raw_data %&gt;% 
+    choose_location(geographic_level = &quot;Provincial&quot;)
+  
+  # Create Saving Objects to csv --------------------------------------------
+  
+  save_to_csv &lt;- function(name_object) {
+    
+    filename_object &lt;- 
+      gsub(
+        # remove _raw_data in object name
+        &quot;_raw_data&quot;,
+        # replace and append it with the original data; make sure to add the csv
+        # file extension
+        paste0(&quot;-&quot;, cpi_data, &quot;.csv&quot;),
+        name_object
+      )
+    
+    write_csv(
+      # obtain the object via string name
+      get(name_object),
+      path = paste(
+        # combine destination directory
+        destination_dir,
+        # with object filename
+        filename_object,
+        # make sure filename and directory is separated by a forward slash
+        sep = &quot;/&quot;
+      )
+    )
+  }
+  
+  # Save Data as csv --------------------------------------------------------
+  
+  # create a vector of object string names
+  objects_data &lt;- 
+    paste(
+      c(&quot;national&quot;, &quot;regional&quot;, &quot;provincial&quot;),
+      &quot;raw_data&quot;,
+      sep = &quot;_&quot;
+    )
+  
+  purrr::map(
+    # apply the save_to_csv to each object
+    objects_data,
+    save_to_csv
+  )
+
+}
+
+# Split and Save to csv All CPI PH Data -----------------------------------
+
+list.files(&quot;./data/partial-tidy/categorized-cpi&quot;) %&gt;% 
+  map(split_save_cpi)
+
+
+
+
+sessionInfo()</code></pre>
+<p>My session info for reproducibility.</p>
+<pre><code>## R version 3.5.1 (2018-07-02)
+## Platform: x86_64-w64-mingw32/x64 (64-bit)
+## Running under: Windows 10 x64 (build 17134)
+## 
+## Matrix products: default
+## 
+## locale:
+## [1] LC_COLLATE=English_Philippines.1252 
+## [2] LC_CTYPE=English_Philippines.1252   
+## [3] LC_MONETARY=English_Philippines.1252
+## [4] LC_NUMERIC=C                        
+## [5] LC_TIME=English_Philippines.1252    
+## 
+## attached base packages:
+## [1] stats     graphics  grDevices utils     datasets  methods   base     
+## 
+## other attached packages:
+##  [1] bindrcpp_0.2.2  lubridate_1.7.4 rebus_0.1-3     DT_0.4         
+##  [5] magrittr_1.5    forcats_0.3.0   stringr_1.3.1   dplyr_0.7.7    
+##  [9] purrr_0.2.5     readr_1.1.1     tidyr_0.8.1     tibble_1.4.2   
+## [13] ggplot2_3.0.0   tidyverse_1.2.1 knitr_1.20     
+## 
+## loaded via a namespace (and not attached):
+##  [1] rebus.unicode_0.0-2   tidyselect_0.2.5      xfun_0.4             
+##  [4] haven_1.1.2           lattice_0.20-35       colorspace_1.3-2     
+##  [7] htmltools_0.3.6       yaml_2.2.0            rlang_0.3.0          
+## [10] later_0.7.5           pillar_1.3.0          glue_1.3.0           
+## [13] withr_2.1.2           rebus.numbers_0.0-1   modelr_0.1.2         
+## [16] readxl_1.1.0          bindr_0.1.1           plyr_1.8.4           
+## [19] rebus.datetimes_0.0-1 munsell_0.5.0         blogdown_0.9         
+## [22] gtable_0.2.0          cellranger_1.1.0      rvest_0.3.2          
+## [25] htmlwidgets_1.3       evaluate_0.12         httpuv_1.4.5         
+## [28] crosstalk_1.0.0       broom_0.5.0           Rcpp_0.12.19         
+## [31] xtable_1.8-3          promises_1.0.1        scales_1.0.0         
+## [34] backports_1.1.2       jsonlite_1.5          mime_0.6             
+## [37] hms_0.4.2             digest_0.6.18         rebus.base_0.0-3     
+## [40] stringi_1.2.4         shiny_1.1.0           bookdown_0.7         
+## [43] grid_3.5.1            rprojroot_1.3-2       cli_1.0.1            
+## [46] tools_3.5.1           lazyeval_0.2.1        crayon_1.3.4         
+## [49] pkgconfig_2.0.2       xml2_1.2.0            assertthat_0.2.0     
+## [52] rmarkdown_1.10        httr_1.3.1            rstudioapi_0.8       
+## [55] R6_2.3.0              nlme_3.1-137          compiler_3.5.1</code></pre>
+</div>
+<div id="references" class="section level1">
+<h1><span class="header-section-number">6</span> References</h1>
+<p>For more information on tidy principles, techniques, and good practices, and the packages and functions I used in this post, please read</p>
+<div id="refs" class="references">
+<div id="ref-share-data">
+<p>Ellis, Shannon E., and Jeffrey T. Leek. 2014. “How to Share Data for Collaboration.” <em>PeerJ Preprints 5:e3139v5</em>. <a href="https://doi.org/10.7287/peerj.preprints.3139v5" class="uri">https://doi.org/10.7287/peerj.preprints.3139v5</a>.</p>
+</div>
+<div id="ref-R-purrr">
+<p>Henry, Lionel, and Hadley Wickham. 2018. <em>Purrr: Functional Programming Tools</em>. <a href="https://CRAN.R-project.org/package=purrr" class="uri">https://CRAN.R-project.org/package=purrr</a>.</p>
+</div>
+<div id="ref-tidy-data">
+<p>Wickham, Hadley. 2014. “Tidy Data.” <em>The Journal of Statistical Software</em> 59 (10). <a href="http://www.jstatsoft.org/v59/i10/" class="uri">http://www.jstatsoft.org/v59/i10/</a>.</p>
+</div>
+<div id="ref-R-dplyr">
+<p>Wickham, Hadley, Romain François, Lionel Henry, and Kirill Müller. 2018. <em>Dplyr: A Grammar of Data Manipulation</em>. <a href="https://CRAN.R-project.org/package=dplyr" class="uri">https://CRAN.R-project.org/package=dplyr</a>.</p>
+</div>
+<div id="ref-R-readr">
+<p>Wickham, Hadley, Jim Hester, and Romain Francois. 2017. <em>Readr: Read Rectangular Text Data</em>. <a href="https://CRAN.R-project.org/package=readr" class="uri">https://CRAN.R-project.org/package=readr</a>.</p>
+</div>
+</div>
+</div>
+<div class="footnotes">
+<hr />
+<ol>
+<li id="fn1"><p>There is always interest in comparing the National Capital Region with the rest of the Philippines. While I don’t think this comparison can lead to valid conclusions, some people might find a way to use these numbers to evaluate economic conditions outside and inside NCR.<a href="#fnref1">↩</a></p></li>
+<li id="fn2"><p>I was tempted to save the data sets as RDS files, but not everyone is using <code>R</code> yet, and csv files are accessible to most.<a href="#fnref2">↩</a></p></li>
+<li id="fn3"><p>So far, I have not written a blog post to answer a question I have been asked three times.<a href="#fnref3">↩</a></p></li>
+</ol>
+</div>

@@ -282,9 +282,12 @@
 <div id="dates-in-one-column" class="section level1">
 <h1><span class="header-section-number">1</span> Dates in One Column</h1>
 <p>The <a href="https://amateurdatasci.rbind.io/post/messy-tidy-tidyr-gather/">first post</a> in the From Messy to Tidy series introduced us to the idea of tidy data <span class="citation">(Wickham 2014)</span>:</p>
-<blockquote>
-<p>Data is tidy when 1. Every column is a variable, 2. Every row is an observation, and 3. Every observational unit forms a table.</p>
-</blockquote>
+<p>Data is tidy when</p>
+<ol style="list-style-type: decimal">
+<li>Every column is a variable,</li>
+<li>Every row is an observation, and</li>
+<li>Every observational unit forms a table.</li>
+</ol>
 <p>Dates as column names is one sign of a <strong>messy</strong> data. My previous post focused on collecting the date columns into a single column and converting the dates to <a href="https://en.wikipedia.org/wiki/ISO_8601">ISO 8601</a> (YYYY-MM-DD) format.</p>
 <p>Here is a sample view of the data<a href="#fn1" class="footnoteRef" id="fnref1"><sup>1</sup></a> so far. While reading the data into this post, I also cleaned the column names to replace the unnecesary spaces with underscores. I did this, and can do more column names cleaning with <code>janitor::clean_names()</code> <span class="citation">(Firke 2018)</span>.</p>
 <p>I realized that I was repeatedly changing the options of <code>DT::datatable()</code> <span class="citation">(Xie 2018)</span> when I am using it, so I just made a new function, <code>show_datatable()</code>, with all the settings I want.</p>
@@ -315,14 +318,12 @@ Figure 2.1: The <code>code</code> and <code>description</code> Column Relationsh
 <div id="split-stretch-and-trickle-down" class="section level1">
 <h1><span class="header-section-number">3</span> Split, Stretch, and Trickle Down</h1>
 <p>Splitting the <code>code</code> column into three looks easy. However, I realized I wanted the subcategories to have their main categories, and the sub-subcategories to have their sub- and main categories, making things more complicated. To accomplish this, I followed the following steps:</p>
-<blockquote>
 <ol style="list-style-type: decimal">
 <li>Split the code column into category levels.</li>
 <li>Identify the item category level of the the description.</li>
 <li>Distribute the description to the appropriate category level.</li>
 <li>Supply the missing levels for each item.</li>
 </ol>
-</blockquote>
 <div id="cut-the-dots" class="section level2">
 <h2><span class="header-section-number">3.1</span> Cut the Dots</h2>
 <p>I am thankful to the <a href="http://openstat.psa.gov.ph/">Philippine Statistics Authority</a> that they encoded the <code>code</code> column with dots separating each category level because this makes it easy to extract the code levels with <code>tidry::separate()</code> <span class="citation">(Wickham and Henry 2018)</span>. See Figure <a href="#fig:separate-code">3.1</a>.</p>
@@ -652,7 +653,7 @@ sessionInfo()</code></pre>
 ## 
 ## other attached packages:
 ##  [1] bindrcpp_0.2.2  janitor_1.1.1   rebus_0.1-3     DT_0.4         
-##  [5] magrittr_1.5    forcats_0.3.0   stringr_1.3.1   dplyr_0.7.6    
+##  [5] magrittr_1.5    forcats_0.3.0   stringr_1.3.1   dplyr_0.7.7    
 ##  [9] purrr_0.2.5     readr_1.1.1     tidyr_0.8.1     tibble_1.4.2   
 ## [13] ggplot2_3.0.0   tidyverse_1.2.1 knitr_1.20     
 ## 
@@ -661,12 +662,12 @@ sessionInfo()</code></pre>
 ##  [4] assertthat_0.2.0      rprojroot_1.3-2       digest_0.6.18        
 ##  [7] mime_0.6              R6_2.3.0              cellranger_1.1.0     
 ## [10] plyr_1.8.4            backports_1.1.2       evaluate_0.12        
-## [13] httr_1.3.1            blogdown_0.8          pillar_1.3.0         
-## [16] rlang_0.2.2           lazyeval_0.2.1        readxl_1.1.0         
+## [13] httr_1.3.1            blogdown_0.9          pillar_1.3.0         
+## [16] rlang_0.3.0           lazyeval_0.2.1        readxl_1.1.0         
 ## [19] rstudioapi_0.8        rebus.base_0.0-3      rmarkdown_1.10       
 ## [22] htmlwidgets_1.3       munsell_0.5.0         shiny_1.1.0          
 ## [25] broom_0.5.0           compiler_3.5.1        httpuv_1.4.5         
-## [28] modelr_0.1.2          xfun_0.3              pkgconfig_2.0.2      
+## [28] modelr_0.1.2          xfun_0.4              pkgconfig_2.0.2      
 ## [31] htmltools_0.3.6       tidyselect_0.2.5      bookdown_0.7         
 ## [34] rebus.numbers_0.0-1   crayon_1.3.4          withr_2.1.2          
 ## [37] later_0.7.5           grid_3.5.1            nlme_3.1-137         

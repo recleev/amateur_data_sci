@@ -88,7 +88,7 @@ primary_item_cpi %>%
 
 ```
 
-We have done a lot, but the data is not yet completely tidy. Observe that there are three columns that refer to geogrphy, i.e. `geogrphic_code`, `geographic_code_1`, and `geographic_location`. We must make sense of these columns and handle them based on tidy principles.
+We have done a lot, but the data is not yet completely tidy. Observe that there are three columns that refer to geography, i.e. `geogrphic_code`, `geographic_code_1`, and `geographic_location`. We must make sense of these columns and handle them based on tidy principles.
 
 # Philippine Geogrphy Crash Course
 
@@ -111,9 +111,9 @@ The `geography` columns are easier to understand than the `code` columns. Howeve
 
 Identifying the location levels are easy now that we have deciphered the `geographic_code` columns. We just need the usual `dplyr::mutate()`, and I also used `dplyr::case_when()` [@R-dplyr] to avoid nested `ifelse()`. See \@ref(code) for the exact code.
 
-(ref:location-level) First 40 Rows of the Identified National, Regional, and Provincial Locations.
+(ref:location-level-added) First 40 Rows of the Identified National, Regional, and Provincial Locations.
 
-```{r add-location-level-show, fig.cap='(ref:location-level)'}
+```{r add-show-location-level, fig.cap='(ref:location-level-added)'}
 
 # Create Geographical Level Identifier ------------------------------------
 
@@ -139,7 +139,188 @@ geographical_levels %>%
 
 ## Region Tags
 
+My strategy with the region tags was to select only the regional tags, i.e. `geographic_code_1` that are either 0 or 99, find the unique `geographic_code` and `geographic_location` combinations using `dplyr::distinct()`, then add this again to the data set with `dplyr::inner_join()` by `geographic_code` because this is the identifier for the regions.
 
+(ref:region-tags-added) First 40 Rows of the Identified National, Regional, and Provincial Locations.
+
+```{r make-attach-show-region, fig.cap='(ref:region-tags-added)'}
+
+# Extract Region Labels ---------------------------------------------------
+
+region_labels <- 
+  primary_item_cpi %>% 
+  filter(geographic_code_1 %in% c(0, 99)) %>% 
+  distinct(geographic_code, geographic_location) %>% 
+  rename(region = geographic_location)
+
+# Make Primary Item CPI with Regional Labels ------------------------------
+
+labeled_primary_item_cpi <- 
+  geographical_levels %>% 
+  inner_join(
+    region_labels,
+    by = "geographic_code"
+  )
+
+```
+
+## Split and Save
+
+At this stage, I realized I have to do several steps over and over again. Split the data by location level. Save the divided data sets as csv files as suggested by @share-data^[I was tempted to save the data sets as RDS files, but not everyone is using `R` yet, and csv files are accessible to most.]. I have to do this again for the secondary and the tertiary category items data sets. 
+
+With this much repetition, we must heed David Robinson's advice in this tweet^[So far, I have not written a blog post to answer a question I have been asked three times.].
+
+```{r david-tweet}
+
+# embed David Robinson's tweet on writing the same code and functions
+
+blogdown::shortcode('tweet', '928447584712253440')
+
+```
+
+I created a function that will read the partially tidy data sets, fix the `geographic` columns, add region tags, split the data by location level, then save the new data sets as csv files. For the whole code, see \@ref(code).
+
+```{r split-save-function, eval=FALSE}
+
+split_save_cpi <- function(
+  cpi_data, 
+  origin_dir = "./data/partial-tidy/categorized-cpi", 
+  destination_dir = "./data/final-tidy"
+) {
+  
+  # read data to split
+  raw_data <- 
+    # combine
+    paste(
+      # origin directoy
+      origin_dir,
+      # and file name
+      cpi_data,
+      # make sure directory and file name is separated by a forward slash
+      sep = "/"
+    ) %>% 
+    readr::read_rds()
+  
+  # Create Geographical Level Identifier ------------------------------------
+  
+  geographical_levels <- 
+    raw_data %>% 
+    dplyr::mutate(
+      # create identifiers for the geographic location levels
+      location_level =
+        dplyr::case_when(
+          geographic_code == 0 & geographic_code_1 == 0 ~ "National",
+          geographic_code != 0 & geographic_code_1 %in% c(0, 99) ~ "Regional",
+          geographic_code != 0 & !geographic_code_1 %in% c(0, 99) ~ "Provincial"
+        )
+    )
+  
+  # Extract Region Labels ---------------------------------------------------
+  
+  region_labels <- 
+    raw_data %>% 
+    dplyr::filter(geographic_code_1 %in% c(0, 99)) %>% 
+    distinct(geographic_code, geographic_location) %>% 
+    dplyr::rename(region = geographic_location)
+  
+  # Make Primary Item CPI with Regional Labels ------------------------------
+  
+  labeled_raw_data <- 
+    geographical_levels %>% 
+    dplyr::inner_join(
+      region_labels,
+      by = "geographic_code"
+    )
+  
+  # Create Function to Divide per Location Level ----------------------------
+  
+  choose_location <- function(data_location, geographic_level) {
+    data_location %>% 
+      dplyr::filter(location_level == geographic_level) %>% 
+      dplyr::select(-dplyr::matches("geographic_code"), -description)
+  }
+  
+  # Divide Data Per Regional Location ---------------------------------------
+  
+  national_raw_data <- 
+    labeled_raw_data %>% 
+    choose_location(geographic_level = "National") %>% 
+    # remove region as it is redundant to the geographic_location at the
+    # national level
+    dplyr::select(-region)
+  
+  regional_raw_data <- 
+    labeled_raw_data %>% 
+    # remove region as it is redundant to the geographic_location at the
+    # regional level
+    dplyr::select(-region) %>% 
+    choose_location(geographic_level = "Regional")
+  
+  provincial_raw_data <- 
+    labeled_raw_data %>% 
+    choose_location(geographic_level = "Provincial")
+  
+  # Create Saving Objects to csv --------------------------------------------
+  
+  save_to_csv <- function(name_object) {
+    
+    filename_object <- 
+      gsub(
+        # remove _raw_data in object name
+        "_raw_data",
+        # replace and append it with the original data; make sure to add the csv
+        # file extension
+        paste0("-", cpi_data, ".csv"),
+        name_object
+      )
+    
+    write_csv(
+      # obtain the object via string name
+      get(name_object),
+      path = paste(
+        # combine destination directory
+        destination_dir,
+        # with object filename
+        filename_object,
+        # make sure filename and directory is separated by a forward slash
+        sep = "/"
+      )
+    )
+  }
+  
+  # Save Data as csv --------------------------------------------------------
+  
+  # create a vector of object string names
+  objects_data <- 
+    paste(
+      c("national", "regional", "provincial"),
+      "raw_data",
+      sep = "_"
+    )
+  
+  purrr::map(
+    # apply the save_to_csv to each object
+    objects_data,
+    save_to_csv
+  )
+
+}
+
+# Split and Save to csv All CPI PH Data -----------------------------------
+
+list.files("./data/partial-tidy/categorized-cpi") %>% 
+  map(split_save_cpi)
+
+
+```
+
+I left comments within the code to explain my thought process. I have used most of the functions I used before. I saved the objects as csv files with `readr::write_csv()` [@R-readr]. To avoid any more repetition, I also used `purrr::map()` [@R-purrr] and `list.files()` to read the partial tidy data sets and apply the function I made to each file. I also follow declaring functions explicitly (`package::function()`) when using them within a function I made.
+
+I did not save the file in this blog's directory because the csv files were just too big, but you can run the code and should get the desired results.
+
+# Up Next 
+
+My initial plan was for the Messy to Tidy Series to end when I have turned a messy real world data into something tidier. However, I realized I was learning the packages and functions I was using better as I write these posts. I also noticed that all the functions I used were from the `tidyverese`. Nothing wrong about that, of course, as all `tidyverse` packages including `{dplyr}` are the most powerful packages one can use in `R`. That said, this is not the only way to tidy data. There are other packages we can use to wrangle and clean data. I will continue this series to explore another method of tidying data without using `tidyverse`.
 
 # Code {#code}
 
@@ -157,7 +338,9 @@ sessionInfo()
 
 ```
 
+# References
 
+For more information on tidy principles, techniques, and good practices, and the packages and functions I used in this post, please read
 
 
 
