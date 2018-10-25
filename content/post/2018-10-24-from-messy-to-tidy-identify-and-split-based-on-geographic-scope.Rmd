@@ -123,7 +123,7 @@ geographical_levels <-
     geographic_level =
       case_when(
         geographic_code == 0 & geographic_code_1 == 0 ~ "National",
-        geographic_code != 0 & geographic_code_1 == 0 ~ "Regional",
+        geographic_code != 0 & geographic_code_1 %in% c(0, 99) ~ "Regional",
         geographic_code != 0 & !geographic_code_1 %in% c(0, 99) ~ "Provincial"
       )
   )
@@ -334,7 +334,7 @@ My session info for reproducibility.
 
 ```{r session-info}
 
-sessionInfo()
+sessioninfo::session_info()
 
 ```
 
