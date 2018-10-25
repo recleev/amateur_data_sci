@@ -1,0 +1,26 @@
+---
+title: Proofs of Trigonometric Summations
+author: Recle Etino Vibal
+date: '2018-10-26'
+slug: proofs-trigonometric-summations
+categories:
+  - Calculus
+  - Mathematics
+  - Mathjax
+  - trigonometry
+tags:
+  - mathjax
+  - sine
+  - cosine
+  - summation
+output:
+  blogdown::html_page:
+    toc: yes
+    number_sections: yes
+bibliography:
+  - references/cwag2016.bib
+biblio-style: apalike
+---
+
+
+
