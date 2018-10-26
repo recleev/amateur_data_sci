@@ -48,7 +48,7 @@ $$
 
 ### Summation
 
-By adding \@refe(eq:half-sine-k-cosine) for $k = 1, 2, \dots, n-1, n$ and exploiting cancellations , establish the formula
+By adding \@ref(eq:half-sine-k-cosine) for $k = 1, 2, \dots, n-1, n$ and exploiting cancellations , establish the formula
 
 $$
 \begin{equation}
@@ -86,7 +86,7 @@ where $x$ is **not** an integer multiple of $2 \pi$.
 
 ### Simple Substitution
 
-I have proved \@ref(eq:sine-cosine product) [before](https://amateurdatasci.rbind.io/post/sine-cosine-multiples-angles/). We can show \@ref(eq:half-sine-k-cosine) by substitution, $a = \frac{1}{2}$ and $b = k$. Therefore,
+I have proved \@ref(eq:sine-cosine-product) [before](https://amateurdatasci.rbind.io/post/sine-cosine-multiples-angles/). We can show \@ref(eq:half-sine-k-cosine) by substitution, $a = \frac{1}{2}$ and $b = k$. Therefore,
 
 $$
 \begin{align}
@@ -243,7 +243,7 @@ $$
 
 ## Prove, Rinse, Repeat
 
-To show \@ref(eq;summation-sine-final), we need the identity
+To show \@ref(eq:summation-sine-final), we need the identity
 
 $$
 \begin{equation}

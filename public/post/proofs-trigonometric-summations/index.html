@@ -294,7 +294,7 @@
 </div>
 <div id="summation" class="section level3">
 <h3><span class="header-section-number">1.1.2</span> Summation</h3>
-<p>By adding @refe(eq:half-sine-k-cosine) for <span class="math inline">\(k = 1, 2, \dots, n-1, n\)</span> and exploiting cancellations , establish the formula</p>
+<p>By adding <a href="#eq:half-sine-k-cosine">(1.2)</a> for <span class="math inline">\(k = 1, 2, \dots, n-1, n\)</span> and exploiting cancellations , establish the formula</p>
 <p><span class="math display" id="eq:summation-cosine-prelim">\[
 \begin{equation}
 \sum_{k = 1}^n \cos k x = \frac{\sin \left( n + \frac{1}{2} \right) - \sin \frac{1}{2} x}{2 \sin \frac{1}{2} x} \tag{1.3}
@@ -329,7 +329,7 @@
 <h2><span class="header-section-number">2.1</span> Three-Step Proof of the Cosine Summation</h2>
 <div id="simple-substitution" class="section level3">
 <h3><span class="header-section-number">2.1.1</span> Simple Substitution</h3>
-<p>I have proved @ref(eq:sine-cosine product) <a href="https://amateurdatasci.rbind.io/post/sine-cosine-multiples-angles/">before</a>. We can show <a href="#eq:half-sine-k-cosine">(1.2)</a> by substitution, <span class="math inline">\(a = \frac{1}{2}\)</span> and <span class="math inline">\(b = k\)</span>. Therefore,</p>
+<p>I have proved <a href="#eq:sine-cosine-product">(1.1)</a> <a href="https://amateurdatasci.rbind.io/post/sine-cosine-multiples-angles/">before</a>. We can show <a href="#eq:half-sine-k-cosine">(1.2)</a> by substitution, <span class="math inline">\(a = \frac{1}{2}\)</span> and <span class="math inline">\(b = k\)</span>. Therefore,</p>
 <p><span class="math display">\[
 \begin{align}
 \sin \frac{1}{2} x \cos k x = \frac{1}{2} \left[ \sin \left( \frac{1}{2} + k \right) x + \sin \left( \frac{1}{2} - k \right) x\right]
@@ -476,7 +476,7 @@ b &amp;= \frac{1}{2} \left(n + 1 \right)
 </div>
 <div id="prove-rinse-repeat" class="section level2">
 <h2><span class="header-section-number">2.2</span> Prove, Rinse, Repeat</h2>
-<p>To show @ref(eq;summation-sine-final), we need the identity</p>
+<p>To show <a href="#eq:summation-sine-final">(1.5)</a>, we need the identity</p>
 <p><span class="math display" id="eq:sine-sine-product">\[
 \begin{equation}
 \sin a \theta \sin b \theta = \frac{1}{2} \left[ \cos \left( a - b \right) \theta - \cos \left( a + b \right) \theta \right] \tag{2.1}
