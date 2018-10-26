@@ -22,5 +22,378 @@ bibliography:
 biblio-style: apalike
 ---
 
+# Problems
+
+## The Cosine Summation {problem-1}
+
+Problem 9, page 197 in @cwag2016
+
+### Product 
+
+Use the product formula
+
+$$
+\begin{equation}
+\sin a \theta \cos b \theta = \frac{1}{2} \left[ \sin \left( a + b \right) \theta + \sin\left( a - b \right) \theta \right] (\#eq:sine-cosine-product)
+\end{equation}
+$$
+
+to show that 
+
+$$
+\begin{equation}
+2 \sin \frac{1}{2} x \cos k x = \sin \left( k + \frac{1}{2} \right) x - \sin \left( k - \frac{1}{2} \right) x (\#eq:half-sine-k-cosine)
+\end{equation}
+$$
+
+### Summation
+
+By adding \@refe(eq:half-sine-k-cosine) for $k = 1, 2, \dots, n-1, n$ and exploiting cancellations , establish the formula
+
+$$
+\begin{equation}
+\sum_{k = 1}^n \cos k x = \frac{\sin \left( n + \frac{1}{2} \right) - \sin \frac{1}{2} x}{2 \sin \frac{1}{2} x} (\#eq:summation-cosine-prelim)
+\end{equation}
+$$
+
+where $x$ is **not** an integer multiple of $2 \pi$.
+
+### Alternate Summation
+
+Use \@ref(eq:sine-cosine-product) to write \@ref(eq:summation-cosine-prelim) in the form
+
+$$
+\begin{equation}
+\sum_{k = 1}^n \cos k x = \frac{\sin \cfrac{n}{2} x \cos \cfrac{1}{2} \left( n + 1 \right) x }{\sin \frac{1}{2} x} (\#eq:summation-cosine-final)
+\end{equation}
+$$
+
+## The Sine Summation
+
+Use the method of \@ref(problem-1) to establish
+
+$$
+\begin{equation}
+\sum_{k = 1}^n \sin k x = \frac{ \sin \frac{1}{2} n x \sin \frac{1}{2} \left( n + 1 \right) x}{\sin \frac{1}{2} x} (\#eq:summation-sine-final)
+\end{equation}
+$$
+
+where $x$ is **not** an integer multiple of $2 \pi$.
+
+# Solutions and Proofs
+
+## Three-Step Proof of the Cosine Summation
+
+### Simple Substitution
+
+I have proved \@ref(eq:sine-cosine product) [before](https://amateurdatasci.rbind.io/post/sine-cosine-multiples-angles/). We can show \@ref(eq:half-sine-k-cosine) by substitution, $a = \frac{1}{2}$ and $b = k$. Therefore,
+
+$$
+\begin{align}
+\sin \frac{1}{2} x \cos k x = \frac{1}{2} \left[ \sin \left( \frac{1}{2} + k \right) x + \sin \left( \frac{1}{2} - k \right) x\right]
+\end{align}
+$$
+
+With direct substition, we get $\sin \left( \frac{1}{2} - k \right)$ for the second term while \@ref(eq:half-sine-k-cosine) has $- \sin \left( k - \frac{1}{2} \right)$ as the second term. We can resolve this by remembering that $\sin \left( - x \right) = - \sin x$.
+
+$$
+\begin{align}
+\sin \frac{1}{2} x \cos k x &= \frac{1}{2} \left[ \sin \left( \frac{1}{2} + k \right) x + \sin \left( \frac{1}{2} - k \right) x\right]
+\\
+\\
+\sin \frac{1}{2} x \cos k x &= \frac{1}{2} \left[ \sin \left( \frac{1}{2} + k \right) x + \sin \left\{ - \left( k - \frac{1}{2} \right) \right\} x\right]
+\\
+\\
+\sin \frac{1}{2} x \cos k x &= \frac{1}{2} \left[ \sin \left( \frac{1}{2} + k \right) x - \sin \left( k - \frac{1}{2} \right) x\right]
+\\
+\\
+2 \sin \frac{1}{2} x \cos k x &= \sin \left( k + \frac{1}{2} \right) x - \sin \left( k - \frac{1}{2} \right) x
+\end{align}
+$$
+
+### Additions and Cancellations
+
+Now that we have shown \@ref(eq:half-sine-k-cosine), let's look at what the equations look like for $k = 1, 2, 3, \dots, n - 2, n - 1, n$.
+
+$$
+\begin{align}
+2 \sin \frac{1}{2} x \cos x &= \sin \left( 1 + \frac{1}{2} \right) x - \sin \left( 1 - \frac{1}{2} \right) x
+\\
+\\
+2 \sin \frac{1}{2} x \cos 2 x &= \sin \left( 2 + \frac{1}{2} \right) x - \sin \left( 2 - \frac{1}{2} \right) x
+\\
+\\
+2 \sin \frac{1}{2} x \cos 3 x &= \sin \left( 3 + \frac{1}{2} \right) x - \sin \left( 3 - \frac{1}{2} \right) x
+\\
+\vdots
+\\
+2 \sin \frac{1}{2} x \cos \left( n - 2 \right) x &= \sin \left( \left[ n - 2 \right]  + \frac{1}{2} \right) x - \sin \left( \left[ n - 2 \right] - \frac{1}{2} \right) x
+\\
+\\
+2 \sin \frac{1}{2} x \cos \left( n - 1 \right) x &= \sin \left(  \left[ n - 1 \right] + \frac{1}{2} \right) x - \sin \left( \left[ n - 1 \right] - \frac{1}{2} \right) x
+\\
+\\
+2 \sin \frac{1}{2} x \cos n x &= \sin \left( n + \frac{1}{2} \right) x - \sin \left( n - \frac{1}{2} \right) x
+\end{align}
+$$
+
+To make the pattern more obvious, let's simplify the terms inside the sines.
+
+$$
+\begin{align}
+2 \sin \frac{1}{2} x \cos x &= \sin \left( 1 \frac{1}{2} \right) x - \sin \left( \frac{1}{2} \right) x
+\\
+\\
+2 \sin \frac{1}{2} x \cos 2 x &= \sin \left( 2 \frac{1}{2} \right) x - \sin \left( 1 \frac{1}{2} \right) x
+\\
+\\
+2 \sin \frac{1}{2} x \cos 3 x &= \sin \left( 3 \frac{1}{2} \right) x - \sin \left( 2 \frac{1}{2} \right) x
+\\
+\vdots
+\\
+2 \sin \frac{1}{2} x \cos \left( n - 2 \right) x &= \sin \left( n - 1 \frac{1}{2} \right) x - \sin \left( n - 2 \frac{1}{2} \right) x
+\\
+\\
+2 \sin \frac{1}{2} x \cos \left( n - 1 \right) x &= \sin \left(  n - \frac{1}{2} \right) x - \sin \left( n - 1 \frac{1}{2} \right) x
+\\
+\\
+2 \sin \frac{1}{2} x \cos n x &= \sin \left( n + \frac{1}{2} \right) x - \sin \left( n - \frac{1}{2} \right) x
+\end{align}
+$$
+
+The pattern here is that the second term cancels out the first term of the previous equation. If we add all the equations
+
+$$
+\require{cancel}
+\begin{align}
+2 \sin \frac{1}{2} x \cos x &= \cancel{\sin \left( 1 \frac{1}{2} \right) x} - \sin \left( \frac{1}{2} \right) x
+\\
+\\
+2 \sin \frac{1}{2} x \cos 2 x &= \sin \left( 2 \frac{1}{2} \right) x \cancel{- \sin \left( 1 \frac{1}{2} \right) x}
+\\
+\\
+2 \sin \frac{1}{2} x \cos 3 x &= \cancel{\sin \left( 3 \frac{1}{2} \right) x} \cancel{- \sin \left( 2 \frac{1}{2} \right) x}
+\\
+\vdots
+\\
+2 \sin \frac{1}{2} x \cos \left( n - 2 \right) x &= \cancel{\sin \left( n - 1 \frac{1}{2} \right) x} \cancel{- \sin \left( n - 2 \frac{1}{2} \right) x}
+\\
+\\
+2 \sin \frac{1}{2} x \cos \left( n - 1 \right) x &= \cancel{\sin \left(  n - \frac{1}{2} \right) x} \cancel{- \sin \left( n - 1 \frac{1}{2} \right) x}
+\\
+\\
+2 \sin \frac{1}{2} x \cos n x &= \sin \left( n + \frac{1}{2} \right) x \cancel{- \sin \left( n - \frac{1}{2} \right) x}
+\\
+\hline
+\\
+\sum_{k = 1}^n 2 \sin \frac{1}{2} x \cos k x &= \sin \left( n + \frac{1}{2} \right) x - \sin \left( \frac{1}{2} \right) x
+\\
+\\
+2 \sin \frac{1}{2} x \sum_{k = 1}^n \cos k x &= \sin \left( n + \frac{1}{2} \right) x - \sin \left( \frac{1}{2} \right) x
+\\
+\\
+\sum_{k = 1}^n \cos k x &= \frac{\sin \left( n + \frac{1}{2} \right) x - \sin \left( \frac{1}{2} \right) x}{2 \sin \frac{1}{2} x}
+\end{align}
+$$
+
+### Sum, Difference, and Rewrite
+
+Observe that the numerator of the left hand side of the \@ref(eq:summation-cosine-prelim) can be written as $\sin \left( n + \frac{1}{2} \right) x + \sin \left( - \frac{1}{2} \right) x$ and converted to a product of a sine and cosine using \@ref(eq:sine-cosine-product). We need to find what $a$ and $b$ first.
+
+$$
+\begin{align}
+a + b &= n + \frac{1}{2}
+\\
+a - b &= - \frac{1}{2}
+\\
+\hline
+\\
+2 a &= n
+\\
+\\
+a &= \frac{n}{2}
+\\
+\\
+\frac{n}{2} - b &= - \frac{1}{2}
+\\
+\\
+b &= \frac{n}{2} + \frac{1}{2}
+\\
+\\
+b &= \frac{1}{2} \left(n + 1 \right)
+\end{align}
+$$
+
+We can now rewrite \@ref(eq:summation-cosine-prelim) using \@ref(eq:sine-cosine-product).
+
+$$
+\begin{align}
+\sum_{k = 1}^n \cos k x &= \frac{\sin \left( n + \frac{1}{2} \right) x + \sin \left( - \frac{1}{2} \right) x}{2 \sin \frac{1}{2} x}
+\\
+\\
+&= \frac{\sin \left( \cfrac{n}{2} + \cfrac{1}{2} \left\{ n + 1 \right\} \right) x + \sin \left( \cfrac{n}{2} - \cfrac{1}{2} \left\{ n + 1 \right\} \right) x}{2 \sin \frac{1}{2} x}
+\\
+\\
+&= \frac{2 \sin \cfrac{n}{2} x \cos \cfrac{1}{2} \left( n + 1 \right) x}{2 \sin \frac{1}{2} x}
+\\
+\\
+\sum_{k = 1}^n \cos k x &= \frac{\sin \cfrac{n}{2} x \cos \cfrac{1}{2} \left( n + 1 \right) x}{\sin \frac{1}{2} x}
+\end{align}
+$$
+
+## Prove, Rinse, Repeat
+
+To show \@ref(eq;summation-sine-final), we need the identity
+
+$$
+\begin{equation}
+\sin a \theta \sin b \theta = \frac{1}{2} \left[ \cos \left( a - b \right) \theta - \cos \left( a + b \right) \theta \right] (\#eq:sine-sine-product)
+\end{equation}
+$$
+
+The proof for \@ref(eq:sine-sine-product) is [here](https://amateurdatasci.rbind.io/post/sine-cosine-multiples-angles/).
+
+By inspecting \@ref(eq:summation-sine-final), we can intuit that we need $a = k$, $b = \frac{1}{2}$, and $\theta = x$.
+
+$$
+\begin{align}
+\sin k x \sin \frac{1}{2} x &= \frac{1}{2} \left[ \cos \left( k - \frac{1}{2} \right) x - \cos \left( k + \frac{1}{2} \right) x \right]
+\\
+\\
+2 \sin k x \sin \frac{1}{2} x &= \cos \left( k - \frac{1}{2} \right) x - \cos \left( k + \frac{1}{2} \right) x (\#eq:k-sine-half-sine)
+\end{align}
+$$
+
+We can now show a series of equations of \@ref(eq:k-sine-half-sine) for $k = 1, 2, 3, \dots, n - 2, n - 1, n$.
+
+$$
+\begin{align}
+2 \sin x \sin \frac{1}{2} x &= \cos \left( 1 - \frac{1}{2} \right) x - \cos \left( 1 + \frac{1}{2} \right) x
+\\
+\\
+2 \sin 2 x \sin \frac{1}{2} x &= \cos \left( 2 - \frac{1}{2} \right) x - \cos \left( 2 + \frac{1}{2} \right) x
+\\
+\\
+2 \sin 3 x \sin \frac{1}{2} x &= \cos \left( 3 - \frac{1}{2} \right) x - \cos \left( 3 + \frac{1}{2} \right) x
+\\
+\vdots
+\\
+2 \sin \left( n - 2 \right) x \sin \frac{1}{2} x &= \cos \left( \left[ n - 2 \right] - \frac{1}{2} \right) x - \cos \left( \left[ n - 2 \right] + \frac{1}{2} \right) x
+\\
+\\
+2 \sin \left( n - 1 \right) x \sin \frac{1}{2} x &= \cos \left( \left[ n - 1 \right] - \frac{1}{2} \right) x - \cos \left( \left[ n - 1 \right] + \frac{1}{2} \right) x
+\\
+\\
+2 \sin n x \sin \frac{1}{2} x &= \cos \left( n - \frac{1}{2} \right) x - \cos \left( n + \frac{1}{2} \right) x
+\end{align}
+$$
+
+Let's simplify to see the pattern clearly.
+
+$$
+\begin{align}
+2 \sin x \sin \frac{1}{2} x &= \cos \frac{1}{2} x - \cos 1 \frac{1}{2} x
+\\
+\\
+2 \sin 2 x \sin \frac{1}{2} x &= \cos 1 \frac{1}{2} x - \cos 2 \frac{1}{2} x
+\\
+\\
+2 \sin 3 x \sin \frac{1}{2} x &= \cos 2 \frac{1}{2} x - \cos 3 \frac{1}{2} x
+\\
+\vdots
+\\
+2 \sin \left( n - 2 \right) x \sin \frac{1}{2} x &= \cos \left(  n - 2 \frac{1}{2} \right) x - \cos \left( n - 1 \frac{1}{2} \right) x
+\\
+\\
+2 \sin \left( n - 1 \right) x \sin \frac{1}{2} x &= \cos \left( n - 1 \frac{1}{2} \right) x - \cos \left( n - \frac{1}{2} \right) x
+\\
+\\
+2 \sin n x \sin \frac{1}{2} x &= \cos \left( n - \frac{1}{2} \right) x - \cos \left( n + \frac{1}{2} \right) x
+\end{align}
+$$
+
+The pattern here is that the second term of an equation will cancel out the first term of the next equation if we add all these equations.
+
+$$
+\begin{align}
+2 \sin x \sin \frac{1}{2} x &= \cos \frac{1}{2} x \cancel{- \cos 1 \frac{1}{2} x}
+\\
+\\
+2 \sin 2 x \sin \frac{1}{2} x &= \cancel{\cos 1 \frac{1}{2} x} \cancel{- \cos 2 \frac{1}{2} x}
+\\
+\\
+2 \sin 3 x \sin \frac{1}{2} x &= \cancel{\cos 2 \frac{1}{2} x} \cancel{- \cos 3 \frac{1}{2} x}
+\\
+\vdots
+\\
+2 \sin \left( n - 2 \right) x \sin \frac{1}{2} x &= \cancel{\cos \left(  n - 2 \frac{1}{2} \right) x} \cancel{- \cos \left( n - 1 \frac{1}{2} \right) x}
+\\
+\\
+2 \sin \left( n - 1 \right) x \sin \frac{1}{2} x &= \cancel{\cos \left( n - 1 \frac{1}{2} \right) x} \cancel{- \cos \left( n - \frac{1}{2} \right) x}
+\\
+\\
+2 \sin n x \sin \frac{1}{2} x &= \cancel{\cos \left( n - \frac{1}{2} \right) x} - \cos \left( n + \frac{1}{2} \right) x
+\\
+\hline
+\\
+\sum_{k=1}^n 2 \sin n x \sin \frac{1}{2} x &= \cos \frac{1}{2} x - \cos \left( n + \frac{1}{2} \right) x
+\\
+\\
+2 \sin \frac{1}{2} x \sum_{k=1}^n \sin k x &= \cos \frac{1}{2} x - \cos \left( n + \frac{1}{2} \right) x
+\\
+\\
+\sum_{k=1}^n \sin k x &= \cfrac{\cos \frac{1}{2} x - \cos \left( n + \frac{1}{2} \right) x}{2 \sin \frac{1}{2} x} (\#eq:summation-sine-prelim)
+\end{align}
+$$
+
+We can rewrite the numerator of the left hand side of \@ref(eq:summation-sine-prelim) as the product of two sines using \@ref(eq:sine-sine-product), but we need to find $a$ and $b$ first.
+
+$$
+\begin{align}
+a - b &= \frac{1}{2}
+\\
+a + b &= n + \frac{1}{2}
+\\
+\hline
+\\
+2 a &= n + 1
+\\
+\\
+a &= \frac{1}{2} \left( n + 1 \right)
+\\
+\\
+\frac{1}{2} \left( n + 1 \right) - b &= \frac{1}{2}
+\\
+b &= \frac{n}{2} + \frac{1}{2} - \frac{1}{2}
+\\
+\\
+b &= \frac{n}{2}
+\end{align}
+$$
+
+We can now rewrite \@ref(eq:summation-sine-prelim).
+
+$$
+\begin{align}
+\sum_{k=1}^n \sin k x &= \cfrac{\cos \frac{1}{2} x - \cos \left( n + \frac{1}{2} \right) x}{2 \sin \frac{1}{2} x}
+\\
+\\
+&= \cfrac{\cos \left[ \cfrac{1}{2} \left( n + 1 \right) - \cfrac{n}{2} \right] x - \cos \left[ \cfrac{1}{2} \left( n + 1 \right) - \cfrac{n}{2} \right] x}{2 \sin \frac{1}{2} x}
+\\
+\\
+&= \cfrac{2 \sin \cfrac{1}{2} \left( n + 1 \right) x \sin \cfrac{n}{2} x}{2 \sin \frac{1}{2} x}
+\\
+\\
+\sum_{k=1}^n \sin k x &= \cfrac{ \sin \cfrac{n}{2} x \sin \cfrac{1}{2} \left( n + 1 \right) x }{\sin \frac{1}{2} x}
+\end{align}
+$$
+
+# Reference
+
+Lessons and problems from
+
+
+
+
 
 
