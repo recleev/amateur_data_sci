@@ -24,7 +24,7 @@ biblio-style: apalike
 
 # Problems
 
-## The Cosine Summation {problem-1}
+## The Cosine Summation {#problem-1}
 
 Problem 9, page 197 in @cwag2016
 
