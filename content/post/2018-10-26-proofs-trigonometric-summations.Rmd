@@ -70,6 +70,8 @@ $$
 
 ## The Sine Summation
 
+Problem 10, page 197 in @cwag2016
+
 Use the method of \@ref(problem-1) to establish
 
 $$
