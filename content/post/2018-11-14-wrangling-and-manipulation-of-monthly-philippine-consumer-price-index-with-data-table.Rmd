@@ -1,0 +1,163 @@
+---
+title: Wrangling and Manipulation of Monthly Philippine Consumer Price Index
+author: Recle Etino Vibal
+date: '2018-11-14'
+categories:
+  - data manipulation
+  - data wrangling
+  - economics
+  - lessons
+  - Philippines
+tags:
+  - baseR
+  - consumer price index
+  - data.table
+  - rebus
+slug: wrangling-manipulation-ph-cpi-data-table
+description: Elongating a Wide Table Using {data.table} and {base} R
+output:
+  blogdown::html_page:
+    toc: yes
+    number_sections: yes
+bibliography:
+  - references/wide-long-data-table-base.bib
+biblio-style: apalike
+---
+
+```{r packages-opts, message=FALSE, warning=FALSE, include=FALSE}
+
+# Attach packages and set chunk options
+
+xfun::pkg_attach(
+  "knitr",
+  "DT",
+  "data.table",
+  "wrapr"
+)
+
+opts_chunk$set(
+  message = FALSE,
+  warning = FALSE,
+  echo = FALSE
+)
+
+# create standard datatable function to be used in all tables in this post
+
+show_datatable <- function(cpi_data) {
+  cpi_data %>% 
+    DT::datatable(
+      rownames = FALSE,
+      extensions = 'FixedColumns',
+      options = list(
+        pageLength = 20,
+        scrollX = TRUE,
+        scrollCollapse = TRUE,
+        columnDefs = list(
+          list(
+            className = 'dt-center',
+            targets = 0:(ncol(cpi_data) - 1)
+          )
+        )
+      )
+    )
+}
+
+```
+
+# More Paths, More Knowledge
+
+In a series of [posts](https://amateurdatasci.rbind.io/post/messy-tidy-identify-split-geographic-scope/), I discussed how I turned a messy data, the [monthly Philippine consumer price index](http://openstat.psa.gov.ph/dataset/prices-and-related-indices) to tidy data, using packages and functions in the `tidyverse`. I learned how to use `R` faster via the `tidyverse`, and I agree that for anyone going into data science with little or no knowledge about coding, `tidyverse` offers one of the easiest ways to learn `R`.
+
+However, as I became more familiar and more comfortable with `R`, I realized there is a larger ecosystem of packages and functions outside of `tidyverse`. With >13,000 packages in [CRAN](https://cran.r-project.org/web/packages/available_packages_by_date.html), redundancy among packages and functions cannot be avoided, but I do not think this is a bad thing. The variety of packages in `R` allows for different approaches and philosophies^[I just learned about [{cdata}](https://cran.r-project.org/web/packages/cdata/index.html), coordinatized data, and fluid data transformations. The deeper you go into `R` the more you learn. It's a multiverse out there.] towards programming, data, and data science. 
+
+In this post, I do everything I did with the Philippine CPI data without the using `tidyverse`. This is not to say that `tidyverse` is insufficient. It has its weaknesses, but I think for the most common data science tasks, `tidyverse` covers a lot of user needs. However, this also does not mean that `tidyverse` is the only way or the most preferred approach. The `R` ecosystem may be as diverse^[Calling dibs on `diverseverse`.] as its users.
+
+# Extension of data.frame
+
+We can do most of what we want to do with data using `{base}` `R` only. Packages in CRAN are tools that allow current and future users to learn from the past and what past users have done or found. This is just progress, and I think this is the strength of `R` as an open source software for statistical computing and graphics. Working with only `{base}` `R` is possible, but it will be difficult and limiting, I think, for any level of use`R`. Again, while `{base}` `R` may be sufficient for all of data science tasks for anyone who is very familiar with it, packages offer work arounds to common tasks.
+
+After deciding to use a package, the next question for the use`R` is what package to use. For data manipulation, the most common go-to package is `dplyr`. However, this is not the only package that allows us to manipulate data, another package is `{data.table}`[@R-data.table], the extension of `data.frame`.
+
+I really like `{data.table}`. It has a very different API compared to `dplyr`. It has its own advantages and disadvantages^[Advantages and disadvantages are subjective. I once thought that the difficulty of learning `{data.table}` when I already know `dplyr`. Working with multitude types and sizes of data "forced" me to try `{data.table}`. After that, I regretted passing on `{data.table}` and not learning it sooner. I think the disadvantages are only an illusion whenever learning something new, while the advantages are not really that clear until one really experiences what one is missing out.], but I think it is one of the best packages out there when it comes to data manipulation. 
+
+I will repeat my process of transforming the Ph CPI data from the [Philippine Statistics Authority](http://openstat.psa.gov.ph/) using `{data.table}`^[I am not an expert use`R` of `{data.table}`. I am still learning and getting familiar with the functions and nuances of `{data.table}`. I expect that I will use it more in the future, so I think this is good practice for me. The code I will use here may not be the most efficient, and I will always be open for improvements.] as my main data manipulation tool.
+
+# Where | Order By, Select | Update, Group By
+
+I don't want this to be a tutorial about `{data.table}`. The [best tutorial](https://cran.r-project.org/web/packages/data.table/vignettes/datatable-intro.html) for `{data.table}` already exists. I will emphasize on the `{data.table}` syntax and explain why it is an extension of the `data.frame`.
+
+With `{base}` `R`, we can subset or extract values from a `data.frame` object, `df`, using `df[rows, columns]` where `rows` is a vector of row indices or names and `columns` is a vector of column indices or names. In `{data.table}`, we can subset or extract values from a `{data.table}` object, `dt`, using `dt[i, j, by]`. `i` is a set of conditions to filter rows or columns we want to arrange the data with `order()`. `j` is a list of data transformations or summaries we want to do at specific columns. `by` is a list of columns we want the data transformations to be grouped. If the reader is familiar with [Structured Query Language](https://en.wikipedia.org/wiki/SQL) or SQL, `i` is equivalent to SQL's `where` and `order by`, `j` to `select` and `update`, and `by` to `group by`. Again, please refer to ["Introduction to data.table"](https://cran.r-project.org/web/packages/data.table/vignettes/datatable-intro.html) for more information.
+
+I prefer to use vertical `{data.table}` syntax.
+
+```
+
+dt[
+  i,
+  j,
+  by
+]
+
+```
+This vertical coding helps me review my code vertically too. I just find this way easier for me.
+
+# Monthly Philippine Consumer Price Index 1994 Jan to 2018 Jun
+
+The things I did with the Ph CPI data are already discussed in my [previous posts](https://amateurdatasci.rbind.io/tags/consumer-price-index/). I will only translate them here in `{data.table}` syntax, so I will not repeat my reasons and thought processes. However, I will leave some comments on the functions I used. For the complete code, please refer to \@ref(code).
+
+## Finagler
+
+We read the raw Ph CPI data using `data.table::fread()`. In the documentation, `data.table::fread()` is a fast and freindly file finagler^[I do not know what finagler means. Merriam-Webster defines [finagle](https://www.merriam-webster.com/dictionary/finagle) as to obtain by indirect or involved means. I think `data.table::fread()` does that rather than obtain by trickery, although that sounds cooler.]. The output is an object of `data.table` class.
+
+```{r read-show-raw-data}
+
+# Read Data ---------------------------------------------------------------
+
+raw_ph_cpi <- 
+  fread(
+    "./data/ph-cpi-data/raw/CPI_2006=100_1994-2018_1_2.csv",
+    # check.names = TRUE is necessary to fix the duplicate column names
+    check.names = TRUE
+  )
+
+# Clean Columns -----------------------------------------------------------
+
+# Remove the average columns and the extra V324 column
+
+remove_columns <- 
+  colnames(raw_ph_cpi)[
+    grepl(
+      "Ave_|V324",
+      colnames(raw_ph_cpi)
+    )
+    ]
+
+raw_ph_cpi[, (remove_columns) := NULL]
+
+raw_ph_cpi %>.%
+  head(., 40) %>.%
+  show_datatable(.)
+
+```
+
+Note that I am also using `%>.%` from `wrapr` [@R-wrapr]^[I will probably explore `wrapr` more in the future.] for my pipes. It is just a strict version of `%>%` from `magrittr`. It is stricter because it does not allow the user to leave the first argument of the function after the pipe empty, i.e. it requires the first argument to be specified as `.`, otherwise it throws an error that the first argument is missing. Again, I am only doing this because I want to try functions outside of the `tidyverse`.
+
+# Code {#code}
+
+The following codes show what I did in this post. The logic of each code should have been captured in the discussion, but I added comments here and there to further clarify my thought process.
+
+```{r all-codes, ref.label = knitr::all_labels(), echo=TRUE, eval=FALSE}
+
+```
+
+My session info for reproducibility.
+
+```{r session-info}
+
+sessioninfo::session_info()
+
+```
+
+# References
+
+For more information on tidy principles, techniques, and good practices, and the packages and functions I used in this post, please read
