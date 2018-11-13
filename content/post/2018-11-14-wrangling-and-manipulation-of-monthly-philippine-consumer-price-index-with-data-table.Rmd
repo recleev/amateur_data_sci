@@ -32,7 +32,8 @@ xfun::pkg_attach(
   "knitr",
   "DT",
   "data.table",
-  "wrapr"
+  "wrapr",
+  "rebus"
 )
 
 opts_chunk$set(
@@ -109,7 +110,9 @@ The things I did with the Ph CPI data are already discussed in my [previous post
 
 We read the raw Ph CPI data using `data.table::fread()`. In the documentation, `data.table::fread()` is a fast and freindly file finagler^[I do not know what finagler means. Merriam-Webster defines [finagle](https://www.merriam-webster.com/dictionary/finagle) as to obtain by indirect or involved means. I think `data.table::fread()` does that rather than obtain by trickery, although that sounds cooler.]. The output is an object of `data.table` class.
 
-```{r read-show-raw-data}
+(ref:raw-data-fread) First 40 Rows of Monthly Philippine Consumer Price Index from 1994 Jan to 2018 Jun Imported Using data.table::fread().
+
+```{r read-show-raw-data, fig.cap='(ref:raw-data-fread)'}
 
 # Read Data ---------------------------------------------------------------
 
@@ -142,9 +145,289 @@ raw_ph_cpi %>.%
 
 Note that I am also using `%>.%` from `wrapr` [@R-wrapr]^[I will probably explore `wrapr` more in the future.] for my pipes. It is just a strict version of `%>%` from `magrittr`. It is stricter because it does not allow the user to leave the first argument of the function after the pipe empty, i.e. it requires the first argument to be specified as `.`, otherwise it throws an error that the first argument is missing. Again, I am only doing this because I want to try functions outside of the `tidyverse`.
 
+# ISO 8601 Date
+
+To gather all the date columns into one, I used `data.table::melt()`. I also used `data.table:::patterns()` to specify the columns I want to gather. Converting the dates into [ISO 8601](https://www.iso.org/iso-8601-date-and-time-format.html) format (YYYY-MM-DD) is a bit trickier. First, I needed to separate the `month.abb_yy` to `month` and `year`. I did this using `data.table::tstrsplit()`. Second, I made a string YYYY-MM-DD using the `month` and `year` plus specifying the day as 1. I wanted to use the last day of the month, but I could not find a function outside the `tidyverse` that will allow me to do this.
+
+(ref:iso-8601-cpi) First 40 Rows of Monthly Philippine Consumer Price Index from 1994 Jan to 2018 Jun Converted to Long Form Using data.table::melt() and with ISO 8601 Dates.
+
+```{r melt-cpi-one-date, fig.cap='(ref:iso-8601-cpi)'}
+
+# Gather All the Date Columns into One ------------------------------------
+
+one_date_column_cpi_ph <- 
+  melt(
+    raw_ph_cpi,
+    measure.vars = patterns(
+      paste(
+        paste0(month.abb, "_"), 
+        collapse = "|"
+      )
+    ),
+    variable.name = "date",
+    value.name = "cpi"
+  )
+
+# Convert Date Column to Date ---------------------------------------------
+
+one_date_column_cpi_ph[
+  ,
+  # split date column into month and year colum using data.table::tstrsplit()
+  c("month", "year") :=
+    tstrsplit(date, "_")
+][
+  ,
+  # convert character year to integer
+  year := as.integer(year)
+][
+  ,
+  # create a character date column
+  date := paste(
+    year,
+    month,
+    1,
+    sep = "-"
+  )
+][
+  ,
+  # create a date in ISO 8601 format
+  date_iso8601 := as.Date(
+    date,
+    format = "%y-%b-%d"
+  )
+][
+  ,
+  c(
+    "Description",
+    "cpi"
+  ) := .(
+    # replace Non-Alcholic to Non-Alcoholic
+    gsub(
+      "Non-Alcholic",
+      "Non-Alcoholic",
+      Description
+    ),
+    # change character CPI to numeric
+    as.numeric(cpi)
+  )
+]
+
+one_date_column_cpi_ph %>.%
+  head(., 40) %>.%
+  show_datatable(.)
+
+```
+
+# Item Category Levels
+
+`data.table::tstrsplit()` becomes useful again in creating item codes by separating the `Code` column. Filtering and subsetting is really quick in `[data.table]`. It requires some getting used to, but once you get familiar with the syntax, the thinking and coding becomes quick and easy too. Combining `data.table`s using `merge()` was also very easy and intuitive.
+
+(ref:categorized-items-cpi) First 40 Rows of Monthly Philippine Consumer Price Index from 1994 Jan to 2018 Jun Categorized per Item Level.
+
+```{r item-levels-split-merge}
+
+# Split Item Code Column into Three Item Category Columns -----------------
+
+item_category_levels <- 
+  one_date_column_cpi_ph[
+    ,
+    # create three new columns from the Code column
+    c(
+      "primary_item_code",
+      "secondary_item_code",
+      "tertiary_item_code"
+    ) :=
+      tstrsplit(
+        Code,
+        # using rebus::DOT for readable regex
+        split = DOT
+      )
+  ]
+
+# Create Item Levels for Merging Later ------------------------------------
+
+primary_items <- 
+  item_category_levels[
+    # remove items with NA secondary and tertiary item code to keep only the
+    # primary items
+    is.na(secondary_item_code) &
+      is.na(tertiary_item_code),
+    .(
+      # select only the unique item descriptions
+      primary_item_label = unique(Description)
+    ),
+    # make sure to group by item code to get the one-to-one description to item
+    # code relation
+    primary_item_code
+  ]
+
+secondary_items <- 
+  item_category_levels[
+    # select only the items with existing secondary item codes and NA tertiary
+    # item codes to select only the secondary items
+    !is.na(secondary_item_code) &
+      is.na(tertiary_item_code),
+    .(
+      # select only the unique item descriptions
+      secondary_item_label = unique(Description)
+    ),
+    .(
+      # make sure to group by primary and secondary item code to get the
+      # one-to-one description to item code relation for secondary items and
+      # their accompanying primary labels
+      primary_item_code,
+      secondary_item_code
+    )
+    ]
+
+tertiary_items <- 
+  item_category_levels[
+    # if tertiary item code is NOT NA, then it is a tertiary item
+    !is.na(tertiary_item_code),
+    .(
+      # select only the unique item descriptions
+      tertiary_item_label = unique(Description)
+    ),
+    .(
+      # make sure to group by primary, secondary, and tertiary item code to get
+      # the one-to-one description to item code relation for tertiary items and
+      # their accompanying primary and secondary labels
+      primary_item_code,
+      secondary_item_code,
+      tertiary_item_code
+    )
+    ]
+
+# Add Category Labels to Main Table ---------------------------------------
+
+categorized_cpi_data <- 
+  item_category_levels[
+    ,
+    # no need for Description column after adding the item labels
+    Description := NULL
+  ] %>.%
+  merge(
+    .,
+    primary_items,
+    by = "primary_item_code",
+    all = TRUE
+  ) %>.%
+  merge(
+    .,
+    secondary_items,
+    by = c(
+      "primary_item_code", 
+      "secondary_item_code"
+    ),
+    all = TRUE
+  ) %>.%
+  merge(
+    .,
+    tertiary_items,
+    by = c(
+      "primary_item_code", 
+      "secondary_item_code", 
+      "tertiary_item_code"
+    ),
+    all = TRUE
+  )
+
+categorized_cpi_data %>.%
+  head(., 40) %>.%
+  show_datatable(.)
+
+```
+
+# Geographic Levels
+
+The way I handled the `Geographic.code`, `Geographic.code.1`, and `Geographic.Location` of the primary items CPI data with `{data.table}` is similar with the item categories: split and find the unique geographic codes and labels, then add the labels to the data with `merge()`.
+
+(ref:geography-levels-primary-items) First 40 Rows of Monthly Philippine Consumer Price Index from 1994 Jan to 2018 Jun for Primary Items with Geographic Levels.
+
+```{r primary-item-geographic-levels, fig.cap='(ref:geography-levels-primary-items)'}
+
+# Select Only the Primary Items -------------------------------------------
+
+primary_items_cpi <- 
+  categorized_cpi_data[
+    is.na(secondary_item_code) &
+      is.na(tertiary_item_code)
+  ][
+    ,
+    # doing this in a separate bracket because data.table does not allow
+    # filtering and deleting in the same call
+    c(
+      "secondary_item_code",
+      "tertiary_item_code",
+      "secondary_item_label",
+      "tertiary_item_label"
+    ) := NULL
+  ]
+
+# Add Geography Levels/Labels ---------------------------------------------
+
+geography_labeled_cpi <- 
+  primary_items_cpi[
+    ,
+    geography_level :=
+      ifelse(
+        Geographic.code == 0 & Geographic.code.1 == 0,
+        "national",
+        ifelse(
+          Geographic.code != 0 & Geographic.code.1 %in% c(0, 99),
+          "regional",
+          "provincial"
+        )
+      )
+  ]
+
+# create a tabble for regional labels
+
+region_labels <- 
+  geography_labeled_cpi[
+    geography_level == "regional",
+    .(
+      region_label = unique(Geographic.Location)
+    ),
+    .(
+      Geographic.code
+    )
+  ]
+
+# Separate Table by Geography Level ---------------------------------------
+
+national_primary_item_cpi <- 
+  geography_labeled_cpi[
+    geography_level == "national"
+  ]
+
+regional_primary_item_cpi <- 
+  geography_labeled_cpi[
+    geography_level == "regional"
+  ]
+
+provincial_primary_item_cpi <- 
+  geography_labeled_cpi[
+    geography_level == "provincial"
+  ]
+
+provincial_primary_item_cpi <- 
+  merge(
+    provincial_primary_item_cpi,
+    region_labels,
+    by = "Geographic.code",
+    all = TRUE
+  )
+
+```
+
+# Conclusions and Realizations
+
+
+
 # Code {#code}
 
-The following codes show what I did in this post. The logic of each code should have been captured in the discussion, but I added comments here and there to further clarify my thought process.
+The following codes show what I did in this post. I added comments here and there to clarify my thought process.
 
 ```{r all-codes, ref.label = knitr::all_labels(), echo=TRUE, eval=FALSE}
 
