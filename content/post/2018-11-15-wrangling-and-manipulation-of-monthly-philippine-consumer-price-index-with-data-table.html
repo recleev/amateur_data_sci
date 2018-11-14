@@ -1,256 +1,30 @@
-<!DOCTYPE html>
-<html lang="en">
-
-<head>
-  <meta http-equiv="content-type" content="text/html; charset=utf-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <meta name="description" content="Elongating a Wide Table Using {data.table} and {base} R">
-  <meta name="generator" content="Hugo 0.49" />
-
-  <title>Wrangling and Manipulation of Monthly Philippine Consumer Price Index &middot; The Amateur Data Scientist</title>
-
-  
-  
-  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/pure/1.0.0/pure-min.css">
-
-  <!--[if lte IE 8]>
-  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/pure/1.0.0/grids-responsive-old-ie-min.css">
-  <![endif]-->
-  <!--[if gt IE 8]><!-->
-  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/pure/1.0.0/grids-responsive-min.css">
-  <!--<![endif]-->
-
-  <!--[if lte IE 8]>
-  <link rel="stylesheet" href="/css/side-menu-old-ie.css">
-  <![endif]-->
-  <!--[if gt IE 8]><!-->
-  <link rel="stylesheet" href="/css/side-menu.css">
-  <!--<![endif]-->
-
-  <link rel="stylesheet" href="/css/blackburn.css">
-
-  
-  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css">
-
-  
-  <link href="https://fonts.googleapis.com/css?family=Raleway" rel="stylesheet" type="text/css">
-
-  
-  <script src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.1/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
-
- 
-  
-
-  
-  <link rel="stylesheet" href="//cdnjs.cloudflare.com/ajax/libs/highlight.js/9.12.0/styles/zenburn.min.css">
-  <script src="//cdnjs.cloudflare.com/ajax/libs/highlight.js/9.12.0/highlight.min.js"></script>
-  
-  <script>hljs.initHighlightingOnLoad();</script>
-  
-
-  <link rel="shortcut icon" href="/img/favicon.ico" type="image/x-icon" />
-
-  
-  
-
-</head>
-
-
-<body>
-<div id="layout">
-
-  
-<a href="#menu" id="menuLink" class="menu-link">
-  
-  <span></span>
-</a>
-<div id="menu">
-
-  
-  <a class="pure-menu-heading brand" href="/">recleev</a>
-
-
-  <div class="pure-menu">
-    <ul class="pure-menu-list">
-      
-      
-        <li class="pure-menu-item">
-          <a class="pure-menu-link" href="/"><i class='fa fa-home fa-fw'></i>Home</a>
-      
-        </li>
-      
-      
-        <li class="pure-menu-item">
-          <a class="pure-menu-link" href="/post/"><i class='fa fa-list fa-fw'></i>Posts</a>
-      
-        </li>
-      
-      
-        <li class="pure-menu-item">
-          <a class="pure-menu-link" href="/about/"><i class='fa fa-user fa-fw'></i>About</a>
-      
-        </li>
-      
-      
-        <li class="pure-menu-item">
-          <a class="pure-menu-link" href="/contact/"><i class='fa fa-phone fa-fw'></i>Contact</a>
-      
-        </li>
-      
-    </ul>
-  </div>
-
-  <div class="pure-menu social">
-  <ul class="pure-menu-list">
-
-    
-
-    
-
-    
-    <li class="pure-menu-item">
-      <a class="pure-menu-link" href="https://twitter.com/recleev" target="_blank"><i class="fa fa-twitter-square fa-fw"></i>Twitter</a>
-    </li>
-    
-
-    
-
-    
-    <li class="pure-menu-item">
-      <a class="pure-menu-link" href="https://facebook.com/recleev" target="_blank"><i class="fa fa-facebook-square fa-fw"></i>Facebook</a>
-    </li>
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-    <li class="pure-menu-item">
-      <a class="pure-menu-link" href="https://linkedin.com/in/recleev" target="_blank"><i class="fa fa-linkedin-square fa-fw"></i>LinkedIn</a>
-    </li>
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-    <li class="pure-menu-item">
-      <a class="pure-menu-link" href="https://github.com/recleev" target="_blank"><i class="fa fa-github-square fa-fw"></i>GitHub</a>
-    </li>
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-  </ul>
-</div>
-
-
-  <div>
-  <div class="small-print">
-    <small></small>
-  </div>
-  <div class="small-print">
-    <small>Built with <a href="https://github.com/rstudio/blogdown" target="_blank">blogdown</a> and <a href="https://gohugo.io/" target="_blank">Hugo</a>.</small>
-    <small>Theme&nbsp;<a href="https://github.com/yoshiharuyamashita/blackburn" target="_blank">Blackburn</a></small>
-  </div>
-</div>
-
-</div>
-
-
-  <div id="main">
-
-
-<div class="header">
-  <h1>Wrangling and Manipulation of Monthly Philippine Consumer Price Index</h1>
-  <h2>Elongating a Wide Table Using {data.table} and {base} R</h2>
-</div>
-<div class="content">
-
-  <div class="post-meta">
-
-  <div>
-    <i class="fa fa-calendar fa-fw"></i>
-    <time>2018 Nov 14</time>
-  </div>
-
-  
-
-  
-
-  
-  
-  
-  <div>
-    <i class="fa fa-tags fa-fw"></i>
-    
-      <a class="post-taxonomy-tag" href="/tags/baser">baseR</a>&nbsp;&#47;
-    
-      <a class="post-taxonomy-tag" href="/tags/consumer-price-index">consumer price index</a>&nbsp;&#47;
-    
-      <a class="post-taxonomy-tag" href="/tags/data.table">data.table</a>&nbsp;&#47;
-    
-      <a class="post-taxonomy-tag" href="/tags/rebus">rebus</a>
-    
-  </div>
-  
-  
-
-</div>
-
-  <script src="/rmarkdown-libs/htmlwidgets/htmlwidgets.js"></script>
+---
+title: Wrangling and Manipulation of Monthly Philippine Consumer Price Index
+author: Recle Etino Vibal
+date: '2018-11-15'
+categories:
+  - data manipulation
+  - data wrangling
+  - economics
+  - lessons
+  - Philippines
+tags:
+  - baseR
+  - consumer price index
+  - data.table
+  - rebus
+slug: wrangling-manipulation-ph-cpi-data-table
+description: Elongating a Wide Table Using {data.table} and {base} R
+output:
+  blogdown::html_page:
+    toc: yes
+    number_sections: yes
+bibliography:
+  - references/wide-long-data-table-base.bib
+biblio-style: apalike
+---
+
+<script src="/rmarkdown-libs/htmlwidgets/htmlwidgets.js"></script>
 <script src="/rmarkdown-libs/jquery/jquery.min.js"></script>
 <link href="/rmarkdown-libs/datatables-css/datatables-crosstalk.css" rel="stylesheet" />
 <script src="/rmarkdown-libs/datatables-binding/datatables.js"></script>
@@ -273,7 +47,7 @@
 <li><a href="#iso-8601-date"><span class="toc-section-number">5</span> ISO 8601 Date</a></li>
 <li><a href="#item-category-levels"><span class="toc-section-number">6</span> Item Category Levels</a></li>
 <li><a href="#geographic-levels"><span class="toc-section-number">7</span> Geographic Levels</a></li>
-<li><a href="#conclusions-and-realizations"><span class="toc-section-number">8</span> Conclusions and Realizations</a></li>
+<li><a href="#the-power-of-packages"><span class="toc-section-number">8</span> The Power of Packages</a></li>
 <li><a href="#code"><span class="toc-section-number">9</span> Code</a></li>
 <li><a href="#references"><span class="toc-section-number">10</span> References</a></li>
 </ul>
@@ -347,20 +121,22 @@ Figure 5.1: First 40 Rows of Monthly Philippine Consumer Price Index from 1994 J
 <p>The way I handled the <code>Geographic.code</code>, <code>Geographic.code.1</code>, and <code>Geographic.Location</code> of the primary items CPI data with <code>{data.table}</code> is similar with the item categories: split and find the unique geographic codes and labels, then add the labels to the data with <code>merge()</code>.</p>
 
 </div>
-<div id="conclusions-and-realizations" class="section level1">
-<h1><span class="header-section-number">8</span> Conclusions and Realizations</h1>
+<div id="the-power-of-packages" class="section level1">
+<h1><span class="header-section-number">8</span> The Power of Packages</h1>
+<p><code>{data.table}</code> is a fun package to use. I am not yet familiar with all of its capabilities. I will use it more often<a href="#fn7" class="footnoteRef" id="fnref7"><sup>7</sup></a>, so I can learn its true potential.</p>
+<p>Working with only a few packages and doing everything else with <code>{base}</code> <code>R</code> already accomplishes a lot of things. This encourages me to use as few packages as I can. However, I still think there are powerful packages and functions out there that people have already made, e.g. <code>{rebus}</code> <span class="citation">(Cotton 2017)</span>, that just makes data science easier. If I encountered a problem for at least <a href="https://twitter.com/drob/status/928447584712253440">three times</a> and solve it using the same code, I will make a function or even a package to relieve my future self some trouble.</p>
+<p>Packages were and are being created to solve specific and recurring problems. Solving problems that were already solvedis a good practice and test, but in the battleground, knowledge of what has worked before can save time and maybe a life. There are redunduncies among packages. Choose well. Choose wisely.</p>
 </div>
 <div id="code" class="section level1">
 <h1><span class="header-section-number">9</span> Code</h1>
-<p>The following codes show what I did in this post. The logic of each code should have been captured in the discussion, but I added comments here and there to further clarify my thought process.</p>
+<p>The following codes show what I did in this post. I added comments here and there to clarify my thought process.</p>
 <pre class="r"><code># Attach packages and set chunk options
 
 xfun::pkg_attach(
   &quot;knitr&quot;,
   &quot;DT&quot;,
   &quot;data.table&quot;,
-  &quot;wrapr&quot;,
-  &quot;rebus&quot;
+  &quot;wrapr&quot;
 )
 
 opts_chunk$set(
@@ -497,7 +273,7 @@ item_category_levels &lt;-
       tstrsplit(
         Code,
         # using rebus::DOT for readable regex
-        split = DOT
+        split = rebus::DOT
       )
   ]
 
@@ -681,7 +457,7 @@ sessioninfo::session_info()</code></pre>
 ##  collate  English_Philippines.1252    
 ##  ctype    English_Philippines.1252    
 ##  tz       Asia/Kuala_Lumpur           
-##  date     2018-11-13                  
+##  date     2018-11-15                  
 ## 
 ## - Packages --------------------------------------------------------------
 ##  package         * version date       lib source        
@@ -707,7 +483,7 @@ sessioninfo::session_info()</code></pre>
 ##  promises          1.0.1   2018-04-13 [1] CRAN (R 3.5.0)
 ##  R6                2.3.0   2018-10-04 [1] CRAN (R 3.5.1)
 ##  Rcpp              1.0.0   2018-11-07 [1] CRAN (R 3.5.1)
-##  rebus           * 0.1-3   2017-04-25 [1] CRAN (R 3.5.0)
+##  rebus             0.1-3   2017-04-25 [1] CRAN (R 3.5.0)
 ##  rebus.base        0.0-3   2017-04-25 [1] CRAN (R 3.5.0)
 ##  rebus.datetimes   0.0-1   2015-12-16 [1] CRAN (R 3.5.0)
 ##  rebus.numbers     0.0-1   2015-12-16 [1] CRAN (R 3.5.0)
@@ -730,6 +506,9 @@ sessioninfo::session_info()</code></pre>
 <h1><span class="header-section-number">10</span> References</h1>
 <p>For more information on tidy principles, techniques, and good practices, and the packages and functions I used in this post, please read</p>
 <div id="refs" class="references">
+<div id="ref-R-rebus">
+<p>Cotton, Richard. 2017. <em>Rebus: Build Regular Expressions in a Human Readable Way</em>. <a href="https://CRAN.R-project.org/package=rebus" class="uri">https://CRAN.R-project.org/package=rebus</a>.</p>
+</div>
 <div id="ref-R-data.table">
 <p>Dowle, Matt, and Arun Srinivasan. 2018. <em>Data.table: Extension of ‘Data.frame‘</em>. <a href="https://CRAN.R-project.org/package=data.table" class="uri">https://CRAN.R-project.org/package=data.table</a>.</p>
 </div>
@@ -747,93 +526,6 @@ sessioninfo::session_info()</code></pre>
 <li id="fn4"><p>I am not an expert use<code>R</code> of <code>{data.table}</code>. I am still learning and getting familiar with the functions and nuances of <code>{data.table}</code>. I expect that I will use it more in the future, so I think this is good practice for me. The code I will use here may not be the most efficient, and I will always be open for improvements.<a href="#fnref4">↩</a></p></li>
 <li id="fn5"><p>I do not know what finagler means. Merriam-Webster defines <a href="https://www.merriam-webster.com/dictionary/finagle">finagle</a> as to obtain by indirect or involved means. I think <code>data.table::fread()</code> does that rather than obtain by trickery, although that sounds cooler.<a href="#fnref5">↩</a></p></li>
 <li id="fn6"><p>I will probably explore <code>wrapr</code> more in the future.<a href="#fnref6">↩</a></p></li>
+<li id="fn7"><p>I plan to use it more in future anyway as I expect to work with bigger and bigger data sets.<a href="#fnref7">↩</a></p></li>
 </ol>
 </div>
-
-
-  
-<div class="prev-next-post pure-g">
-  <div class="pure-u-1-24" style="text-align: left;">
-    
-    <a href="/post/proofs-trigonometric-summations/"><i class="fa fa-chevron-left"></i></a>
-    
-  </div>
-  <div class="pure-u-10-24">
-    
-    <nav class="prev">
-      <a href="/post/proofs-trigonometric-summations/">Proofs of Trigonometric Summations</a>
-    </nav>
-    
-  </div>
-  <div class="pure-u-2-24">
-    &nbsp;
-  </div>
-  <div class="pure-u-10-24">
-    
-    <nav class="next">
-      <a href="/post/wrangling-manipulation-ph-cpi-data-table/">Wrangling and Manipulation of Monthly Philippine Consumer Price Index</a>
-    </nav>
-    
-  </div>
-  <div class="pure-u-1-24" style="text-align: right;">
-    
-    <a href="/post/wrangling-manipulation-ph-cpi-data-table/"><i class="fa fa-chevron-right"></i></a>
-    
-  </div>
-</div>
-
-
-
-  
-<div id="disqus_thread"></div>
-<script type="text/javascript">
-
-(function() {
-    
-    
-    if (window.location.hostname == "localhost")
-        return;
-
-    var dsq = document.createElement('script'); dsq.type = 'text/javascript'; dsq.async = true;
-    var disqus_shortname = 'the-amateur-data-scientist';
-    dsq.src = '//' + disqus_shortname + '.disqus.com/embed.js';
-    (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(dsq);
-})();
-</script>
-<noscript>Please enable JavaScript to view the <a href="http://disqus.com/?ref_noscript">comments powered by Disqus.</a></noscript>
-<a href="http://disqus.com/" class="dsq-brlink">comments powered by <span class="logo-disqus">Disqus</span></a>
-
-
-</div>
-
-</div>
-</div>
-<script src="/js/ui.js"></script>
-
-
-<script>
-  
-  if (window.location.hostname != "localhost") {
-    (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
-    (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
-    m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
-    })(window,document,'script','//www.google-analytics.com/analytics.js','ga');
-
-    ga('create', 'UA-119602814-1', 'auto');
-    ga('send', 'pageview');
-  }
-</script>
-
-
-
-
-
-<script src="//https://amateurdatasci.rbind.io/js/math-code.js"></script>
-
-    <script type="text/javascript"
-      src="https://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML">
-    </script>
-
-</body>
-</html>
-

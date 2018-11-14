@@ -1,7 +1,7 @@
 ---
 title: Wrangling and Manipulation of Monthly Philippine Consumer Price Index
 author: Recle Etino Vibal
-date: '2018-11-14'
+date: '2018-11-15'
 categories:
   - data manipulation
   - data wrangling
@@ -32,8 +32,7 @@ xfun::pkg_attach(
   "knitr",
   "DT",
   "data.table",
-  "wrapr",
-  "rebus"
+  "wrapr"
 )
 
 opts_chunk$set(
@@ -240,7 +239,7 @@ item_category_levels <-
       tstrsplit(
         Code,
         # using rebus::DOT for readable regex
-        split = DOT
+        split = rebus::DOT
       )
   ]
 
@@ -421,9 +420,13 @@ provincial_primary_item_cpi <-
 
 ```
 
-# Conclusions and Realizations
+# The Power of Packages
 
+`{data.table}` is a fun package to use. I am not yet familiar with all of its capabilities. I will use it more often^[I plan to use it more in future anyway as I expect to work with bigger and bigger data sets.], so I can learn its true potential.
 
+Working with only a few packages and doing everything else with `{base}` `R` already accomplishes a lot of things. This encourages me to use as few packages as I can. However, I still think there are powerful packages and functions out there that people have already made, e.g. `{rebus}` [@R-rebus], that just makes data science easier. If I encountered a problem for at least [three times](https://twitter.com/drob/status/928447584712253440) and solve it using the same code, I will make a function or even a package to relieve my future self some trouble.
+
+Packages were and are being created to solve specific and recurring problems. Solving problems that were already solvedis a good practice and test, but in the battleground, knowledge of what has worked before can save time and maybe a life. There are redunduncies among packages. Choose well. Choose wisely.
 
 # Code {#code}
 

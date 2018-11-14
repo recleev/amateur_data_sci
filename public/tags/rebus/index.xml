@@ -6,10 +6,19 @@
     <description>Recent content in Rebus on The Amateur Data Scientist</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>en-us</language>
-    <lastBuildDate>Wed, 14 Nov 2018 00:00:00 +0000</lastBuildDate>
+    <lastBuildDate>Thu, 15 Nov 2018 00:00:00 +0000</lastBuildDate>
     
 	<atom:link href="/tags/rebus/index.xml" rel="self" type="application/rss+xml" />
     
+    
+    <item>
+      <title>Wrangling and Manipulation of Monthly Philippine Consumer Price Index</title>
+      <link>/post/wrangling-manipulation-ph-cpi-data-table/</link>
+      <pubDate>Thu, 15 Nov 2018 00:00:00 +0000</pubDate>
+      
+      <guid>/post/wrangling-manipulation-ph-cpi-data-table/</guid>
+      <description>1 More Paths, More Knowledge2 Extension of data.frame3 Where | Order By, Select | Update, Group By4 Monthly Philippine Consumer Price Index 1994 Jan to 2018 Jun4.1 Finagler5 ISO 8601 Date6 Item Category Levels7 Geographic Levels8 The Power of Packages9 Code10 References1 More Paths, More KnowledgeIn a series of posts, I discussed how I turned a messy data, the monthly Philippine consumer price index to tidy data, using packages and functions in the tidyverse.</description>
+    </item>
     
     <item>
       <title>Wrangling and Manipulation of Monthly Philippine Consumer Price Index</title>
