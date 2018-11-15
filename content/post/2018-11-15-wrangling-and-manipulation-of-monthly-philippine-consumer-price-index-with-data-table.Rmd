@@ -144,7 +144,7 @@ raw_ph_cpi %>.%
 
 Note that I am also using `%>.%` from `wrapr` [@R-wrapr]^[I will probably explore `wrapr` more in the future.] for my pipes. It is just a strict version of `%>%` from `magrittr`. It is stricter because it does not allow the user to leave the first argument of the function after the pipe empty, i.e. it requires the first argument to be specified as `.`, otherwise it throws an error that the first argument is missing. Again, I am only doing this because I want to try functions outside of the `tidyverse`.
 
-# ISO 8601 Date
+## ISO 8601 Date
 
 To gather all the date columns into one, I used `data.table::melt()`. I also used `data.table:::patterns()` to specify the columns I want to gather. Converting the dates into [ISO 8601](https://www.iso.org/iso-8601-date-and-time-format.html) format (YYYY-MM-DD) is a bit trickier. First, I needed to separate the `month.abb_yy` to `month` and `year`. I did this using `data.table::tstrsplit()`. Second, I made a string YYYY-MM-DD using the `month` and `year` plus specifying the day as 1. I wanted to use the last day of the month, but I could not find a function outside the `tidyverse` that will allow me to do this.
 
@@ -217,13 +217,13 @@ one_date_column_cpi_ph %>.%
 
 ```
 
-# Item Category Levels
+## Item Category Levels
 
 `data.table::tstrsplit()` becomes useful again in creating item codes by separating the `Code` column. Filtering and subsetting is really quick in `[data.table]`. It requires some getting used to, but once you get familiar with the syntax, the thinking and coding becomes quick and easy too. Combining `data.table`s using `merge()` was also very easy and intuitive.
 
 (ref:categorized-items-cpi) First 40 Rows of Monthly Philippine Consumer Price Index from 1994 Jan to 2018 Jun Categorized per Item Level.
 
-```{r item-levels-split-merge}
+```{r item-levels-split-merge, fig.cap='(ref:categorized-items-cpi)'}
 
 # Split Item Code Column into Three Item Category Columns -----------------
 
@@ -337,7 +337,7 @@ categorized_cpi_data %>.%
 
 ```
 
-# Geographic Levels
+## Geographic Levels
 
 The way I handled the `Geographic.code`, `Geographic.code.1`, and `Geographic.Location` of the primary items CPI data with `{data.table}` is similar with the item categories: split and find the unique geographic codes and labels, then add the labels to the data with `merge()`.
 
@@ -417,6 +417,10 @@ provincial_primary_item_cpi <-
     by = "Geographic.code",
     all = TRUE
   )
+
+provincial_primary_item_cpi %>.% 
+  head(., 40) %>.%
+  show_datatable(.)
 
 ```
 
