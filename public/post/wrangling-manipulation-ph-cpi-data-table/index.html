@@ -223,7 +223,7 @@
 
   <div>
     <i class="fa fa-calendar fa-fw"></i>
-    <time>2018 Nov 14</time>
+    <time>2018 Nov 15</time>
   </div>
 
   
@@ -269,13 +269,13 @@
 <li><a href="#where-order-by-select-update-group-by"><span class="toc-section-number">3</span> Where | Order By, Select | Update, Group By</a></li>
 <li><a href="#monthly-philippine-consumer-price-index-1994-jan-to-2018-jun"><span class="toc-section-number">4</span> Monthly Philippine Consumer Price Index 1994 Jan to 2018 Jun</a><ul>
 <li><a href="#finagler"><span class="toc-section-number">4.1</span> Finagler</a></li>
+<li><a href="#iso-8601-date"><span class="toc-section-number">4.2</span> ISO 8601 Date</a></li>
+<li><a href="#item-category-levels"><span class="toc-section-number">4.3</span> Item Category Levels</a></li>
+<li><a href="#geographic-levels"><span class="toc-section-number">4.4</span> Geographic Levels</a></li>
 </ul></li>
-<li><a href="#iso-8601-date"><span class="toc-section-number">5</span> ISO 8601 Date</a></li>
-<li><a href="#item-category-levels"><span class="toc-section-number">6</span> Item Category Levels</a></li>
-<li><a href="#geographic-levels"><span class="toc-section-number">7</span> Geographic Levels</a></li>
-<li><a href="#conclusions-and-realizations"><span class="toc-section-number">8</span> Conclusions and Realizations</a></li>
-<li><a href="#code"><span class="toc-section-number">9</span> Code</a></li>
-<li><a href="#references"><span class="toc-section-number">10</span> References</a></li>
+<li><a href="#the-power-of-packages"><span class="toc-section-number">5</span> The Power of Packages</a></li>
+<li><a href="#code"><span class="toc-section-number">6</span> Code</a></li>
+<li><a href="#references"><span class="toc-section-number">7</span> References</a></li>
 </ul>
 </div>
 
@@ -308,7 +308,7 @@ dt[
 </div>
 <div id="monthly-philippine-consumer-price-index-1994-jan-to-2018-jun" class="section level1">
 <h1><span class="header-section-number">4</span> Monthly Philippine Consumer Price Index 1994 Jan to 2018 Jun</h1>
-<p>The things I did with the Ph CPI data are already discussed in my <a href="https://amateurdatasci.rbind.io/tags/consumer-price-index/">previous posts</a>. I will only translate them here in <code>{data.table}</code> syntax, so I will not repeat my reasons and thought processes. However, I will leave some comments on the functions I used. For the complete code, please refer to <a href="#code">9</a>.</p>
+<p>The things I did with the Ph CPI data are already discussed in my <a href="https://amateurdatasci.rbind.io/tags/consumer-price-index/">previous posts</a>. I will only translate them here in <code>{data.table}</code> syntax, so I will not repeat my reasons and thought processes. However, I will leave some comments on the functions I used. For the complete code, please refer to <a href="#code">6</a>.</p>
 <div id="finagler" class="section level2">
 <h2><span class="header-section-number">4.1</span> Finagler</h2>
 <p>We read the raw Ph CPI data using <code>data.table::fread()</code>. In the documentation, <code>data.table::fread()</code> is a fast and freindly file finagler<a href="#fn5" class="footnoteRef" id="fnref5"><sup>5</sup></a>. The output is an object of <code>data.table</code> class.</p>
@@ -322,45 +322,59 @@ Figure 4.1: First 40 Rows of Monthly Philippine Consumer Price Index from 1994 J
 </div>
 <p>Note that I am also using <code>%&gt;.%</code> from <code>wrapr</code> <span class="citation">(Mount and Zumel 2018)</span><a href="#fn6" class="footnoteRef" id="fnref6"><sup>6</sup></a> for my pipes. It is just a strict version of <code>%&gt;%</code> from <code>magrittr</code>. It is stricter because it does not allow the user to leave the first argument of the function after the pipe empty, i.e. it requires the first argument to be specified as <code>.</code>, otherwise it throws an error that the first argument is missing. Again, I am only doing this because I want to try functions outside of the <code>tidyverse</code>.</p>
 </div>
-</div>
-<div id="iso-8601-date" class="section level1">
-<h1><span class="header-section-number">5</span> ISO 8601 Date</h1>
+<div id="iso-8601-date" class="section level2">
+<h2><span class="header-section-number">4.2</span> ISO 8601 Date</h2>
 <p>To gather all the date columns into one, I used <code>data.table::melt()</code>. I also used <code>data.table:::patterns()</code> to specify the columns I want to gather. Converting the dates into <a href="https://www.iso.org/iso-8601-date-and-time-format.html">ISO 8601</a> format (YYYY-MM-DD) is a bit trickier. First, I needed to separate the <code>month.abb_yy</code> to <code>month</code> and <code>year</code>. I did this using <code>data.table::tstrsplit()</code>. Second, I made a string YYYY-MM-DD using the <code>month</code> and <code>year</code> plus specifying the day as 1. I wanted to use the last day of the month, but I could not find a function outside the <code>tidyverse</code> that will allow me to do this.</p>
 
 <div class="figure"><span id="fig:melt-cpi-one-date"></span>
 <div id="htmlwidget-2" style="width:100%;height:auto;" class="datatables html-widget"></div>
 <script type="application/json" data-for="htmlwidget-2">{"x":{"filter":"none","extensions":["FixedColumns"],"data":[[0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0],[0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0],["Philippines","Philippines","Philippines","Philippines","Philippines","Philippines","Philippines","Philippines","Philippines","Philippines","Philippines","Philippines","Philippines","Philippines","Philippines","Philippines","Philippines","Philippines","Philippines","Philippines","Philippines","Philippines","Philippines","Philippines","Philippines","Philippines","Philippines","Philippines","Philippines","Philippines","Philippines","Philippines","Philippines","Philippines","Philippines","Philippines","Philippines","Philippines","Philippines","Philippines"],["0","01","01.1","01.1.1","01.1.11","01.1.12","01.1.120","01.1.2","01.1.3","01.1.4","01.1.5","01.1.6","01.1.7","01.1.8","01.1.9","01.2","01.2.1","01.2.2","02","02.1","02.1.1","02.1.2","02.1.3","02.2","02.2.0","02.40","03","03.1","03.1.1","03.1.2","03.1.3","03.1.4","03.2","03.2.1","03.2.2","04","04.1","04.1.1","04.3","04.3.1"],["All Items","Food And Non-Alcoholic Beverages","Food","Bread And Cereals","Rice","Corn","Other Cereals, Flour, Cereal Preparation, Bread,  Pasta And Other Bakery Products","Meat","Fish","Milk, Cheese And Eggs","Oils And Fats","Fruit","Vegetables","Sugar, Jam, Honey, Chocolate And Confectionery","Food Products N.E.C.","Non-Alcoholic Beverages","Coffee, Tea And Cocoa","Mineral Water, Soft Drinks, Fruit And Vegetable Juices","Alcoholic Beverages And Tobacco","Alcoholic Beverages","Spirits","Wine","Beer","Tobacco","Tobacco","Non-Food","Clothing And Footwear","Clothing","Clothing Materials","Garments","Other Articles Of Clothing And Clothing Accessories","Cleaning, Repair And Hire Of Clothing","Footwear","Shoes And Other Footwear","Repair And Hire Of Footwear","Housing, Water, Electricity, Gas And Other Fuels","Rentals For Housing","Rentals For Housing","Maintenance And Repair Of The Dwelling","Materials For The Maintenance And Repair Of The Dwelling"],["94-Jan-1","94-Jan-1","94-Jan-1","94-Jan-1","94-Jan-1","94-Jan-1","94-Jan-1","94-Jan-1","94-Jan-1","94-Jan-1","94-Jan-1","94-Jan-1","94-Jan-1","94-Jan-1","94-Jan-1","94-Jan-1","94-Jan-1","94-Jan-1","94-Jan-1","94-Jan-1","94-Jan-1","94-Jan-1","94-Jan-1","94-Jan-1","94-Jan-1","94-Jan-1","94-Jan-1","94-Jan-1","94-Jan-1","94-Jan-1","94-Jan-1","94-Jan-1","94-Jan-1","94-Jan-1","94-Jan-1","94-Jan-1","94-Jan-1","94-Jan-1","94-Jan-1","94-Jan-1"],[49.4,54.4,54,55.3,56.9,49,51.9,58.4,49.2,52.7,45.3,53.3,52.2,44.1,61,59.8,56.3,62.6,54.3,50.6,53.7,51.5,48.1,58.2,58.2,46.1,58,58.7,77,61.3,57.5,46.6,56.1,56.1,null,43.6,41.5,41.5,57.2,60.5],["Jan","Jan","Jan","Jan","Jan","Jan","Jan","Jan","Jan","Jan","Jan","Jan","Jan","Jan","Jan","Jan","Jan","Jan","Jan","Jan","Jan","Jan","Jan","Jan","Jan","Jan","Jan","Jan","Jan","Jan","Jan","Jan","Jan","Jan","Jan","Jan","Jan","Jan","Jan","Jan"],[94,94,94,94,94,94,94,94,94,94,94,94,94,94,94,94,94,94,94,94,94,94,94,94,94,94,94,94,94,94,94,94,94,94,94,94,94,94,94,94],["1994-01-01","1994-01-01","1994-01-01","1994-01-01","1994-01-01","1994-01-01","1994-01-01","1994-01-01","1994-01-01","1994-01-01","1994-01-01","1994-01-01","1994-01-01","1994-01-01","1994-01-01","1994-01-01","1994-01-01","1994-01-01","1994-01-01","1994-01-01","1994-01-01","1994-01-01","1994-01-01","1994-01-01","1994-01-01","1994-01-01","1994-01-01","1994-01-01","1994-01-01","1994-01-01","1994-01-01","1994-01-01","1994-01-01","1994-01-01","1994-01-01","1994-01-01","1994-01-01","1994-01-01","1994-01-01","1994-01-01"]],"container":"<table class=\"display\">\n  <thead>\n    <tr>\n      <th>Geographic.code<\/th>\n      <th>Geographic.code.1<\/th>\n      <th>Geographic.Location<\/th>\n      <th>Code<\/th>\n      <th>Description<\/th>\n      <th>date<\/th>\n      <th>cpi<\/th>\n      <th>month<\/th>\n      <th>year<\/th>\n      <th>date_iso8601<\/th>\n    <\/tr>\n  <\/thead>\n<\/table>","options":{"pageLength":20,"scrollX":true,"scrollCollapse":true,"columnDefs":[{"className":"dt-center","targets":[0,1,2,3,4,5,6,7,8,9]}],"order":[],"autoWidth":false,"orderClasses":false,"lengthMenu":[10,20,25,50,100]}},"evals":[],"jsHooks":[]}</script>
 <p class="caption">
-Figure 5.1: First 40 Rows of Monthly Philippine Consumer Price Index from 1994 Jan to 2018 Jun Converted to Long Form Using data.table::melt() and with ISO 8601 Dates.
+Figure 4.2: First 40 Rows of Monthly Philippine Consumer Price Index from 1994 Jan to 2018 Jun Converted to Long Form Using data.table::melt() and with ISO 8601 Dates.
 </p>
 </div>
 </div>
-<div id="item-category-levels" class="section level1">
-<h1><span class="header-section-number">6</span> Item Category Levels</h1>
+<div id="item-category-levels" class="section level2">
+<h2><span class="header-section-number">4.3</span> Item Category Levels</h2>
 <p><code>data.table::tstrsplit()</code> becomes useful again in creating item codes by separating the <code>Code</code> column. Filtering and subsetting is really quick in <code>[data.table]</code>. It requires some getting used to, but once you get familiar with the syntax, the thinking and coding becomes quick and easy too. Combining <code>data.table</code>s using <code>merge()</code> was also very easy and intuitive.</p>
 
+<div class="figure"><span id="fig:item-levels-split-merge"></span>
 <div id="htmlwidget-3" style="width:100%;height:auto;" class="datatables html-widget"></div>
 <script type="application/json" data-for="htmlwidget-3">{"x":{"filter":"none","extensions":["FixedColumns"],"data":[["0","0","0","0","0","0","0","0","0","0","0","0","0","0","0","0","0","0","0","0","0","0","0","0","0","0","0","0","0","0","0","0","0","0","0","0","0","0","0","0"],[null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null],[null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null],[0,13,99,14,14,14,14,14,14,14,1,1,1,1,1,2,2,2,2,2,2,3,3,3,3,3,3,3,3,4,4,4,4,4,4,17,17,17,17,17],[0,99,0,0,1,11,27,32,44,81,0,28,29,33,55,0,9,15,31,50,57,0,8,14,49,54,69,71,77,0,10,21,34,56,58,0,40,51,52,53],["Philippines","NCR - National Capital Region","AONCR - Areas Outside National Capital Region","CAR - Cordillera Administrative Region","Abra","Benguet","Ifugao","Kalinga","Mountain Province","Apayao","Region I - Ilocos Region","Ilocos Norte","Ilocos Sur","La Union","Pangasinan","Region II - Cagayan Valley","Batanes","Cagayan","Isabela","Nueva Viscaya","Quirino","Region III - Central Luzon","Bataan","Bulacan","Nueva Ecija","Pampanga","Tarlac","Zambales","Aurora","Region IVa - CALABARZON","Batangas","Cavite","Laguna","Quezon","Rizal","Region IVb - MIMAROPA","Marinduque","Mindoro Occidental","Oriental Mindoro","Palawan"],["0","0","0","0","0","0","0","0","0","0","0","0","0","0","0","0","0","0","0","0","0","0","0","0","0","0","0","0","0","0","0","0","0","0","0","0","0","0","0","0"],["94-Jan-1","94-Jan-1","94-Jan-1","94-Jan-1","94-Jan-1","94-Jan-1","94-Jan-1","94-Jan-1","94-Jan-1","94-Jan-1","94-Jan-1","94-Jan-1","94-Jan-1","94-Jan-1","94-Jan-1","94-Jan-1","94-Jan-1","94-Jan-1","94-Jan-1","94-Jan-1","94-Jan-1","94-Jan-1","94-Jan-1","94-Jan-1","94-Jan-1","94-Jan-1","94-Jan-1","94-Jan-1","94-Jan-1","94-Jan-1","94-Jan-1","94-Jan-1","94-Jan-1","94-Jan-1","94-Jan-1","94-Jan-1","94-Jan-1","94-Jan-1","94-Jan-1","94-Jan-1"],[49.4,48,49.9,50.8,48.2,52.3,50.2,49,50.3,null,49.5,53.9,54.7,47.7,47.9,51.9,49.4,47.8,54.6,52.8,53.7,51.5,54.8,58.5,45.5,51.3,45.9,44.9,55.3,48.5,48.7,51,44.1,55.5,47.5,53.7,54,52.2,51.1,58.4],["Jan","Jan","Jan","Jan","Jan","Jan","Jan","Jan","Jan","Jan","Jan","Jan","Jan","Jan","Jan","Jan","Jan","Jan","Jan","Jan","Jan","Jan","Jan","Jan","Jan","Jan","Jan","Jan","Jan","Jan","Jan","Jan","Jan","Jan","Jan","Jan","Jan","Jan","Jan","Jan"],[94,94,94,94,94,94,94,94,94,94,94,94,94,94,94,94,94,94,94,94,94,94,94,94,94,94,94,94,94,94,94,94,94,94,94,94,94,94,94,94],["1994-01-01","1994-01-01","1994-01-01","1994-01-01","1994-01-01","1994-01-01","1994-01-01","1994-01-01","1994-01-01","1994-01-01","1994-01-01","1994-01-01","1994-01-01","1994-01-01","1994-01-01","1994-01-01","1994-01-01","1994-01-01","1994-01-01","1994-01-01","1994-01-01","1994-01-01","1994-01-01","1994-01-01","1994-01-01","1994-01-01","1994-01-01","1994-01-01","1994-01-01","1994-01-01","1994-01-01","1994-01-01","1994-01-01","1994-01-01","1994-01-01","1994-01-01","1994-01-01","1994-01-01","1994-01-01","1994-01-01"],["All Items","All Items","All Items","All Items","All Items","All Items","All Items","All Items","All Items","All Items","All Items","All Items","All Items","All Items","All Items","All Items","All Items","All Items","All Items","All Items","All Items","All Items","All Items","All Items","All Items","All Items","All Items","All Items","All Items","All Items","All Items","All Items","All Items","All Items","All Items","All Items","All Items","All Items","All Items","All Items"],[null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null],[null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null]],"container":"<table class=\"display\">\n  <thead>\n    <tr>\n      <th>primary_item_code<\/th>\n      <th>secondary_item_code<\/th>\n      <th>tertiary_item_code<\/th>\n      <th>Geographic.code<\/th>\n      <th>Geographic.code.1<\/th>\n      <th>Geographic.Location<\/th>\n      <th>Code<\/th>\n      <th>date<\/th>\n      <th>cpi<\/th>\n      <th>month<\/th>\n      <th>year<\/th>\n      <th>date_iso8601<\/th>\n      <th>primary_item_label<\/th>\n      <th>secondary_item_label<\/th>\n      <th>tertiary_item_label<\/th>\n    <\/tr>\n  <\/thead>\n<\/table>","options":{"pageLength":20,"scrollX":true,"scrollCollapse":true,"columnDefs":[{"className":"dt-center","targets":[0,1,2,3,4,5,6,7,8,9,10,11,12,13,14]}],"order":[],"autoWidth":false,"orderClasses":false,"lengthMenu":[10,20,25,50,100]}},"evals":[],"jsHooks":[]}</script>
+<p class="caption">
+Figure 4.3: First 40 Rows of Monthly Philippine Consumer Price Index from 1994 Jan to 2018 Jun Categorized per Item Level.
+</p>
 </div>
-<div id="geographic-levels" class="section level1">
-<h1><span class="header-section-number">7</span> Geographic Levels</h1>
+</div>
+<div id="geographic-levels" class="section level2">
+<h2><span class="header-section-number">4.4</span> Geographic Levels</h2>
 <p>The way I handled the <code>Geographic.code</code>, <code>Geographic.code.1</code>, and <code>Geographic.Location</code> of the primary items CPI data with <code>{data.table}</code> is similar with the item categories: split and find the unique geographic codes and labels, then add the labels to the data with <code>merge()</code>.</p>
 
+<div class="figure"><span id="fig:primary-item-geographic-levels"></span>
+<div id="htmlwidget-4" style="width:100%;height:auto;" class="datatables html-widget"></div>
+<script type="application/json" data-for="htmlwidget-4">{"x":{"filter":"none","extensions":["FixedColumns"],"data":[[1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1],["0","0","0","0","0","0","0","0","0","0","0","0","0","0","0","0","0","0","0","0","0","0","0","0","0","0","0","0","0","0","0","0","0","0","0","0","0","0","0","0"],[28,29,33,55,28,29,33,55,28,29,33,55,28,29,33,55,28,29,33,55,28,29,33,55,28,29,33,55,28,29,33,55,28,29,33,55,28,29,33,55],["Ilocos Norte","Ilocos Sur","La Union","Pangasinan","Ilocos Norte","Ilocos Sur","La Union","Pangasinan","Ilocos Norte","Ilocos Sur","La Union","Pangasinan","Ilocos Norte","Ilocos Sur","La Union","Pangasinan","Ilocos Norte","Ilocos Sur","La Union","Pangasinan","Ilocos Norte","Ilocos Sur","La Union","Pangasinan","Ilocos Norte","Ilocos Sur","La Union","Pangasinan","Ilocos Norte","Ilocos Sur","La Union","Pangasinan","Ilocos Norte","Ilocos Sur","La Union","Pangasinan","Ilocos Norte","Ilocos Sur","La Union","Pangasinan"],["0","0","0","0","0","0","0","0","0","0","0","0","0","0","0","0","0","0","0","0","0","0","0","0","0","0","0","0","0","0","0","0","0","0","0","0","0","0","0","0"],["94-Jan-1","94-Jan-1","94-Jan-1","94-Jan-1","94-Feb-1","94-Feb-1","94-Feb-1","94-Feb-1","94-Mar-1","94-Mar-1","94-Mar-1","94-Mar-1","94-Apr-1","94-Apr-1","94-Apr-1","94-Apr-1","94-May-1","94-May-1","94-May-1","94-May-1","94-Jun-1","94-Jun-1","94-Jun-1","94-Jun-1","94-Jul-1","94-Jul-1","94-Jul-1","94-Jul-1","94-Aug-1","94-Aug-1","94-Aug-1","94-Aug-1","94-Sep-1","94-Sep-1","94-Sep-1","94-Sep-1","94-Oct-1","94-Oct-1","94-Oct-1","94-Oct-1"],[53.9,54.7,47.7,47.9,53.8,55.7,47.5,48,53.7,55.3,47.3,47.7,53.8,55.4,47.4,47.8,54.4,55.4,47.5,48.5,54.8,55.6,48.2,48.7,55.7,55.9,48.7,48.9,56.5,56.9,49.2,49.3,56.5,56.8,49.3,49.4,56.4,56.9,49.5,49.5],["Jan","Jan","Jan","Jan","Feb","Feb","Feb","Feb","Mar","Mar","Mar","Mar","Apr","Apr","Apr","Apr","May","May","May","May","Jun","Jun","Jun","Jun","Jul","Jul","Jul","Jul","Aug","Aug","Aug","Aug","Sep","Sep","Sep","Sep","Oct","Oct","Oct","Oct"],[94,94,94,94,94,94,94,94,94,94,94,94,94,94,94,94,94,94,94,94,94,94,94,94,94,94,94,94,94,94,94,94,94,94,94,94,94,94,94,94],["1994-01-01","1994-01-01","1994-01-01","1994-01-01","1994-02-01","1994-02-01","1994-02-01","1994-02-01","1994-03-01","1994-03-01","1994-03-01","1994-03-01","1994-04-01","1994-04-01","1994-04-01","1994-04-01","1994-05-01","1994-05-01","1994-05-01","1994-05-01","1994-06-01","1994-06-01","1994-06-01","1994-06-01","1994-07-01","1994-07-01","1994-07-01","1994-07-01","1994-08-01","1994-08-01","1994-08-01","1994-08-01","1994-09-01","1994-09-01","1994-09-01","1994-09-01","1994-10-01","1994-10-01","1994-10-01","1994-10-01"],["All Items","All Items","All Items","All Items","All Items","All Items","All Items","All Items","All Items","All Items","All Items","All Items","All Items","All Items","All Items","All Items","All Items","All Items","All Items","All Items","All Items","All Items","All Items","All Items","All Items","All Items","All Items","All Items","All Items","All Items","All Items","All Items","All Items","All Items","All Items","All Items","All Items","All Items","All Items","All Items"],["provincial","provincial","provincial","provincial","provincial","provincial","provincial","provincial","provincial","provincial","provincial","provincial","provincial","provincial","provincial","provincial","provincial","provincial","provincial","provincial","provincial","provincial","provincial","provincial","provincial","provincial","provincial","provincial","provincial","provincial","provincial","provincial","provincial","provincial","provincial","provincial","provincial","provincial","provincial","provincial"],["Region I - Ilocos Region","Region I - Ilocos Region","Region I - Ilocos Region","Region I - Ilocos Region","Region I - Ilocos Region","Region I - Ilocos Region","Region I - Ilocos Region","Region I - Ilocos Region","Region I - Ilocos Region","Region I - Ilocos Region","Region I - Ilocos Region","Region I - Ilocos Region","Region I - Ilocos Region","Region I - Ilocos Region","Region I - Ilocos Region","Region I - Ilocos Region","Region I - Ilocos Region","Region I - Ilocos Region","Region I - Ilocos Region","Region I - Ilocos Region","Region I - Ilocos Region","Region I - Ilocos Region","Region I - Ilocos Region","Region I - Ilocos Region","Region I - Ilocos Region","Region I - Ilocos Region","Region I - Ilocos Region","Region I - Ilocos Region","Region I - Ilocos Region","Region I - Ilocos Region","Region I - Ilocos Region","Region I - Ilocos Region","Region I - Ilocos Region","Region I - Ilocos Region","Region I - Ilocos Region","Region I - Ilocos Region","Region I - Ilocos Region","Region I - Ilocos Region","Region I - Ilocos Region","Region I - Ilocos Region"]],"container":"<table class=\"display\">\n  <thead>\n    <tr>\n      <th>Geographic.code<\/th>\n      <th>primary_item_code<\/th>\n      <th>Geographic.code.1<\/th>\n      <th>Geographic.Location<\/th>\n      <th>Code<\/th>\n      <th>date<\/th>\n      <th>cpi<\/th>\n      <th>month<\/th>\n      <th>year<\/th>\n      <th>date_iso8601<\/th>\n      <th>primary_item_label<\/th>\n      <th>geography_level<\/th>\n      <th>region_label<\/th>\n    <\/tr>\n  <\/thead>\n<\/table>","options":{"pageLength":20,"scrollX":true,"scrollCollapse":true,"columnDefs":[{"className":"dt-center","targets":[0,1,2,3,4,5,6,7,8,9,10,11,12]}],"order":[],"autoWidth":false,"orderClasses":false,"lengthMenu":[10,20,25,50,100]}},"evals":[],"jsHooks":[]}</script>
+<p class="caption">
+Figure 4.4: First 40 Rows of Monthly Philippine Consumer Price Index from 1994 Jan to 2018 Jun for Primary Items with Geographic Levels.
+</p>
 </div>
-<div id="conclusions-and-realizations" class="section level1">
-<h1><span class="header-section-number">8</span> Conclusions and Realizations</h1>
+</div>
+</div>
+<div id="the-power-of-packages" class="section level1">
+<h1><span class="header-section-number">5</span> The Power of Packages</h1>
+<p><code>{data.table}</code> is a fun package to use. I am not yet familiar with all of its capabilities. I will use it more often<a href="#fn7" class="footnoteRef" id="fnref7"><sup>7</sup></a>, so I can learn its true potential.</p>
+<p>Working with only a few packages and doing everything else with <code>{base}</code> <code>R</code> already accomplishes a lot of things. This encourages me to use as few packages as I can. However, I still think there are powerful packages and functions out there that people have already made, e.g. <code>{rebus}</code> <span class="citation">(Cotton 2017)</span>, that just makes data science easier. If I encountered a problem for at least <a href="https://twitter.com/drob/status/928447584712253440">three times</a> and solve it using the same code, I will make a function or even a package to relieve my future self some trouble.</p>
+<p>Packages were and are being created to solve specific and recurring problems. Solving problems that were already solvedis a good practice and test, but in the battleground, knowledge of what has worked before can save time and maybe a life. There are redunduncies among packages. Choose well. Choose wisely.</p>
 </div>
 <div id="code" class="section level1">
-<h1><span class="header-section-number">9</span> Code</h1>
-<p>The following codes show what I did in this post. The logic of each code should have been captured in the discussion, but I added comments here and there to further clarify my thought process.</p>
+<h1><span class="header-section-number">6</span> Code</h1>
+<p>The following codes show what I did in this post. I added comments here and there to clarify my thought process.</p>
 <pre class="r"><code># Attach packages and set chunk options
 
 xfun::pkg_attach(
   &quot;knitr&quot;,
   &quot;DT&quot;,
   &quot;data.table&quot;,
-  &quot;wrapr&quot;,
-  &quot;rebus&quot;
+  &quot;wrapr&quot;
 )
 
 opts_chunk$set(
@@ -497,7 +511,7 @@ item_category_levels &lt;-
       tstrsplit(
         Code,
         # using rebus::DOT for readable regex
-        split = DOT
+        split = rebus::DOT
       )
   ]
 
@@ -667,6 +681,10 @@ provincial_primary_item_cpi &lt;-
     all = TRUE
   )
 
+provincial_primary_item_cpi %&gt;.% 
+  head(., 40) %&gt;.%
+  show_datatable(.)
+
 
 
 sessioninfo::session_info()</code></pre>
@@ -681,7 +699,7 @@ sessioninfo::session_info()</code></pre>
 ##  collate  English_Philippines.1252    
 ##  ctype    English_Philippines.1252    
 ##  tz       Asia/Kuala_Lumpur           
-##  date     2018-11-13                  
+##  date     2018-11-15                  
 ## 
 ## - Packages --------------------------------------------------------------
 ##  package         * version date       lib source        
@@ -689,155 +707,6 @@ sessioninfo::session_info()</code></pre>
 ##  backports         1.1.2   2017-12-13 [1] CRAN (R 3.5.0)
 ##  blogdown          0.9     2018-10-23 [1] CRAN (R 3.5.1)
 ##  bookdown          0.7     2018-02-18 [1] CRAN (R 3.5.0)
-##  cli               1.0.1   2018-09-25 [1] CRAN (R 3.5.1)
-##  crayon            1.3.4   2017-09-16 [1] CRAN (R 3.5.0)
-##  crosstalk         1.0.0   2016-12-21 [1] CRAN (R 3.5.0)
-##  data.table      * 1.11.8  2018-09-30 [1] CRAN (R 3.5.1)
-##  digest            0.6.18  2018-10-10 [1] CRAN (R 3.5.1)
-##  DT              * 0.5     2018-11-05 [1] CRAN (R 3.5.1)
-##  evaluate          0.12    2018-10-09 [1] CRAN (R 3.5.1)
-##  htmltools         0.3.6   2017-04-28 [1] CRAN (R 3.5.0)
-##  htmlwidgets       1.3     2018-09-30 [1] CRAN (R 3.5.1)
-##  httpuv            1.4.5   2018-07-19 [1] CRAN (R 3.5.1)
-##  jsonlite          1.5     2017-06-01 [1] CRAN (R 3.5.0)
-##  knitr           * 1.20    2018-02-20 [1] CRAN (R 3.5.0)
-##  later             0.7.5   2018-09-18 [1] CRAN (R 3.5.1)
-##  magrittr          1.5     2014-11-22 [1] CRAN (R 3.5.0)
-##  mime              0.6     2018-10-05 [1] CRAN (R 3.5.1)
-##  promises          1.0.1   2018-04-13 [1] CRAN (R 3.5.0)
-##  R6                2.3.0   2018-10-04 [1] CRAN (R 3.5.1)
-##  Rcpp              1.0.0   2018-11-07 [1] CRAN (R 3.5.1)
-##  rebus           * 0.1-3   2017-04-25 [1] CRAN (R 3.5.0)
-##  rebus.base        0.0-3   2017-04-25 [1] CRAN (R 3.5.0)
-##  rebus.datetimes   0.0-1   2015-12-16 [1] CRAN (R 3.5.0)
-##  rebus.numbers     0.0-1   2015-12-16 [1] CRAN (R 3.5.0)
-##  rebus.unicode     0.0-2   2017-01-03 [1] CRAN (R 3.5.0)
-##  rmarkdown         1.10    2018-06-11 [1] CRAN (R 3.5.0)
-##  rprojroot         1.3-2   2018-01-03 [1] CRAN (R 3.5.0)
-##  sessioninfo       1.1.1   2018-11-05 [1] CRAN (R 3.5.1)
-##  shiny             1.2.0   2018-11-02 [1] CRAN (R 3.5.1)
-##  stringi           1.2.4   2018-07-20 [1] CRAN (R 3.5.1)
-##  stringr           1.3.1   2018-05-10 [1] CRAN (R 3.5.0)
-##  withr             2.1.2   2018-03-15 [1] CRAN (R 3.5.0)
-##  wrapr           * 1.6.3   2018-10-03 [1] CRAN (R 3.5.1)
-##  xfun              0.4     2018-10-23 [1] CRAN (R 3.5.1)
-##  xtable            1.8-3   2018-08-29 [1] CRAN (R 3.5.1)
-##  yaml              2.2.0   2018-07-25 [1] CRAN (R 3.5.1)
-## 
-## [1] C:/Users/recleev/R/R-3.5.1/library</code></pre>
-</div>
-<div id="references" class="section level1">
-<h1><span class="header-section-number">10</span> References</h1>
-<p>For more information on tidy principles, techniques, and good practices, and the packages and functions I used in this post, please read</p>
-<div id="refs" class="references">
-<div id="ref-R-data.table">
-<p>Dowle, Matt, and Arun Srinivasan. 2018. <em>Data.table: Extension of ‘Data.frame‘</em>. <a href="https://CRAN.R-project.org/package=data.table" class="uri">https://CRAN.R-project.org/package=data.table</a>.</p>
-</div>
-<div id="ref-R-wrapr">
-<p>Mount, John, and Nina Zumel. 2018. <em>Wrapr: Wrap R Tools for Debugging and Parametric Programming</em>. <a href="https://CRAN.R-project.org/package=wrapr" class="uri">https://CRAN.R-project.org/package=wrapr</a>.</p>
-</div>
-</div>
-</div>
-<div class="footnotes">
-<hr />
-<ol>
-<li id="fn1"><p>I just learned about <a href="https://cran.r-project.org/web/packages/cdata/index.html">{cdata}</a>, coordinatized data, and fluid data transformations. The deeper you go into <code>R</code> the more you learn. It’s a multiverse out there.<a href="#fnref1">↩</a></p></li>
-<li id="fn2"><p>Calling dibs on <code>diverseverse</code>.<a href="#fnref2">↩</a></p></li>
-<li id="fn3"><p>Advantages and disadvantages are subjective. I once thought that the difficulty of learning <code>{data.table}</code> when I already know <code>dplyr</code>. Working with multitude types and sizes of data “forced” me to try <code>{data.table}</code>. After that, I regretted passing on <code>{data.table}</code> and not learning it sooner. I think the disadvantages are only an illusion whenever learning something new, while the advantages are not really that clear until one really experiences what one is missing out.<a href="#fnref3">↩</a></p></li>
-<li id="fn4"><p>I am not an expert use<code>R</code> of <code>{data.table}</code>. I am still learning and getting familiar with the functions and nuances of <code>{data.table}</code>. I expect that I will use it more in the future, so I think this is good practice for me. The code I will use here may not be the most efficient, and I will always be open for improvements.<a href="#fnref4">↩</a></p></li>
-<li id="fn5"><p>I do not know what finagler means. Merriam-Webster defines <a href="https://www.merriam-webster.com/dictionary/finagle">finagle</a> as to obtain by indirect or involved means. I think <code>data.table::fread()</code> does that rather than obtain by trickery, although that sounds cooler.<a href="#fnref5">↩</a></p></li>
-<li id="fn6"><p>I will probably explore <code>wrapr</code> more in the future.<a href="#fnref6">↩</a></p></li>
-</ol>
-</div>
-
-
-  
-<div class="prev-next-post pure-g">
-  <div class="pure-u-1-24" style="text-align: left;">
-    
-    <a href="/post/proofs-trigonometric-summations/"><i class="fa fa-chevron-left"></i></a>
-    
-  </div>
-  <div class="pure-u-10-24">
-    
-    <nav class="prev">
-      <a href="/post/proofs-trigonometric-summations/">Proofs of Trigonometric Summations</a>
-    </nav>
-    
-  </div>
-  <div class="pure-u-2-24">
-    &nbsp;
-  </div>
-  <div class="pure-u-10-24">
-    
-    <nav class="next">
-      <a href="/post/wrangling-manipulation-ph-cpi-data-table/">Wrangling and Manipulation of Monthly Philippine Consumer Price Index</a>
-    </nav>
-    
-  </div>
-  <div class="pure-u-1-24" style="text-align: right;">
-    
-    <a href="/post/wrangling-manipulation-ph-cpi-data-table/"><i class="fa fa-chevron-right"></i></a>
-    
-  </div>
-</div>
-
-
-
-  
-<div id="disqus_thread"></div>
-<script type="text/javascript">
-
-(function() {
-    
-    
-    if (window.location.hostname == "localhost")
-        return;
-
-    var dsq = document.createElement('script'); dsq.type = 'text/javascript'; dsq.async = true;
-    var disqus_shortname = 'the-amateur-data-scientist';
-    dsq.src = '//' + disqus_shortname + '.disqus.com/embed.js';
-    (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(dsq);
-})();
-</script>
-<noscript>Please enable JavaScript to view the <a href="http://disqus.com/?ref_noscript">comments powered by Disqus.</a></noscript>
-<a href="http://disqus.com/" class="dsq-brlink">comments powered by <span class="logo-disqus">Disqus</span></a>
-
-
-</div>
-
-</div>
-</div>
-<script src="/js/ui.js"></script>
-
-
-<script>
-  
-  if (window.location.hostname != "localhost") {
-    (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
-    (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
-    m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
-    })(window,document,'script','//www.google-analytics.com/analytics.js','ga');
-
-    ga('create', 'UA-119602814-1', 'auto');
-    ga('send', 'pageview');
-  }
-</script>
-
-
-
-
-
-<script src="//https://amateurdatasci.rbind.io/js/math-code.js"></script>
-
-    <script type="text/javascript"
-      src="https://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML">
-    </script>
-
-</body>
-</html>
-
-    0.7     2018-02-18 [1] CRAN (R 3.5.0)
 ##  cli               1.0.1   2018-09-25 [1] CRAN (R 3.5.1)
 ##  crayon            1.3.4   2017-09-16 [1] CRAN (R 3.5.0)
 ##  crosstalk         1.0.0   2016-12-21 [1] CRAN (R 3.5.0)
@@ -908,13 +777,13 @@ sessioninfo::session_info()</code></pre>
 <div class="prev-next-post pure-g">
   <div class="pure-u-1-24" style="text-align: left;">
     
-    <a href="/post/wrangling-manipulation-ph-cpi-data-table/"><i class="fa fa-chevron-left"></i></a>
+    <a href="/post/proofs-trigonometric-summations/"><i class="fa fa-chevron-left"></i></a>
     
   </div>
   <div class="pure-u-10-24">
     
     <nav class="prev">
-      <a href="/post/wrangling-manipulation-ph-cpi-data-table/">Wrangling and Manipulation of Monthly Philippine Consumer Price Index</a>
+      <a href="/post/proofs-trigonometric-summations/">Proofs of Trigonometric Summations</a>
     </nav>
     
   </div>
