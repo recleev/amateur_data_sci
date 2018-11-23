@@ -1,0 +1,39 @@
+---
+title: Areas of Bounded Regions
+author: Recle Etino Vibal
+date: '2018-11-23'
+slug: areas-bounded-regions
+categories:
+  - Calculus
+  - Mathematics
+  - Mathjax
+tags:
+  - applications of integration
+  - area under the curve
+  - definite integral
+  - ggplot2
+  - integration
+description: ''
+output:
+  blogdown::html_page:
+    toc: yes
+    number_sections: yes
+bibliography:
+  - references/cwag2016.bib
+biblio-style: apalike
+---
+
+# Problems
+
+## Region in the Second Quadrant
+
+Problem 17, page 255 in @cwag2016
+
+Find the area of the region in the second quadrant bounded by the $x$-axis and the parabolas $y = x^2$ and $y = \sqrt{x + 18}$.
+
+## Cubic Curve and Tangent
+
+Problem 18, page 255 in @cwag2016
+
+Find the area between $4y = x^3$ and its tangent at $x = -2$.
+
