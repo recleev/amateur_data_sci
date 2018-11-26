@@ -6,10 +6,19 @@
     <description>Recent content in Posts on The Amateur Data Scientist</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>en-us</language>
-    <lastBuildDate>Thu, 15 Nov 2018 00:00:00 +0000</lastBuildDate>
+    <lastBuildDate>Mon, 26 Nov 2018 00:00:00 +0000</lastBuildDate>
     
 	<atom:link href="/post/index.xml" rel="self" type="application/rss+xml" />
     
+    
+    <item>
+      <title>Areas of Bounded Regions</title>
+      <link>/post/areas-bounded-regions/</link>
+      <pubDate>Mon, 26 Nov 2018 00:00:00 +0000</pubDate>
+      
+      <guid>/post/areas-bounded-regions/</guid>
+      <description>1 Problems1.1 Region in the Second Quadrant1.2 Cubic Curve and Tangent2 Solutions2.1 Horizontal Strip3 Between the Lines4 Code for Plots {code-plot}5 Referencexfun::pkg_attach(&amp;quot;ggplot2&amp;quot;,&amp;quot;dplyr&amp;quot;,&amp;quot;magrittr&amp;quot;,&amp;quot;knitr&amp;quot;,&amp;quot;latex2exp&amp;quot;)## ## Attaching package: &amp;#39;dplyr&amp;#39;## The following objects are masked from &amp;#39;package:stats&amp;#39;:## ## filter, lag## The following objects are masked from &amp;#39;package:base&amp;#39;:## ## intersect, setdiff, setequal, unionopts_chunk$set(message = FALSE,warning = FALSE,echo = FALSE,fig.</description>
+    </item>
     
     <item>
       <title>Wrangling and Manipulation of Monthly Philippine Consumer Price Index</title>

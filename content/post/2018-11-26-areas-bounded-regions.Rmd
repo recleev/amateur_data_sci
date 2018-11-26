@@ -1,0 +1,424 @@
+---
+title: Areas of Bounded Regions
+author: Recle Etino Vibal
+date: '2018-11-26'
+categories:
+  - Calculus
+  - Mathematics
+  - Mathjax
+tags:
+  - applications of integration
+  - area under the curve
+  - definite integral
+  - ggplot2
+  - integration
+slug: areas-bounded-regions
+output:
+  blogdown::html_page:
+    toc: yes
+    number_sections: yes
+bibliography:
+  - references/cwag2016.bib
+biblio-style: apalike
+---
+
+```{r attach-packages-set-options}
+
+xfun::pkg_attach(
+  "ggplot2",
+  "dplyr",
+  "magrittr",
+  "knitr",
+  "latex2exp"
+)
+
+opts_chunk$set(
+  message = FALSE,
+  warning = FALSE,
+  echo = FALSE,
+  fig.align = 'center'
+)
+
+theme_set(theme_minimal())
+
+```
+
+
+# Problems
+
+## Region in the Second Quadrant
+
+Problem 17, page 255 in @cwag2016
+
+Find the area of the region in the second quadrant bounded by the $x$-axis and the parabolas $y = x^2$ and $y = \sqrt{x + 18}$.
+
+## Cubic Curve and Tangent
+
+Problem 18, page 255 in @cwag2016
+
+Find the area between $4y = x^3$ and its tangent at $x = -2$.
+
+# Solutions
+
+## Horizontal Strip
+
+When solving for areas bounded by regions, graphing the lines and shading the areas of the region of interest makes finding the equation to integrate easier.
+
+(ref:second-quadrant-area-caption) Area in the second quadrant bounded by the $x$-axis and the line $y = x^2$ and $y = \sqrt{x + 18}$.
+
+```{r second-quadrant-area, fig.cap='(ref:second-quadrant-area-caption)'}
+
+# show area bounded by the x-axis, y = x^2, and y = sqrt(x +18) in the second quadrant 
+
+# this will be used for the horizontal strip
+strip_y <- 2
+
+# create data points to plot
+tibble(
+    abscissa = seq(-18, 0, by = 0.02),
+    y_quad = abscissa^2,
+    y_sqrt = sqrt(abscissa + 18L)
+  ) %>% 
+  ggplot(aes(x = abscissa)) +
+  geom_line(
+    aes(y = y_quad), 
+    color = "blue", 
+    size = 1
+  ) +
+  geom_line(
+    aes(y = y_sqrt), 
+    color = "red",
+    size = 1
+  ) +
+  # shade the bounded region
+  geom_ribbon(
+    aes(
+      ymin = 0, 
+      ymax = if_else(
+        # if x < -2, then
+        abscissa < -2, 
+        # the maximum y is the sqrt(x+18)
+        y_sqrt, 
+        # else, the maximum y is x^2
+        y_quad
+      )
+    ),
+    fill = "greenyellow",
+    alpha = 0.5
+  ) +
+  # label the lines with equations
+  annotate(
+    "text",
+    x = -3.5,
+    y = 4.5,
+    # this uses {latex2exp}, note the escape \
+    label = TeX("$y = x^2$"),
+    parse = TRUE,
+    color = "blue"
+  ) +
+  annotate(
+    "text",
+    x = -10,
+    y = 3.25,
+    label = TeX("$y = \\sqrt{x + 18}$"),
+    parse = TRUE,
+    color = "red"
+  ) +
+  # add the horizontal strip
+  annotate(
+    "rect",
+    # specify the limits of the strip
+    xmin = -sqrt(strip_y),
+    xmax = strip_y^2 - 18,
+    ymin = strip_y - 0.05,
+    ymax = strip_y + 0.05,
+    fill = "brown",
+    alpha = 0.8
+  ) + 
+  # add a label to specify the thickness of the strip
+  annotate(
+    "text",
+    x = -sqrt(strip_y) + 0.5,
+    y = strip_y,
+    label = TeX("$\\Delta y$"),
+    parse = TRUE
+  ) +
+  # highlight x- and y-axis with thicker and darker lines
+  geom_vline(xintercept = 0, color = "black", size = 1) +
+  geom_hline(yintercept = 0, color = "black", size = 1) +
+  # make labels simple, yet informative
+  labs(
+    x = "x",
+    y = "y"
+  ) +
+  # zoom in, otherwise the area will be very small and thin
+  ylim(0, 5)
+
+```
+
+For `R` users, please refer to (ref:code-plot) for the plot's code.
+
+I chose to use a horizontal plot because I think this is easier to use. The horizontal strip has an area $dA$, thickness $\Delta y$, and length defined by the difference of the abscissas of the two lines, i.e. $x_2 - x_1$ where $x_2 = - \sqrt{y}$ and $x_1 = y^2 - 18$. Note that $x_2 = \pm \sqrt{y}$, but since the given is in the second quadrant, then $x_2 = - \sqrt{y}$. The area of the horizontal strip then is
+
+$$
+\begin{equation}
+dA = \left[- \sqrt{y} - \left(y^2 - 18\right) \right] dy (\#eq:horizontal-strip-area)
+\end{equation}
+$$
+
+To find the area of the bounded region, we need to find the limits of integration with respect to $y$. The minimum is 0, but the maximum will need a little algebra.
+
+$$
+\begin{align}
+y &= x^2
+\\
+y &= \sqrt{x + 18}
+\\
+x^2 &= \sqrt{x + 18}
+\\
+x^4 &= x + 18
+\\
+x^4 - x - 18 &= 0
+\\
+x^4 - x - 16 - 2 &= 0
+\\
+x^4 - 16 - x- 2 &= 0
+\\
+\left( x^2 - 4 \right) \left( x^2 + 4 \right) - \left(x + 2 \right) &= 0
+\\
+\left( x - 2 \right) \left( x + 2 \right) \left( x^2 + 4 \right) - \left(x + 2 \right) &= 0
+\\
+\left( x + 2 \right) \left[ \left( x - 2 \right) \left( x^2 + 4 \right) - 1 \right] &= 0
+\\
+x + 2 &= 0
+\\
+x &= -2
+\\
+y &= 4
+\end{align}
+$$
+
+The point $(-2, 4)$ is a point on the second quadrant and the only point we are interested in, so we will not bother with the other roots^[The curious in me wanted to find the other roots, but it seems I will need more than factoring to find them.]. We now have the limits of integration^[I chose to use a horizontal strip because it will only require me to integrate in one set of limits. A vertical strip will require a split as the height of the strip is $\sqrt{x + 18}$ at $x < - 2$ and $x^2$ at $x > -2$. The area of the vertical strip will be $dA = \sqrt{x + 18} \ dx$ evaluated from -18 to -2 and $dA = x^2dx$ evaluated from -2 to 0.] to evaluate equation \@ref(eq:horizontal-strip-area). The area, $A$ of the bounded region is
+
+$$
+\begin{align}
+A &= \int_0^4 \left[- \sqrt{y} - \left(y^2 - 18\right) \right] dy
+\\
+\\
+&= \int_0^4 \left(- y^{ \frac{1}{2}} - y^2 + 18 \right) dy
+\\
+\\
+&= \left[ - \frac{2}{3} y^{\frac{3}{2}} - \frac{1}{3} y^3 + 18y \right]_0^4
+\\
+\\
+&= - \frac{2}{3} \times 4^{\frac{3}{2}} - \frac{1}{3} \times 4^3 + 18 \times 4
+\\
+\\
+A &= \frac{136}{3}
+\end{align}
+$$
+
+# Between the Lines
+
+Before we can find the area, we must first find the equation of the line tangent to $4y = x^3$ at $x = -2$ or the point $\left( -2, -2 \right)$. Since the line is a tangent, the slope of the line will be defined by $\cfrac{dy}{dx}$ at $x = -2$.
+
+$$
+\begin{align}
+4y &= x^3
+\\
+\\
+y &= \frac{x^3}{4}
+\\
+\\
+\frac{dy}{dx} &= \frac{3}{4} x^2
+\end{align}
+$$
+
+At $x = -2$, the slope of the line is $m = 3$. Since we know that the point passes through $\left( -2, -2 \right)$
+
+$$
+\begin{align}
+y &= mx + b
+\\
+-2 &= 3 \times -2 + b
+\\
+b &= 4
+\\
+y &= 3 x + 4 (\#eq:cubic-tangent)
+\end{align}
+$$
+
+We can now plot the two lines to better understand the problem.
+
+(ref:cubic-tangent-area-caption) Area between $4y = x^3$ and its tangent at $x = -2$.
+
+```{r cubic-tangent-area, fig.cap='(ref:cubic-tangent-area-caption)'}
+
+# show are bounded by 4y = x^3 and its tangent at x = -2
+
+# define limits of graph for later, more for aesthetic purposes
+
+x_min <- -3
+x_max <- 5
+y_min <- (x_min^3) / 4
+y_max <- (x_max^3) / 4
+
+# this will be used for the vertical strip
+strip_x <- 2
+
+# create data points to plot
+tibble(
+    abscissa = seq(-4, 6, by = 0.02),
+    cubic = (abscissa^3) / 4,
+    tangent = 3 * abscissa + 4
+  ) %>% 
+  ggplot(aes(x = abscissa)) +
+  # plot the cubic function
+  geom_line(
+    aes(y = cubic),
+    color = "maroon",
+    size = 1
+  ) +
+  # plot the line tangent to the cubic function at x = -2
+  geom_line(
+    aes(y = tangent),
+    color = "darkgreen",
+    size = 1
+  ) +
+  # shade the bounded region
+  geom_ribbon(
+    aes(ymin = cubic, ymax = tangent),
+    fill = "yellow",
+    alpha = 0.5
+  )  +
+  # label the lines with equations
+  annotate(
+    "text",
+    x = -1,
+    y = 5,
+    # this uses {latex2exp}, note the escape \
+    label = TeX("$y = 3x + 4$"),
+    parse = TRUE,
+    color = "darkgreen"
+  ) +
+  annotate(
+    "text",
+    x = 3,
+    y = 4,
+    label = TeX("$y = \\frac{x^3}{4}$"),
+    parse = TRUE,
+    color = "maroon"
+  ) +
+  # add the vertical strip
+  annotate(
+    "rect",
+    # specify the limits of the strip
+    xmin = strip_x + 0.05,
+    xmax = strip_x - 0.05,
+    ymin = (strip_x^3) / 4,
+    ymax = 3 * strip_x + 4,
+    fill = "brown",
+    alpha = 0.8
+  ) + 
+  # add a label to specify the thickness of the strip
+  annotate(
+    "text",
+    x = strip_x,
+    y = 3 * strip_y + 5,
+    label = TeX("$\\Delta x$"),
+    parse = TRUE
+  ) +
+  # highlight x- and y-axis with thicker and darker lines
+  geom_vline(xintercept = 0, color = "black", size = 1) +
+  geom_hline(yintercept = 0, color = "black", size = 1) +
+  # make labels simple, yet informative
+  labs(
+    x = "x",
+    y = "y"
+  ) +
+  xlim(x_min, x_max) +
+  ylim(y_min, y_max)
+
+```
+
+When I saw this plot, I started to wonder if we have to find the area from $\infty$ to $- \infty$. However, my review is yet to enter that topic^[This requires me to write a post on improper integrals.], so I will focus on the area between the intersections of the cubic function and the tangent line. I also took the liberty to use a vertical strip^[A horizontal strip will also work well, but I already used a horizontal strip in the first problem.].
+
+$$
+\begin{equation}
+dA = \left( 3x + 4 - \frac{x^3}{4} \right) \Delta x (\#eq:vertical-strip-area)
+\end{equation}
+$$
+
+We already know that the first intersection in at $x = -2$, so we only need to find the upper bound.
+
+$$
+\begin{align}
+y &= \frac{x^3}{4}
+\\
+\\
+y &= 3x + 4
+\\
+\\
+\frac{x^3}{4} &= 3x + 4
+\\
+\\
+x^3 &= 12x + 16
+\\
+\\
+x^3 - 12 x - 16 &= 0
+\\
+\\
+x^3 - 4x - 8x - 16 &= 0
+\\
+\\
+x \left( x^2 - 4 \right) - 8 \left( x + 2 \right) &= 0
+\\
+\\
+x \left( x - 2 \right) \left( x + 2 \right) - 8 \left( x + 2 \right) &= 0
+\\
+\\
+\left( x + 2 \right) \left[ x \left( x - 2 \right) - 8 \right] &= 0
+\\
+\\
+\left( x + 2 \right) \left( x^2 - 2x - 8 \right) &= 0
+\\
+\\
+\left( x + 2 \right) \left( x + 2 \right) \left( x - 4 \right) &= 0
+\\
+\\
+x &= -2
+\\
+x &= 4
+\end{align}
+$$
+
+Observe that I used the knowledge that one of the roots is $x = -2$.
+
+We can proceed to find the area between $y = \frac{x^3}{4}$ and $y = 3x + 4$ using equation \@ref(vertical-area-strip).
+
+$$
+\begin{align}
+A &= \int_{-2}^4 \left( 3x + 4 - \frac{x^3}{4} \right) dx
+\\
+\\
+A &= \left[ \frac{3}{2} x^2 + 4x - \frac{1}{16} x^4 \right]_{-2}^4
+\\
+\\
+A &= \frac{3}{2} \left( 4 \right)^2 + 4 \left( 4 \right) - \frac{1}{16} \left( 4 \right)^4 - \left[ \frac{3}{2} \left( -2 \right)^2 + 4 \left( -2 \right) - \frac{1}{16} \left( -2 \right)^4 \right]
+\\
+\\
+A &= 27
+\end{align}
+$$
+
+# Code for Plots {code-plot}
+
+Below are the codes I used to graph the problems and illustrate the solutions.
+
+```{r plot-codes, ref.label=all_labels(), eval=FALSE}
+
+```
+
+# Reference
+
+Problems and lessons from

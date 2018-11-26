@@ -1,0 +1,265 @@
+---
+title: Areas of Bounded Regions
+author: Recle Etino Vibal
+date: '2018-11-26'
+categories:
+  - Calculus
+  - Mathematics
+  - Mathjax
+tags:
+  - applications of integration
+  - area under the curve
+  - definite integral
+  - ggplot2
+  - integration
+slug: areas-bounded-regions
+output:
+  blogdown::html_page:
+    toc: yes
+    number_sections: yes
+bibliography:
+  - references/cwag2016.bib
+biblio-style: apalike
+---
+
+
+<div id="TOC">
+<ul>
+<li><a href="#problems"><span class="toc-section-number">1</span> Problems</a><ul>
+<li><a href="#region-in-the-second-quadrant"><span class="toc-section-number">1.1</span> Region in the Second Quadrant</a></li>
+<li><a href="#cubic-curve-and-tangent"><span class="toc-section-number">1.2</span> Cubic Curve and Tangent</a></li>
+</ul></li>
+<li><a href="#solutions"><span class="toc-section-number">2</span> Solutions</a><ul>
+<li><a href="#horizontal-strip"><span class="toc-section-number">2.1</span> Horizontal Strip</a></li>
+</ul></li>
+<li><a href="#between-the-lines"><span class="toc-section-number">3</span> Between the Lines</a></li>
+<li><a href="#code-for-plots-code-plot"><span class="toc-section-number">4</span> Code for Plots {code-plot}</a></li>
+<li><a href="#reference"><span class="toc-section-number">5</span> Reference</a></li>
+</ul>
+</div>
+
+<pre class="r"><code>xfun::pkg_attach(
+  &quot;ggplot2&quot;,
+  &quot;dplyr&quot;,
+  &quot;magrittr&quot;,
+  &quot;knitr&quot;,
+  &quot;latex2exp&quot;
+)</code></pre>
+<pre><code>## 
+## Attaching package: &#39;dplyr&#39;</code></pre>
+<pre><code>## The following objects are masked from &#39;package:stats&#39;:
+## 
+##     filter, lag</code></pre>
+<pre><code>## The following objects are masked from &#39;package:base&#39;:
+## 
+##     intersect, setdiff, setequal, union</code></pre>
+<pre class="r"><code>opts_chunk$set(
+  message = FALSE,
+  warning = FALSE,
+  echo = FALSE,
+  fig.align = &#39;center&#39;
+)
+
+theme_set(theme_minimal())</code></pre>
+<div id="problems" class="section level1">
+<h1><span class="header-section-number">1</span> Problems</h1>
+<div id="region-in-the-second-quadrant" class="section level2">
+<h2><span class="header-section-number">1.1</span> Region in the Second Quadrant</h2>
+<p>Problem 17, page 255 in <span class="citation">Simmons (2016)</span></p>
+<p>Find the area of the region in the second quadrant bounded by the <span class="math inline">\(x\)</span>-axis and the parabolas <span class="math inline">\(y = x^2\)</span> and <span class="math inline">\(y = \sqrt{x + 18}\)</span>.</p>
+</div>
+<div id="cubic-curve-and-tangent" class="section level2">
+<h2><span class="header-section-number">1.2</span> Cubic Curve and Tangent</h2>
+<p>Problem 18, page 255 in <span class="citation">Simmons (2016)</span></p>
+<p>Find the area between <span class="math inline">\(4y = x^3\)</span> and its tangent at <span class="math inline">\(x = -2\)</span>.</p>
+</div>
+</div>
+<div id="solutions" class="section level1">
+<h1><span class="header-section-number">2</span> Solutions</h1>
+<div id="horizontal-strip" class="section level2">
+<h2><span class="header-section-number">2.1</span> Horizontal Strip</h2>
+<p>When solving for areas bounded by regions, graphing the lines and shading the areas of the region of interest makes finding the equation to integrate easier.</p>
+
+<div class="figure" style="text-align: center"><span id="fig:second-quadrant-area"></span>
+<img src="/post/2018-11-26-areas-bounded-regions_files/figure-html/second-quadrant-area-1.png" alt="Area in the second quadrant bounded by the \(x\)-axis and the line \(y = x^2\) and \(y = \sqrt{x + 18}\)." width="672" />
+<p class="caption">
+Figure 2.1: Area in the second quadrant bounded by the <span class="math inline">\(x\)</span>-axis and the line <span class="math inline">\(y = x^2\)</span> and <span class="math inline">\(y = \sqrt{x + 18}\)</span>.
+</p>
+</div>
+<p>For <code>R</code> users, please refer to (ref:code-plot) for the plot’s code.</p>
+<p>I chose to use a horizontal plot because I think this is easier to use. The horizontal strip has an area <span class="math inline">\(dA\)</span>, thickness <span class="math inline">\(\Delta y\)</span>, and length defined by the difference of the abscissas of the two lines, i.e. <span class="math inline">\(x_2 - x_1\)</span> where <span class="math inline">\(x_2 = - \sqrt{y}\)</span> and <span class="math inline">\(x_1 = y^2 - 18\)</span>. Note that <span class="math inline">\(x_2 = \pm \sqrt{y}\)</span>, but since the given is in the second quadrant, then <span class="math inline">\(x_2 = - \sqrt{y}\)</span>. The area of the horizontal strip then is</p>
+<p><span class="math display" id="eq:horizontal-strip-area">\[
+\begin{equation}
+dA = \left[- \sqrt{y} - \left(y^2 - 18\right) \right] dy \tag{2.1}
+\end{equation}
+\]</span></p>
+<p>To find the area of the bounded region, we need to find the limits of integration with respect to <span class="math inline">\(y\)</span>. The minimum is 0, but the maximum will need a little algebra.</p>
+<p><span class="math display">\[
+\begin{align}
+y &amp;= x^2
+\\
+y &amp;= \sqrt{x + 18}
+\\
+x^2 &amp;= \sqrt{x + 18}
+\\
+x^4 &amp;= x + 18
+\\
+x^4 - x - 18 &amp;= 0
+\\
+x^4 - x - 16 - 2 &amp;= 0
+\\
+x^4 - 16 - x- 2 &amp;= 0
+\\
+\left( x^2 - 4 \right) \left( x^2 + 4 \right) - \left(x + 2 \right) &amp;= 0
+\\
+\left( x - 2 \right) \left( x + 2 \right) \left( x^2 + 4 \right) - \left(x + 2 \right) &amp;= 0
+\\
+\left( x + 2 \right) \left[ \left( x - 2 \right) \left( x^2 + 4 \right) - 1 \right] &amp;= 0
+\\
+x + 2 &amp;= 0
+\\
+x &amp;= -2
+\\
+y &amp;= 4
+\end{align}
+\]</span></p>
+<p>The point <span class="math inline">\((-2, 4)\)</span> is a point on the second quadrant and the only point we are interested in, so we will not bother with the other roots<a href="#fn1" class="footnoteRef" id="fnref1"><sup>1</sup></a>. We now have the limits of integration<a href="#fn2" class="footnoteRef" id="fnref2"><sup>2</sup></a> to evaluate equation <a href="#eq:horizontal-strip-area">(2.1)</a>. The area, <span class="math inline">\(A\)</span> of the bounded region is</p>
+<p><span class="math display">\[
+\begin{align}
+A &amp;= \int_0^4 \left[- \sqrt{y} - \left(y^2 - 18\right) \right] dy
+\\
+\\
+&amp;= \int_0^4 \left(- y^{ \frac{1}{2}} - y^2 + 18 \right) dy
+\\
+\\
+&amp;= \left[ - \frac{2}{3} y^{\frac{3}{2}} - \frac{1}{3} y^3 + 18y \right]_0^4
+\\
+\\
+&amp;= - \frac{2}{3} \times 4^{\frac{3}{2}} - \frac{1}{3} \times 4^3 + 18 \times 4
+\\
+\\
+A &amp;= \frac{136}{3}
+\end{align}
+\]</span></p>
+</div>
+</div>
+<div id="between-the-lines" class="section level1">
+<h1><span class="header-section-number">3</span> Between the Lines</h1>
+<p>Before we can find the area, we must first find the equation of the line tangent to <span class="math inline">\(4y = x^3\)</span> at <span class="math inline">\(x = -2\)</span> or the point <span class="math inline">\(\left( -2, -2 \right)\)</span>. Since the line is a tangent, the slope of the line will be defined by <span class="math inline">\(\cfrac{dy}{dx}\)</span> at <span class="math inline">\(x = -2\)</span>.</p>
+<p><span class="math display">\[
+\begin{align}
+4y &amp;= x^3
+\\
+\\
+y &amp;= \frac{x^3}{4}
+\\
+\\
+\frac{dy}{dx} &amp;= \frac{3}{4} x^2
+\end{align}
+\]</span></p>
+<p>At <span class="math inline">\(x = -2\)</span>, the slope of the line is <span class="math inline">\(m = 3\)</span>. Since we know that the point passes through <span class="math inline">\(\left( -2, -2 \right)\)</span></p>
+<p><span class="math display" id="eq:cubic-tangent">\[
+\begin{align}
+y &amp;= mx + b
+\\
+-2 &amp;= 3 \times -2 + b
+\\
+b &amp;= 4
+\\
+y &amp;= 3 x + 4 \tag{3.1}
+\end{align}
+\]</span></p>
+<p>We can now plot the two lines to better understand the problem.</p>
+
+<div class="figure" style="text-align: center"><span id="fig:cubic-tangent-area"></span>
+<img src="/post/2018-11-26-areas-bounded-regions_files/figure-html/cubic-tangent-area-1.png" alt="Area between \(4y = x^3\) and its tangent at \(x = -2\)." width="672" />
+<p class="caption">
+Figure 3.1: Area between <span class="math inline">\(4y = x^3\)</span> and its tangent at <span class="math inline">\(x = -2\)</span>.
+</p>
+</div>
+<p>When I saw this plot, I started to wonder if we have to find the area from <span class="math inline">\(\infty\)</span> to <span class="math inline">\(- \infty\)</span>. However, my review is yet to enter that topic<a href="#fn3" class="footnoteRef" id="fnref3"><sup>3</sup></a>, so I will focus on the area between the intersections of the cubic function and the tangent line. I also took the liberty to use a vertical strip<a href="#fn4" class="footnoteRef" id="fnref4"><sup>4</sup></a>.</p>
+<p><span class="math display" id="eq:vertical-strip-area">\[
+\begin{equation}
+dA = \left( 3x + 4 - \frac{x^3}{4} \right) \Delta x \tag{3.2}
+\end{equation}
+\]</span></p>
+<p>We already know that the first intersection in at <span class="math inline">\(x = -2\)</span>, so we only need to find the upper bound.</p>
+<p><span class="math display">\[
+\begin{align}
+y &amp;= \frac{x^3}{4}
+\\
+\\
+y &amp;= 3x + 4
+\\
+\\
+\frac{x^3}{4} &amp;= 3x + 4
+\\
+\\
+x^3 &amp;= 12x + 16
+\\
+\\
+x^3 - 12 x - 16 &amp;= 0
+\\
+\\
+x^3 - 4x - 8x - 16 &amp;= 0
+\\
+\\
+x \left( x^2 - 4 \right) - 8 \left( x + 2 \right) &amp;= 0
+\\
+\\
+x \left( x - 2 \right) \left( x + 2 \right) - 8 \left( x + 2 \right) &amp;= 0
+\\
+\\
+\left( x + 2 \right) \left[ x \left( x - 2 \right) - 8 \right] &amp;= 0
+\\
+\\
+\left( x + 2 \right) \left( x^2 - 2x - 8 \right) &amp;= 0
+\\
+\\
+\left( x + 2 \right) \left( x + 2 \right) \left( x - 4 \right) &amp;= 0
+\\
+\\
+x &amp;= -2
+\\
+x &amp;= 4
+\end{align}
+\]</span></p>
+<p>Observe that I used the knowledge that one of the roots is <span class="math inline">\(x = -2\)</span>.</p>
+<p>We can proceed to find the area between <span class="math inline">\(y = \frac{x^3}{4}\)</span> and <span class="math inline">\(y = 3x + 4\)</span> using equation <a href="#vertical-area-strip"><strong>??</strong></a>.</p>
+<p><span class="math display">\[
+\begin{align}
+A &amp;= \int_{-2}^4 \left( 3x + 4 - \frac{x^3}{4} \right) dx
+\\
+\\
+A &amp;= \left[ \frac{3}{2} x^2 + 4x - \frac{1}{16} x^4 \right]_{-2}^4
+\\
+\\
+A &amp;= \frac{3}{2} \left( 4 \right)^2 + 4 \left( 4 \right) - \frac{1}{16} \left( 4 \right)^4 - \left[ \frac{3}{2} \left( -2 \right)^2 + 4 \left( -2 \right) - \frac{1}{16} \left( -2 \right)^4 \right]
+\\
+\\
+A &amp;= 27
+\end{align}
+\]</span></p>
+</div>
+<div id="code-for-plots-code-plot" class="section level1">
+<h1><span class="header-section-number">4</span> Code for Plots {code-plot}</h1>
+<p>Below are the codes I used to graph the problems and illustrate the solutions.</p>
+</div>
+<div id="reference" class="section level1">
+<h1><span class="header-section-number">5</span> Reference</h1>
+<p>Problems and lessons from</p>
+<div id="refs" class="references">
+<div id="ref-cwag2016">
+<p>Simmons, George F. 2016. <em>Calculus with Analytic Geometry</em>. 2nd Edition. McGraw-Hill Education.</p>
+</div>
+</div>
+</div>
+<div class="footnotes">
+<hr />
+<ol>
+<li id="fn1"><p>The curious in me wanted to find the other roots, but it seems I will need more than factoring to find them.<a href="#fnref1">↩</a></p></li>
+<li id="fn2"><p>I chose to use a horizontal strip because it will only require me to integrate in one set of limits. A vertical strip will require a split as the height of the strip is <span class="math inline">\(\sqrt{x + 18}\)</span> at <span class="math inline">\(x &lt; - 2\)</span> and <span class="math inline">\(x^2\)</span> at <span class="math inline">\(x &gt; -2\)</span>. The area of the vertical strip will be <span class="math inline">\(dA = \sqrt{x + 18} \ dx\)</span> evaluated from -18 to -2 and <span class="math inline">\(dA = x^2dx\)</span> evaluated from -2 to 0.<a href="#fnref2">↩</a></p></li>
+<li id="fn3"><p>This requires me to write a post on improper integrals.<a href="#fnref3">↩</a></p></li>
+<li id="fn4"><p>A horizontal strip will also work well, but I already used a horizontal strip in the first problem.<a href="#fnref4">↩</a></p></li>
+</ol>
+</div>
