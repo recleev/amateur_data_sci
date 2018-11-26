@@ -22,7 +22,7 @@ bibliography:
 biblio-style: apalike
 ---
 
-```{r attach-packages-set-options}
+```{r attach-packages-set-options, include=FALSE, warning=FALSE, message=FALSE}
 
 xfun::pkg_attach(
   "ggplot2",
@@ -156,7 +156,7 @@ tibble(
 
 ```
 
-For `R` users, please refer to (ref:code-plot) for the plot's code.
+For `R` users, please refer to \@ref(code-plot) for the plot's code.
 
 I chose to use a horizontal plot because I think this is easier to use. The horizontal strip has an area $dA$, thickness $\Delta y$, and length defined by the difference of the abscissas of the two lines, i.e. $x_2 - x_1$ where $x_2 = - \sqrt{y}$ and $x_1 = y^2 - 18$. Note that $x_2 = \pm \sqrt{y}$, but since the given is in the second quadrant, then $x_2 = - \sqrt{y}$. The area of the horizontal strip then is
 
@@ -411,11 +411,11 @@ A &= 27
 \end{align}
 $$
 
-# Code for Plots {code-plot}
+# Code for Plots {#code-plot}
 
 Below are the codes I used to graph the problems and illustrate the solutions.
 
-```{r plot-codes, ref.label=all_labels(), eval=FALSE}
+```{r plot-codes, ref.label=all_labels(), eval=FALSE, echo=TRUE}
 
 ```
 
