@@ -260,10 +260,10 @@
 </ul></li>
 <li><a href="#solutions"><span class="toc-section-number">2</span> Solutions</a><ul>
 <li><a href="#horizontal-strip"><span class="toc-section-number">2.1</span> Horizontal Strip</a></li>
+<li><a href="#between-the-lines"><span class="toc-section-number">2.2</span> Between the Lines</a></li>
 </ul></li>
-<li><a href="#between-the-lines"><span class="toc-section-number">3</span> Between the Lines</a></li>
-<li><a href="#code-plot"><span class="toc-section-number">4</span> Code for Plots</a></li>
-<li><a href="#reference"><span class="toc-section-number">5</span> Reference</a></li>
+<li><a href="#code-plot"><span class="toc-section-number">3</span> Code for Plots</a></li>
+<li><a href="#reference"><span class="toc-section-number">4</span> Reference</a></li>
 </ul>
 </div>
 
@@ -292,7 +292,7 @@
 Figure 2.1: Area in the second quadrant bounded by the <span class="math inline">\(x\)</span>-axis and the line <span class="math inline">\(y = x^2\)</span> and <span class="math inline">\(y = \sqrt{x + 18}\)</span>.
 </p>
 </div>
-<p>For <code>R</code> users, please refer to <a href="#code-plot">4</a> for the plot’s code.</p>
+<p>For <code>R</code> users, please refer to <a href="#code-plot">3</a> for the plot’s code.</p>
 <p>I chose to use a horizontal plot because I think this is easier to use. The horizontal strip has an area <span class="math inline">\(dA\)</span>, thickness <span class="math inline">\(\Delta y\)</span>, and length defined by the difference of the abscissas of the two lines, i.e. <span class="math inline">\(x_2 - x_1\)</span> where <span class="math inline">\(x_2 = - \sqrt{y}\)</span> and <span class="math inline">\(x_1 = y^2 - 18\)</span>. Note that <span class="math inline">\(x_2 = \pm \sqrt{y}\)</span>, but since the given is in the second quadrant, then <span class="math inline">\(x_2 = - \sqrt{y}\)</span>. The area of the horizontal strip then is</p>
 <p><span class="math display" id="eq:horizontal-strip-area">\[
 \begin{equation}
@@ -348,9 +348,8 @@ A &amp;= \frac{136}{3}
 \end{align}
 \]</span></p>
 </div>
-</div>
-<div id="between-the-lines" class="section level1">
-<h1><span class="header-section-number">3</span> Between the Lines</h1>
+<div id="between-the-lines" class="section level2">
+<h2><span class="header-section-number">2.2</span> Between the Lines</h2>
 <p>Before we can find the area, we must first find the equation of the line tangent to <span class="math inline">\(4y = x^3\)</span> at <span class="math inline">\(x = -2\)</span> or the point <span class="math inline">\(\left( -2, -2 \right)\)</span>. Since the line is a tangent, the slope of the line will be defined by <span class="math inline">\(\cfrac{dy}{dx}\)</span> at <span class="math inline">\(x = -2\)</span>.</p>
 <p><span class="math display">\[
 \begin{align}
@@ -372,7 +371,7 @@ y &amp;= mx + b
 \\
 b &amp;= 4
 \\
-y &amp;= 3 x + 4 \tag{3.1}
+y &amp;= 3 x + 4 \tag{2.2}
 \end{align}
 \]</span></p>
 <p>We can now plot the two lines to better understand the problem.</p>
@@ -380,13 +379,13 @@ y &amp;= 3 x + 4 \tag{3.1}
 <div class="figure" style="text-align: center"><span id="fig:cubic-tangent-area"></span>
 <img src="/post/2018-11-26-areas-bounded-regions_files/figure-html/cubic-tangent-area-1.png" alt="Area between \(4y = x^3\) and its tangent at \(x = -2\)." width="672" />
 <p class="caption">
-Figure 3.1: Area between <span class="math inline">\(4y = x^3\)</span> and its tangent at <span class="math inline">\(x = -2\)</span>.
+Figure 2.2: Area between <span class="math inline">\(4y = x^3\)</span> and its tangent at <span class="math inline">\(x = -2\)</span>.
 </p>
 </div>
 <p>When I saw this plot, I started to wonder if we have to find the area from <span class="math inline">\(\infty\)</span> to <span class="math inline">\(- \infty\)</span>. However, my review is yet to enter that topic<a href="#fn3" class="footnoteRef" id="fnref3"><sup>3</sup></a>, so I will focus on the area between the intersections of the cubic function and the tangent line. I also took the liberty to use a vertical strip<a href="#fn4" class="footnoteRef" id="fnref4"><sup>4</sup></a>.</p>
 <p><span class="math display" id="eq:vertical-strip-area">\[
 \begin{equation}
-dA = \left( 3x + 4 - \frac{x^3}{4} \right) \Delta x \tag{3.2}
+dA = \left( 3x + 4 - \frac{x^3}{4} \right) \Delta x \tag{2.3}
 \end{equation}
 \]</span></p>
 <p>We already know that the first intersection in at <span class="math inline">\(x = -2\)</span>, so we only need to find the upper bound.</p>
@@ -447,8 +446,9 @@ A &amp;= 27
 \end{align}
 \]</span></p>
 </div>
+</div>
 <div id="code-plot" class="section level1">
-<h1><span class="header-section-number">4</span> Code for Plots</h1>
+<h1><span class="header-section-number">3</span> Code for Plots</h1>
 <p>Below are the codes I used to graph the problems and illustrate the solutions.</p>
 <pre class="r"><code>xfun::pkg_attach(
   &quot;ggplot2&quot;,
@@ -468,7 +468,8 @@ opts_chunk$set(
 theme_set(theme_minimal())
 
 
-# show area bounded by the x-axis, y = x^2, and y = sqrt(x +18) in the second quadrant 
+# show area bounded by the x-axis, y = x^2, and y = sqrt(x +18) in the second
+# quadrant
 
 # this will be used for the horizontal strip
 strip_y &lt;- 2
@@ -555,7 +556,7 @@ tibble(
   ylim(0, 5)
 
 
-# show are bounded by 4y = x^3 and its tangent at x = -2
+# show area bounded by 4y = x^3 and its tangent at x = -2
 
 # define limits of graph for later, more for aesthetic purposes
 
@@ -641,7 +642,7 @@ tibble(
   ylim(y_min, y_max)</code></pre>
 </div>
 <div id="reference" class="section level1">
-<h1><span class="header-section-number">5</span> Reference</h1>
+<h1><span class="header-section-number">4</span> Reference</h1>
 <p>Problems and lessons from</p>
 <div id="refs" class="references">
 <div id="ref-cwag2016">

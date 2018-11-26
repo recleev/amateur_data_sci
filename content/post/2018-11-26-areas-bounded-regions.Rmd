@@ -68,7 +68,8 @@ When solving for areas bounded by regions, graphing the lines and shading the ar
 
 ```{r second-quadrant-area, fig.cap='(ref:second-quadrant-area-caption)'}
 
-# show area bounded by the x-axis, y = x^2, and y = sqrt(x +18) in the second quadrant 
+# show area bounded by the x-axis, y = x^2, and y = sqrt(x +18) in the second
+# quadrant
 
 # this will be used for the horizontal strip
 strip_y <- 2
@@ -218,7 +219,7 @@ A &= \frac{136}{3}
 \end{align}
 $$
 
-# Between the Lines
+## Between the Lines
 
 Before we can find the area, we must first find the equation of the line tangent to $4y = x^3$ at $x = -2$ or the point $\left( -2, -2 \right)$. Since the line is a tangent, the slope of the line will be defined by $\cfrac{dy}{dx}$ at $x = -2$.
 
@@ -254,7 +255,7 @@ We can now plot the two lines to better understand the problem.
 
 ```{r cubic-tangent-area, fig.cap='(ref:cubic-tangent-area-caption)'}
 
-# show are bounded by 4y = x^3 and its tangent at x = -2
+# show area bounded by 4y = x^3 and its tangent at x = -2
 
 # define limits of graph for later, more for aesthetic purposes
 
