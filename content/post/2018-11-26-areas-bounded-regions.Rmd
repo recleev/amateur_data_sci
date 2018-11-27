@@ -395,7 +395,7 @@ $$
 
 Observe that I used the knowledge that one of the roots is $x = -2$.
 
-We can proceed to find the area between $y = \frac{x^3}{4}$ and $y = 3x + 4$ using equation \@ref(eq:vertical-area-strip).
+We can proceed to find the area between $y = \frac{x^3}{4}$ and $y = 3x + 4$ using equation \@ref(eq:vertical-strip-area).
 
 $$
 \begin{align}
