@@ -1,0 +1,21 @@
+---
+title: A Person Who Loves What He is Doing
+author: Recle Etino Vibal
+date: '2018-12-17'
+slug: loves-what-he-is-doing
+categories:
+  - personal
+  - opinion
+  - life lessons
+tags: []
+description: 'Professional UseR, but still the AmateuR'
+topics: []
+---
+
+More than two years ago, 2016 November, I started learning `R` as part of a company push to be more data centric in our decision making. I found programming difficult to learn, but the opportunity `R` and data science offered encouraged me to continue pursuing it. Soon, I was able to apply `R` and data science to my work.
+
+Last 2018 December 3, I started a new role as a junior data scientist in the research and development department. I use `R` everyday at work to analyse and interpret data.
+
+**The amateur is now a professional.** I am not yet in the first month of my new role, I already have my hands full in data and `R`. I enjoy it, and I am happy to be someone to work with something that I **love**.
+
+It will take me some time to adapt with my new role, not to mention my new shift, so I do not know how often I can still post. I hope to get my groove back by mid-January or early February. I will do my best to work with data and `R` as a hobby even if I work with `R` and data now for a living.
