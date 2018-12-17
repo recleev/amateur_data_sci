@@ -6,10 +6,20 @@
     <description>Recent content in Posts on The Amateur Data Scientist</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>en-us</language>
-    <lastBuildDate>Mon, 26 Nov 2018 00:00:00 +0000</lastBuildDate>
+    <lastBuildDate>Mon, 17 Dec 2018 00:00:00 +0000</lastBuildDate>
     
 	<atom:link href="/post/index.xml" rel="self" type="application/rss+xml" />
     
+    
+    <item>
+      <title>A Person Who Loves What He is Doing</title>
+      <link>/post/loves-what-he-is-doing/</link>
+      <pubDate>Mon, 17 Dec 2018 00:00:00 +0000</pubDate>
+      
+      <guid>/post/loves-what-he-is-doing/</guid>
+      <description>More than two years ago, 2016 November, I started learning R as part of a company push to be more data centric in our decision making. I found programming difficult to learn, but the opportunity R and data science offered encouraged me to continue pursuing it. Soon, I was able to apply R and data science to my work.
+Last 2018 December 3, I started a new role as a junior data scientist in the research and development department.</description>
+    </item>
     
     <item>
       <title>Areas of Bounded Regions</title>
