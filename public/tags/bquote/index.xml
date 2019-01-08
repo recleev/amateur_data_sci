@@ -1,14 +1,14 @@
 <?xml version="1.0" encoding="utf-8" standalone="yes" ?>
 <rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
   <channel>
-    <title>Data.table on The Amateur Data Scientist</title>
-    <link>/tags/data.table/</link>
-    <description>Recent content in Data.table on The Amateur Data Scientist</description>
+    <title>Bquote on The Amateur Data Scientist</title>
+    <link>/tags/bquote/</link>
+    <description>Recent content in Bquote on The Amateur Data Scientist</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>en-us</language>
     <lastBuildDate>Mon, 14 Jan 2019 00:00:00 +0000</lastBuildDate>
     
-	<atom:link href="/tags/data.table/index.xml" rel="self" type="application/rss+xml" />
+	<atom:link href="/tags/bquote/index.xml" rel="self" type="application/rss+xml" />
     
     
     <item>
@@ -18,15 +18,6 @@
       
       <guid>/post/function-manipulate-plot/</guid>
       <description>1 Motivation to Automation2 dplyr and rlang Solution3 Session InfoReferencesxfun::pkg_attach(&amp;quot;knitr&amp;quot;,&amp;quot;data.table&amp;quot;,&amp;quot;ggplot2&amp;quot;,&amp;quot;rlang&amp;quot;,&amp;quot;dplyr&amp;quot;)opts_chunk$set(message = FALSE,warning = FALSE,echo = TRUE)# Create a data.table version of the mtcars data set. I explicitly specified to exclude rownames just to be clear (The default in data.table is FALSE).dt_mtcars &amp;lt;- data.table(mtcars, keep.rownames = FALSE)# Convert some columns from numeric to factor.</description>
-    </item>
-    
-    <item>
-      <title>Wrangling and Manipulation of Monthly Philippine Consumer Price Index</title>
-      <link>/post/wrangling-manipulation-ph-cpi-data-table/</link>
-      <pubDate>Thu, 15 Nov 2018 00:00:00 +0000</pubDate>
-      
-      <guid>/post/wrangling-manipulation-ph-cpi-data-table/</guid>
-      <description>1 More Paths, More Knowledge2 Extension of data.frame3 Where | Order By, Select | Update, Group By4 Monthly Philippine Consumer Price Index 1994 Jan to 2018 Jun4.1 Finagler4.2 ISO 8601 Date4.3 Item Category Levels4.4 Geographic Levels5 The Power of Packages6 Code7 References1 More Paths, More KnowledgeIn a series of posts, I discussed how I turned a messy data, the monthly Philippine consumer price index to tidy data, using packages and functions in the tidyverse.</description>
     </item>
     
   </channel>

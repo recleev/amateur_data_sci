@@ -1,0 +1,99 @@
+---
+title: One Function Call to Manipulate and Plot Them All
+author: Recle Etino Vibal
+date: '2019-01-14'
+categories:
+  - data manipulation
+  - data visualisation
+  - functional programming
+  - lessons
+tags:
+  - baseR
+  - bquote
+  - data.table
+  - function
+  - ggplot2
+  - quasiquotation
+slug: function-manipulate-plot
+description: Functional Programming in {data.table} and {ggplot2} with bquote()
+output:
+  blogdown::html_page:
+    toc: yes
+    number_sections: yes
+bibliography:
+  - references/function-manipulate-plot.bib
+biblio-style: apalike
+---
+
+```{r attach-packages-set-options, message=FALSE, warning=FALSE, include=TRUE}
+
+xfun::pkg_attach(
+  "knitr",
+  "data.table",
+  "ggplot2",
+  "rlang",
+  "dplyr"
+)
+
+opts_chunk$set(
+  message = FALSE,
+  warning = FALSE,
+  echo = TRUE
+)
+
+# Create a data.table version of the mtcars data set. I explicitly specified to exclude rownames just to be clear (The default in data.table is FALSE).
+dt_mtcars <- data.table(mtcars, keep.rownames = FALSE)
+
+# Convert some columns from numeric to factor. I am not sure if this is the most
+# efficient way to update multiple columns in data.table, but it works for my
+# purposes.
+dt_mtcars[
+  ,
+  c("cyl", "vs", "am", "gear") := 
+    lapply(.SD, factor),
+  .SDcols = c("cyl", "vs", "am", "gear")
+]
+
+```
+
+# Motivation to Automation
+
+In my new role as a [junior data scientist](https://amateurdatasci.rbind.io/post/loves-what-he-is-doing/), I have to analyse and manipulate on a regular^[At least 8 hours a day, five days a week] basis using `R`. One common task I always do during exploratory data analysis until production is to check the effect or relationship  of one or more exploratory variables to another in terms of a certain metric or summary of a response variable.
+
+For example,
+
+```{r sample-factors-metric-plot}
+
+dt_mtcars[
+  ,
+  .(disp_avg = mean(disp)),
+  .(cyl, vs, am, gear)
+] %>% 
+  ggplot(
+    aes(gear, disp_avg, fill = cyl)
+  ) +
+  geom_col(position = "dodge") +
+  facet_wrap(
+    vars(vs, am),
+    ncol = 2
+  )
+
+```
+
+This is an easy enough plot to do, but what if I wanted to look at a different metric instead of the average, or a different response variable? What if I wanted to have a different set of explanatory variables, or I want different variables on the x-axis, fill, and facets? It gets too repetitive. When repition becomes apparent and burdensome, **automate**.
+
+# `dplyr` and `rlang` Solution
+
+In one of my works, I already made code to capture the workflow of this data summary and plotting but using `rlang` [@R-rlang] and `dplyr` [@R-dplyr]. This is not an `rlang` tutorial, I don't think I am the best person to discuss what tidy evaluation is and how `rlang` works^[Whenever I want to review tidy evaluation and `rlang`, I always watch Hadley Wickham's short but packed [video](https://www.youtube.com/watch?v=nERXS3ssntw) about the topic.]. I will just give a quick walk through my code using `dplyr`, `rlang`, and `ggplot2` [@R-ggplot2].
+
+
+
+# Session Info
+
+```{r session-info}
+
+sessioninfo::session_info()
+
+```
+
+# References
