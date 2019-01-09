@@ -229,7 +229,7 @@ This is not really as surprise as I don't think both `rlang` and `data.table` wa
 
 # Quasiquotation in `{base}`-`R`
 
-I first learned about `bquote` from @bquote-winvector
+I first learned about `bquote` from @bquote-winvector [here](http://www.win-vector.com/blog/2018/10/quasiquotation-in-r-via-bquote/).
 
 # Session Info
 
