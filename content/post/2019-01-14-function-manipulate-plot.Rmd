@@ -32,7 +32,9 @@ xfun::pkg_attach(
   "data.table",
   "ggplot2",
   "rlang",
-  "dplyr"
+  "dplyr",
+  "magrittr",
+  "ggthemes"
 )
 
 opts_chunk$set(
@@ -75,18 +77,159 @@ dt_mtcars[
   geom_col(position = "dodge") +
   facet_wrap(
     vars(vs, am),
-    ncol = 2
-  )
+    ncol = 2,
+    scales = "free"
+  ) +
+  scale_fill_pander() +
+  theme_minimal()
 
 ```
 
 This is an easy enough plot to do, but what if I wanted to look at a different metric instead of the average, or a different response variable? What if I wanted to have a different set of explanatory variables, or I want different variables on the x-axis, fill, and facets? It gets too repetitive. When repition becomes apparent and burdensome, **automate**.
 
-# `dplyr` and `rlang` Solution
+# Tidy Eval with `rlang`
 
-In one of my works, I already made code to capture the workflow of this data summary and plotting but using `rlang` [@R-rlang] and `dplyr` [@R-dplyr]. This is not an `rlang` tutorial, I don't think I am the best person to discuss what tidy evaluation is and how `rlang` works^[Whenever I want to review tidy evaluation and `rlang`, I always watch Hadley Wickham's short but packed [video](https://www.youtube.com/watch?v=nERXS3ssntw) about the topic.]. I will just give a quick walk through my code using `dplyr`, `rlang`, and `ggplot2` [@R-ggplot2].
+This is not an `rlang` [@R-rlang] tutorial, I don't think I am the best person to discuss what tidy evaluation is and how `rlang` works^[Whenever I want to review tidy evaluation and `rlang`, I always watch Hadley Wickham's short but packed [video](https://www.youtube.com/watch?v=nERXS3ssntw) about the topic.]. I will just give a quick walk through of my code using `rlang` in `ggplot2` [@R-ggplot2].
 
+## Works with `dplyr`
 
+In one of my projects, I already made code to capture the workflow of data summary and plotting using `rlang` and `dplyr` [@R-dplyr].
+
+```{r dplyr-rlang-ggplot2}
+
+plot_with_dplyr_rlang <- function(
+  data_tibble, 
+  x, y, fill, 
+  facet_1, facet_2
+) {
+  # Quote column names in arguments
+  x <- rlang::enquo(x)
+  y <- rlang::enquo(y)
+  fill <- rlang::enquo(fill)
+  facet_1 <- rlang::enquo(facet_1)
+  facet_2 <- rlang::enquo(facet_2)
+  
+  data_tibble %>% 
+    # All the !! are necessary to retrieve the variable name stored in the
+    # arguments. Group by explanatory variables
+    dplyr::group_by(!!x, !!fill, !!facet_1, !!facet_2) %>% 
+    # Compute average of response variable
+    dplyr::summarise(y_avg = mean(!!y)) %>% 
+    ggplot2::ggplot(
+      ggplot2::aes(
+        x = !!x,
+        y = y_avg,
+        fill = !!fill
+      )
+    ) +
+    geom_col(position = "dodge") +
+    facet_wrap(
+      vars(!!facet_1, !!facet_2),
+      ncol = 2,
+      scales = "free"
+    ) +
+    scale_fill_pander() +
+    theme_minimal() 
+}
+
+dt_mtcars %>% 
+  plot_with_dplyr_rlang(
+    gear,
+    disp,
+    fill = cyl,
+    facet_1 = vs,
+    facet_2 = am
+  )
+
+```
+
+The combination of `dplyr`, `rlang`, and `ggplot2` works very well with what I want to do. 
+
+## Fails with `data.table`
+
+However, as a matter of personal preference, I want to use `data.table` [@R-data.table] for my data wrangling and manipulation. I did not expect `rlang` to work with `data.table` since it was made for tidy eval, but I tried anyway.
+
+```{r data.table-rlang-ggplot2, error =TRUE}
+
+plot_with_data.table_rlang <- function(
+  data_data.table,
+  x, y,
+  fill, facet_1, facet_2
+) {
+  # Quote column names in arguments
+    x <- rlang::enquo(x)
+    y <- rlang::enquo(y)
+    fill <- rlang::enquo(fill)
+    facet_1 <- rlang::enquo(facet_1)
+    facet_2 <- rlang::enquo(facet_2)
+    
+  data_data.table[
+    ,
+    # Compute average of response variable
+    .(y_avg = mean(!!y)),
+    # Group by explanatory variables
+    .(!!x, !!fill, !!facet_1, !!facet_2)
+  ] %>% 
+    ggplot2::ggplot(
+        ggplot2::aes(
+          x = !!x,
+          y = y_avg,
+          fill = !!fill
+        )
+      ) +
+      geom_col(position = "dodge") +
+      facet_wrap(
+        vars(!!facet_1, !!facet_2),
+        ncol = 2,
+        scales = "free"
+      ) +
+      scale_fill_pander() +
+      theme_minimal()
+} 
+
+dt_mtcars %>% 
+  plot_with_data.table_rlang(
+    gear,
+    disp,
+    fill = cyl,
+    facet_1 = vs,
+    facet_2 = am
+  )
+
+```
+
+Again, I am not an `rlang` expert, so I am not sure why this does not work. A quick look at the code suggests it could have been at `rlang:::Ops.quosure()`
+
+I did a couple of more test to verify if `rlang` was not really compatible with `data.table`.
+
+```{r test-rlang-dplyr}
+
+# I want to capture object names in objects, so I can refer to the captured
+# objects in the objects with !!
+average_this <- as.name("disp")
+group_with_this <- as.name("cyl")
+
+dt_mtcars %>%
+  group_by(!!group_with_this) %>% 
+  summarise(average = mean(!!average_this))
+
+```
+
+```{r test-rlang-data.table, error=TRUE}
+
+dt_mtcars[
+  ,
+  .(average = mean(!!average_this)),
+  !!group_with_this
+]
+
+```
+
+This is not really as surprise as I don't think both `rlang` and `data.table` was meant to work together. In any case, `rlang` is not the best solution to what I wanted to do with `data.table` and `ggplot2`
+
+# Quasiquotation in `{base}`-`R`
+
+I first learned about `bquote` from @bquote-winvector
 
 # Session Info
 
