@@ -267,7 +267,7 @@
   </header>
 
   <p>
-  1 Motivation to Automation2 dplyr and rlang Solution3 Session InfoReferencesxfun::pkg_attach(&quot;knitr&quot;,&quot;data.table&quot;,&quot;ggplot2&quot;,&quot;rlang&quot;,&quot;dplyr&quot;)opts_chunk$set(message = FALSE,warning = FALSE,echo = TRUE)# Create a data.table version of the mtcars data set. I explicitly specified to exclude rownames just to be clear (The default in data.table is FALSE).dt_mtcars &lt;- data.table(mtcars, keep.rownames = FALSE)# Convert some columns from numeric to factor.
+  1 Motivation to Automation2 Tidy Eval with rlang2.1 Works with dplyr2.2 Fails with data.table3 Quasiquotation in {base}-R4 Session InfoReferencesxfun::pkg_attach(&quot;knitr&quot;,&quot;data.table&quot;,&quot;ggplot2&quot;,&quot;rlang&quot;,&quot;dplyr&quot;,&quot;magrittr&quot;,&quot;ggthemes&quot;)opts_chunk$set(message = FALSE,warning = FALSE,echo = TRUE)# Create a data.table version of the mtcars data set. I explicitly specified to exclude rownames just to be clear (The default in data.
   </p>
 
   
@@ -438,19 +438,6 @@ Find the area of the region in the second quadrant bounded by the \(x\)-axis and
 </div>
 <script src="/js/ui.js"></script>
 
-
-<script>
-  
-  if (window.location.hostname != "localhost") {
-    (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
-    (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
-    m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
-    })(window,document,'script','//www.google-analytics.com/analytics.js','ga');
-
-    ga('create', 'UA-119602814-1', 'auto');
-    ga('send', 'pageview');
-  }
-</script>
 
 
 

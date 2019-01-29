@@ -15,7 +15,6 @@ paginate = 10
   # Shown in the home page
   subtitle = "Data science in all aspects of life just for the love of it."
   brand = "recleev"
-  googleAnalytics = "UA-119602814-1"
   disqus = "the-amateur-data-scientist"
   # CSS name for highlight.js
   highlightjs = "zenburn"
