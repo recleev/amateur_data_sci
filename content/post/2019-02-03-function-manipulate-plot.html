@@ -1,7 +1,7 @@
 ---
 title: One Function Call to Manipulate and Plot Them All
 author: Recle Etino Vibal
-date: '2019-01-14'
+date: '2019-02-03'
 categories:
   - data manipulation
   - data visualisation
@@ -34,7 +34,8 @@ biblio-style: apalike
 <li><a href="#fails-with-data.table"><span class="toc-section-number">2.2</span> Fails with <code>data.table</code></a></li>
 </ul></li>
 <li><a href="#quasiquotation-in-base-r"><span class="toc-section-number">3</span> Quasiquotation in <code>{base}</code>-<code>R</code></a></li>
-<li><a href="#session-info"><span class="toc-section-number">4</span> Session Info</a></li>
+<li><a href="#manipulate-and-plot-in-one-function-call"><span class="toc-section-number">4</span> Manipulate and Plot in One Function Call</a></li>
+<li><a href="#session-info"><span class="toc-section-number">5</span> Session Info</a></li>
 <li><a href="#references">References</a></li>
 </ul>
 </div>
@@ -52,7 +53,9 @@ biblio-style: apalike
 opts_chunk$set(
   message = FALSE,
   warning = FALSE,
-  echo = TRUE
+  echo = TRUE,
+  out.width = &#39;100%&#39;,
+  fig.asp = 1/1.618
 )
 
 # Create a data.table version of the mtcars data set. I explicitly specified to exclude rownames just to be clear (The default in data.table is FALSE).
@@ -87,7 +90,7 @@ dt_mtcars[
   ) +
   scale_fill_pander() +
   theme_minimal()</code></pre>
-<p><img src="/post/2019-01-14-function-manipulate-plot_files/figure-html/sample-factors-metric-plot-1.png" width="672" /></p>
+<p><img src="/post/2019-02-03-function-manipulate-plot_files/figure-html/sample-factors-metric-plot-1.png" width="100%" /></p>
 <p>This is an easy enough plot to do, but what if I wanted to look at a different metric instead of the average, or a different response variable? What if I wanted to have a different set of explanatory variables, or I want different variables on the x-axis, fill, and facets? It gets too repetitive. When repition becomes apparent and burdensome, <strong>automate</strong>.</p>
 </div>
 <div id="tidy-eval-with-rlang" class="section level1">
@@ -139,7 +142,12 @@ dt_mtcars %&gt;%
     facet_1 = vs,
     facet_2 = am
   )</code></pre>
-<p><img src="/post/2019-01-14-function-manipulate-plot_files/figure-html/dplyr-rlang-ggplot2-1.png" width="672" /></p>
+<div class="figure"><span id="fig:dplyr-rlang-ggplot2"></span>
+<img src="/post/2019-02-03-function-manipulate-plot_files/figure-html/dplyr-rlang-ggplot2-1.png" alt="Observing the Effects of Several Explanatory Variables on a Response Variable via Graph. I noticed I tend to make this kind graph multiple times during exploratory data analysis and in production." width="100%" />
+<p class="caption">
+Figure 2.1: Observing the Effects of Several Explanatory Variables on a Response Variable via Graph. I noticed I tend to make this kind graph multiple times during exploratory data analysis and in production.
+</p>
+</div>
 <p>The combination of <code>dplyr</code>, <code>rlang</code>, and <code>ggplot2</code> works very well with what I want to do.</p>
 </div>
 <div id="fails-with-data.table" class="section level2">
@@ -209,18 +217,203 @@ dt_mtcars %&gt;%
 <pre class="r"><code>dt_mtcars[
   ,
   .(average = mean(!!average_this)),
-  !!group_with_this
+  .(!!group_with_this)
 ]</code></pre>
 <pre><code>## Error in !group_with_this: invalid argument type</code></pre>
-<p>This is not really as surprise as I don’t think both <code>rlang</code> and <code>data.table</code> was meant to work together. In any case, <code>rlang</code> is not the best solution to what I wanted to do with <code>data.table</code> and <code>ggplot2</code></p>
+<p>This is not really a surprise. I don’t think both <code>rlang</code> and <code>data.table</code> was meant to work together. In any case, <code>rlang</code> is not the best solution to what I wanted to do with <code>data.table</code> and <code>ggplot2</code></p>
 </div>
 </div>
 <div id="quasiquotation-in-base-r" class="section level1">
 <h1><span class="header-section-number">3</span> Quasiquotation in <code>{base}</code>-<code>R</code></h1>
-<p>I first learned about <code>bquote</code> from <span class="citation">Mount (n.d.)</span> <a href="http://www.win-vector.com/blog/2018/10/quasiquotation-in-r-via-bquote/">here</a>.</p>
+<p>I first learned about <code>bquote</code> from <span class="citation">(Mount, n.d.)</span>(<a href="http://www.win-vector.com/blog/2018/10/quasiquotation-in-r-via-bquote/" class="uri">http://www.win-vector.com/blog/2018/10/quasiquotation-in-r-via-bquote/</a>). At first, I did not understood nor realized the power of <code>bquote()</code>.</p>
+<p>Both <code>quote()</code> and <code>bquote()</code> captures the coder’s input.</p>
+<pre class="r"><code>quote((7 - 3)^2 * 8 / 4 + 9 - 6)</code></pre>
+<pre><code>## (7 - 3)^2 * 8/4 + 9 - 6</code></pre>
+<pre class="r"><code>bquote((7 - 3)^2 * 8 / 4 + 9 - 6)</code></pre>
+<pre><code>## (7 - 3)^2 * 8/4 + 9 - 6</code></pre>
+<p>Note that the expressions inside <code>quote()</code> and <code>bquote()</code> were not evaluated, but captured as is. To evaluate the quoted expressions just use <code>eval()</code>.</p>
+<pre class="r"><code>eval(quote((7 - 3)^2 * 8 / 4 + 9 - 6))</code></pre>
+<pre><code>## [1] 35</code></pre>
+<pre class="r"><code>eval(bquote((7 - 3)^2 * 8 / 4 + 9 - 6))</code></pre>
+<pre><code>## [1] 35</code></pre>
+<p>What’s the difference between <code>quote()</code> and <code>bquote()</code> then? The power of <code>bquote()</code><a href="#fn3" class="footnoteRef" id="fnref3"><sup>3</sup></a> is in capturing expressions inside objects using <code>.()</code>.</p>
+<pre class="r"><code>pemdas &lt;- quote((7 - 3)^2 * 8 / 4 + 9 - 6)
+
+quote(pemdas)</code></pre>
+<pre><code>## pemdas</code></pre>
+<pre class="r"><code>bquote(pemdas)</code></pre>
+<pre><code>## pemdas</code></pre>
+<pre class="r"><code>bquote(.(pemdas))</code></pre>
+<pre><code>## (7 - 3)^2 * 8/4 + 9 - 6</code></pre>
+<p>In the example above, we assign <code>(7 - 3)^2 * 8 / 4 + 9 - 6</code> to the object <code>pemdas</code>. Wrapping <code>pemdas</code> in <code>quote()</code> and <code>bquote()</code> returns <code>pemdas</code>. However, wrapping <code>pemdas</code> first inside <code>.()</code> before calling it inside <code>bquote()</code> returns the captured expression in <code>pemdas</code>. This becomes apparent when we try to evaluate each.</p>
+<pre class="r"><code>eval(pemdas)</code></pre>
+<pre><code>## [1] 35</code></pre>
+<pre class="r"><code>eval(quote(pemdas))</code></pre>
+<pre><code>## (7 - 3)^2 * 8/4 + 9 - 6</code></pre>
+<pre class="r"><code>eval(bquote(pemdas))</code></pre>
+<pre><code>## (7 - 3)^2 * 8/4 + 9 - 6</code></pre>
+<pre class="r"><code>eval(bquote(.(pemdas)))</code></pre>
+<pre><code>## [1] 35</code></pre>
+<p>How can <code>bquote()</code> be useful? In my opinion, it is <code>rlang</code>’s grandfather.<a href="#fn4" class="footnoteRef" id="fnref4"><sup>4</sup></a> Say we want to call column names inside object names.</p>
+<pre class="r"><code>col1 &lt;- as.name(&quot;disp&quot;)
+
+col2 &lt;- as.name(&quot;gear&quot;)
+
+col1</code></pre>
+<pre><code>## disp</code></pre>
+<pre class="r"><code>col2</code></pre>
+<pre><code>## gear</code></pre>
+<p>Both the column names in <code>col1</code> and <code>col2</code> are in <code>dt_mtcars</code>, but we cannot use the objects directly to extract the columns we want.</p>
+<pre class="r"><code>dt_mtcars$col1</code></pre>
+<pre><code>## NULL</code></pre>
+<pre class="r"><code>dt_mtcars$col2</code></pre>
+<pre><code>## NULL</code></pre>
+<pre class="r"><code>select(dt_mtcars, col1, col2)</code></pre>
+<pre><code>## Error: `col1` and `col2` must evaluate to column positions or names, not a symbol</code></pre>
+<pre class="r"><code>dt_mtcars[, .(col1, col2)]</code></pre>
+<pre><code>## Error in prettyNum(.Internal(format(x, trim, digits, nsmall, width, 3L, : first argument must be atomic</code></pre>
+<p>Note that calling <code>dt_mtcars$col1</code> and <code>dt_mtcars$col2</code> results to a <code>NULL</code> because there are no <code>col1</code> and <code>col2</code> columns in <code>mtcars</code>. Looking for the colums in <code>col1</code> and <code>col2</code> using <code>dplyr::select()</code> and <code>data.table</code>’s <code>j</code> both fails. We can make this work using <code>eval()</code>, <code>bquote()</code>, and <code>.()</code>.</p>
+<pre class="r"><code>eval(bquote(`$`(dt_mtcars, .(col1))))</code></pre>
+<pre><code>##  [1] 160.0 160.0 108.0 258.0 360.0 225.0 360.0 146.7 140.8 167.6 167.6
+## [12] 275.8 275.8 275.8 472.0 460.0 440.0  78.7  75.7  71.1 120.1 318.0
+## [23] 304.0 350.0 400.0  79.0 120.3  95.1 351.0 145.0 301.0 121.0</code></pre>
+<pre class="r"><code>eval(bquote(`$`(dt_mtcars, .(col2))))</code></pre>
+<pre><code>##  [1] 4 4 4 3 3 3 3 4 4 4 4 3 3 3 3 3 3 4 4 4 3 3 3 3 3 4 5 5 5 5 5 4
+## Levels: 3 4 5</code></pre>
+<pre class="r"><code>eval(bquote(select(dt_mtcars, .(col1), .(col2))))</code></pre>
+<pre><code>##      disp gear
+##  1: 160.0    4
+##  2: 160.0    4
+##  3: 108.0    4
+##  4: 258.0    3
+##  5: 360.0    3
+##  6: 225.0    3
+##  7: 360.0    3
+##  8: 146.7    4
+##  9: 140.8    4
+## 10: 167.6    4
+## 11: 167.6    4
+## 12: 275.8    3
+## 13: 275.8    3
+## 14: 275.8    3
+## 15: 472.0    3
+## 16: 460.0    3
+## 17: 440.0    3
+## 18:  78.7    4
+## 19:  75.7    4
+## 20:  71.1    4
+## 21: 120.1    3
+## 22: 318.0    3
+## 23: 304.0    3
+## 24: 350.0    3
+## 25: 400.0    3
+## 26:  79.0    4
+## 27: 120.3    5
+## 28:  95.1    5
+## 29: 351.0    5
+## 30: 145.0    5
+## 31: 301.0    5
+## 32: 121.0    4
+##      disp gear</code></pre>
+<pre class="r"><code>eval(bquote(dt_mtcars[, list(.(col1), .(col2))]))</code></pre>
+<pre><code>##      disp gear
+##  1: 160.0    4
+##  2: 160.0    4
+##  3: 108.0    4
+##  4: 258.0    3
+##  5: 360.0    3
+##  6: 225.0    3
+##  7: 360.0    3
+##  8: 146.7    4
+##  9: 140.8    4
+## 10: 167.6    4
+## 11: 167.6    4
+## 12: 275.8    3
+## 13: 275.8    3
+## 14: 275.8    3
+## 15: 472.0    3
+## 16: 460.0    3
+## 17: 440.0    3
+## 18:  78.7    4
+## 19:  75.7    4
+## 20:  71.1    4
+## 21: 120.1    3
+## 22: 318.0    3
+## 23: 304.0    3
+## 24: 350.0    3
+## 25: 400.0    3
+## 26:  79.0    4
+## 27: 120.3    5
+## 28:  95.1    5
+## 29: 351.0    5
+## 30: 145.0    5
+## 31: 301.0    5
+## 32: 121.0    4
+##      disp gear</code></pre>
+<p>Note that I had to use the function form of the <code>$</code> because <code>eval(bquote(dt_mtcars$.(col1)))</code> does not work. I also used <code>list()</code> instead of <code>data.table</code>’s <code>.()</code> alias to <code>list()</code> to avoid conflict to <code>bquote()</code>’s <code>.()</code>^[This is mentioned in <code>data.table</code>’s documentation:</p>
+<blockquote>
+<p>The expression ‘.()’ is a shorthand alias to list(); they both mean the same. (An exception is made for the use of .() within a call to bquote, where .() is left unchanged.) As long as j returns a list, each element of the list becomes a column in the resulting data.table. This is the default enhanced mode.</p>
+</blockquote>
+<p>].</p>
+<p>I really like <code>bquote()</code> because it can work with both <code>dplyr</code>, <code>data.table</code>, and maybe with any <code>R</code> package.</p>
+</div>
+<div id="manipulate-and-plot-in-one-function-call" class="section level1">
+<h1><span class="header-section-number">4</span> Manipulate and Plot in One Function Call</h1>
+<p>With <code>bquote()</code>, we can now create a simple function to manipulate and plot a data in the way we want just like <a href="#fig:sample-factors-metric-plot"><strong>??</strong></a></p>
+<pre class="r"><code>plot_summary &lt;- function(
+  my_dt, 
+  response_var, 
+  var1, 
+  var2, 
+  var3, 
+  var4, 
+  summary_fun = mean
+) {
+  
+  response_var &lt;- as.name(response_var)
+  var1 &lt;- as.name(var1)
+  var2 &lt;- as.name(var2)
+  var3 &lt;- as.name(var3)
+  var4 &lt;- as.name(var4)
+  
+  eval(
+    bquote(
+      my_dt[
+        ,
+        list(response_summary = summary_fun(.(response_var))),
+        list(.(var1), .(var2), .(var3), .(var4))
+        ] %&gt;% 
+        ggplot2::ggplot(aes(.(var1), response_summary, fill = .(var2))) +
+        ggplot2::geom_col(position = &quot;dodge&quot;) +
+        ggplot2::facet_wrap(
+          ggplot2::vars(.(var3), .(var4)),
+          ncol = 2,
+          scales = &quot;free&quot;
+        ) +
+        ggthemes::scale_fill_pander() +
+        ggplot2::theme_minimal()
+    )
+  )
+}
+
+plot_summary(
+  my_dt = dt_mtcars,
+  response_var = &quot;disp&quot;,
+  var1 = &quot;gear&quot;,
+  var2 = &quot;cyl&quot;,
+  var3 = &quot;vs&quot;,
+  var4 = &quot;am&quot;
+)</code></pre>
+<div class="figure"><span id="fig:one-function"></span>
+<img src="/post/2019-02-03-function-manipulate-plot_files/figure-html/one-function-1.png" alt="The Power of `bquote()` to Manipulate (`{data.table}`) and Plot (`{ggplot2}`) Data in One Function Call" width="100%" />
+<p class="caption">
+Figure 4.1: The Power of <code>bquote()</code> to Manipulate (<code>{data.table}</code>) and Plot (<code>{ggplot2}</code>) Data in One Function Call
+</p>
+</div>
+<p>I was amazed when I was able to make this work, and I started to appreciate <code>bquote()</code> more; I hope you do too. I know that some use<code>R</code>s might get queasy by using string names as input then passing these through <code>as.name()</code>. I prefer it this way, but I am interested if anyone can show me an alternative that will work with <code>bquote()</code>, <code>{data.table}</code>, and <code>{ggplot2}</code>. To anyone who wants use the <code>plot_summary()</code>, be careful. The function is not free of bugs, and I can already think of a couple of ways it can fail, e.g. <code>var4 = NULL</code>.</p>
 </div>
 <div id="session-info" class="section level1">
-<h1><span class="header-section-number">4</span> Session Info</h1>
+<h1><span class="header-section-number">5</span> Session Info</h1>
 <pre class="r"><code>sessioninfo::session_info()</code></pre>
 <pre><code>## - Session info ----------------------------------------------------------
 ##  setting  value                       
@@ -232,7 +425,7 @@ dt_mtcars %&gt;%
 ##  collate  English_Philippines.1252    
 ##  ctype    English_Philippines.1252    
 ##  tz       Asia/Kuala_Lumpur           
-##  date     2019-01-29                  
+##  date     2019-02-03                  
 ## 
 ## - Packages --------------------------------------------------------------
 ##  package     * version date       lib source                         
@@ -253,6 +446,7 @@ dt_mtcars %&gt;%
 ##  ggthemes    * 4.0.1   2018-08-24 [1] CRAN (R 3.5.1)                 
 ##  glue          1.3.0   2018-10-03 [1] Github (tidyverse/glue@4e74901)
 ##  gtable        0.2.0   2016-02-26 [1] CRAN (R 3.5.0)                 
+##  highr         0.7     2018-06-09 [1] CRAN (R 3.5.0)                 
 ##  htmltools     0.3.6   2017-04-28 [1] CRAN (R 3.5.0)                 
 ##  knitr       * 1.21    2018-12-10 [1] CRAN (R 3.5.1)                 
 ##  labeling      0.3     2014-08-23 [1] CRAN (R 3.5.0)                 
@@ -303,5 +497,7 @@ dt_mtcars %&gt;%
 <ol>
 <li id="fn1"><p>At least 8 hours a day, five days a week<a href="#fnref1">↩</a></p></li>
 <li id="fn2"><p>Whenever I want to review tidy evaluation and <code>rlang</code>, I always watch Hadley Wickham’s short but packed <a href="https://www.youtube.com/watch?v=nERXS3ssntw">video</a> about the topic.<a href="#fnref2">↩</a></p></li>
+<li id="fn3"><p>I am only explaining <code>bquote()</code> here in layman terms and based on how I understand it. For more information on <code>bquote()</code> just check the documentation.<a href="#fnref3">↩</a></p></li>
+<li id="fn4"><p>I got the idea of <code>bquote()</code>’s precedence and similarity to <code>rlang</code> from <span class="citation">Mount (n.d.)</span>.<a href="#fnref4">↩</a></p></li>
 </ol>
 </div>

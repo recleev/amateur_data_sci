@@ -1,7 +1,7 @@
 ---
 title: One Function Call to Manipulate and Plot Them All
 author: Recle Etino Vibal
-date: '2019-01-14'
+date: '2019-02-03'
 categories:
   - data manipulation
   - data visualisation
@@ -40,7 +40,9 @@ xfun::pkg_attach(
 opts_chunk$set(
   message = FALSE,
   warning = FALSE,
-  echo = TRUE
+  echo = TRUE,
+  out.width = '100%',
+  fig.asp = 1/1.618
 )
 
 # Create a data.table version of the mtcars data set. I explicitly specified to exclude rownames just to be clear (The default in data.table is FALSE).
@@ -95,7 +97,7 @@ This is not an `rlang` [@R-rlang] tutorial, I don't think I am the best person t
 
 In one of my projects, I already made code to capture the workflow of data summary and plotting using `rlang` and `dplyr` [@R-dplyr].
 
-```{r dplyr-rlang-ggplot2}
+```{r dplyr-rlang-ggplot2, fig.cap="Observing the Effects of Several Explanatory Variables on a Response Variable via Graph. I noticed I tend to make this kind graph multiple times during exploratory data analysis and in production."}
 
 plot_with_dplyr_rlang <- function(
   data_tibble, 
@@ -220,16 +222,175 @@ dt_mtcars %>%
 dt_mtcars[
   ,
   .(average = mean(!!average_this)),
-  !!group_with_this
+  .(!!group_with_this)
 ]
 
 ```
 
-This is not really as surprise as I don't think both `rlang` and `data.table` was meant to work together. In any case, `rlang` is not the best solution to what I wanted to do with `data.table` and `ggplot2`
+This is not really a surprise. I don't think both `rlang` and `data.table` was meant to work together. In any case, `rlang` is not the best solution to what I wanted to do with `data.table` and `ggplot2`
 
 # Quasiquotation in `{base}`-`R`
 
-I first learned about `bquote` from @bquote-winvector [here](http://www.win-vector.com/blog/2018/10/quasiquotation-in-r-via-bquote/).
+I first learned about `bquote` from [@bquote-winvector](http://www.win-vector.com/blog/2018/10/quasiquotation-in-r-via-bquote/). At first, I did not understood nor realized the power of `bquote()`.
+
+Both `quote()` and `bquote()` captures the coder's input.
+
+```{r quote-sample}
+
+quote((7 - 3)^2 * 8 / 4 + 9 - 6)
+
+```
+
+```{r bquote-sample}
+
+bquote((7 - 3)^2 * 8 / 4 + 9 - 6)
+
+```
+
+Note that the expressions inside `quote()` and `bquote()` were not evaluated, but captured as is. To evaluate the quoted expressions just use `eval()`.
+
+```{r eval-quote-bquote-sample}
+
+eval(quote((7 - 3)^2 * 8 / 4 + 9 - 6))
+
+eval(bquote((7 - 3)^2 * 8 / 4 + 9 - 6))
+
+```
+
+What's the difference between `quote()` and `bquote()` then? The power of `bquote()`^[I am only explaining `bquote()` here in layman terms and based on how I understand it. For more information on `bquote()` just check the documentation.] is in capturing expressions inside objects using `.()`.
+
+```{r pemdas-quote-bquote-sample}
+
+pemdas <- quote((7 - 3)^2 * 8 / 4 + 9 - 6)
+
+quote(pemdas)
+
+bquote(pemdas)
+
+bquote(.(pemdas))
+
+```
+
+In the example above, we assign `(7 - 3)^2 * 8 / 4 + 9 - 6` to the object `pemdas`. Wrapping `pemdas` in `quote()` and `bquote()` returns `pemdas`. However, wrapping
+`pemdas` first inside `.()` before calling it inside `bquote()` returns the captured expression in `pemdas`. This becomes apparent when we try to evaluate each.
+
+```{r eval-pemdas}
+
+eval(pemdas)
+
+eval(quote(pemdas))
+
+eval(bquote(pemdas))
+
+eval(bquote(.(pemdas)))
+
+```
+
+How can `bquote()` be useful? In my opinion, it is `rlang`'s grandfather.^[I got the idea of `bquote()`'s precedence and similarity to `rlang` from @bquote-winvector.] Say we want to call column names inside object names.
+
+```{r column-names}
+
+col1 <- as.name("disp")
+
+col2 <- as.name("gear")
+
+col1
+
+col2
+
+```
+
+Both the column names in `col1` and `col2` are in `dt_mtcars`, but we cannot use the objects directly to extract the columns we want.
+
+```{r bad-call-columns, error = TRUE}
+
+dt_mtcars$col1
+
+dt_mtcars$col2
+
+select(dt_mtcars, col1, col2)
+
+dt_mtcars[, .(col1, col2)]
+
+```
+
+Note that calling `dt_mtcars$col1` and `dt_mtcars$col2` results to a `NULL` because there are no `col1` and `col2` columns in `mtcars`. Looking for the colums in `col1` and `col2` using `dplyr::select()` and `data.table`'s `j` both fails. We can make this work using `eval()`, `bquote()`, and `.()`.
+
+```{r bquote-colnames}
+
+eval(bquote(`$`(dt_mtcars, .(col1))))
+
+eval(bquote(`$`(dt_mtcars, .(col2))))
+
+eval(bquote(select(dt_mtcars, .(col1), .(col2))))
+
+eval(bquote(dt_mtcars[, list(.(col1), .(col2))]))
+
+
+```
+
+Note that I had to use the function form of the `$` because `eval(bquote(dt_mtcars$.(col1)))` does not work. I also used `list()` instead of `data.table`'s `.()` alias to `list()` to avoid conflict to `bquote()`'s `.()`^[This is mentioned in `data.table`'s documentation: 
+
+> The expression '.()' is a shorthand alias to list(); they both mean the same. (An exception is made for the use of .() within a call to bquote, where .() is left unchanged.) As long as j returns a list, each element of the list becomes a column in the resulting data.table. This is the default enhanced mode.
+
+].
+
+I really like `bquote()` because it can work with both `dplyr`, `data.table`, and maybe with any `R` package.
+
+# Manipulate and Plot in One Function Call
+
+With `bquote()`, we can now create a simple function to manipulate and plot a data in the way we want just like \@ref(fig:sample-factors-metric-plot)
+
+```{r one-function, out.width='100%', fig.cap="The Power of `bquote()` to Manipulate (`{data.table}`) and Plot (`{ggplot2}`) Data in One Function Call"}
+
+plot_summary <- function(
+  my_dt, 
+  response_var, 
+  var1, 
+  var2, 
+  var3, 
+  var4, 
+  summary_fun = mean
+) {
+  
+  response_var <- as.name(response_var)
+  var1 <- as.name(var1)
+  var2 <- as.name(var2)
+  var3 <- as.name(var3)
+  var4 <- as.name(var4)
+  
+  eval(
+    bquote(
+      my_dt[
+        ,
+        list(response_summary = summary_fun(.(response_var))),
+        list(.(var1), .(var2), .(var3), .(var4))
+        ] %>% 
+        ggplot2::ggplot(aes(.(var1), response_summary, fill = .(var2))) +
+        ggplot2::geom_col(position = "dodge") +
+        ggplot2::facet_wrap(
+          ggplot2::vars(.(var3), .(var4)),
+          ncol = 2,
+          scales = "free"
+        ) +
+        ggthemes::scale_fill_pander() +
+        ggplot2::theme_minimal()
+    )
+  )
+}
+
+plot_summary(
+  my_dt = dt_mtcars,
+  response_var = "disp",
+  var1 = "gear",
+  var2 = "cyl",
+  var3 = "vs",
+  var4 = "am"
+)
+
+```
+
+I was amazed when I was able to make this work, and I started to appreciate `bquote()` more; I hope you do too. I know that some use`R`s might get queasy by using string names as input then passing these through `as.name()`. I prefer it this way, but I am interested if anyone can show me an alternative that will work with `bquote()`, `{data.table}`, and `{ggplot2}`. To anyone who wants use the `plot_summary()`, be careful. The function is not free of bugs, and I can already think of a couple of ways it can fail, e.g. `var4 = NULL`.
 
 # Session Info
 

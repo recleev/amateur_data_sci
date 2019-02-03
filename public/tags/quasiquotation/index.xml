@@ -6,7 +6,7 @@
     <description>Recent content in Quasiquotation on The Amateur Data Scientist</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>en-us</language>
-    <lastBuildDate>Mon, 14 Jan 2019 00:00:00 +0000</lastBuildDate>
+    <lastBuildDate>Sun, 03 Feb 2019 00:00:00 +0000</lastBuildDate>
     
 	<atom:link href="/tags/quasiquotation/index.xml" rel="self" type="application/rss+xml" />
     
@@ -14,10 +14,10 @@
     <item>
       <title>One Function Call to Manipulate and Plot Them All</title>
       <link>/post/function-manipulate-plot/</link>
-      <pubDate>Mon, 14 Jan 2019 00:00:00 +0000</pubDate>
+      <pubDate>Sun, 03 Feb 2019 00:00:00 +0000</pubDate>
       
       <guid>/post/function-manipulate-plot/</guid>
-      <description>1 Motivation to Automation2 Tidy Eval with rlang2.1 Works with dplyr2.2 Fails with data.table3 Quasiquotation in {base}-R4 Session InfoReferencesxfun::pkg_attach(&amp;quot;knitr&amp;quot;,&amp;quot;data.table&amp;quot;,&amp;quot;ggplot2&amp;quot;,&amp;quot;rlang&amp;quot;,&amp;quot;dplyr&amp;quot;,&amp;quot;magrittr&amp;quot;,&amp;quot;ggthemes&amp;quot;)opts_chunk$set(message = FALSE,warning = FALSE,echo = TRUE)# Create a data.table version of the mtcars data set. I explicitly specified to exclude rownames just to be clear (The default in data.</description>
+      <description>1 Motivation to Automation2 Tidy Eval with rlang2.1 Works with dplyr2.2 Fails with data.table3 Quasiquotation in {base}-R4 Manipulate and Plot in One Function Call5 Session InfoReferencesxfun::pkg_attach(&amp;quot;knitr&amp;quot;,&amp;quot;data.table&amp;quot;,&amp;quot;ggplot2&amp;quot;,&amp;quot;rlang&amp;quot;,&amp;quot;dplyr&amp;quot;,&amp;quot;magrittr&amp;quot;,&amp;quot;ggthemes&amp;quot;)opts_chunk$set(message = FALSE,warning = FALSE,echo = TRUE,out.width = &amp;#39;100%&amp;#39;,fig.asp = 1/1.618)# Create a data.table version of the mtcars data set.</description>
     </item>
     
   </channel>
