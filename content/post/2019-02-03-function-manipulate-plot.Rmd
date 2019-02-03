@@ -66,7 +66,7 @@ In my new role as a [junior data scientist](https://amateurdatasci.rbind.io/post
 
 For example,
 
-```{r sample-factors-metric-plot}
+```{r sample-factors-metric-plot, fig.cap="Observing the Effects of Several Explanatory Variables on a Response Variable via Graph. I noticed I tend to make this kind graph multiple times during exploratory data analysis and in production."}
 
 dt_mtcars[
   ,
@@ -97,7 +97,7 @@ This is not an `rlang` [@R-rlang] tutorial, I don't think I am the best person t
 
 In one of my projects, I already made code to capture the workflow of data summary and plotting using `rlang` and `dplyr` [@R-dplyr].
 
-```{r dplyr-rlang-ggplot2, fig.cap="Observing the Effects of Several Explanatory Variables on a Response Variable via Graph. I noticed I tend to make this kind graph multiple times during exploratory data analysis and in production."}
+```{r dplyr-rlang-ggplot2, fig.cap="Compatibility of `{rlang}` and `{ggplot2}`"}
 
 plot_with_dplyr_rlang <- function(
   data_tibble, 
@@ -329,17 +329,14 @@ eval(bquote(dt_mtcars[, list(.(col1), .(col2))]))
 
 ```
 
-Note that I had to use the function form of the `$` because `eval(bquote(dt_mtcars$.(col1)))` does not work. I also used `list()` instead of `data.table`'s `.()` alias to `list()` to avoid conflict to `bquote()`'s `.()`^[This is mentioned in `data.table`'s documentation: 
-
-> The expression '.()' is a shorthand alias to list(); they both mean the same. (An exception is made for the use of .() within a call to bquote, where .() is left unchanged.) As long as j returns a list, each element of the list becomes a column in the resulting data.table. This is the default enhanced mode.
-
+Note that I had to use the function form of the `$` because `eval(bquote(dt_mtcars$.(col1)))` does not work. I also used `list()` instead of `data.table`'s `.()` alias to `list()` to avoid conflict to `bquote()`'s `.()`^[This is mentioned in `data.table`'s documentation: **The expression '.()' is a shorthand alias to list(); they both mean the same. (An exception is made for the use of .() within a call to bquote, where .() is left unchanged.) As long as j returns a list, each element of the list becomes a column in the resulting data.table. This is the default enhanced mode**.
 ].
 
 I really like `bquote()` because it can work with both `dplyr`, `data.table`, and maybe with any `R` package.
 
 # Manipulate and Plot in One Function Call
 
-With `bquote()`, we can now create a simple function to manipulate and plot a data in the way we want just like \@ref(fig:sample-factors-metric-plot)
+With `bquote()`, we can now create a simple function to manipulate and plot a data in the way we want just like Figure \@ref(fig:sample-factors-metric-plot).
 
 ```{r one-function, out.width='100%', fig.cap="The Power of `bquote()` to Manipulate (`{data.table}`) and Plot (`{ggplot2}`) Data in One Function Call"}
 

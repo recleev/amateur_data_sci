@@ -318,15 +318,20 @@ dt_mtcars[
   ) +
   scale_fill_pander() +
   theme_minimal()</code></pre>
-<p><img src="/post/2019-02-03-function-manipulate-plot_files/figure-html/sample-factors-metric-plot-1.png" width="100%" /></p>
+<div class="figure"><span id="fig:sample-factors-metric-plot"></span>
+<img src="/post/2019-02-03-function-manipulate-plot_files/figure-html/sample-factors-metric-plot-1.png" alt="Observing the Effects of Several Explanatory Variables on a Response Variable via Graph. I noticed I tend to make this kind graph multiple times during exploratory data analysis and in production." width="100%" />
+<p class="caption">
+Figure 1.1: Observing the Effects of Several Explanatory Variables on a Response Variable via Graph. I noticed I tend to make this kind graph multiple times during exploratory data analysis and in production.
+</p>
+</div>
 <p>This is an easy enough plot to do, but what if I wanted to look at a different metric instead of the average, or a different response variable? What if I wanted to have a different set of explanatory variables, or I want different variables on the x-axis, fill, and facets? It gets too repetitive. When repition becomes apparent and burdensome, <strong>automate</strong>.</p>
 </div>
 <div id="tidy-eval-with-rlang" class="section level1">
 <h1><span class="header-section-number">2</span> Tidy Eval with <code>rlang</code></h1>
-<p>This is not an <code>rlang</code> <span class="citation">(Henry and Wickham 2018)</span> tutorial, I don’t think I am the best person to discuss what tidy evaluation is and how <code>rlang</code> works<a href="#fn2" class="footnoteRef" id="fnref2"><sup>2</sup></a>. I will just give a quick walk through of my code using <code>rlang</code> in <code>ggplot2</code> <span class="citation">(Wickham et al. 2018)</span>.</p>
+<p>This is not an <code>rlang</code> <span class="citation">(Henry and Wickham 2018)</span> tutorial, I don’t think I am the best person to discuss what tidy evaluation is and how <code>rlang</code> works<a href="#fn2" class="footnoteRef" id="fnref2"><sup>2</sup></a>. I will just give a quick walk through of my code using <code>rlang</code> in <code>ggplot2</code> <span class="citation">(Wickham, Chang, et al. 2018)</span>.</p>
 <div id="works-with-dplyr" class="section level2">
 <h2><span class="header-section-number">2.1</span> Works with <code>dplyr</code></h2>
-<p>In one of my projects, I already made code to capture the workflow of data summary and plotting using <code>rlang</code> and <code>dplyr</code> <span class="citation">(<span class="citeproc-not-found" data-reference-id="R-dplyr"><strong>???</strong></span>)</span>.</p>
+<p>In one of my projects, I already made code to capture the workflow of data summary and plotting using <code>rlang</code> and <code>dplyr</code> <span class="citation">(Wickham, François, et al. 2018)</span>.</p>
 <pre class="r"><code>plot_with_dplyr_rlang &lt;- function(
   data_tibble, 
   x, y, fill, 
@@ -371,9 +376,9 @@ dt_mtcars %&gt;%
     facet_2 = am
   )</code></pre>
 <div class="figure"><span id="fig:dplyr-rlang-ggplot2"></span>
-<img src="/post/2019-02-03-function-manipulate-plot_files/figure-html/dplyr-rlang-ggplot2-1.png" alt="Observing the Effects of Several Explanatory Variables on a Response Variable via Graph. I noticed I tend to make this kind graph multiple times during exploratory data analysis and in production." width="100%" />
+<img src="/post/2019-02-03-function-manipulate-plot_files/figure-html/dplyr-rlang-ggplot2-1.png" alt="Compatibility of `{rlang}` and `{ggplot2}`" width="100%" />
 <p class="caption">
-Figure 2.1: Observing the Effects of Several Explanatory Variables on a Response Variable via Graph. I noticed I tend to make this kind graph multiple times during exploratory data analysis and in production.
+Figure 2.1: Compatibility of <code>{rlang}</code> and <code>{ggplot2}</code>
 </p>
 </div>
 <p>The combination of <code>dplyr</code>, <code>rlang</code>, and <code>ggplot2</code> works very well with what I want to do.</p>
@@ -578,16 +583,12 @@ col1</code></pre>
 ## 31: 301.0    5
 ## 32: 121.0    4
 ##      disp gear</code></pre>
-<p>Note that I had to use the function form of the <code>$</code> because <code>eval(bquote(dt_mtcars$.(col1)))</code> does not work. I also used <code>list()</code> instead of <code>data.table</code>’s <code>.()</code> alias to <code>list()</code> to avoid conflict to <code>bquote()</code>’s <code>.()</code>^[This is mentioned in <code>data.table</code>’s documentation:</p>
-<blockquote>
-<p>The expression ‘.()’ is a shorthand alias to list(); they both mean the same. (An exception is made for the use of .() within a call to bquote, where .() is left unchanged.) As long as j returns a list, each element of the list becomes a column in the resulting data.table. This is the default enhanced mode.</p>
-</blockquote>
-<p>].</p>
+<p>Note that I had to use the function form of the <code>$</code> because <code>eval(bquote(dt_mtcars$.(col1)))</code> does not work. I also used <code>list()</code> instead of <code>data.table</code>’s <code>.()</code> alias to <code>list()</code> to avoid conflict to <code>bquote()</code>’s <code>.()</code><a href="#fn5" class="footnoteRef" id="fnref5"><sup>5</sup></a>.</p>
 <p>I really like <code>bquote()</code> because it can work with both <code>dplyr</code>, <code>data.table</code>, and maybe with any <code>R</code> package.</p>
 </div>
 <div id="manipulate-and-plot-in-one-function-call" class="section level1">
 <h1><span class="header-section-number">4</span> Manipulate and Plot in One Function Call</h1>
-<p>With <code>bquote()</code>, we can now create a simple function to manipulate and plot a data in the way we want just like <a href="#fig:sample-factors-metric-plot"><strong>??</strong></a></p>
+<p>With <code>bquote()</code>, we can now create a simple function to manipulate and plot a data in the way we want just like Figure <a href="#fig:sample-factors-metric-plot">1.1</a>.</p>
 <pre class="r"><code>plot_summary &lt;- function(
   my_dt, 
   response_var, 
@@ -718,6 +719,9 @@ Figure 4.1: The Power of <code>bquote()</code> to Manipulate (<code>{data.table}
 <div id="ref-R-ggplot2">
 <p>Wickham, Hadley, Winston Chang, Lionel Henry, Thomas Lin Pedersen, Kohske Takahashi, Claus Wilke, and Kara Woo. 2018. <em>Ggplot2: Create Elegant Data Visualisations Using the Grammar of Graphics</em>. <a href="https://CRAN.R-project.org/package=ggplot2" class="uri">https://CRAN.R-project.org/package=ggplot2</a>.</p>
 </div>
+<div id="ref-R-dplyr">
+<p>Wickham, Hadley, Romain François, Lionel Henry, and Kirill Müller. 2018. <em>Dplyr: A Grammar of Data Manipulation</em>. <a href="https://CRAN.R-project.org/package=dplyr" class="uri">https://CRAN.R-project.org/package=dplyr</a>.</p>
+</div>
 </div>
 </div>
 <div class="footnotes">
@@ -727,6 +731,7 @@ Figure 4.1: The Power of <code>bquote()</code> to Manipulate (<code>{data.table}
 <li id="fn2"><p>Whenever I want to review tidy evaluation and <code>rlang</code>, I always watch Hadley Wickham’s short but packed <a href="https://www.youtube.com/watch?v=nERXS3ssntw">video</a> about the topic.<a href="#fnref2">↩</a></p></li>
 <li id="fn3"><p>I am only explaining <code>bquote()</code> here in layman terms and based on how I understand it. For more information on <code>bquote()</code> just check the documentation.<a href="#fnref3">↩</a></p></li>
 <li id="fn4"><p>I got the idea of <code>bquote()</code>’s precedence and similarity to <code>rlang</code> from <span class="citation">Mount (n.d.)</span>.<a href="#fnref4">↩</a></p></li>
+<li id="fn5"><p>This is mentioned in <code>data.table</code>’s documentation: <strong>The expression ‘.()’ is a shorthand alias to list(); they both mean the same. (An exception is made for the use of .() within a call to bquote, where .() is left unchanged.) As long as j returns a list, each element of the list becomes a column in the resulting data.table. This is the default enhanced mode</strong>.<a href="#fnref5">↩</a></p></li>
 </ol>
 </div>
 
