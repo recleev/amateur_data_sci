@@ -9,7 +9,7 @@ I started learning R in November 2016. I never stopped learning it and using it 
 > The key word in "Data Science" is not Data, it is Science 
 > --- [Jeff Leek, simplystatistics.org](https://simplystatistics.org/2013/12/12/the-key-word-in-data-science-is-not-data-it-is-science/)
 
-This is the repo for my blog dedicated to R and data science created with [blogdown](https://bookdown.org/yihui/blogdown/) and the [Hugo](https://gohugo.io/) theme [Introduction](https://themes.gohugo.io/hugo-theme-introduction/). 
+This is the repo for my blog dedicated to R and data science created with [blogdown](https://bookdown.org/yihui/blogdown/) and the [Hugo](https://gohugo.io/) theme [Blackburn](https://themes.gohugo.io/blackburn/). 
 
 Visit my site at [https://amateurdatasci.rbind.io/](https://amateurdatasci.rbind.io/).
 
