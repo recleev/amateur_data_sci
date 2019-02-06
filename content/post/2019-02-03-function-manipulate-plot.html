@@ -230,7 +230,7 @@ dt_mtcars %&gt;%
 </div>
 <div id="quasiquotation-in-base-r" class="section level1">
 <h1><span class="header-section-number">3</span> Quasiquotation in <code>{base}</code>-<code>R</code></h1>
-<p>I first learned about <code>bquote</code> from <span class="citation">(Mount, n.d.)</span>(<a href="http://www.win-vector.com/blog/2018/10/quasiquotation-in-r-via-bquote/" class="uri">http://www.win-vector.com/blog/2018/10/quasiquotation-in-r-via-bquote/</a>). At first, I did not understood nor realized the power of <code>bquote()</code>.</p>
+<p>I first learned about <code>bquote</code> from <a href="http://www.win-vector.com/blog/2018/10/quasiquotation-in-r-via-bquote/">a blog post</a> by <span class="citation">Mount (2018)</span>. At first, I did not understood nor realized the power of <code>bquote()</code>.</p>
 <p>Both <code>quote()</code> and <code>bquote()</code> captures the coder’s input.</p>
 <pre class="r"><code>quote((7 - 3)^2 * 8 / 4 + 9 - 6)</code></pre>
 <pre><code>## (7 - 3)^2 * 8/4 + 9 - 6</code></pre>
@@ -277,7 +277,7 @@ col1</code></pre>
 <pre><code>## Error: `col1` and `col2` must evaluate to column positions or names, not a symbol</code></pre>
 <pre class="r"><code>dt_mtcars[, .(col1, col2)]</code></pre>
 <pre><code>## Error in prettyNum(.Internal(format(x, trim, digits, nsmall, width, 3L, : first argument must be atomic</code></pre>
-<p>Note that calling <code>dt_mtcars$col1</code> and <code>dt_mtcars$col2</code> results to a <code>NULL</code> because there are no <code>col1</code> and <code>col2</code> columns in <code>mtcars</code>. Looking for the colums in <code>col1</code> and <code>col2</code> using <code>dplyr::select()</code> and <code>data.table</code>’s <code>j</code> both fails. We can make this work using <code>eval()</code>, <code>bquote()</code>, and <code>.()</code>.</p>
+<p>Note that calling <code>dt_mtcars$col1</code> and <code>dt_mtcars$col2</code> results to a <code>NULL</code> because there are no <code>col1</code> and <code>col2</code> columns in <code>dt_mtcars</code>. Looking for the colums in <code>col1</code> and <code>col2</code> using <code>dplyr::select()</code> and <code>data.table</code>’s <code>j</code> both fails. We can make this work using <code>eval()</code>, <code>bquote()</code>, and <code>.()</code>.</p>
 <pre class="r"><code>eval(bquote(`$`(dt_mtcars, .(col1))))</code></pre>
 <pre><code>##  [1] 160.0 160.0 108.0 258.0 360.0 225.0 360.0 146.7 140.8 167.6 167.6
 ## [12] 275.8 275.8 275.8 472.0 460.0 440.0  78.7  75.7  71.1 120.1 318.0
@@ -426,7 +426,7 @@ Figure 4.1: The Power of <code>bquote()</code> to Manipulate (<code>{data.table}
 ##  collate  English_Philippines.1252    
 ##  ctype    English_Philippines.1252    
 ##  tz       Asia/Kuala_Lumpur           
-##  date     2019-02-03                  
+##  date     2019-02-06                  
 ## 
 ## - Packages --------------------------------------------------------------
 ##  package     * version date       lib source                         
@@ -486,7 +486,7 @@ Figure 4.1: The Power of <code>bquote()</code> to Manipulate (<code>{data.table}
 <p>Henry, Lionel, and Hadley Wickham. 2018. <em>Rlang: Functions for Base Types and Core R and ’Tidyverse’ Features</em>. <a href="https://CRAN.R-project.org/package=rlang" class="uri">https://CRAN.R-project.org/package=rlang</a>.</p>
 </div>
 <div id="ref-bquote-winvector">
-<p>Mount, John. n.d. “Quasiquotation in R via Bquote().” <a href="http://www.win-vector.com/blog/2018/10/quasiquotation-in-r-via-bquote/" class="uri">http://www.win-vector.com/blog/2018/10/quasiquotation-in-r-via-bquote/</a>.</p>
+<p>Mount, John. 2018. “Quasiquotation in R via Bquote().” <a href="http://www.win-vector.com/blog/2018/10/quasiquotation-in-r-via-bquote/" class="uri">http://www.win-vector.com/blog/2018/10/quasiquotation-in-r-via-bquote/</a>.</p>
 </div>
 <div id="ref-R-ggplot2">
 <p>Wickham, Hadley, Winston Chang, Lionel Henry, Thomas Lin Pedersen, Kohske Takahashi, Claus Wilke, and Kara Woo. 2018. <em>Ggplot2: Create Elegant Data Visualisations Using the Grammar of Graphics</em>. <a href="https://CRAN.R-project.org/package=ggplot2" class="uri">https://CRAN.R-project.org/package=ggplot2</a>.</p>
@@ -502,7 +502,7 @@ Figure 4.1: The Power of <code>bquote()</code> to Manipulate (<code>{data.table}
 <li id="fn1"><p>At least 8 hours a day, five days a week<a href="#fnref1">↩</a></p></li>
 <li id="fn2"><p>Whenever I want to review tidy evaluation and <code>rlang</code>, I always watch Hadley Wickham’s short but packed <a href="https://www.youtube.com/watch?v=nERXS3ssntw">video</a> about the topic.<a href="#fnref2">↩</a></p></li>
 <li id="fn3"><p>I am only explaining <code>bquote()</code> here in layman terms and based on how I understand it. For more information on <code>bquote()</code> just check the documentation.<a href="#fnref3">↩</a></p></li>
-<li id="fn4"><p>I got the idea of <code>bquote()</code>’s precedence and similarity to <code>rlang</code> from <span class="citation">Mount (n.d.)</span>.<a href="#fnref4">↩</a></p></li>
-<li id="fn5"><p>This is mentioned in <code>data.table</code>’s documentation: <strong>The expression ‘.()’ is a shorthand alias to list(); they both mean the same. (An exception is made for the use of .() within a call to bquote, where .() is left unchanged.) As long as j returns a list, each element of the list becomes a column in the resulting data.table. This is the default enhanced mode</strong>.<a href="#fnref5">↩</a></p></li>
+<li id="fn4"><p>I got the idea of <code>bquote()</code>’s precedence and similarity to <code>rlang</code> from <span class="citation">Mount (2018)</span>.<a href="#fnref4">↩</a></p></li>
+<li id="fn5"><p>This is mentioned in <code>data.table</code>’s documentation: <em>The expression ‘.()’ is a shorthand alias to list(); they both mean the same. (An exception is made for the use of .() within a call to bquote, where .() is left unchanged.) As long as j returns a list, each element of the list becomes a column in the resulting data.table. This is the default enhanced mode</em>.<a href="#fnref5">↩</a></p></li>
 </ol>
 </div>

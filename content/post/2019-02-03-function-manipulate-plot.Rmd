@@ -231,7 +231,7 @@ This is not really a surprise. I don't think both `rlang` and `data.table` was m
 
 # Quasiquotation in `{base}`-`R`
 
-I first learned about `bquote` from [@bquote-winvector](http://www.win-vector.com/blog/2018/10/quasiquotation-in-r-via-bquote/). At first, I did not understood nor realized the power of `bquote()`.
+I first learned about `bquote` from [a blog post](http://www.win-vector.com/blog/2018/10/quasiquotation-in-r-via-bquote/) by @bquote-winvector. At first, I did not understood nor realized the power of `bquote()`.
 
 Both `quote()` and `bquote()` captures the coder's input.
 
@@ -314,7 +314,7 @@ dt_mtcars[, .(col1, col2)]
 
 ```
 
-Note that calling `dt_mtcars$col1` and `dt_mtcars$col2` results to a `NULL` because there are no `col1` and `col2` columns in `mtcars`. Looking for the colums in `col1` and `col2` using `dplyr::select()` and `data.table`'s `j` both fails. We can make this work using `eval()`, `bquote()`, and `.()`.
+Note that calling `dt_mtcars$col1` and `dt_mtcars$col2` results to a `NULL` because there are no `col1` and `col2` columns in `dt_mtcars`. Looking for the colums in `col1` and `col2` using `dplyr::select()` and `data.table`'s `j` both fails. We can make this work using `eval()`, `bquote()`, and `.()`.
 
 ```{r bquote-colnames}
 
@@ -329,7 +329,7 @@ eval(bquote(dt_mtcars[, list(.(col1), .(col2))]))
 
 ```
 
-Note that I had to use the function form of the `$` because `eval(bquote(dt_mtcars$.(col1)))` does not work. I also used `list()` instead of `data.table`'s `.()` alias to `list()` to avoid conflict to `bquote()`'s `.()`^[This is mentioned in `data.table`'s documentation: **The expression '.()' is a shorthand alias to list(); they both mean the same. (An exception is made for the use of .() within a call to bquote, where .() is left unchanged.) As long as j returns a list, each element of the list becomes a column in the resulting data.table. This is the default enhanced mode**.
+Note that I had to use the function form of the `$` because `eval(bquote(dt_mtcars$.(col1)))` does not work. I also used `list()` instead of `data.table`'s `.()` alias to `list()` to avoid conflict to `bquote()`'s `.()`^[This is mentioned in `data.table`'s documentation: *The expression '.()' is a shorthand alias to list(); they both mean the same. (An exception is made for the use of .() within a call to bquote, where .() is left unchanged.) As long as j returns a list, each element of the list becomes a column in the resulting data.table. This is the default enhanced mode*.
 ].
 
 I really like `bquote()` because it can work with both `dplyr`, `data.table`, and maybe with any `R` package.
