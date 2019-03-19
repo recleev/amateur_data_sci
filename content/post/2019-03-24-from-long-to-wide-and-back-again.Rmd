@@ -1,0 +1,84 @@
+---
+title: From Long to Wide and Back Again
+author: Recle E. Vibal
+date: '2019-03-24'
+slug: long-wide-back-again-cdata
+categories:
+  - data manipulation
+  - data wrangling
+tags:
+  - cdata
+  - data.table
+description: 'Adventures in Data Transformation and an Appreciation of {cdata}'
+output:
+  blogdown::html_page:
+    toc: yes
+    number_sections: yes
+topics: []
+---
+
+```{r packages-options, message=FALSE, warning=FALSE, include=TRUE}
+
+# Attach packages and set chunk options
+
+xfun::pkg_attach(
+  "knitr",
+  "DT",
+  "data.table",
+  "cdata"
+)
+
+opts_chunk$set(
+  message = FALSE,
+  warning = FALSE,
+  echo = FALSE
+)
+
+# create standard datatable function to be used in all tables in this post
+
+show_datatable <- function(data) {
+  data %>% 
+    DT::datatable(
+      rownames = FALSE,
+      extensions = 'FixedColumns',
+      options = list(
+        pageLength = 20,
+        scrollX = TRUE,
+        scrollCollapse = TRUE,
+        columnDefs = list(
+          list(
+            className = 'dt-center',
+            targets = 0:(ncol(cpi_data) - 1)
+          )
+        )
+      )
+    )
+}
+
+```
+
+# Inevitable
+
+With my current work as a [junior data scientist](https://amateurdatasci.rbind.io/post/loves-what-he-is-doing/), I have to manipulate a lot of data to get to a desired output or a possible answer to a question. Almost all data that I have handled required me to convert a wide table to a long format or a long table to a wide format.
+
+The usual packages I use for length and cross wise transformations are `{tidyr}`[@R-tidyr] and `{data.table}`[@R-data.table]. For conversions from wide to long^[I find going from wide to long much easier and more intuitive than going from long to wide, but that might be because I am more exposed and have more experience converting from wide to long as this is the more common data transformation that I have encountered so far.]
+
+# Code {#code}
+
+The following codes show what I did in this post. I added comments here and there to clarify my thought process.
+
+```{r all-codes, ref.label = knitr::all_labels(), echo=TRUE, eval=FALSE}
+
+```
+
+My session info for reproducibility.
+
+```{r session-info}
+
+sessioninfo::session_info()
+
+```
+
+# References
+
+For more information on tidy principles, techniques, and good practices, and the packages and functions I used in this post, please read
