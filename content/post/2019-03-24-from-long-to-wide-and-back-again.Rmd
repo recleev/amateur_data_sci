@@ -25,7 +25,8 @@ xfun::pkg_attach(
   "knitr",
   "DT",
   "data.table",
-  "cdata"
+  "cdata",
+  "tidyr"
 )
 
 opts_chunk$set(
@@ -61,7 +62,14 @@ show_datatable <- function(data) {
 
 With my current work as a [junior data scientist](https://amateurdatasci.rbind.io/post/loves-what-he-is-doing/), I have to manipulate a lot of data to get to a desired output or a possible answer to a question. Almost all data that I have handled required me to convert a wide table to a long format or a long table to a wide format.
 
-The usual packages I use for length and cross wise transformations are `{tidyr}`[@R-tidyr] and `{data.table}`[@R-data.table]. For conversions from wide to long^[I find going from wide to long much easier and more intuitive than going from long to wide, but that might be because I am more exposed and have more experience converting from wide to long as this is the more common data transformation that I have encountered so far.]
+The usual packages I use for length and cross wise transformations are `{tidyr}`[@R-tidyr] and `{data.table}`[@R-data.table]. For wide to long^[I find going from wide to long much easier and more intuitive than going from long to wide, but that might be because I am more exposed and have more experience converting from wide to long as this is the more common data transformation that I have encountered so far.], one can use either `tidyr::gather()` or `data.table::melt()`; for long to wide, one can use `tidyr::spread()`^[I just heard about `{tidyr}`'s [`pivot_long()` and `pivot_wide()`](https://tidyr.tidyverse.org/dev/articles/pivot.html) as possible replacements for `gather()` and `spread()`. The vignette mentions `{cdata}` and `{data.table}`'s `melt()` and `dcast()` as inspiration for the improvements. I am excited to give `pivot_long()` and `pivot_wide()` a spin, but I my preference will stay with `{cdata}`.] and `data.table::dcast()`^[I must confess that `dcast()` is my weak point in using `{data.table}`. I felt its power during the times I have used it successfully, but I somehow have to spend time reading the documentation and do test transformation everytime I try to use it. Again, most of my experience involves transforming data from wide to long. Maybe I would have mastered `dcast()` better with more practice.].
+
+The functions from both packages have the similar disadvantage of their use cases not really being intuitive in terms of how to transform the data. In my opinion, data is transformed in the mind of the user, i.e. the transformation is hidden within the code that the future user and collaborators have to decipher. It will be better if the user can work with the data and just allow the code to obey its master. I think this concern is addressed by `{cdata}`.
+
+# Coordinatized
+
+While I advocate the use and am a heavy user of `{cdata}`, the best resource to learn it is from its [vignettes](https://winvector.github.io/cdata/index.html). The main concept behind `{cdata}` is the theory of *coordinatized*^[Learn more about coordinatized data [here](http://www.win-vector.com/blog/2017/03/coordinatized-data-a-fluid-data-specification/) and [here](http://winvector.github.io/FluidData/FluidData.html)] or *fluid* data, each element of the data can be located using coordinates defined by the table name, key column/s and value/s, and the value column.
+
 
 # Code {#code}
 
