@@ -26,7 +26,8 @@ xfun::pkg_attach(
   "DT",
   "data.table",
   "cdata",
-  "tidyr"
+  "tidyr",
+  "tibble"
 )
 
 opts_chunk$set(
@@ -34,27 +35,6 @@ opts_chunk$set(
   warning = FALSE,
   echo = FALSE
 )
-
-# create standard datatable function to be used in all tables in this post
-
-show_datatable <- function(data) {
-  data %>% 
-    DT::datatable(
-      rownames = FALSE,
-      extensions = 'FixedColumns',
-      options = list(
-        pageLength = 20,
-        scrollX = TRUE,
-        scrollCollapse = TRUE,
-        columnDefs = list(
-          list(
-            className = 'dt-center',
-            targets = 0:(ncol(cpi_data) - 1)
-          )
-        )
-      )
-    )
-}
 
 ```
 
@@ -70,6 +50,63 @@ The functions from both packages have the similar disadvantage of their use case
 
 While I advocate the use and am a heavy user of `{cdata}`, the best resource to learn it is from its [vignettes](https://winvector.github.io/cdata/index.html). The main concept behind `{cdata}` is the theory of *coordinatized*^[Learn more about coordinatized data [here](http://www.win-vector.com/blog/2017/03/coordinatized-data-a-fluid-data-specification/) and [here](http://winvector.github.io/FluidData/FluidData.html)] or *fluid* data, each element of the data can be located using coordinates defined by the table name, key column/s and value/s, and the value column.
 
+I really like the idea of coordinatized data because all data is coordinatized. We do not need to identify which data is "tidy" or "messy". Data is data; and the form a data has in the beginning is not important as long as we know how to interpret it in terms of its coordinates. Once we understand the data, we can break it down and shape it into the form that will be most useful for our purposes.
+
+How does `{cdata}` perform fluid data transformation? How is it different from `{tidyr}`'s `gather()` and `spread()` or `{data.table}`'s `melt()` and `dcast()`?
+
+# Seatbelts
+
+I will compare data transformation using `{tidyr}`, `{data.table}`, and `{cdata}`, and I hope I will higlight the power of `{cdata}`. I will use the Lord of the Rings data from [Hiroaki Yutani's blog post](https://yutani.rbind.io/post/enhancing-gather-and-spread-by-using-bundled-data-frames/)^[Observe that my reply included a suggestion to study `{cdata}`. I changed the data a little. The first book of The Lord of the Rings (a Tolkien fan here) is The Fellowship of the Ring, so I think FoTR will be a better column name.].
+
+```{r prepare_lotr}
+
+lotr_tbl <- tribble(
+  ~Race   , ~Female_FoTR, ~Male_FoTR, 
+            ~Female_TT  , ~Male_TT  ,
+            ~Female_RoTK, ~Male_RoTK,
+  "Elf"   , 1229        , 971       , 
+            331         , 513       ,
+            183         , 510       ,
+  "Hobbit", 14          , 3644      , 
+            0           , 2463      ,
+            2           , 2673      ,
+  "Man"   , 0           , 1995      ,
+            401         , 3589      ,
+            268         , 2459
+)
+
+lotr_dt <- setDT(lotr_tbl)
+
+```
+
+My first goal is to convert the data from this
+
+```{r show-sample-mtcars}
+
+head(lotr_tbl)
+
+```
+
+to this
+
+```{r show-sample-long-seatbelts}
+
+tribble(
+  ~Race   ,	~key    ,	~FoTR, ~TT,	~RoTK,
+  "Elf"   ,	"Female",	1229 , 331 , 183 ,
+  "Hobbit",	"Female",	14   , 0	 , 2   ,
+  "Man"	  , "Female",	0    , 401 , 268 ,
+  "Elf"   ,	"Male"  ,	971  , 513 , 510 ,
+  "Hobbit",	"Male"  ,	3644 , 2463, 2673,
+  "Man"   ,	"Male"	, 1995 , 3589, 2459
+)
+
+```
+
+And after that, convert it again to its long form.
+
+## Gather and Spread
+
 
 # Code {#code}
 
@@ -83,7 +120,7 @@ My session info for reproducibility.
 
 ```{r session-info}
 
-sessioninfo::session_info()
+sessioninfo::session_info(include_base = TRUE)
 
 ```
 
