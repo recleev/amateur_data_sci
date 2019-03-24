@@ -52,9 +52,11 @@ While I advocate the use and am a heavy user of `{cdata}`, the best resource to 
 
 I really like the idea of coordinatized data because all data is coordinatized. We do not need to identify which data is "tidy" or "messy". Data is data; and the form a data has in the beginning is not important as long as we know how to interpret it in terms of its coordinates. Once we understand the data, we can break it down and shape it into the form that will be most useful for our purposes.
 
+`{cdata}` is also the first `R` packacge that talked about row records and blocks which may seem confusing at first (at least, for me) but it makes more sense to think about data transformations from row records to blocks, and vice versa. Long and wide might be simpler and maybe even correct when a set of columns are placed into two or when two columns are distributed into multiple columns, but for more complicated transformations, I beleive, row records and blocks are more appropriate. 
+
 How does `{cdata}` perform fluid data transformation? How is it different from `{tidyr}`'s `gather()` and `spread()` or `{data.table}`'s `melt()` and `dcast()`?
 
-# Seatbelts
+# One Data to Compare Them All
 
 I will compare data transformation using `{tidyr}`, `{data.table}`, and `{cdata}`, and I hope I will higlight the power of `{cdata}`. I will use the Lord of the Rings data from [Hiroaki Yutani's blog post](https://yutani.rbind.io/post/enhancing-gather-and-spread-by-using-bundled-data-frames/)^[Observe that my reply included a suggestion to study `{cdata}`. I changed the data a little. The first book of The Lord of the Rings (a Tolkien fan here) is The Fellowship of the Ring, so I think FoTR will be a better column name.].
 
@@ -79,19 +81,19 @@ lotr_dt <- setDT(lotr_tbl)
 
 ```
 
-My first goal is to convert the data from this
+My first goal is to convert the data from this (Table 1)
 
-```{r show-sample-mtcars}
+```{r show-lotr, fig.cap="Table 1"}
 
 head(lotr_tbl)
 
 ```
 
-to this
+to this (Table 2)
 
-```{r show-sample-long-seatbelts}
+```{r show-lotr-transformed}
 
-tribble(
+lotr_2 <- tribble(
   ~Race   ,	~key    ,	~FoTR, ~TT,	~RoTK,
   "Elf"   ,	"Female",	1229 , 331 , 183 ,
   "Hobbit",	"Female",	14   , 0	 , 2   ,
@@ -101,12 +103,44 @@ tribble(
   "Man"   ,	"Male"	, 1995 , 3589, 2459
 )
 
+lotr_2
+
 ```
 
-And after that, convert it again to its long form.
+And then back to Table 1.
 
 ## Gather and Spread
 
+To convert from Table 1 to 2, a single use of `{tidyr}`'s `gather()` will not work because we want to take multiple columns and put it in multiple columns rather than only two. We will need the full functionality of `{tidyr}`.
+
+My solution to convert Table 1 to 2 is
+
+```{r tidyr-1-to-2}
+
+lotr_tbl %>% 
+  gather(key = "key", value = "count", - Race) %>% 
+  separate(key, into = c("key", "book"), sep = "_") %>% 
+  spread(key = book, value = count)
+
+```
+
+I collected all columns first, except the `Race` column into two colums. The key column is a combination of the gender and book. Since we want book to be column headers, we need to separate this single key column into two (`key` and `book`) using `tidyr::separate()`. With the `book` only in one column, we can spread this column and get to Table 2.
+
+For Table 2 to 1
+
+```{r tidyr-2-to-1}
+
+lotr_2 %>% 
+  gather(key = "book", value = "count", -Race, -key) %>% 
+  unite(col = "key", key, book, sep = "_") %>% 
+  spread(key = key, value = count)
+  
+
+```
+
+I gatherd all the book/count columns and put it in two columns. I used `tidyr::unite()` to combine `key` and `book`. I finished the transformation with a `spread()` of the `key` and `count` column^[I offered a different soultion in Hiroaki's blog that also used `tidyr::nest()` and `tidyr::unnest()`, but that was only for comparison with the suggested `bundle()` function. The solution I offer here with `separate()` and `unite()` might be more intuitive and simpler.].
+
+# Melt and (D)Cast
 
 # Code {#code}
 
