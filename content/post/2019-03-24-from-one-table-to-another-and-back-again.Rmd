@@ -1,20 +1,22 @@
 ---
-title: From Long to Wide and Back Again
+title: From One Table to Another and Back Again
 author: Recle E. Vibal
-date: '2019-03-24'
-slug: long-wide-back-again-cdata
+date: '2019-03-25'
 categories:
   - data manipulation
   - data wrangling
 tags:
   - cdata
   - data.table
-description: 'Adventures in Data Transformation and an Appreciation of {cdata}'
+slug: table-another-back-again-cdata
+description: Adventures in Data Transformation and an Appreciation of {cdata}
 output:
   blogdown::html_page:
     toc: yes
     number_sections: yes
-topics: []
+bibliography:
+  - references/cdata-back-again.bib
+biblio-style: apalike
 ---
 
 ```{r packages-options, message=FALSE, warning=FALSE, include=TRUE}
@@ -33,8 +35,29 @@ xfun::pkg_attach(
 opts_chunk$set(
   message = FALSE,
   warning = FALSE,
-  echo = FALSE
+  echo = TRUE
 )
+
+# create standard datatable function to be used in all tables in this post
+
+show_datatable <- function(data) {
+  data %>% 
+    DT::datatable(
+      rownames = FALSE,
+      extensions = 'FixedColumns',
+      options = list(
+        pageLength = 20,
+        scrollX = TRUE,
+        scrollCollapse = TRUE,
+        columnDefs = list(
+          list(
+            className = 'dt-center',
+            targets = 0:(ncol(data) - 1)
+          )
+        )
+      )
+    )
+}
 
 ```
 
@@ -42,7 +65,7 @@ opts_chunk$set(
 
 With my current work as a [junior data scientist](https://amateurdatasci.rbind.io/post/loves-what-he-is-doing/), I have to manipulate a lot of data to get to a desired output or a possible answer to a question. Almost all data that I have handled required me to convert a wide table to a long format or a long table to a wide format.
 
-The usual packages I use for length and cross wise transformations are `{tidyr}`[@R-tidyr] and `{data.table}`[@R-data.table]. For wide to long^[I find going from wide to long much easier and more intuitive than going from long to wide, but that might be because I am more exposed and have more experience converting from wide to long as this is the more common data transformation that I have encountered so far.], one can use either `tidyr::gather()` or `data.table::melt()`; for long to wide, one can use `tidyr::spread()`^[I just heard about `{tidyr}`'s [`pivot_long()` and `pivot_wide()`](https://tidyr.tidyverse.org/dev/articles/pivot.html) as possible replacements for `gather()` and `spread()`. The vignette mentions `{cdata}` and `{data.table}`'s `melt()` and `dcast()` as inspiration for the improvements. I am excited to give `pivot_long()` and `pivot_wide()` a spin, but I my preference will stay with `{cdata}`.] and `data.table::dcast()`^[I must confess that `dcast()` is my weak point in using `{data.table}`. I felt its power during the times I have used it successfully, but I somehow have to spend time reading the documentation and do test transformation every time I try to use it. Again, most of my experience involves transforming data from wide to long. Maybe I would have mastered `dcast()` better with more practice.].
+The usual packages I use for length and cross wise transformations are `{tidyr}`[@R-tidyr] and `{data.table}`[@R-data.table]. For wide to long^[I find going from wide to long much easier and more intuitive than going from long to wide, but that might be because I am more exposed and have more experience converting from wide to long as this is the more common data transformation that I have encountered so far.], one can use either `tidyr::gather()` or `data.table::melt()`; for long to wide, one can use `tidyr::spread()`^[I just heard about `{tidyr}`'s [new data transformation functions](https://tidyr.tidyverse.org/dev/articles/pivot.html) (as I was writing this post, I learned that the [new functions will be called](https://twitter.com/hadleywickham/status/1109816130774986753) `pivot_longer()` and `pivot_wider()`) as possible replacements for `gather()` and `spread()`. The vignette mentions `{cdata}` and `{data.table}`'s `melt()` and `dcast()` as inspiration for the improvements. I am excited to give `pivot_longer()` and `pivot_wider()` a spin, but my preference will stay with `{cdata}`.] and `data.table::dcast()`^[I must confess that `dcast()` is my weak point in using `{data.table}`. I felt its power during the times I have used it successfully, but I somehow have to spend time reading the documentation and do test transformation every time I try to use it. Again, most of my experience involves transforming data from wide to long. Maybe I would have mastered `dcast()` better with more practice.].
 
 The functions from both packages have the similar disadvantage of their use cases not really being intuitive in terms of how to transform the data. In my opinion, data is transformed in the mind of the user, i.e. the transformation is hidden within the code that the future user and collaborators have to decipher. It will be better if the user can work with the data and just allow the code to obey its master. I think this concern is addressed by `{cdata}`.
 
@@ -85,13 +108,14 @@ My first goal is to convert the data from this (Table 1)
 
 ```{r show-lotr, fig.cap="Table 1"}
 
-head(lotr_tbl)
+head(lotr_tbl) %>% 
+  show_datatable()
 
 ```
 
 to this (Table 2)
 
-```{r show-lotr-transformed}
+```{r show-lotr-transformed, fig.cap="Table 2"}
 
 lotr_tbl_2 <- tribble(
   ~Race   ,	~key    ,	~FoTR, ~TT,	~RoTK,
@@ -103,7 +127,8 @@ lotr_tbl_2 <- tribble(
   "Man"   ,	"Male"	, 1995 , 3589, 2459
 )
 
-lotr_tbl_2
+lotr_tbl_2 %>% 
+  show_datatable()
 
 ```
 
@@ -120,7 +145,8 @@ My solution to convert Table 1 to 2 is
 lotr_tbl %>% 
   gather(key = "key", value = "count", - Race) %>% 
   separate(key, into = c("key", "book"), sep = "_") %>% 
-  spread(key = book, value = count)
+  spread(key = book, value = count) %>% 
+  show_datatable()
 
 ```
 
@@ -130,10 +156,11 @@ For Table 2 to 1
 
 ```{r tidyr-2-to-1}
 
-lotr_2 %>% 
+lotr_tbl_2 %>% 
   gather(key = "book", value = "count", -Race, -key) %>% 
   unite(col = "key", key, book, sep = "_") %>% 
-  spread(key = key, value = count)
+  spread(key = key, value = count) %>% 
+  show_datatable()
   
 
 ```
@@ -156,6 +183,9 @@ lotr_dt[
 ][
   ,
   dcast(.SD, Race + key ~ book, value.var = "count")
+][
+  ,
+  show_datatable(.SD)
 ]
 
 ```
@@ -181,6 +211,9 @@ lotr_dt_2[
 ][
   ,
   dcast(.SD, Race ~ key, value.var = "count")
+][
+  ,
+  show_datatable(.SD)
 ]
 
 ```
@@ -216,7 +249,7 @@ lotr_df_2 <-
 
 names(lotr_df_2) <- gsub("count", "", names(lotr_df_2))
 
-lotr_df_2
+show_datatable(lotr_df_2)
 
 ```
 
@@ -248,7 +281,7 @@ lotr_df_1 <-
 
 names(lotr_df_1) <- gsub("count", "", names(lotr_df_1))
 
-lotr_df_1
+show_datatable(lotr_df_1)
 
 ```
 
@@ -284,11 +317,13 @@ Now that we have a control table, we can go from Table 1 to 2,
 
 ```{r cdata-1-to-2}
 
-rowrecs_to_blocks(
-  lotr_dt,
-  controlTable = lotr_control_table,
-  controlTableKeys = "key",
-  columnsToCopy = "Race"
+show_datatable(
+  rowrecs_to_blocks(
+    lotr_dt,
+    controlTable = lotr_control_table,
+    controlTableKeys = "key",
+    columnsToCopy = "Race"
+  )
 )
 
 ```
@@ -297,11 +332,13 @@ And from Table 2 to 1,
 
 ```{r cdata-2-to-1}
 
-blocks_to_rowrecs(
-  lotr_dt_2,
-  controlTable = lotr_control_table,
-  controlTableKeys = "key",
-  keyColumns = "Race"
+show_datatable(
+  blocks_to_rowrecs(
+    lotr_dt_2,
+    controlTable = lotr_control_table,
+    controlTableKeys = "key",
+    keyColumns = "Race"
+  )
 )
 
 ```

@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes" ?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>Cdata on The Amateur Data Scientist</title>
+    <link>/tags/cdata/</link>
+    <description>Recent content in Cdata on The Amateur Data Scientist</description>
+    <generator>Hugo -- gohugo.io</generator>
+    <language>en-us</language>
+    <lastBuildDate>Mon, 25 Mar 2019 00:00:00 +0000</lastBuildDate>
+    
+	<atom:link href="/tags/cdata/index.xml" rel="self" type="application/rss+xml" />
+    
+    
+    <item>
+      <title>From One Table to Another and Back Again</title>
+      <link>/post/table-another-back-again-cdata/</link>
+      <pubDate>Mon, 25 Mar 2019 00:00:00 +0000</pubDate>
+      
+      <guid>/post/table-another-back-again-cdata/</guid>
+      <description>1 Inevitable2 Coordinatized3 One Data to Compare Them All3.1 Gather and Spread3.2 Melt and (D)Cast3.3 Reshape3.4 Rowrecs and Blocks4 For Future Me and Collaborators5 Code6 References# Attach packages and set chunk optionsxfun::pkg_attach(&amp;quot;knitr&amp;quot;,&amp;quot;DT&amp;quot;,&amp;quot;data.table&amp;quot;,&amp;quot;cdata&amp;quot;,&amp;quot;tidyr&amp;quot;,&amp;quot;tibble&amp;quot;)opts_chunk$set(message = FALSE,warning = FALSE,echo = TRUE)# create standard datatable function to be used in all tables in this postshow_datatable &amp;lt;- function(data) {data %&amp;gt;% DT::datatable(rownames = FALSE,extensions = &amp;#39;FixedColumns&amp;#39;,options = list(pageLength = 20,scrollX = TRUE,scrollCollapse = TRUE,columnDefs = list(list(className = &amp;#39;dt-center&amp;#39;,targets = 0:(ncol(data) - 1)))))}1 InevitableWith my current work as a junior data scientist, I have to manipulate a lot of data to get to a desired output or a possible answer to a question.</description>
+    </item>
+    
+  </channel>
+</rss>

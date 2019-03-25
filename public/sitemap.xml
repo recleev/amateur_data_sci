@@ -3,6 +3,11 @@
   xmlns:xhtml="http://www.w3.org/1999/xhtml">
   
   <url>
+    <loc>/post/table-another-back-again-cdata/</loc>
+    <lastmod>2019-03-25T00:00:00+00:00</lastmod>
+  </url>
+  
+  <url>
     <loc>/post/function-manipulate-plot/</loc>
     <lastmod>2019-02-03T00:00:00+00:00</lastmod>
   </url>
@@ -143,6 +148,12 @@
   </url>
   
   <url>
+    <loc>/tags/cdata/</loc>
+    <lastmod>2019-03-25T00:00:00+00:00</lastmod>
+    <priority>0</priority>
+  </url>
+  
+  <url>
     <loc>/tags/consumer-price-index/</loc>
     <lastmod>2018-11-15T00:00:00+00:00</lastmod>
     <priority>0</priority>
@@ -162,7 +173,7 @@
   
   <url>
     <loc>/tags/data.table/</loc>
-    <lastmod>2019-02-03T00:00:00+00:00</lastmod>
+    <lastmod>2019-03-25T00:00:00+00:00</lastmod>
     <priority>0</priority>
   </url>
   
@@ -294,7 +305,7 @@
   
   <url>
     <loc>/post/</loc>
-    <lastmod>2019-02-03T00:00:00+00:00</lastmod>
+    <lastmod>2019-03-25T00:00:00+00:00</lastmod>
     <priority>0</priority>
   </url>
   
@@ -402,7 +413,7 @@
   
   <url>
     <loc>/</loc>
-    <lastmod>2019-02-03T00:00:00+00:00</lastmod>
+    <lastmod>2019-03-25T00:00:00+00:00</lastmod>
     <priority>0</priority>
   </url>
   

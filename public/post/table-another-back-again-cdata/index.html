@@ -1,0 +1,937 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta http-equiv="content-type" content="text/html; charset=utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="description" content="Adventures in Data Transformation and an Appreciation of {cdata}">
+  <meta name="generator" content="Hugo 0.54.0" />
+
+  <title>From One Table to Another and Back Again &middot; The Amateur Data Scientist</title>
+
+  
+  
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/pure/1.0.0/pure-min.css">
+
+  <!--[if lte IE 8]>
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/pure/1.0.0/grids-responsive-old-ie-min.css">
+  <![endif]-->
+  <!--[if gt IE 8]><!-->
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/pure/1.0.0/grids-responsive-min.css">
+  <!--<![endif]-->
+
+  <!--[if lte IE 8]>
+  <link rel="stylesheet" href="/css/side-menu-old-ie.css">
+  <![endif]-->
+  <!--[if gt IE 8]><!-->
+  <link rel="stylesheet" href="/css/side-menu.css">
+  <!--<![endif]-->
+
+  <link rel="stylesheet" href="/css/blackburn.css">
+
+  
+  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css">
+
+  
+  <link href="https://fonts.googleapis.com/css?family=Raleway" rel="stylesheet" type="text/css">
+
+  
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.1/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
+
+ 
+  
+
+  
+  <link rel="stylesheet" href="//cdnjs.cloudflare.com/ajax/libs/highlight.js/9.12.0/styles/zenburn.min.css">
+  <script src="//cdnjs.cloudflare.com/ajax/libs/highlight.js/9.12.0/highlight.min.js"></script>
+  
+  <script>hljs.initHighlightingOnLoad();</script>
+  
+
+  <link rel="shortcut icon" href="/img/favicon.ico" type="image/x-icon" />
+
+  
+  
+
+</head>
+
+
+<body>
+<div id="layout">
+
+  
+<a href="#menu" id="menuLink" class="menu-link">
+  
+  <span></span>
+</a>
+<div id="menu">
+
+  
+  <a class="pure-menu-heading brand" href="/">recleev</a>
+
+
+  <div class="pure-menu">
+    <ul class="pure-menu-list">
+      
+      
+        <li class="pure-menu-item">
+          <a class="pure-menu-link" href="/"><i class='fa fa-home fa-fw'></i>Home</a>
+      
+        </li>
+      
+      
+        <li class="pure-menu-item">
+          <a class="pure-menu-link" href="/post/"><i class='fa fa-list fa-fw'></i>Posts</a>
+      
+        </li>
+      
+      
+        <li class="pure-menu-item">
+          <a class="pure-menu-link" href="/about/"><i class='fa fa-user fa-fw'></i>About</a>
+      
+        </li>
+      
+      
+        <li class="pure-menu-item">
+          <a class="pure-menu-link" href="/contact/"><i class='fa fa-phone fa-fw'></i>Contact</a>
+      
+        </li>
+      
+    </ul>
+  </div>
+
+  <div class="pure-menu social">
+  <ul class="pure-menu-list">
+
+    
+
+    
+
+    
+    <li class="pure-menu-item">
+      <a class="pure-menu-link" href="https://twitter.com/recleev" target="_blank"><i class="fa fa-twitter-square fa-fw"></i>Twitter</a>
+    </li>
+    
+
+    
+
+    
+    <li class="pure-menu-item">
+      <a class="pure-menu-link" href="https://facebook.com/recleev" target="_blank"><i class="fa fa-facebook-square fa-fw"></i>Facebook</a>
+    </li>
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+    <li class="pure-menu-item">
+      <a class="pure-menu-link" href="https://linkedin.com/in/recleev" target="_blank"><i class="fa fa-linkedin-square fa-fw"></i>LinkedIn</a>
+    </li>
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+    <li class="pure-menu-item">
+      <a class="pure-menu-link" href="https://github.com/recleev" target="_blank"><i class="fa fa-github-square fa-fw"></i>GitHub</a>
+    </li>
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+  </ul>
+</div>
+
+
+  <div>
+  <div class="small-print">
+    <small></small>
+  </div>
+  <div class="small-print">
+    <small>Built with <a href="https://github.com/rstudio/blogdown" target="_blank">blogdown</a> and <a href="https://gohugo.io/" target="_blank">Hugo</a>.</small>
+    <small>Theme&nbsp;<a href="https://github.com/yoshiharuyamashita/blackburn" target="_blank">Blackburn</a></small>
+  </div>
+</div>
+
+</div>
+
+
+  <div id="main">
+
+
+<div class="header">
+  <h1>From One Table to Another and Back Again</h1>
+  <h2>Adventures in Data Transformation and an Appreciation of {cdata}</h2>
+</div>
+<div class="content">
+
+  <div class="post-meta">
+
+  <div>
+    <i class="fa fa-calendar fa-fw"></i>
+    <time>2019 Mar 25</time>
+  </div>
+
+  
+
+  
+
+  
+  
+  
+  <div>
+    <i class="fa fa-tags fa-fw"></i>
+    
+      <a class="post-taxonomy-tag" href="/tags/cdata">cdata</a>&nbsp;&#47;
+    
+      <a class="post-taxonomy-tag" href="/tags/data.table">data.table</a>
+    
+  </div>
+  
+  
+
+</div>
+
+  
+<script src="/rmarkdown-libs/htmlwidgets/htmlwidgets.js"></script>
+<script src="/rmarkdown-libs/jquery/jquery.min.js"></script>
+<link href="/rmarkdown-libs/datatables-css/datatables-crosstalk.css" rel="stylesheet" />
+<script src="/rmarkdown-libs/datatables-binding/datatables.js"></script>
+<link href="/rmarkdown-libs/dt-core/css/jquery.dataTables.min.css" rel="stylesheet" />
+<link href="/rmarkdown-libs/dt-core/css/jquery.dataTables.extra.css" rel="stylesheet" />
+<script src="/rmarkdown-libs/dt-core/js/jquery.dataTables.min.js"></script>
+<link href="/rmarkdown-libs/dt-ext-fixedcolumns/css/fixedColumns.dataTables.min.css" rel="stylesheet" />
+<script src="/rmarkdown-libs/dt-ext-fixedcolumns/js/dataTables.fixedColumns.min.js"></script>
+<link href="/rmarkdown-libs/crosstalk/css/crosstalk.css" rel="stylesheet" />
+<script src="/rmarkdown-libs/crosstalk/js/crosstalk.min.js"></script>
+
+<div id="TOC">
+<ul>
+<li><a href="#inevitable"><span class="toc-section-number">1</span> Inevitable</a></li>
+<li><a href="#coordinatized"><span class="toc-section-number">2</span> Coordinatized</a></li>
+<li><a href="#one-data-to-compare-them-all"><span class="toc-section-number">3</span> One Data to Compare Them All</a><ul>
+<li><a href="#tidyr-spread-gather"><span class="toc-section-number">3.1</span> Gather and Spread</a></li>
+<li><a href="#melt-and-dcast"><span class="toc-section-number">3.2</span> Melt and (D)Cast</a></li>
+<li><a href="#reshape"><span class="toc-section-number">3.3</span> Reshape</a></li>
+<li><a href="#rowrecs-and-blocks"><span class="toc-section-number">3.4</span> Rowrecs and Blocks</a></li>
+</ul></li>
+<li><a href="#for-future-me-and-collaborators"><span class="toc-section-number">4</span> For Future Me and Collaborators</a></li>
+<li><a href="#code"><span class="toc-section-number">5</span> Code</a></li>
+<li><a href="#references"><span class="toc-section-number">6</span> References</a></li>
+</ul>
+</div>
+
+<pre class="r"><code># Attach packages and set chunk options
+
+xfun::pkg_attach(
+  &quot;knitr&quot;,
+  &quot;DT&quot;,
+  &quot;data.table&quot;,
+  &quot;cdata&quot;,
+  &quot;tidyr&quot;,
+  &quot;tibble&quot;
+)
+
+opts_chunk$set(
+  message = FALSE,
+  warning = FALSE,
+  echo = TRUE
+)
+
+# create standard datatable function to be used in all tables in this post
+
+show_datatable &lt;- function(data) {
+  data %&gt;% 
+    DT::datatable(
+      rownames = FALSE,
+      extensions = &#39;FixedColumns&#39;,
+      options = list(
+        pageLength = 20,
+        scrollX = TRUE,
+        scrollCollapse = TRUE,
+        columnDefs = list(
+          list(
+            className = &#39;dt-center&#39;,
+            targets = 0:(ncol(data) - 1)
+          )
+        )
+      )
+    )
+}</code></pre>
+<div id="inevitable" class="section level1">
+<h1><span class="header-section-number">1</span> Inevitable</h1>
+<p>With my current work as a <a href="https://amateurdatasci.rbind.io/post/loves-what-he-is-doing/">junior data scientist</a>, I have to manipulate a lot of data to get to a desired output or a possible answer to a question. Almost all data that I have handled required me to convert a wide table to a long format or a long table to a wide format.</p>
+<p>The usual packages I use for length and cross wise transformations are <code>{tidyr}</code><span class="citation">(Wickham and Henry 2019)</span> and <code>{data.table}</code><span class="citation">(Dowle and Srinivasan 2019)</span>. For wide to long<a href="#fn1" class="footnoteRef" id="fnref1"><sup>1</sup></a>, one can use either <code>tidyr::gather()</code> or <code>data.table::melt()</code>; for long to wide, one can use <code>tidyr::spread()</code><a href="#fn2" class="footnoteRef" id="fnref2"><sup>2</sup></a> and <code>data.table::dcast()</code><a href="#fn3" class="footnoteRef" id="fnref3"><sup>3</sup></a>.</p>
+<p>The functions from both packages have the similar disadvantage of their use cases not really being intuitive in terms of how to transform the data. In my opinion, data is transformed in the mind of the user, i.e. the transformation is hidden within the code that the future user and collaborators have to decipher. It will be better if the user can work with the data and just allow the code to obey its master. I think this concern is addressed by <code>{cdata}</code>.</p>
+</div>
+<div id="coordinatized" class="section level1">
+<h1><span class="header-section-number">2</span> Coordinatized</h1>
+<p>While I advocate the use and am a heavy user of <code>{cdata}</code><span class="citation">(Mount and Zumel 2019a)</span>, the best resource to learn it is from its <a href="https://winvector.github.io/cdata/index.html">vignettes</a>. The main concept behind <code>{cdata}</code> is the theory of <em>coordinatized</em><a href="#fn4" class="footnoteRef" id="fnref4"><sup>4</sup></a> or <em>fluid</em> data, each element of the data can be located using coordinates defined by the table name, key column/s and value/s, and the value column.</p>
+<p>I really like the idea of coordinatized data because all data is coordinatized. We do not need to identify which data is “tidy” or “messy”. Data is data; and the form a data has in the beginning is not important as long as we know how to interpret it in terms of its coordinates. Once we understand the data, we can break it down and shape it into the form that will be most useful for our purposes.</p>
+<p><code>{cdata}</code> is also the first <code>R</code> package that talked about row records and blocks which may seem confusing at first (at least, for me) but it makes more sense to think about data transformations from row records to blocks, and <em>vice versa</em>. Long and wide might be simpler and maybe even correct when a set of columns are placed into two or when two columns are distributed into multiple columns, but for more complicated transformations, I believe, row records and blocks are more appropriate.</p>
+<p>How does <code>{cdata}</code> perform fluid data transformation? How is it different from <code>{tidyr}</code>’s <code>gather()</code> and <code>spread()</code> or <code>{data.table}</code>’s <code>melt()</code> and <code>dcast()</code>?</p>
+</div>
+<div id="one-data-to-compare-them-all" class="section level1">
+<h1><span class="header-section-number">3</span> One Data to Compare Them All</h1>
+<p>I will compare data transformation using <code>{tidyr}</code>, <code>{data.table}</code>, and <code>{cdata}</code>, and I hope I will highlight the power of <code>{cdata}</code>. I will use the Lord of the Rings data from <a href="https://yutani.rbind.io/post/enhancing-gather-and-spread-by-using-bundled-data-frames/">Hiroaki Yutani’s blog post</a><a href="#fn5" class="footnoteRef" id="fnref5"><sup>5</sup></a>.</p>
+<pre class="r"><code>lotr_tbl &lt;- tribble(
+  ~Race   , ~Female_FoTR, ~Male_FoTR, 
+            ~Female_TT  , ~Male_TT  ,
+            ~Female_RoTK, ~Male_RoTK,
+  &quot;Elf&quot;   , 1229        , 971       , 
+            331         , 513       ,
+            183         , 510       ,
+  &quot;Hobbit&quot;, 14          , 3644      , 
+            0           , 2463      ,
+            2           , 2673      ,
+  &quot;Man&quot;   , 0           , 1995      ,
+            401         , 3589      ,
+            268         , 2459
+)
+
+lotr_dt &lt;- setDT(lotr_tbl)</code></pre>
+<p>My first goal is to convert the data from this (Table 1)</p>
+<pre class="r"><code>head(lotr_tbl) %&gt;% 
+  show_datatable()</code></pre>
+<div class="figure"><span id="fig:show-lotr"></span>
+<div id="htmlwidget-1" style="width:100%;height:auto;" class="datatables html-widget"></div>
+<script type="application/json" data-for="htmlwidget-1">{"x":{"filter":"none","extensions":["FixedColumns"],"data":[["Elf","Hobbit","Man"],[1229,14,0],[971,3644,1995],[331,0,401],[513,2463,3589],[183,2,268],[510,2673,2459]],"container":"<table class=\"display\">\n  <thead>\n    <tr>\n      <th>Race<\/th>\n      <th>Female_FoTR<\/th>\n      <th>Male_FoTR<\/th>\n      <th>Female_TT<\/th>\n      <th>Male_TT<\/th>\n      <th>Female_RoTK<\/th>\n      <th>Male_RoTK<\/th>\n    <\/tr>\n  <\/thead>\n<\/table>","options":{"pageLength":20,"scrollX":true,"scrollCollapse":true,"columnDefs":[{"className":"dt-center","targets":[0,1,2,3,4,5,6]}],"order":[],"autoWidth":false,"orderClasses":false,"lengthMenu":[10,20,25,50,100]}},"evals":[],"jsHooks":[]}</script>
+<p class="caption">
+Figure 3.1: Table 1
+</p>
+</div>
+<p>to this (Table 2)</p>
+<pre class="r"><code>lotr_tbl_2 &lt;- tribble(
+  ~Race   , ~key    ,   ~FoTR, ~TT, ~RoTK,
+  &quot;Elf&quot;   , &quot;Female&quot;,   1229 , 331 , 183 ,
+  &quot;Hobbit&quot;, &quot;Female&quot;,   14   , 0     , 2   ,
+  &quot;Man&quot;   , &quot;Female&quot;,   0    , 401 , 268 ,
+  &quot;Elf&quot;   , &quot;Male&quot;  ,   971  , 513 , 510 ,
+  &quot;Hobbit&quot;, &quot;Male&quot;  ,   3644 , 2463, 2673,
+  &quot;Man&quot;   , &quot;Male&quot;  , 1995 , 3589, 2459
+)
+
+lotr_tbl_2 %&gt;% 
+  show_datatable()</code></pre>
+<div class="figure"><span id="fig:show-lotr-transformed"></span>
+<div id="htmlwidget-2" style="width:100%;height:auto;" class="datatables html-widget"></div>
+<script type="application/json" data-for="htmlwidget-2">{"x":{"filter":"none","extensions":["FixedColumns"],"data":[["Elf","Hobbit","Man","Elf","Hobbit","Man"],["Female","Female","Female","Male","Male","Male"],[1229,14,0,971,3644,1995],[331,0,401,513,2463,3589],[183,2,268,510,2673,2459]],"container":"<table class=\"display\">\n  <thead>\n    <tr>\n      <th>Race<\/th>\n      <th>key<\/th>\n      <th>FoTR<\/th>\n      <th>TT<\/th>\n      <th>RoTK<\/th>\n    <\/tr>\n  <\/thead>\n<\/table>","options":{"pageLength":20,"scrollX":true,"scrollCollapse":true,"columnDefs":[{"className":"dt-center","targets":[0,1,2,3,4]}],"order":[],"autoWidth":false,"orderClasses":false,"lengthMenu":[10,20,25,50,100]}},"evals":[],"jsHooks":[]}</script>
+<p class="caption">
+Figure 3.2: Table 2
+</p>
+</div>
+<p>And then back to Table 1.</p>
+<div id="tidyr-spread-gather" class="section level2">
+<h2><span class="header-section-number">3.1</span> Gather and Spread</h2>
+<p>To convert from Table 1 to 2, a single use of <code>{tidyr}</code>’s <code>gather()</code> will not work because we want to take multiple columns and put it in multiple columns rather than only two. We will need the full functionality of <code>{tidyr}</code>.</p>
+<p>My solution to convert Table 1 to 2 is</p>
+<pre class="r"><code>lotr_tbl %&gt;% 
+  gather(key = &quot;key&quot;, value = &quot;count&quot;, - Race) %&gt;% 
+  separate(key, into = c(&quot;key&quot;, &quot;book&quot;), sep = &quot;_&quot;) %&gt;% 
+  spread(key = book, value = count) %&gt;% 
+  show_datatable()</code></pre>
+<div id="htmlwidget-3" style="width:100%;height:auto;" class="datatables html-widget"></div>
+<script type="application/json" data-for="htmlwidget-3">{"x":{"filter":"none","extensions":["FixedColumns"],"data":[["Elf","Elf","Hobbit","Hobbit","Man","Man"],["Female","Male","Female","Male","Female","Male"],[1229,971,14,3644,0,1995],[183,510,2,2673,268,2459],[331,513,0,2463,401,3589]],"container":"<table class=\"display\">\n  <thead>\n    <tr>\n      <th>Race<\/th>\n      <th>key<\/th>\n      <th>FoTR<\/th>\n      <th>RoTK<\/th>\n      <th>TT<\/th>\n    <\/tr>\n  <\/thead>\n<\/table>","options":{"pageLength":20,"scrollX":true,"scrollCollapse":true,"columnDefs":[{"className":"dt-center","targets":[0,1,2,3,4]}],"order":[],"autoWidth":false,"orderClasses":false,"lengthMenu":[10,20,25,50,100]}},"evals":[],"jsHooks":[]}</script>
+<p>I collected all columns first, except the <code>Race</code> column into two columns. The key column is a combination of the gender and book. Since we want book to be column headers, we need to separate this single key column into two (<code>key</code> and <code>book</code>) using <code>tidyr::separate()</code>. With the <code>book</code> only in one column, we can spread this column and get to Table 2.</p>
+<p>For Table 2 to 1</p>
+<pre class="r"><code>lotr_tbl_2 %&gt;% 
+  gather(key = &quot;book&quot;, value = &quot;count&quot;, -Race, -key) %&gt;% 
+  unite(col = &quot;key&quot;, key, book, sep = &quot;_&quot;) %&gt;% 
+  spread(key = key, value = count) %&gt;% 
+  show_datatable()</code></pre>
+<div id="htmlwidget-4" style="width:100%;height:auto;" class="datatables html-widget"></div>
+<script type="application/json" data-for="htmlwidget-4">{"x":{"filter":"none","extensions":["FixedColumns"],"data":[["Elf","Hobbit","Man"],[1229,14,0],[183,2,268],[331,0,401],[971,3644,1995],[510,2673,2459],[513,2463,3589]],"container":"<table class=\"display\">\n  <thead>\n    <tr>\n      <th>Race<\/th>\n      <th>Female_FoTR<\/th>\n      <th>Female_RoTK<\/th>\n      <th>Female_TT<\/th>\n      <th>Male_FoTR<\/th>\n      <th>Male_RoTK<\/th>\n      <th>Male_TT<\/th>\n    <\/tr>\n  <\/thead>\n<\/table>","options":{"pageLength":20,"scrollX":true,"scrollCollapse":true,"columnDefs":[{"className":"dt-center","targets":[0,1,2,3,4,5,6]}],"order":[],"autoWidth":false,"orderClasses":false,"lengthMenu":[10,20,25,50,100]}},"evals":[],"jsHooks":[]}</script>
+<p>I gathered all the book/count columns and put it in two columns. I used <code>tidyr::unite()</code> to combine <code>key</code> and <code>book</code>. I finished the transformation with a <code>spread()</code> of the <code>key</code> and <code>count</code> column<a href="#fn6" class="footnoteRef" id="fnref6"><sup>6</sup></a>.</p>
+</div>
+<div id="melt-and-dcast" class="section level2">
+<h2><span class="header-section-number">3.2</span> Melt and (D)Cast</h2>
+<p>The steps we used in the previous section can also be translated in <code>{data.table}</code>’s <code>melt()</code> and <code>dcast()</code>.</p>
+<pre class="r"><code>lotr_dt[
+  ,
+  melt(.SD, id.vars = &quot;Race&quot;, value.name = &quot;count&quot;)
+][
+  ,
+  tstrsplit(variable, split = &quot;_&quot;, names = c(&quot;key&quot;, &quot;book&quot;)),
+  .(Race, count)
+][
+  ,
+  dcast(.SD, Race + key ~ book, value.var = &quot;count&quot;)
+][
+  ,
+  show_datatable(.SD)
+]</code></pre>
+<div id="htmlwidget-5" style="width:100%;height:auto;" class="datatables html-widget"></div>
+<script type="application/json" data-for="htmlwidget-5">{"x":{"filter":"none","extensions":["FixedColumns"],"data":[["Elf","Elf","Hobbit","Hobbit","Man","Man"],["Female","Male","Female","Male","Female","Male"],[1229,971,14,3644,0,1995],[183,510,2,2673,268,2459],[331,513,0,2463,401,3589]],"container":"<table class=\"display\">\n  <thead>\n    <tr>\n      <th>Race<\/th>\n      <th>key<\/th>\n      <th>FoTR<\/th>\n      <th>RoTK<\/th>\n      <th>TT<\/th>\n    <\/tr>\n  <\/thead>\n<\/table>","options":{"pageLength":20,"scrollX":true,"scrollCollapse":true,"columnDefs":[{"className":"dt-center","targets":[0,1,2,3,4]}],"order":[],"autoWidth":false,"orderClasses":false,"lengthMenu":[10,20,25,50,100]}},"evals":[],"jsHooks":[]}</script>
+<p>Note that I only specified <code>id.vars</code> since this is the only column that will not be collected. In more complicated cases, I think it will be necessary to specify both <code>id.vars</code> and <code>measure.vars</code> as a vector of column names. Using <code>melt()</code> with <code>.SD</code><a href="#fn7" class="footnoteRef" id="fnref7"><sup>7</sup></a> is a matter of personal preference. The <code>data.table::tstrsplit()</code> helps in splitting one column into two. The <code>formula</code> argument in <code>dcast()</code> has always been confusing to me. I use <code>melt()</code> more often and still check its documentation and arguments. With <code>dcast()</code> it will require me more study and a bit of trial and error to make it work. In my limited understanding, The <code>formula</code> argument wants to know which id columns (<code>Race</code> and <code>key</code>) are a function of which value column. Specifying <code>value.var</code> in this example is not necessary because it is the only column left for casting, but it is better to be clear.</p>
+<pre class="r"><code># data.table::copy() is necessary so that lotr_tbl_2 is not affected.
+lotr_dt_2 &lt;- setDT(copy(lotr_tbl_2))
+
+lotr_dt_2[
+  ,
+  melt(
+    .SD, id.vars = c(&quot;Race&quot;, &quot;key&quot;), 
+    measure.vars = c(&quot;FoTR&quot;, &quot;TT&quot;, &quot;RoTK&quot;),
+    variable.name = &quot;book&quot;, value.name = &quot;count&quot;
+  )
+][
+  ,
+  .(key = paste(key, book, sep = &quot;_&quot;)),
+  .(Race, count)
+][
+  ,
+  dcast(.SD, Race ~ key, value.var = &quot;count&quot;)
+][
+  ,
+  show_datatable(.SD)
+]</code></pre>
+<div id="htmlwidget-6" style="width:100%;height:auto;" class="datatables html-widget"></div>
+<script type="application/json" data-for="htmlwidget-6">{"x":{"filter":"none","extensions":["FixedColumns"],"data":[["Elf","Hobbit","Man"],[1229,14,0],[183,2,268],[331,0,401],[971,3644,1995],[510,2673,2459],[513,2463,3589]],"container":"<table class=\"display\">\n  <thead>\n    <tr>\n      <th>Race<\/th>\n      <th>Female_FoTR<\/th>\n      <th>Female_RoTK<\/th>\n      <th>Female_TT<\/th>\n      <th>Male_FoTR<\/th>\n      <th>Male_RoTK<\/th>\n      <th>Male_TT<\/th>\n    <\/tr>\n  <\/thead>\n<\/table>","options":{"pageLength":20,"scrollX":true,"scrollCollapse":true,"columnDefs":[{"className":"dt-center","targets":[0,1,2,3,4,5,6]}],"order":[],"autoWidth":false,"orderClasses":false,"lengthMenu":[10,20,25,50,100]}},"evals":[],"jsHooks":[]}</script>
+<p>We can also convert from Table 2 to 1 using <code>{data.table}</code> by reversing our process. I do not know if <code>tstrsplit()</code> has a complementary function in <code>{data.table}</code>, but <code>paste()</code> seems to work really fine.</p>
+</div>
+<div id="reshape" class="section level2">
+<h2><span class="header-section-number">3.3</span> Reshape</h2>
+<p>Since I am in full comparison mode, let us include a data transformation method using <code>stats::reshape()</code>.</p>
+<pre class="r"><code>key_book &lt;- names(lotr_tbl)[names(lotr_tbl) != &quot;Race&quot;]
+
+lotr_df &lt;- 
+  reshape(
+    lotr_dt, 
+    direction = &quot;long&quot;,
+    varying = list(key_book),
+    idvar = &quot;Race&quot;, timevar = &quot;key&quot;,
+    times = key_book, v.names = &quot;count&quot;
+  )
+
+lotr_df[, c(&quot;key&quot;, &quot;book&quot;)] &lt;- transpose(strsplit(lotr_df$key, split = &quot;_&quot;))
+
+lotr_df_2 &lt;- 
+  reshape(
+    lotr_df,
+    direction = &quot;wide&quot;, 
+    timevar = &quot;book&quot;, v.names = &quot;count&quot;,
+    idvar = c(&quot;Race&quot;, &quot;key&quot;), sep = &quot;&quot;
+  )
+
+names(lotr_df_2) &lt;- gsub(&quot;count&quot;, &quot;&quot;, names(lotr_df_2))
+
+show_datatable(lotr_df_2)</code></pre>
+<div id="htmlwidget-7" style="width:100%;height:auto;" class="datatables html-widget"></div>
+<script type="application/json" data-for="htmlwidget-7">{"x":{"filter":"none","extensions":["FixedColumns"],"data":[["Elf","Hobbit","Man","Elf","Hobbit","Man"],["Female","Female","Female","Male","Male","Male"],[1229,14,0,971,3644,1995],[331,0,401,513,2463,3589],[183,2,268,510,2673,2459]],"container":"<table class=\"display\">\n  <thead>\n    <tr>\n      <th>Race<\/th>\n      <th>key<\/th>\n      <th>FoTR<\/th>\n      <th>TT<\/th>\n      <th>RoTK<\/th>\n    <\/tr>\n  <\/thead>\n<\/table>","options":{"pageLength":20,"scrollX":true,"scrollCollapse":true,"columnDefs":[{"className":"dt-center","targets":[0,1,2,3,4]}],"order":[],"autoWidth":false,"orderClasses":false,"lengthMenu":[10,20,25,50,100]}},"evals":[],"jsHooks":[]}</script>
+<p>To be honest, this is the only opportunity that I have used <code>reshape()</code>, so this may not be the best data transformation method available in <code>R</code> without using external packages. The argument names are still confusing to me, but with more practice I think I can feel comfortable using it. However, I find that <code>varying</code> as a list, the need to specify <code>times</code> as a vector of column names, and the extra step to remove <code>v.names</code> string after the “widening” to be features that would need more getting used to.</p>
+<p>Reversing the above process,</p>
+<pre class="r"><code>books &lt;- names(lotr_df_2)[!names(lotr_df_2) %in% c(&quot;Race&quot;, &quot;key&quot;)] 
+
+lotr_df_1 &lt;- 
+  reshape(
+    lotr_df_2,
+    direction = &quot;long&quot;, idvar = c(&quot;Race&quot;, &quot;key&quot;),
+    varying = list(books), times = books,
+    timevar = &quot;book&quot;, v.names = &quot;count&quot;
+  )
+
+lotr_df_1 &lt;- within(lotr_df_1, key_book &lt;- paste(key, book, sep = &quot;_&quot;))
+
+lotr_df_1 &lt;- 
+  reshape(
+    lotr_df_1,
+    direction = &quot;wide&quot;, idvar = &quot;Race&quot;,
+    timevar = &quot;key_book&quot;, v.names = &quot;count&quot;,
+    drop = c(&quot;key&quot;, &quot;book&quot;), sep = &quot;&quot;
+  )
+
+names(lotr_df_1) &lt;- gsub(&quot;count&quot;, &quot;&quot;, names(lotr_df_1))
+
+show_datatable(lotr_df_1)</code></pre>
+<div id="htmlwidget-8" style="width:100%;height:auto;" class="datatables html-widget"></div>
+<script type="application/json" data-for="htmlwidget-8">{"x":{"filter":"none","extensions":["FixedColumns"],"data":[["Elf","Hobbit","Man"],[1229,14,0],[971,3644,1995],[331,0,401],[513,2463,3589],[183,2,268],[510,2673,2459]],"container":"<table class=\"display\">\n  <thead>\n    <tr>\n      <th>Race<\/th>\n      <th>Female_FoTR<\/th>\n      <th>Male_FoTR<\/th>\n      <th>Female_TT<\/th>\n      <th>Male_TT<\/th>\n      <th>Female_RoTK<\/th>\n      <th>Male_RoTK<\/th>\n    <\/tr>\n  <\/thead>\n<\/table>","options":{"pageLength":20,"scrollX":true,"scrollCollapse":true,"columnDefs":[{"className":"dt-center","targets":[0,1,2,3,4,5,6]}],"order":[],"autoWidth":false,"orderClasses":false,"lengthMenu":[10,20,25,50,100]}},"evals":[],"jsHooks":[]}</script>
+<p>I think I really like <code>reshape()</code> even with its quirks. I did not know <code>{stats}</code> has this powerful tool all along. Exploring available tools in <code>R</code> before looking in external packages provides a better understanding and awareness of <code>R</code>’s power.</p>
+</div>
+<div id="rowrecs-and-blocks" class="section level2">
+<h2><span class="header-section-number">3.4</span> Rowrecs and Blocks</h2>
+<p>As we have seen, data transformations with <code>{tidyr}</code>, <code>{data.table}</code>, and <code>stats::reshape()</code> requires multiple steps and multiple functions to get from Table 1 to 2 and <em>vice versa</em>. With <code>{cdata}</code>, we only need one function, but it will require us to do one step that, as far as I know, <code>{cdata}</code> pioneered: control tables<a href="#fn8" class="footnoteRef" id="fnref8"><sup>8</sup></a>.</p>
+<p>Control tables are like a summary what the data should look like in a different form. This is the power of coordinatized data. Once we understand the “coordinates” of a value, we can translate that data into using different coordinates.</p>
+<p>In Table 1, given the coordinates (<code>Race</code> == “Elf”, <code>Female_RoTK</code>) we find the value 183. In Table 2, we find the same value, 183, using the coordinates (<code>Race</code> = “Elf”, <code>key</code> = “Female”, <code>RoTK</code>). So, if we want to convert from Table 1 to 2, we need a control table that says: Using the id column <code>Race</code> (since it exist in both tables), when <code>key</code> = “Female” in Table 2, the value should be the same as the <code>Female_RoTK</code> in Table 1.</p>
+<p>We can make a control table using <code>qchar_frame()</code>, a function exported from <code>{wrapr}</code><span class="citation">(Mount and Zumel 2019b)</span>, a package from the same creators of <code>{cdata}</code>.</p>
+<pre class="r"><code>lotr_control_table &lt;- 
+  qchar_frame(
+    key   , FoTR         , TT         , RoTK          |
+    Female, &quot;Female_FoTR&quot;, &quot;Female_TT&quot;, &quot;Female_RoTK&quot; |
+    Male  , &quot;Male_FoTR&quot;  , &quot;Male_TT&quot;  , &quot;Male_RoTK&quot;
+  )</code></pre>
+<p>Note that you really don’t need <code>qchar_frame()</code> to make a control table. It is only a data frame that bridges the gap between two forms of the same data, so there are multiple ways to make such a data frame. This is important when typing becomes burdensome and code will help make the process more efficient. The important aspect about a control table is that it forces the user to focus more on how the currently looks like and what form the user wants it to be.</p>
+<p>Control tables have different meanings when used in <code>{cdata}</code>’s <code>rowrecs_to_blocks()</code>, and <code>blocks_to_rowrecs()</code>. Inside <code>rowrecs_to_blocks()</code>, a control table is what the user wants the data to look like. In <code>blocks_to_rowrecs()</code>, a control table is what the data currently looks like. For more information please refer to the <code>{cdata}</code> <a href="https://winvector.github.io/cdata/index.html">vignettes</a>.</p>
+<p>Now that we have a control table, we can go from Table 1 to 2,</p>
+<pre class="r"><code>show_datatable(
+  rowrecs_to_blocks(
+    lotr_dt,
+    controlTable = lotr_control_table,
+    controlTableKeys = &quot;key&quot;,
+    columnsToCopy = &quot;Race&quot;
+  )
+)</code></pre>
+<div id="htmlwidget-9" style="width:100%;height:auto;" class="datatables html-widget"></div>
+<script type="application/json" data-for="htmlwidget-9">{"x":{"filter":"none","extensions":["FixedColumns"],"data":[["Elf","Elf","Hobbit","Hobbit","Man","Man"],["Female","Male","Female","Male","Female","Male"],[1229,971,14,3644,0,1995],[331,513,0,2463,401,3589],[183,510,2,2673,268,2459]],"container":"<table class=\"display\">\n  <thead>\n    <tr>\n      <th>Race<\/th>\n      <th>key<\/th>\n      <th>FoTR<\/th>\n      <th>TT<\/th>\n      <th>RoTK<\/th>\n    <\/tr>\n  <\/thead>\n<\/table>","options":{"pageLength":20,"scrollX":true,"scrollCollapse":true,"columnDefs":[{"className":"dt-center","targets":[0,1,2,3,4]}],"order":[],"autoWidth":false,"orderClasses":false,"lengthMenu":[10,20,25,50,100]}},"evals":[],"jsHooks":[]}</script>
+<p>And from Table 2 to 1,</p>
+<pre class="r"><code>show_datatable(
+  blocks_to_rowrecs(
+    lotr_dt_2,
+    controlTable = lotr_control_table,
+    controlTableKeys = &quot;key&quot;,
+    keyColumns = &quot;Race&quot;
+  )
+)</code></pre>
+<div id="htmlwidget-10" style="width:100%;height:auto;" class="datatables html-widget"></div>
+<script type="application/json" data-for="htmlwidget-10">{"x":{"filter":"none","extensions":["FixedColumns"],"data":[["Elf","Hobbit","Man"],[1229,14,0],[971,3644,1995],[331,0,401],[513,2463,3589],[183,2,268],[510,2673,2459]],"container":"<table class=\"display\">\n  <thead>\n    <tr>\n      <th>Race<\/th>\n      <th>Female_FoTR<\/th>\n      <th>Male_FoTR<\/th>\n      <th>Female_TT<\/th>\n      <th>Male_TT<\/th>\n      <th>Female_RoTK<\/th>\n      <th>Male_RoTK<\/th>\n    <\/tr>\n  <\/thead>\n<\/table>","options":{"pageLength":20,"scrollX":true,"scrollCollapse":true,"columnDefs":[{"className":"dt-center","targets":[0,1,2,3,4,5,6]}],"order":[],"autoWidth":false,"orderClasses":false,"lengthMenu":[10,20,25,50,100]}},"evals":[],"jsHooks":[]}</script>
+<p>Very seamless, isn’t it?</p>
+<p>As an additional note, <code>controlTableKeys</code> allow for multiple<a href="#fn9" class="footnoteRef" id="fnref9"><sup>9</sup></a> columns, which makes <code>{cdata}</code> more powerful and more general in its implementation. The <code>keyColumns</code> argument is necessary to go from blocks to row records, otherwise, how will the code know which rows belong to the same groups or keys. In this example, <code>Race</code> was an existing id column. In some data sets, an id column may not be available, so we need to make one beforehand to ensure smooth data transformations.</p>
+</div>
+</div>
+<div id="for-future-me-and-collaborators" class="section level1">
+<h1><span class="header-section-number">4</span> For Future Me and Collaborators</h1>
+<p>After looking at all the different ways to do data transformation using different packages, why am I an advocate of <code>{cdata}</code>?</p>
+<p>For the first three methods using <code>{tidyr}</code>, <code>{data.table}</code> and <code>stats::reshape()</code> requires users to understand the data then code a series of transformations to get from Table 1 to 2. On the other hand, <code>{cdata}</code> only requires step one, understanding the data, and emphasizes that understanding is very important by requiring users to translate that understanding into a control table.</p>
+<p>I think future me will have lesser problems understanding a control table than a series of code. I also believe that once everyone understands the idea of coordinatized data and control tables, these two concepts are quite intuitive when studied in the context of data, then sharing of control tables offer better collaboration, at least in the realm of data transformation, than a series of codes.<br />
+# Grateful</p>
+<p>I will always appreciate <code>{cdata}</code>. In just a few months, it became one of my favorite packages in <code>R</code>. When the opportunity arises for data transformation, I will always use it.</p>
+<p>I urge you, dear reader, to use <code>{cdata}</code> for your data transformation tasks. I assure you, it will not fail you (unless, bugs of course). With the advent of <code>{tidyr}</code>’s <code>pivot_long()</code> and <code>pivot_wide()</code>, some of you may prefer to use it. In my opinion, that is alright, just don’t forget to thank and cite John Mount and Nina Zumel for their ideas on coordinatized data and fluid transformation. So, before I forget.</p>
+<p><strong>Thank you John Mount and Nina Zumel for <code>{cdata}</code>!</strong></p>
+</div>
+<div id="code" class="section level1">
+<h1><span class="header-section-number">5</span> Code</h1>
+<p>The following codes show what I did in this post. I added comments here and there to clarify my thought process.</p>
+<pre class="r"><code># Attach packages and set chunk options
+
+xfun::pkg_attach(
+  &quot;knitr&quot;,
+  &quot;DT&quot;,
+  &quot;data.table&quot;,
+  &quot;cdata&quot;,
+  &quot;tidyr&quot;,
+  &quot;tibble&quot;
+)
+
+opts_chunk$set(
+  message = FALSE,
+  warning = FALSE,
+  echo = TRUE
+)
+
+# create standard datatable function to be used in all tables in this post
+
+show_datatable &lt;- function(data) {
+  data %&gt;% 
+    DT::datatable(
+      rownames = FALSE,
+      extensions = &#39;FixedColumns&#39;,
+      options = list(
+        pageLength = 20,
+        scrollX = TRUE,
+        scrollCollapse = TRUE,
+        columnDefs = list(
+          list(
+            className = &#39;dt-center&#39;,
+            targets = 0:(ncol(data) - 1)
+          )
+        )
+      )
+    )
+}
+
+
+lotr_tbl &lt;- tribble(
+  ~Race   , ~Female_FoTR, ~Male_FoTR, 
+            ~Female_TT  , ~Male_TT  ,
+            ~Female_RoTK, ~Male_RoTK,
+  &quot;Elf&quot;   , 1229        , 971       , 
+            331         , 513       ,
+            183         , 510       ,
+  &quot;Hobbit&quot;, 14          , 3644      , 
+            0           , 2463      ,
+            2           , 2673      ,
+  &quot;Man&quot;   , 0           , 1995      ,
+            401         , 3589      ,
+            268         , 2459
+)
+
+lotr_dt &lt;- setDT(lotr_tbl)
+
+
+head(lotr_tbl) %&gt;% 
+  show_datatable()
+
+
+lotr_tbl_2 &lt;- tribble(
+  ~Race   , ~key    ,   ~FoTR, ~TT, ~RoTK,
+  &quot;Elf&quot;   , &quot;Female&quot;,   1229 , 331 , 183 ,
+  &quot;Hobbit&quot;, &quot;Female&quot;,   14   , 0     , 2   ,
+  &quot;Man&quot;   , &quot;Female&quot;,   0    , 401 , 268 ,
+  &quot;Elf&quot;   , &quot;Male&quot;  ,   971  , 513 , 510 ,
+  &quot;Hobbit&quot;, &quot;Male&quot;  ,   3644 , 2463, 2673,
+  &quot;Man&quot;   , &quot;Male&quot;  , 1995 , 3589, 2459
+)
+
+lotr_tbl_2 %&gt;% 
+  show_datatable()
+
+
+lotr_tbl %&gt;% 
+  gather(key = &quot;key&quot;, value = &quot;count&quot;, - Race) %&gt;% 
+  separate(key, into = c(&quot;key&quot;, &quot;book&quot;), sep = &quot;_&quot;) %&gt;% 
+  spread(key = book, value = count) %&gt;% 
+  show_datatable()
+
+
+lotr_tbl_2 %&gt;% 
+  gather(key = &quot;book&quot;, value = &quot;count&quot;, -Race, -key) %&gt;% 
+  unite(col = &quot;key&quot;, key, book, sep = &quot;_&quot;) %&gt;% 
+  spread(key = key, value = count) %&gt;% 
+  show_datatable()
+  
+
+
+lotr_dt[
+  ,
+  melt(.SD, id.vars = &quot;Race&quot;, value.name = &quot;count&quot;)
+][
+  ,
+  tstrsplit(variable, split = &quot;_&quot;, names = c(&quot;key&quot;, &quot;book&quot;)),
+  .(Race, count)
+][
+  ,
+  dcast(.SD, Race + key ~ book, value.var = &quot;count&quot;)
+][
+  ,
+  show_datatable(.SD)
+]
+
+
+# data.table::copy() is necessary so that lotr_tbl_2 is not affected.
+lotr_dt_2 &lt;- setDT(copy(lotr_tbl_2))
+
+lotr_dt_2[
+  ,
+  melt(
+    .SD, id.vars = c(&quot;Race&quot;, &quot;key&quot;), 
+    measure.vars = c(&quot;FoTR&quot;, &quot;TT&quot;, &quot;RoTK&quot;),
+    variable.name = &quot;book&quot;, value.name = &quot;count&quot;
+  )
+][
+  ,
+  .(key = paste(key, book, sep = &quot;_&quot;)),
+  .(Race, count)
+][
+  ,
+  dcast(.SD, Race ~ key, value.var = &quot;count&quot;)
+][
+  ,
+  show_datatable(.SD)
+]
+
+
+key_book &lt;- names(lotr_tbl)[names(lotr_tbl) != &quot;Race&quot;]
+
+lotr_df &lt;- 
+  reshape(
+    lotr_dt, 
+    direction = &quot;long&quot;,
+    varying = list(key_book),
+    idvar = &quot;Race&quot;, timevar = &quot;key&quot;,
+    times = key_book, v.names = &quot;count&quot;
+  )
+
+lotr_df[, c(&quot;key&quot;, &quot;book&quot;)] &lt;- transpose(strsplit(lotr_df$key, split = &quot;_&quot;))
+
+lotr_df_2 &lt;- 
+  reshape(
+    lotr_df,
+    direction = &quot;wide&quot;, 
+    timevar = &quot;book&quot;, v.names = &quot;count&quot;,
+    idvar = c(&quot;Race&quot;, &quot;key&quot;), sep = &quot;&quot;
+  )
+
+names(lotr_df_2) &lt;- gsub(&quot;count&quot;, &quot;&quot;, names(lotr_df_2))
+
+show_datatable(lotr_df_2)
+
+
+books &lt;- names(lotr_df_2)[!names(lotr_df_2) %in% c(&quot;Race&quot;, &quot;key&quot;)] 
+
+lotr_df_1 &lt;- 
+  reshape(
+    lotr_df_2,
+    direction = &quot;long&quot;, idvar = c(&quot;Race&quot;, &quot;key&quot;),
+    varying = list(books), times = books,
+    timevar = &quot;book&quot;, v.names = &quot;count&quot;
+  )
+
+lotr_df_1 &lt;- within(lotr_df_1, key_book &lt;- paste(key, book, sep = &quot;_&quot;))
+
+lotr_df_1 &lt;- 
+  reshape(
+    lotr_df_1,
+    direction = &quot;wide&quot;, idvar = &quot;Race&quot;,
+    timevar = &quot;key_book&quot;, v.names = &quot;count&quot;,
+    drop = c(&quot;key&quot;, &quot;book&quot;), sep = &quot;&quot;
+  )
+
+names(lotr_df_1) &lt;- gsub(&quot;count&quot;, &quot;&quot;, names(lotr_df_1))
+
+show_datatable(lotr_df_1)
+
+
+lotr_control_table &lt;- 
+  qchar_frame(
+    key   , FoTR         , TT         , RoTK          |
+    Female, &quot;Female_FoTR&quot;, &quot;Female_TT&quot;, &quot;Female_RoTK&quot; |
+    Male  , &quot;Male_FoTR&quot;  , &quot;Male_TT&quot;  , &quot;Male_RoTK&quot;
+  )
+
+
+show_datatable(
+  rowrecs_to_blocks(
+    lotr_dt,
+    controlTable = lotr_control_table,
+    controlTableKeys = &quot;key&quot;,
+    columnsToCopy = &quot;Race&quot;
+  )
+)
+
+
+show_datatable(
+  blocks_to_rowrecs(
+    lotr_dt_2,
+    controlTable = lotr_control_table,
+    controlTableKeys = &quot;key&quot;,
+    keyColumns = &quot;Race&quot;
+  )
+)
+
+
+
+sessioninfo::session_info(include_base = TRUE)</code></pre>
+<p>My session info for reproducibility.</p>
+<pre class="r"><code>sessioninfo::session_info(include_base = TRUE)</code></pre>
+<pre><code>## - Session info ----------------------------------------------------------
+##  setting  value                       
+##  version  R version 3.5.3 (2019-03-11)
+##  os       Windows 10 x64              
+##  system   x86_64, mingw32             
+##  ui       RTerm                       
+##  language (EN)                        
+##  collate  English_Philippines.1252    
+##  ctype    English_Philippines.1252    
+##  tz       Asia/Kuala_Lumpur           
+##  date     2019-03-25                  
+## 
+## - Packages --------------------------------------------------------------
+##  ! package     * version date       lib source        
+##    assertthat    0.2.1   2019-03-21 [1] CRAN (R 3.5.3)
+##    base        * 3.5.3   2019-03-11 [?] local         
+##    blogdown      0.11    2019-03-11 [1] CRAN (R 3.5.2)
+##    bookdown      0.9     2018-12-21 [1] CRAN (R 3.5.2)
+##    cdata       * 1.0.7   2019-03-23 [1] CRAN (R 3.5.3)
+##    cli           1.1.0   2019-03-19 [1] CRAN (R 3.5.3)
+##  P compiler      3.5.3   2019-03-11 [1] local         
+##    crayon        1.3.4   2017-09-16 [1] CRAN (R 3.5.2)
+##    crosstalk     1.0.0   2016-12-21 [1] CRAN (R 3.5.2)
+##    data.table  * 1.12.0  2019-01-13 [1] CRAN (R 3.5.2)
+##  P datasets    * 3.5.3   2019-03-11 [1] local         
+##    digest        0.6.18  2018-10-10 [1] CRAN (R 3.5.2)
+##    dplyr         0.8.0.1 2019-02-15 [1] CRAN (R 3.5.2)
+##    DT          * 0.5     2018-11-05 [1] CRAN (R 3.5.2)
+##    evaluate      0.13    2019-02-12 [1] CRAN (R 3.5.2)
+##    glue          1.3.1   2019-03-12 [1] CRAN (R 3.5.2)
+##  P graphics    * 3.5.3   2019-03-11 [1] local         
+##  P grDevices   * 3.5.3   2019-03-11 [1] local         
+##    htmltools     0.3.6   2017-04-28 [1] CRAN (R 3.5.2)
+##    htmlwidgets   1.3     2018-09-30 [1] CRAN (R 3.5.2)
+##    httpuv        1.5.0   2019-03-15 [1] CRAN (R 3.5.3)
+##    jsonlite      1.6     2018-12-07 [1] CRAN (R 3.5.2)
+##    knitr       * 1.22    2019-03-08 [1] CRAN (R 3.5.3)
+##    later         0.8.0   2019-02-11 [1] CRAN (R 3.5.2)
+##    magrittr      1.5     2014-11-22 [1] CRAN (R 3.5.2)
+##  P methods     * 3.5.3   2019-03-11 [1] local         
+##    mime          0.6     2018-10-05 [1] CRAN (R 3.5.2)
+##    pillar        1.3.1   2018-12-15 [1] CRAN (R 3.5.2)
+##    pkgconfig     2.0.2   2018-08-16 [1] CRAN (R 3.5.2)
+##    promises      1.0.1   2018-04-13 [1] CRAN (R 3.5.2)
+##    purrr         0.3.2   2019-03-15 [1] CRAN (R 3.5.3)
+##    R6            2.4.0   2019-02-14 [1] CRAN (R 3.5.2)
+##    Rcpp          1.0.1   2019-03-17 [1] CRAN (R 3.5.3)
+##    rlang         0.3.2   2019-03-21 [1] CRAN (R 3.5.3)
+##    rmarkdown     1.12    2019-03-14 [1] CRAN (R 3.5.3)
+##    sessioninfo   1.1.1   2018-11-05 [1] CRAN (R 3.5.2)
+##    shiny         1.2.0   2018-11-02 [1] CRAN (R 3.5.2)
+##  P stats       * 3.5.3   2019-03-11 [1] local         
+##    stringi       1.4.3   2019-03-12 [1] CRAN (R 3.5.2)
+##    stringr       1.4.0   2019-02-10 [1] CRAN (R 3.5.2)
+##    tibble      * 2.1.1   2019-03-16 [1] CRAN (R 3.5.3)
+##    tidyr       * 0.8.3   2019-03-01 [1] CRAN (R 3.5.2)
+##    tidyselect    0.2.5   2018-10-11 [1] CRAN (R 3.5.2)
+##  P tools         3.5.3   2019-03-11 [1] local         
+##  P utils       * 3.5.3   2019-03-11 [1] local         
+##    withr         2.1.2   2018-03-15 [1] CRAN (R 3.5.2)
+##    wrapr         1.8.4   2019-02-19 [1] CRAN (R 3.5.2)
+##    xfun          0.5     2019-02-20 [1] CRAN (R 3.5.2)
+##    xtable        1.8-3   2018-08-29 [1] CRAN (R 3.5.2)
+##    yaml          2.2.0   2018-07-25 [1] CRAN (R 3.5.2)
+## 
+## [1] C:/Users/reclev/R/R-3.5.3/library
+## 
+##  P -- Loaded and on-disk path mismatch.</code></pre>
+</div>
+<div id="references" class="section level1">
+<h1><span class="header-section-number">6</span> References</h1>
+<p>For more information on tidy principles, techniques, and good practices, and the packages and functions I used in this post, please read</p>
+<div id="refs" class="references">
+<div id="ref-R-data.table">
+<p>Dowle, Matt, and Arun Srinivasan. 2019. <em>Data.table: Extension of ‘Data.frame‘</em>. <a href="https://CRAN.R-project.org/package=data.table" class="uri">https://CRAN.R-project.org/package=data.table</a>.</p>
+</div>
+<div id="ref-R-cdata">
+<p>Mount, John, and Nina Zumel. 2019a. <em>Cdata: Fluid Data Transformations</em>. <a href="https://CRAN.R-project.org/package=cdata" class="uri">https://CRAN.R-project.org/package=cdata</a>.</p>
+</div>
+<div id="ref-R-wrapr">
+<p>———. 2019b. <em>Wrapr: Wrap R Tools for Debugging and Parametric Programming</em>. <a href="https://CRAN.R-project.org/package=wrapr" class="uri">https://CRAN.R-project.org/package=wrapr</a>.</p>
+</div>
+<div id="ref-R-tidyr">
+<p>Wickham, Hadley, and Lionel Henry. 2019. <em>Tidyr: Easily Tidy Data with ’Spread()’ and ’Gather()’ Functions</em>. <a href="https://CRAN.R-project.org/package=tidyr" class="uri">https://CRAN.R-project.org/package=tidyr</a>.</p>
+</div>
+</div>
+</div>
+<div class="footnotes">
+<hr />
+<ol>
+<li id="fn1"><p>I find going from wide to long much easier and more intuitive than going from long to wide, but that might be because I am more exposed and have more experience converting from wide to long as this is the more common data transformation that I have encountered so far.<a href="#fnref1">↩</a></p></li>
+<li id="fn2"><p>I just heard about <code>{tidyr}</code>’s <a href="https://tidyr.tidyverse.org/dev/articles/pivot.html">new data transformation functions</a> (as I was writing this post, I learned that the <a href="https://twitter.com/hadleywickham/status/1109816130774986753">new functions will be called</a> <code>pivot_longer()</code> and <code>pivot_wider()</code>) as possible replacements for <code>gather()</code> and <code>spread()</code>. The vignette mentions <code>{cdata}</code> and <code>{data.table}</code>’s <code>melt()</code> and <code>dcast()</code> as inspiration for the improvements. I am excited to give <code>pivot_longer()</code> and <code>pivot_wider()</code> a spin, but my preference will stay with <code>{cdata}</code>.<a href="#fnref2">↩</a></p></li>
+<li id="fn3"><p>I must confess that <code>dcast()</code> is my weak point in using <code>{data.table}</code>. I felt its power during the times I have used it successfully, but I somehow have to spend time reading the documentation and do test transformation every time I try to use it. Again, most of my experience involves transforming data from wide to long. Maybe I would have mastered <code>dcast()</code> better with more practice.<a href="#fnref3">↩</a></p></li>
+<li id="fn4"><p>Learn more about coordinatized data <a href="http://www.win-vector.com/blog/2017/03/coordinatized-data-a-fluid-data-specification/">here</a> and <a href="http://winvector.github.io/FluidData/FluidData.html">here</a><a href="#fnref4">↩</a></p></li>
+<li id="fn5"><p>Observe that my reply included a suggestion to study <code>{cdata}</code>. I changed the data a little. The first book of The Lord of the Rings (a Tolkien fan here) is The Fellowship of the Ring, so I think FoTR will be a better column name.<a href="#fnref5">↩</a></p></li>
+<li id="fn6"><p>I offered a different solution in Hiroaki’s blog that also used <code>tidyr::nest()</code> and <code>tidyr::unnest()</code>, but that was only for comparison with the suggested <code>bundle()</code> function. The solution I offer here with <code>separate()</code> and <code>unite()</code> might be more intuitive and simpler.<a href="#fnref6">↩</a></p></li>
+<li id="fn7"><p>I like how much of <code>{data.table}</code>’s functionality happens within <code>[</code>. I find functions that force me to get out of that “box” hindering my workflow. As a personal remedy, I use functions with <code>.SD</code> at some loss in efficiency. It is my personal wish that <code>.SD</code> becomes more efficient as I use it a lot.<a href="#fnref7">↩</a></p></li>
+<li id="fn8"><p>In the implementation of <code>{tidyr}</code>’s <code>pivot_long()</code> and <code>pivot_wide()</code>, <code>spec</code> will be the control table equivalent.<a href="#fnref8">↩</a></p></li>
+<li id="fn9"><p>I <a href="https://github.com/WinVector/cdata/issues/3">requested</a> this feature, and I was very happy John Mount and Nina Zumel accommodated my request. I was able to use it in my work, and I am sure I will be able to use this specific feature again in the future.<a href="#fnref9">↩</a></p></li>
+</ol>
+</div>
+
+
+  
+<div class="prev-next-post pure-g">
+  <div class="pure-u-1-24" style="text-align: left;">
+    
+    <a href="/post/function-manipulate-plot/"><i class="fa fa-chevron-left"></i></a>
+    
+  </div>
+  <div class="pure-u-10-24">
+    
+    <nav class="prev">
+      <a href="/post/function-manipulate-plot/">One Function Call to Manipulate and Plot Them All</a>
+    </nav>
+    
+  </div>
+  <div class="pure-u-2-24">
+    &nbsp;
+  </div>
+  <div class="pure-u-10-24">
+    
+  </div>
+  <div class="pure-u-1-24" style="text-align: right;">
+    
+  </div>
+</div>
+
+
+
+  
+<div id="disqus_thread"></div>
+<script type="text/javascript">
+
+(function() {
+    
+    
+    if (window.location.hostname == "localhost")
+        return;
+
+    var dsq = document.createElement('script'); dsq.type = 'text/javascript'; dsq.async = true;
+    var disqus_shortname = 'the-amateur-data-scientist';
+    dsq.src = '//' + disqus_shortname + '.disqus.com/embed.js';
+    (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(dsq);
+})();
+</script>
+<noscript>Please enable JavaScript to view the <a href="http://disqus.com/?ref_noscript">comments powered by Disqus.</a></noscript>
+<a href="http://disqus.com/" class="dsq-brlink">comments powered by <span class="logo-disqus">Disqus</span></a>
+
+
+</div>
+
+</div>
+</div>
+<script src="/js/ui.js"></script>
+
+
+
+
+
+
+<script src="//https://amateurdatasci.rbind.io/js/math-code.js"></script>
+
+    <script type="text/javascript"
+      src="https://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML">
+    </script>
+
+</body>
+</html>
+

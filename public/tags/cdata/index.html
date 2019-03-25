@@ -7,7 +7,7 @@
   <meta name="description" content="">
   <meta name="generator" content="Hugo 0.54.0" />
 
-  <title>Limits &middot; The Amateur Data Scientist</title>
+  <title>Cdata &middot; The Amateur Data Scientist</title>
 
   
   
@@ -40,7 +40,7 @@
 
  
   
-  <link rel="alternate" type="application/rss+xml" title="The Amateur Data Scientist" href="/tags/limits/index.xml" />
+  <link rel="alternate" type="application/rss+xml" title="The Amateur Data Scientist" href="/tags/cdata/index.xml" />
   
 
   
@@ -107,7 +107,7 @@
 
     
     <li class="pure-menu-item">
-      <a class="pure-menu-link" href="/tags/limits/index.xml"><i class="fa fa-rss fa-fw"></i>RSS</a>
+      <a class="pure-menu-link" href="/tags/cdata/index.xml"><i class="fa fa-rss fa-fw"></i>RSS</a>
     </li>
     
 
@@ -220,20 +220,20 @@
 
 
 <div class="header">
-  <h1>Limits</h1>
+  <h1>Cdata</h1>
 </div>
 
 <div class="content">
   
     <article>
   <header>
-    <h2><a href="/post/tangent-non-existent/">Tangent Lines and Non-Existent Ones</a></h2>
+    <h2><a href="/post/table-another-back-again-cdata/">From One Table to Another and Back Again</a></h2>
 
     <div class="post-meta">
 
   <div>
     <i class="fa fa-calendar fa-fw"></i>
-    <time>2018 Aug 6</time>
+    <time>2019 Mar 25</time>
   </div>
 
   
@@ -246,11 +246,9 @@
   <div>
     <i class="fa fa-tags fa-fw"></i>
     
-      <a class="post-taxonomy-tag" href="/tags/limits">limits</a>&nbsp;&#47;
+      <a class="post-taxonomy-tag" href="/tags/cdata">cdata</a>&nbsp;&#47;
     
-      <a class="post-taxonomy-tag" href="/tags/slopes">slopes</a>&nbsp;&#47;
-    
-      <a class="post-taxonomy-tag" href="/tags/tangents">tangents</a>
+      <a class="post-taxonomy-tag" href="/tags/data.table">data.table</a>
     
   </div>
   
@@ -261,12 +259,12 @@
   </header>
 
   <p>
-  1 Definition of a Tangent Line2 Slope of a Tangent Line on a Curve3 Condition for Existence4 Limit of an Absolute Value4.1 Problem4.2 Solution5 Reference1 Definition of a Tangent LineConsider a curve \(y = f(x)\), and let \(P\) be a given fixed point on this curve. Let \(Q\) be a second nearby point on the curve, and draw the secant line \(PQ\).
+  1 Inevitable2 Coordinatized3 One Data to Compare Them All3.1 Gather and Spread3.2 Melt and (D)Cast3.3 Reshape3.4 Rowrecs and Blocks4 For Future Me and Collaborators5 Code6 References# Attach packages and set chunk optionsxfun::pkg_attach(&quot;knitr&quot;,&quot;DT&quot;,&quot;data.table&quot;,&quot;cdata&quot;,&quot;tidyr&quot;,&quot;tibble&quot;)opts_chunk$set(message = FALSE,warning = FALSE,echo = TRUE)# create standard datatable function to be used in all tables in this postshow_datatable &lt;- function(data) {data %&gt;% DT::datatable(rownames = FALSE,extensions = &#39;FixedColumns&#39;,options = list(pageLength = 20,scrollX = TRUE,scrollCollapse = TRUE,columnDefs = list(list(className = &#39;dt-center&#39;,targets = 0:(ncol(data) - 1)))))}1 InevitableWith my current work as a junior data scientist, I have to manipulate a lot of data to get to a desired output or a possible answer to a question.
   </p>
 
   
   <footer>
-    <a href="/post/tangent-non-existent/">Read more<i class="fa fa-angle-double-right fa-fw"></i></a>
+    <a href="/post/table-another-back-again-cdata/">Read more<i class="fa fa-angle-double-right fa-fw"></i></a>
   </footer>
   
 </article>
