@@ -358,7 +358,7 @@ I think future me will have lesser problems understanding a control table than a
 
 I will always appreciate `{cdata}`. In just a few months, it became one of my favorite packages in `R`. When the opportunity arises for data transformation, I will always use it.
 
-I urge you, dear reader, to use `{cdata}` for your data transformation tasks. I assure you, it will not fail you (unless, bugs of course). With the advent of `{tidyr}`'s `pivot_long()` and `pivot_wide()`, some of you may prefer to use it. In my opinion, that is alright, just don't forget to thank and cite John Mount and Nina Zumel for their ideas on coordinatized data and fluid transformation. So, before I forget.
+I urge you, dear reader, to use `{cdata}` for your data transformation tasks. I assure you, it will not fail you (unless, bugs of course). With the advent of `{tidyr}`'s `pivot_longer()` and `pivot_wider()`, some of you may prefer to use it. In my opinion, that is alright, just don't forget to thank and cite John Mount and Nina Zumel for their ideas on coordinatized data and fluid transformation. So, before I forget.
 
 **Thank you John Mount and Nina Zumel for `{cdata}`!**
 
