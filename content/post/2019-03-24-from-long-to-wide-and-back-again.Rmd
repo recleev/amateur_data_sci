@@ -42,23 +42,23 @@ opts_chunk$set(
 
 With my current work as a [junior data scientist](https://amateurdatasci.rbind.io/post/loves-what-he-is-doing/), I have to manipulate a lot of data to get to a desired output or a possible answer to a question. Almost all data that I have handled required me to convert a wide table to a long format or a long table to a wide format.
 
-The usual packages I use for length and cross wise transformations are `{tidyr}`[@R-tidyr] and `{data.table}`[@R-data.table]. For wide to long^[I find going from wide to long much easier and more intuitive than going from long to wide, but that might be because I am more exposed and have more experience converting from wide to long as this is the more common data transformation that I have encountered so far.], one can use either `tidyr::gather()` or `data.table::melt()`; for long to wide, one can use `tidyr::spread()`^[I just heard about `{tidyr}`'s [`pivot_long()` and `pivot_wide()`](https://tidyr.tidyverse.org/dev/articles/pivot.html) as possible replacements for `gather()` and `spread()`. The vignette mentions `{cdata}` and `{data.table}`'s `melt()` and `dcast()` as inspiration for the improvements. I am excited to give `pivot_long()` and `pivot_wide()` a spin, but I my preference will stay with `{cdata}`.] and `data.table::dcast()`^[I must confess that `dcast()` is my weak point in using `{data.table}`. I felt its power during the times I have used it successfully, but I somehow have to spend time reading the documentation and do test transformation everytime I try to use it. Again, most of my experience involves transforming data from wide to long. Maybe I would have mastered `dcast()` better with more practice.].
+The usual packages I use for length and cross wise transformations are `{tidyr}`[@R-tidyr] and `{data.table}`[@R-data.table]. For wide to long^[I find going from wide to long much easier and more intuitive than going from long to wide, but that might be because I am more exposed and have more experience converting from wide to long as this is the more common data transformation that I have encountered so far.], one can use either `tidyr::gather()` or `data.table::melt()`; for long to wide, one can use `tidyr::spread()`^[I just heard about `{tidyr}`'s [`pivot_long()` and `pivot_wide()`](https://tidyr.tidyverse.org/dev/articles/pivot.html) as possible replacements for `gather()` and `spread()`. The vignette mentions `{cdata}` and `{data.table}`'s `melt()` and `dcast()` as inspiration for the improvements. I am excited to give `pivot_long()` and `pivot_wide()` a spin, but I my preference will stay with `{cdata}`.] and `data.table::dcast()`^[I must confess that `dcast()` is my weak point in using `{data.table}`. I felt its power during the times I have used it successfully, but I somehow have to spend time reading the documentation and do test transformation every time I try to use it. Again, most of my experience involves transforming data from wide to long. Maybe I would have mastered `dcast()` better with more practice.].
 
 The functions from both packages have the similar disadvantage of their use cases not really being intuitive in terms of how to transform the data. In my opinion, data is transformed in the mind of the user, i.e. the transformation is hidden within the code that the future user and collaborators have to decipher. It will be better if the user can work with the data and just allow the code to obey its master. I think this concern is addressed by `{cdata}`.
 
 # Coordinatized
 
-While I advocate the use and am a heavy user of `{cdata}`, the best resource to learn it is from its [vignettes](https://winvector.github.io/cdata/index.html). The main concept behind `{cdata}` is the theory of *coordinatized*^[Learn more about coordinatized data [here](http://www.win-vector.com/blog/2017/03/coordinatized-data-a-fluid-data-specification/) and [here](http://winvector.github.io/FluidData/FluidData.html)] or *fluid* data, each element of the data can be located using coordinates defined by the table name, key column/s and value/s, and the value column.
+While I advocate the use and am a heavy user of `{cdata}`[@R-cdata], the best resource to learn it is from its [vignettes](https://winvector.github.io/cdata/index.html). The main concept behind `{cdata}` is the theory of *coordinatized*^[Learn more about coordinatized data [here](http://www.win-vector.com/blog/2017/03/coordinatized-data-a-fluid-data-specification/) and [here](http://winvector.github.io/FluidData/FluidData.html)] or *fluid* data, each element of the data can be located using coordinates defined by the table name, key column/s and value/s, and the value column.
 
 I really like the idea of coordinatized data because all data is coordinatized. We do not need to identify which data is "tidy" or "messy". Data is data; and the form a data has in the beginning is not important as long as we know how to interpret it in terms of its coordinates. Once we understand the data, we can break it down and shape it into the form that will be most useful for our purposes.
 
-`{cdata}` is also the first `R` packacge that talked about row records and blocks which may seem confusing at first (at least, for me) but it makes more sense to think about data transformations from row records to blocks, and vice versa. Long and wide might be simpler and maybe even correct when a set of columns are placed into two or when two columns are distributed into multiple columns, but for more complicated transformations, I beleive, row records and blocks are more appropriate. 
+`{cdata}` is also the first `R` package that talked about row records and blocks which may seem confusing at first (at least, for me) but it makes more sense to think about data transformations from row records to blocks, and *vice versa*. Long and wide might be simpler and maybe even correct when a set of columns are placed into two or when two columns are distributed into multiple columns, but for more complicated transformations, I believe, row records and blocks are more appropriate. 
 
 How does `{cdata}` perform fluid data transformation? How is it different from `{tidyr}`'s `gather()` and `spread()` or `{data.table}`'s `melt()` and `dcast()`?
 
 # One Data to Compare Them All
 
-I will compare data transformation using `{tidyr}`, `{data.table}`, and `{cdata}`, and I hope I will higlight the power of `{cdata}`. I will use the Lord of the Rings data from [Hiroaki Yutani's blog post](https://yutani.rbind.io/post/enhancing-gather-and-spread-by-using-bundled-data-frames/)^[Observe that my reply included a suggestion to study `{cdata}`. I changed the data a little. The first book of The Lord of the Rings (a Tolkien fan here) is The Fellowship of the Ring, so I think FoTR will be a better column name.].
+I will compare data transformation using `{tidyr}`, `{data.table}`, and `{cdata}`, and I hope I will highlight the power of `{cdata}`. I will use the Lord of the Rings data from [Hiroaki Yutani's blog post](https://yutani.rbind.io/post/enhancing-gather-and-spread-by-using-bundled-data-frames/)^[Observe that my reply included a suggestion to study `{cdata}`. I changed the data a little. The first book of The Lord of the Rings (a Tolkien fan here) is The Fellowship of the Ring, so I think FoTR will be a better column name.].
 
 ```{r prepare_lotr}
 
@@ -124,7 +124,7 @@ lotr_tbl %>%
 
 ```
 
-I collected all columns first, except the `Race` column into two colums. The key column is a combination of the gender and book. Since we want book to be column headers, we need to separate this single key column into two (`key` and `book`) using `tidyr::separate()`. With the `book` only in one column, we can spread this column and get to Table 2.
+I collected all columns first, except the `Race` column into two columns. The key column is a combination of the gender and book. Since we want book to be column headers, we need to separate this single key column into two (`key` and `book`) using `tidyr::separate()`. With the `book` only in one column, we can spread this column and get to Table 2.
 
 For Table 2 to 1
 
@@ -138,7 +138,7 @@ lotr_2 %>%
 
 ```
 
-I gatherd all the book/count columns and put it in two columns. I used `tidyr::unite()` to combine `key` and `book`. I finished the transformation with a `spread()` of the `key` and `count` column^[I offered a different soultion in Hiroaki's blog that also used `tidyr::nest()` and `tidyr::unnest()`, but that was only for comparison with the suggested `bundle()` function. The solution I offer here with `separate()` and `unite()` might be more intuitive and simpler.].
+I gathered all the book/count columns and put it in two columns. I used `tidyr::unite()` to combine `key` and `book`. I finished the transformation with a `spread()` of the `key` and `count` column^[I offered a different solution in Hiroaki's blog that also used `tidyr::nest()` and `tidyr::unnest()`, but that was only for comparison with the suggested `bundle()` function. The solution I offer here with `separate()` and `unite()` might be more intuitive and simpler.].
 
 ## Melt and (D)Cast
 
@@ -255,6 +255,75 @@ lotr_df_1
 I think I really like `reshape()` even with its quirks. I did not know `{stats}` has this powerful tool all along. Exploring available tools in `R` before looking in external packages provides a better understanding and awareness of `R`'s power.
 
 ## Rowrecs and Blocks
+
+As we have seen, data transformations with `{tidyr}`, `{data.table}`, and `stats::reshape()` requires multiple steps and multiple functions to get from Table 1 to 2 and *vice versa*. With `{cdata}`, we only need one function, but it will require us to do one step that, as far as I know, `{cdata}` pioneered: control tables^[In the implementation of `{tidyr}`'s `pivot_long()` and `pivot_wide()`, `spec` will be the control table equivalent.].
+
+Control tables are like a summary what the data should look like in a different form. This is the power of coordinatized data. Once we understand the "coordinates" of a value, we can translate that data into using different coordinates.
+
+In Table 1, given the coordinates (`Race` == "Elf", `Female_RoTK`) we find the value 183. In Table 2, we find the same value, 183, using the coordinates (`Race` = "Elf", `key` = "Female", `RoTK`). So, if we want to convert from Table 1 to 2, we need a control table that says: Using the id column `Race` (since it exist in both tables), when `key` = "Female" in Table 2, the value should be the same as the `Female_RoTK` in Table 1.
+
+We can make a control table using `qchar_frame()`, a function exported from `{wrapr}`[@R-wrapr], a package from the same creators of `{cdata}`.
+
+```{r lotr-control-table}
+
+lotr_control_table <- 
+  qchar_frame(
+    key   , FoTR         , TT         , RoTK          |
+    Female, "Female_FoTR", "Female_TT", "Female_RoTK" |
+    Male  , "Male_FoTR"  , "Male_TT"  , "Male_RoTK"
+  )
+
+```
+
+
+Note that you really don't need `qchar_frame()` to make a control table. It is only a data frame that bridges the gap between two forms of the same data, so there are multiple ways to make such a data frame. This is important when typing becomes burdensome and code will help make the process more efficient. The important aspect about a control table is that it forces the user to focus more on how the currently looks like and what form the user wants it to be.
+
+Control tables have different meanings when used in `{cdata}`'s `rowrecs_to_blocks()`, and `blocks_to_rowrecs()`. Inside `rowrecs_to_blocks()`, a control table is what the user wants the data to look like. In `blocks_to_rowrecs()`, a control table is what the data currently looks like. For more information please refer to the `{cdata}` [vignettes](https://winvector.github.io/cdata/index.html).
+
+Now that we have a control table, we can go from Table 1 to 2,
+
+```{r cdata-1-to-2}
+
+rowrecs_to_blocks(
+  lotr_dt,
+  controlTable = lotr_control_table,
+  controlTableKeys = "key",
+  columnsToCopy = "Race"
+)
+
+```
+
+And from Table 2 to 1,
+
+```{r cdata-2-to-1}
+
+blocks_to_rowrecs(
+  lotr_dt_2,
+  controlTable = lotr_control_table,
+  controlTableKeys = "key",
+  keyColumns = "Race"
+)
+
+```
+
+Very seamless, isn't it?
+
+As an additional note, `controlTableKeys` allow for multiple^[I [requested](https://github.com/WinVector/cdata/issues/3) this feature, and I was very happy John Mount and Nina Zumel accommodated my request. I was able to use it in my work, and I am sure I will be able to use this specific feature again in the future.] columns, which makes `{cdata}` more powerful and more general in its implementation. The `keyColumns` argument is necessary to go from blocks to row records, otherwise, how will the code know which rows belong to the same groups or keys. In this example, `Race` was an existing id column. In some data sets, an id column may not be available, so we need to make one beforehand to ensure smooth data transformations.
+
+# For Future Me and Collaborators
+
+After looking at all the different ways to do data transformation using different packages, why am I an advocate of `{cdata}`?
+
+For the first three methods using `{tidyr}`, `{data.table}` and `stats::reshape()` requires users to understand the data then code a series of transformations to get from Table 1 to 2. On the other hand, `{cdata}` only requires step one, understanding the data, and emphasizes that understanding is very important by requiring users to translate that understanding into a control table.
+
+I think future me will have lesser problems understanding a control table than a series of code. I also believe that once everyone understands the idea of coordinatized data and control tables, these two concepts are quite intuitive when studied in the context of data, then sharing of control tables offer better collaboration, at least in the realm of data transformation, than a series of codes.  
+# Grateful
+
+I will always appreciate `{cdata}`. In just a few months, it became one of my favorite packages in `R`. When the opportunity arises for data transformation, I will always use it.
+
+I urge you, dear reader, to use `{cdata}` for your data transformation tasks. I assure you, it will not fail you (unless, bugs of course). With the advent of `{tidyr}`'s `pivot_long()` and `pivot_wide()`, some of you may prefer to use it. In my opinion, that is alright, just don't forget to thank and cite John Mount and Nina Zumel for their ideas on coordinatized data and fluid transformation. So, before I forget.
+
+**Thank you John Mount and Nina Zumel for `{cdata}`!**
 
 # Code {#code}
 
