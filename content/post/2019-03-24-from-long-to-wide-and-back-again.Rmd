@@ -93,7 +93,7 @@ to this (Table 2)
 
 ```{r show-lotr-transformed}
 
-lotr_2 <- tribble(
+lotr_tbl_2 <- tribble(
   ~Race   ,	~key    ,	~FoTR, ~TT,	~RoTK,
   "Elf"   ,	"Female",	1229 , 331 , 183 ,
   "Hobbit",	"Female",	14   , 0	 , 2   ,
@@ -103,13 +103,13 @@ lotr_2 <- tribble(
   "Man"   ,	"Male"	, 1995 , 3589, 2459
 )
 
-lotr_2
+lotr_tbl_2
 
 ```
 
 And then back to Table 1.
 
-## Gather and Spread
+## Gather and Spread {#tidyr-spread-gather}
 
 To convert from Table 1 to 2, a single use of `{tidyr}`'s `gather()` will not work because we want to take multiple columns and put it in multiple columns rather than only two. We will need the full functionality of `{tidyr}`.
 
@@ -140,7 +140,121 @@ lotr_2 %>%
 
 I gatherd all the book/count columns and put it in two columns. I used `tidyr::unite()` to combine `key` and `book`. I finished the transformation with a `spread()` of the `key` and `count` column^[I offered a different soultion in Hiroaki's blog that also used `tidyr::nest()` and `tidyr::unnest()`, but that was only for comparison with the suggested `bundle()` function. The solution I offer here with `separate()` and `unite()` might be more intuitive and simpler.].
 
-# Melt and (D)Cast
+## Melt and (D)Cast
+
+The steps we used in the previous section can also be translated in `{data.table}`'s `melt()` and `dcast()`.
+
+```{r rdatatable-1-to-2}
+
+lotr_dt[
+  ,
+  melt(.SD, id.vars = "Race", value.name = "count")
+][
+  ,
+  tstrsplit(variable, split = "_", names = c("key", "book")),
+  .(Race, count)
+][
+  ,
+  dcast(.SD, Race + key ~ book, value.var = "count")
+]
+
+```
+
+Note that I only specified `id.vars` since this is the only column that will not be collected. In more complicated cases, I think it will be necessary to specify both `id.vars` and `measure.vars` as a vector of column names. Using `melt()` with `.SD`^[I like how much of `{data.table}`'s functionality happens within `[`. I find functions that force me to get out of that "box" hindering my workflow. As a personal remedy, I use functions with `.SD` at some loss in efficiency. It is my personal wish that `.SD` becomes more efficient as I use it a lot.] is a matter of personal preference. The `data.table::tstrsplit()` helps in splitting one column into two. The `formula` argument in `dcast()` has always been confusing to me. I use `melt()` more often and still check its documentation and arguments. With `dcast()` it will require me more study and a bit of trial and error to make it work. In my limited understanding, The `formula` argument wants to know which id columns (`Race` and `key`) are a function of which value column. Specifying `value.var` in this example is not necessary because it is the only column left for casting, but it is better to be clear.
+
+```{r rdatatable-2-to-1}
+
+# data.table::copy() is necessary so that lotr_tbl_2 is not affected.
+lotr_dt_2 <- setDT(copy(lotr_tbl_2))
+
+lotr_dt_2[
+  ,
+  melt(
+    .SD, id.vars = c("Race", "key"), 
+    measure.vars = c("FoTR", "TT", "RoTK"),
+    variable.name = "book", value.name = "count"
+  )
+][
+  ,
+  .(key = paste(key, book, sep = "_")),
+  .(Race, count)
+][
+  ,
+  dcast(.SD, Race ~ key, value.var = "count")
+]
+
+```
+
+We can also convert from Table 2 to 1 using `{data.table}` by reversing our process. I do not know if `tstrsplit()` has a complementary function in `{data.table}`, but `paste()` seems to work really fine.
+
+## Reshape
+
+Since I am in full comparison mode, let us include a data transformation method using `stats::reshape()`.
+
+```{r reshape-1-to-2}
+
+key_book <- names(lotr_tbl)[names(lotr_tbl) != "Race"]
+
+lotr_df <- 
+  reshape(
+    lotr_dt, 
+    direction = "long",
+    varying = list(key_book),
+    idvar = "Race", timevar = "key",
+    times = key_book, v.names = "count"
+  )
+
+lotr_df[, c("key", "book")] <- transpose(strsplit(lotr_df$key, split = "_"))
+
+lotr_df_2 <- 
+  reshape(
+    lotr_df,
+    direction = "wide", 
+    timevar = "book", v.names = "count",
+    idvar = c("Race", "key"), sep = ""
+  )
+
+names(lotr_df_2) <- gsub("count", "", names(lotr_df_2))
+
+lotr_df_2
+
+```
+
+To be honest, this is the only opportunity that I have used `reshape()`, so this may not be the best data transformation method available in `R` without using external packages. The argument names are still confusing to me, but with more practice I think I can feel comfortable using it. However, I find that `varying` as a list, the need to specify `times` as a vector of column names, and the extra step to remove `v.names` string after the "widening" to be features that would need more getting used to.
+
+Reversing the above process,
+
+```{r reshape-2-to-1}
+
+books <- names(lotr_df_2)[!names(lotr_df_2) %in% c("Race", "key")] 
+
+lotr_df_1 <- 
+  reshape(
+    lotr_df_2,
+    direction = "long", idvar = c("Race", "key"),
+    varying = list(books), times = books,
+    timevar = "book", v.names = "count"
+  )
+
+lotr_df_1 <- within(lotr_df_1, key_book <- paste(key, book, sep = "_"))
+
+lotr_df_1 <- 
+  reshape(
+    lotr_df_1,
+    direction = "wide", idvar = "Race",
+    timevar = "key_book", v.names = "count",
+    drop = c("key", "book"), sep = ""
+  )
+
+names(lotr_df_1) <- gsub("count", "", names(lotr_df_1))
+
+lotr_df_1
+
+```
+
+I think I really like `reshape()` even with its quirks. I did not know `{stats}` has this powerful tool all along. Exploring available tools in `R` before looking in external packages provides a better understanding and awareness of `R`'s power.
+
+## Rowrecs and Blocks
 
 # Code {#code}
 
