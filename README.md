@@ -3,8 +3,6 @@ The Amateur Data Scientist
 
 <!-- README.md is generated from README.Rmd. Please edit that file -->
 
-# amateur\_data\_sci
-
 <!-- badges: start -->
 
 [![Project Status: Active – The project has reached a stable, usable
