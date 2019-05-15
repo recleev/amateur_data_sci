@@ -8,6 +8,7 @@ The Amateur Data Scientist
 [![Project Status: Active – The project has reached a stable, usable
 state and is being actively
 developed.](https://www.repostatus.org/badges/latest/active.svg)](https://www.repostatus.org/#active)
+[![license](https://img.shields.io/github/license/mashape/apistatus.svg)](https://choosealicense.com/licenses/mit/)
 [![Last-changedate](https://img.shields.io/badge/last%20change-2019--05--15-yellowgreen.svg)](/commits/master)
 <!-- badges: end -->
 
