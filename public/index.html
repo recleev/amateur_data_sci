@@ -230,6 +230,49 @@
   
     <article>
   <header>
+    <h2><a href="/post/multiple-columns-data-table/">Multiple Columns to Multiple Colums at Once</a></h2>
+
+    <div class="post-meta">
+
+  <div>
+    <i class="fa fa-calendar fa-fw"></i>
+    <time>2019 Jul 31</time>
+  </div>
+
+  
+
+  
+
+  
+  
+  
+  <div>
+    <i class="fa fa-tags fa-fw"></i>
+    
+      <a class="post-taxonomy-tag" href="/tags/data.table">data.table</a>
+    
+  </div>
+  
+  
+
+</div>
+
+  </header>
+
+  <p>
+  1 Bad First Impression2 Stuck on a Simulation Problem3 Ways and Times3.1 {dplyr} Attempt3.2 Life (in R) Changing Conversation3.3 {data,table} with {purrr} Attempt3.4 {data.table} Solution3.5 {base} R with {purrr} Alternative4 Timings in Graph# Attach packages and set chunk optionsxfun::pkg_attach(&quot;knitr&quot;,&quot;DT&quot;,&quot;data.table&quot;,&quot;dplyr&quot;,&quot;tictoc&quot;,&quot;purrr&quot;,&quot;microbenchmark&quot;,&quot;ggplot2&quot;)opts_chunk$set(message = FALSE,warning = FALSE,echo = TRUE)# create standard datatable function to be used in all tables in this postshow_datatable &lt;- function(data) {data %&gt;% DT::datatable(rownames = FALSE,extensions = &#39;FixedColumns&#39;,options = list(pageLength = 20,scrollX = TRUE,scrollCollapse = TRUE,columnDefs = list(list(className = &#39;dt-center&#39;,targets = 0:(ncol(data) - 1)))))}1 Bad First ImpressionI learned
+  </p>
+
+  
+  <footer>
+    <a href="/post/multiple-columns-data-table/">Read more<i class="fa fa-angle-double-right fa-fw"></i></a>
+  </footer>
+  
+</article>
+
+  
+    <article>
+  <header>
     <h2><a href="/post/table-another-back-again-cdata/">From One Table to Another and Back Again</a></h2>
 
     <div class="post-meta">
@@ -658,65 +701,6 @@ Find the area of the region in the second quadrant bounded by the \(x\)-axis and
   
   <footer>
     <a href="/post/messy-tidy-separate-category/">Read more<i class="fa fa-angle-double-right fa-fw"></i></a>
-  </footer>
-  
-</article>
-
-  
-    <article>
-  <header>
-    <h2><a href="/post/general-cubic-curve-inflection-point-and-symmetry/">General Cubic Curve: Point of Inflection and Symmetry</a></h2>
-
-    <div class="post-meta">
-
-  <div>
-    <i class="fa fa-calendar fa-fw"></i>
-    <time>2018 Oct 9</time>
-  </div>
-
-  
-
-  
-
-  
-  
-  
-  <div>
-    <i class="fa fa-tags fa-fw"></i>
-    
-      <a class="post-taxonomy-tag" href="/tags/cubic-equation">cubic equation</a>&nbsp;&#47;
-    
-      <a class="post-taxonomy-tag" href="/tags/derivatives">derivatives</a>&nbsp;&#47;
-    
-      <a class="post-taxonomy-tag" href="/tags/inflection-point">inflection point</a>&nbsp;&#47;
-    
-      <a class="post-taxonomy-tag" href="/tags/maxima">maxima</a>&nbsp;&#47;
-    
-      <a class="post-taxonomy-tag" href="/tags/minima">minima</a>&nbsp;&#47;
-    
-      <a class="post-taxonomy-tag" href="/tags/quadratic-equation">quadratic equation</a>&nbsp;&#47;
-    
-      <a class="post-taxonomy-tag" href="/tags/symmetry">symmetry</a>
-    
-  </div>
-  
-  
-
-</div>
-
-  </header>
-
-  <p>
-  1 Problem2 Solution2.1 Point of Inflection2.2 Maximum and Minimum2.3 Average of the Extrema2.4 Symmetry and the XY-System3 Plot of the Generic Cubic Curve4 Reference1 ProblemProblem 40, page 157 in Simmons (2016)
-Consider the general cubic equation
-\[\begin{equation}y = a x^3 + b x^2 + c x + d\tag{1.1}\end{equation}\]
-Show that:
-It has one and only one point of inflection at \(I (\frac{-b}{3a}, k)\) where \(k = \frac{2 b^3}{27 a^2} - \frac{bc}{3a} + d\),It has one maximum point and one minimum point if and only if \(b^2 - 3ac \gt 0\),The abscissa of \(I\) is the average of the abscissas of the maximum and minimum point, andThe curve is symmetric with respect to \(I\) byIntroducing a new \(X\)-axis and \(Y\)-axis such that \(X = x + \frac{b}{3a}\) and \(Y = y - k\) and making \(I\) as the origin of the \(XY\)-system,Showing that the equation of the curve in the \(XY\)-system is \(Y = aX \left(X^2 - \frac{b^2 - 3ac}{3 a^2} \right)\), andShowing that this transformed equation is symmetric with respect to \(I\).
-  </p>
-
-  
-  <footer>
-    <a href="/post/general-cubic-curve-inflection-point-and-symmetry/">Read more<i class="fa fa-angle-double-right fa-fw"></i></a>
   </footer>
   
 </article>

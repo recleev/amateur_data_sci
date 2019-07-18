@@ -1,0 +1,302 @@
+---
+title: Multiple Columns to Multiple Colums at Once
+author: Recle E. Vibal
+date: '2019-07-31'
+slug: multiple-columns-data-table
+categories:
+  - data manipulation
+  - data wrangling
+  - personal
+tags:
+  - data.table
+description: Why I Learned to Use {data.table}
+output:
+  blogdown::html_page:
+    toc: yes
+    number_sections: yes
+bibliography:
+  - references/function-manipulate-plot.bib
+biblio-style: apalike
+---
+
+```{r packages-options, message=FALSE, warning=FALSE, include=TRUE}
+
+# Attach packages and set chunk options
+
+xfun::pkg_attach(
+  "knitr",
+  "DT",
+  "data.table",
+  "dplyr",
+  "tictoc",
+  "purrr",
+  "microbenchmark",
+  "ggplot2"
+)
+
+opts_chunk$set(
+  message = FALSE,
+  warning = FALSE,
+  echo = TRUE
+)
+
+# create standard datatable function to be used in all tables in this post
+
+show_datatable <- function(data) {
+  data %>% 
+    DT::datatable(
+      rownames = FALSE,
+      extensions = 'FixedColumns',
+      options = list(
+        pageLength = 20,
+        scrollX = TRUE,
+        scrollCollapse = TRUE,
+        columnDefs = list(
+          list(
+            className = 'dt-center',
+            targets = 0:(ncol(data) - 1)
+          )
+        )
+      )
+    )
+}
+
+```
+
+# Bad First Impression
+
+I learned 
+
+# Stuck on a Simulation Problem
+
+As I was in transition to a Junior Data Scientist role, I had to work a simulation on a data. An important step of that simulation is to use a function that takes five main arguments and outputs a `data.frame`. Something like this^[Maybe this example does not make sense, but the function I needed to use was more complicated than this and makes a lot more sense.]:
+
+```{r make-fun}
+
+give_something <- function(
+  factor1 = LETTERS[1:5], 
+  factor2 = letters[11:15], 
+  factor3 = letters[21:25], 
+  value1, value2
+) {
+  
+  set.seed(555)
+  
+  reference <- 
+    array(
+      # input values
+      runif(125, min = 0.05, max = 0.95), 
+      # create a 5 x 5 x 5 array
+      dim = c(5,5,5), 
+      # Add names per level of array
+      dimnames = list(LETTERS[1:5], letters[11:15], letters[21:25])
+    )
+  
+  number1 <- sqrt(reference[factor1, factor2, factor3] * value1)
+  
+  number2 <- (reference[factor1, factor2, factor3] * value2)^3 / pi
+  
+  number3 <- (number1 + number2) / 2
+  
+  number4 <- ((number1 - number2) ^ 2) / 2
+  
+  data.frame(
+    name = paste(factor1, factor2, factor3, sep = "-"),
+    first = number1,
+    second = number2,
+    third = number3,
+    fourth = number4,
+    stringsAsFactors = FALSE
+  )
+}
+
+```
+
+I needed to simulate this function over a data like this:
+
+```{r make-toy-data}
+
+n_sample <- 8000
+
+toy_data <- 
+  data.frame(
+    Factor1 = sample(LETTERS[1:5], size = n_sample, replace = TRUE),
+    Factor2 = sample(letters[11:15], size = n_sample, replace = TRUE),
+    Factor3 = sample(letters[21:25], size = n_sample, replace = TRUE),
+    Value1 = runif(n_sample, min = 0.48, max = 0.52),
+    Value2 = runif(n_sample, min = 0.48, max = 0.52),
+    stringsAsFactors = FALSE
+  )
+
+toy_data$ID <- 1:n_sample
+
+```
+
+# Ways and Times
+
+## `{dplyr}` Attempt
+
+```{r attempt-dplyr}
+
+tic()
+
+toy_data_tbl <- 
+  toy_data %>% 
+  as_tibble() %>% 
+  rowwise() %>% 
+  mutate(
+    First = give_something(Factor1, Factor2, Factor3, Value1, Value2)$first,
+    Second = give_something(Factor1, Factor2, Factor3, Value1, Value2)$second,
+    Third = give_something(Factor1, Factor2, Factor3, Value1, Value2)$third
+  )
+
+dplyr_time <- toc()
+
+```
+
+## Life (in `R`) Changing Conversation 
+
+## `{data,table}` with `{purrr}` Attempt
+
+```{r attempt-rdatatable-purrr}
+
+toy_data_dt <- 
+  as.data.table(toy_data)
+
+tic()
+
+toy_data_dt[
+  ,
+  c("First", "Second", "Third") := 
+    pmap_df(
+    list(
+      factor1 = toy_data$Factor1, 
+      factor2 = toy_data$Factor2, 
+      factor3 = toy_data$Factor3, 
+      value1 = toy_data$Value1, 
+      value2 = toy_data$Value2
+    ),
+    give_something
+  )[, c("first", "second", "third")]
+]
+
+rdatatable_purrr_time <- toc()
+
+```
+
+
+## `{data.table}` Solution
+
+```{r solution-rdatatable}
+
+toy_data_dt2 <- 
+  as.data.table(toy_data)
+
+tic()
+
+toy_data_dt2[
+  ,
+  c("First", "Second", "Third") := 
+    give_something(
+      Factor1, Factor2, Factor3, Value1, Value2
+    )[,c("first", "second", "third")], 
+  ID
+  ]
+
+rdatatable_time <- toc()
+
+```
+
+## `{base}` `R` with `{purrr}` Alternative
+
+```{r alternative-baseR-purrr}
+
+toy_data_df <- toy_data
+
+tic()
+
+toy_data_df[, c("First", "Second", "Third")] <- 
+  pmap_df(
+    list(
+      factor1 = toy_data$Factor1, 
+      factor2 = toy_data$Factor2, 
+      factor3 = toy_data$Factor3, 
+      value1 = toy_data$Value1, 
+      value2 = toy_data$Value2
+    ),
+    give_something
+  )[, c("first", "second", "third")]
+
+toc()
+
+```
+
+# Timings in Graph
+
+```{r microbenchmark-attempts}
+
+# Recreate the tables
+toy_data_dt <- 
+  as.data.table(toy_data)
+
+toy_data_dt2 <- 
+  as.data.table(toy_data)
+
+toy_data_df <- toy_data
+
+making_cols_timings <- 
+  microbenchmark(
+    dplyr = toy_data %>% 
+      as_tibble() %>% 
+      rowwise() %>% 
+      mutate(
+        First = give_something(Factor1, Factor2, Factor3, Value1, Value2)$first,
+        Second = give_something(Factor1, Factor2, Factor3, Value1, Value2)$second,
+        Third = give_something(Factor1, Factor2, Factor3, Value1, Value2)$third
+      ),
+    rdatatable_purrr = toy_data_dt[
+      ,
+      c("First", "Second", "Third") := 
+        purrr::pmap_df(
+          list(
+            factor1 = toy_data$Factor1, 
+            factor2 = toy_data$Factor2, 
+            factor3 = toy_data$Factor3, 
+            value1 = toy_data$Value1, 
+            value2 = toy_data$Value2
+          ),
+          give_something
+        )[, c("first", "second", "third")]
+    ],
+    rdatatable = toy_data_dt2[
+      ,
+      c("First", "Second", "Third") := 
+        give_something(
+          Factor1, Factor2, Factor3, Value1, Value2
+        )[,c("first", "second", "third")], 
+      ID
+    ],
+    base_purrr = 
+      toy_data_df[, c("First", "Second", "Third")] <- 
+      purrr::pmap_df(
+        list(
+          factor1 = toy_data$Factor1, 
+          factor2 = toy_data$Factor2, 
+          factor3 = toy_data$Factor3, 
+          value1 = toy_data$Value1, 
+          value2 = toy_data$Value2
+        ),
+        give_something
+      )[, c("first", "second", "third")]
+  )
+
+```
+
+```{r timings-plot}
+
+making_cols_timings %>% 
+  ggplot(aes(expr, time)) + 
+  geom_violin()
+
+```
+
