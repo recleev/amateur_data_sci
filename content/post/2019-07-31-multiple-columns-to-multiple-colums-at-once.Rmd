@@ -154,6 +154,32 @@ dplyr_time <- toc()
 
 ```
 
+## `{dplyr}` with `{purrr}` Attempt
+
+```{r attempt-dplyr-purrr}
+
+tic()
+
+toy_data %>% 
+  as_tibble() %>% 
+  bind_cols(
+    pmap_df(
+      list(
+        factor1 = toy_data$Factor1, 
+        factor2 = toy_data$Factor2, 
+        factor3 = toy_data$Factor3, 
+        value1 = toy_data$Value1, 
+        value2 = toy_data$Value2
+      ),
+      give_something
+    )[, c("first", "second", "third")]
+  )
+
+toc()
+
+```
+
+
 ## Life (in `R`) Changing Conversation 
 
 ## `{data,table}` with `{purrr}` Attempt
@@ -295,7 +321,7 @@ making_cols_timings <-
 ```{r timings-plot}
 
 making_cols_timings %>% 
-  ggplot(aes(expr, time)) + 
+  ggplot(aes(expr, time/(1e9))) + 
   geom_violin()
 
 ```
