@@ -26,12 +26,13 @@ biblio-style: apalike
 <li><a href="#stuck-on-a-simulation-problem"><span class="toc-section-number">2</span> Stuck on a Simulation Problem</a></li>
 <li><a href="#ways-and-times"><span class="toc-section-number">3</span> Ways and Times</a><ul>
 <li><a href="#dplyr-attempt"><span class="toc-section-number">3.1</span> <code>{dplyr}</code> Attempt</a></li>
-<li><a href="#life-in-r-changing-conversation"><span class="toc-section-number">3.2</span> Life (in <code>R</code>) Changing Conversation</a></li>
-<li><a href="#datatable-with-purrr-attempt"><span class="toc-section-number">3.3</span> <code>{data,table}</code> with <code>{purrr}</code> Attempt</a></li>
-<li><a href="#data.table-solution"><span class="toc-section-number">3.4</span> <code>{data.table}</code> Solution</a></li>
-<li><a href="#base-r-with-purrr-alternative"><span class="toc-section-number">3.5</span> <code>{base}</code> <code>R</code> with <code>{purrr}</code> Alternative</a></li>
+<li><a href="#dplyr-with-purrr-attempt"><span class="toc-section-number">3.2</span> <code>{dplyr}</code> with <code>{purrr}</code> Attempt</a></li>
 </ul></li>
-<li><a href="#timings-in-graph"><span class="toc-section-number">4</span> Timings in Graph</a></li>
+<li><a href="#life-in-r-changing-conversation"><span class="toc-section-number">4</span> Life (in <code>R</code>) Changing Conversation</a><ul>
+<li><a href="#datatable-with-purrr-attempt"><span class="toc-section-number">4.1</span> <code>{data,table}</code> with <code>{purrr}</code> Attempt</a></li>
+<li><a href="#data.table-rowwise"><span class="toc-section-number">4.2</span> <code>{data.table}</code> Rowwise</a></li>
+<li><a href="#base-r-alternative"><span class="toc-section-number">4.3</span> <code>{base}</code> <code>R</code> Alternative</a></li>
+</ul></li>
 </ul>
 </div>
 
@@ -42,10 +43,7 @@ xfun::pkg_attach(
   &quot;DT&quot;,
   &quot;data.table&quot;,
   &quot;dplyr&quot;,
-  &quot;tictoc&quot;,
-  &quot;purrr&quot;,
-  &quot;microbenchmark&quot;,
-  &quot;ggplot2&quot;
+  &quot;purrr&quot;
 )
 
 opts_chunk$set(
@@ -118,7 +116,7 @@ show_datatable &lt;- function(data) {
   )
 }</code></pre>
 <p>I needed to simulate this function over a data like this:</p>
-<pre class="r"><code>n_sample &lt;- 8000
+<pre class="r"><code>n_sample &lt;- 7000
 
 toy_data &lt;- 
   data.frame(
@@ -136,9 +134,9 @@ toy_data$ID &lt;- 1:n_sample</code></pre>
 <h1><span class="header-section-number">3</span> Ways and Times</h1>
 <div id="dplyr-attempt" class="section level2">
 <h2><span class="header-section-number">3.1</span> <code>{dplyr}</code> Attempt</h2>
-<pre class="r"><code>tic()
-
-toy_data_tbl &lt;- 
+<p>My first attempt with such a small data was to use <code>{dplyr}</code> <span class="citation">(Wickham et al. 2018)</span>. However, the function could not be vectorised over multiple arguments, and <code>{dplyr}</code>, as far as I know, can not handle a <code>data.frame</code> as an output.</p>
+<p>My first attempt was to perform this by row.</p>
+<pre class="r"><code>toy_data_tbl &lt;- 
   toy_data %&gt;% 
   as_tibble() %&gt;% 
   rowwise() %&gt;% 
@@ -146,45 +144,110 @@ toy_data_tbl &lt;-
     First = give_something(Factor1, Factor2, Factor3, Value1, Value2)$first,
     Second = give_something(Factor1, Factor2, Factor3, Value1, Value2)$second,
     Third = give_something(Factor1, Factor2, Factor3, Value1, Value2)$third
+  )</code></pre>
+<p>That works, but inefficient and slow<a href="#fn2" class="footnote-ref" id="fnref2"><sup>2</sup></a> for my liking.</p>
+</div>
+<div id="dplyr-with-purrr-attempt" class="section level2">
+<h2><span class="header-section-number">3.2</span> <code>{dplyr}</code> with <code>{purrr}</code> Attempt</h2>
+<p>My next attempt was to use <code>pmap()</code> from <code>{purrr}</code><span class="citation">(<span class="citeproc-not-found" data-reference-id="R-purrr"><strong>???</strong></span>)</span>.</p>
+<pre class="r"><code>toy_data_tbl2 &lt;- toy_data %&gt;% 
+  as_tibble() %&gt;%
+  mutate(
+    First = pmap_df(
+      list(
+        factor1 = Factor1, 
+        factor2 = Factor2, 
+        factor3 = Factor3, 
+        value1 = Value1, 
+        value2 = Value2
+      ), 
+      give_something
+    )$first,
+    Second = pmap_df(
+      list(
+        factor1 = Factor1, 
+        factor2 = Factor2, 
+        factor3 = Factor3, 
+        value1 = Value1, 
+        value2 = Value2
+      ), 
+      give_something
+    )$second,
+    Third = pmap_df(
+      list(
+        factor1 = Factor1, 
+        factor2 = Factor2, 
+        factor3 = Factor3, 
+        value1 = Value1, 
+        value2 = Value2
+      ), 
+      give_something
+    )$third
   )
 
-dplyr_time &lt;- toc()</code></pre>
-<pre><code>## 7.43 sec elapsed</code></pre>
+all.equal(toy_data_tbl, toy_data_tbl2)</code></pre>
+<pre><code>## [1] TRUE</code></pre>
+<p>This method is not any better than the rowwise implementation with <code>{dplyr}</code> only.</p>
+<p>The better use of <code>pmap()</code> would have been with <code>dplyr::bind_cols()</code>. I did not try this or knew this before, but if I had known this, I might have used this for my 7,000 row data.</p>
+<pre class="r"><code>toy_data_tbl3 &lt;- toy_data %&gt;% 
+  as_tibble() %&gt;% 
+  bind_cols(
+    pmap_dfr(
+      list(
+        factor1 = toy_data$Factor1, 
+        factor2 = toy_data$Factor2, 
+        factor3 = toy_data$Factor3, 
+        value1 = toy_data$Value1, 
+        value2 = toy_data$Value2
+      ),
+      give_something
+    )[, c(&quot;first&quot;, &quot;second&quot;, &quot;third&quot;)]
+  )
+
+all.equal(
+  toy_data_tbl, 
+  # Renaming is necessary because column names are checked.
+  rename(toy_data_tbl3, First = first, Second = second, Third = third)
+)</code></pre>
+<pre><code>## [1] TRUE</code></pre>
 </div>
-<div id="life-in-r-changing-conversation" class="section level2">
-<h2><span class="header-section-number">3.2</span> Life (in <code>R</code>) Changing Conversation</h2>
 </div>
+<div id="life-in-r-changing-conversation" class="section level1">
+<h1><span class="header-section-number">4</span> Life (in <code>R</code>) Changing Conversation</h1>
+<p>Since my knowledge that time limited me to the rowwise <code>{dplyr}</code> and my improper use of <code>pmap()</code>, I asked help from a senior data scientist at work. Our conversation went like this</p>
+<blockquote>
+<p><strong>The Amateur Data Scientist</strong>: My dplyr + purrr attempt is taking too long to run</p>
+<p><strong>Senior Data Scientist</strong>: You don’t need to call the function to three time to make three columns. Call the function once and create the three columns at once</p>
+<p><strong>TADS</strong>: I don’t know how to do that in dplyr</p>
+<p><strong>SDS</strong>: You can try this…It does not work. How do I do this in dplyr. This is simple in data.table</p>
+<p><strong>TADS</strong>: (still ignorant of data.table at that time) How do you do it in data.table?</p>
+<p><strong>SDS</strong>: <code>dt[, c("col1", "col2") := fun_outcome[, desired_cols]]</code></p>
+<p><strong>TADS</strong>: LOL (mindblown deep inside)</p>
+</blockquote>
 <div id="datatable-with-purrr-attempt" class="section level2">
-<h2><span class="header-section-number">3.3</span> <code>{data,table}</code> with <code>{purrr}</code> Attempt</h2>
+<h2><span class="header-section-number">4.1</span> <code>{data,table}</code> with <code>{purrr}</code> Attempt</h2>
 <pre class="r"><code>toy_data_dt &lt;- 
   as.data.table(toy_data)
-
-tic()
 
 toy_data_dt[
   ,
   c(&quot;First&quot;, &quot;Second&quot;, &quot;Third&quot;) := 
-    pmap_df(
+    pmap_dfr(
     list(
-      factor1 = toy_data$Factor1, 
-      factor2 = toy_data$Factor2, 
-      factor3 = toy_data$Factor3, 
-      value1 = toy_data$Value1, 
-      value2 = toy_data$Value2
+      factor1 = Factor1, 
+      factor2 = Factor2, 
+      factor3 = Factor3, 
+      value1 = Value1, 
+      value2 = Value2
     ),
     give_something
   )[, c(&quot;first&quot;, &quot;second&quot;, &quot;third&quot;)]
-]
-
-rdatatable_purrr_time &lt;- toc()</code></pre>
-<pre><code>## 2.44 sec elapsed</code></pre>
+]</code></pre>
 </div>
-<div id="data.table-solution" class="section level2">
-<h2><span class="header-section-number">3.4</span> <code>{data.table}</code> Solution</h2>
+<div id="data.table-rowwise" class="section level2">
+<h2><span class="header-section-number">4.2</span> <code>{data.table}</code> Rowwise</h2>
 <pre class="r"><code>toy_data_dt2 &lt;- 
   as.data.table(toy_data)
-
-tic()
 
 toy_data_dt2[
   ,
@@ -193,97 +256,41 @@ toy_data_dt2[
       Factor1, Factor2, Factor3, Value1, Value2
     )[,c(&quot;first&quot;, &quot;second&quot;, &quot;third&quot;)], 
   ID
-  ]
-
-rdatatable_time &lt;- toc()</code></pre>
-<pre><code>## 2.6 sec elapsed</code></pre>
+  ]</code></pre>
 </div>
-<div id="base-r-with-purrr-alternative" class="section level2">
-<h2><span class="header-section-number">3.5</span> <code>{base}</code> <code>R</code> with <code>{purrr}</code> Alternative</h2>
+<div id="base-r-alternative" class="section level2">
+<h2><span class="header-section-number">4.3</span> <code>{base}</code> <code>R</code> Alternative</h2>
 <pre class="r"><code>toy_data_df &lt;- toy_data
 
-tic()
+something &lt;- Map(
+  give_something, 
+  factor1 = toy_data$Factor1, 
+  factor2 = toy_data$Factor2, 
+  factor3 = toy_data$Factor3, 
+  value1 = toy_data$Value1, 
+  value2 = toy_data$Value2
+)
 
-toy_data_df[, c(&quot;First&quot;, &quot;Second&quot;, &quot;Third&quot;)] &lt;- 
-  pmap_df(
-    list(
-      factor1 = toy_data$Factor1, 
-      factor2 = toy_data$Factor2, 
-      factor3 = toy_data$Factor3, 
-      value1 = toy_data$Value1, 
-      value2 = toy_data$Value2
-    ),
-    give_something
-  )[, c(&quot;first&quot;, &quot;second&quot;, &quot;third&quot;)]
+# Convert to data.frame
+something &lt;- do.call(&quot;rbind&quot;, something)
 
-toc()</code></pre>
-<pre><code>## 2.28 sec elapsed</code></pre>
+# Select only the necessary data, convert to numbers, and add to source
+# data.frame
+toy_data_df[, c(&quot;First&quot;, &quot;Second&quot;, &quot;Third&quot;)] &lt;- something[
+  ,
+  c(&quot;first&quot;, &quot;second&quot;, &quot;third&quot;)
+]</code></pre>
+<div id="refs" class="references">
+<div id="ref-R-dplyr">
+<p>Wickham, Hadley, Romain François, Lionel Henry, and Kirill Müller. 2018. <em>Dplyr: A Grammar of Data Manipulation</em>. <a href="https://CRAN.R-project.org/package=dplyr">https://CRAN.R-project.org/package=dplyr</a>.</p>
 </div>
 </div>
-<div id="timings-in-graph" class="section level1">
-<h1><span class="header-section-number">4</span> Timings in Graph</h1>
-<pre class="r"><code># Recreate the tables
-toy_data_dt &lt;- 
-  as.data.table(toy_data)
-
-toy_data_dt2 &lt;- 
-  as.data.table(toy_data)
-
-toy_data_df &lt;- toy_data
-
-making_cols_timings &lt;- 
-  microbenchmark(
-    dplyr = toy_data %&gt;% 
-      as_tibble() %&gt;% 
-      rowwise() %&gt;% 
-      mutate(
-        First = give_something(Factor1, Factor2, Factor3, Value1, Value2)$first,
-        Second = give_something(Factor1, Factor2, Factor3, Value1, Value2)$second,
-        Third = give_something(Factor1, Factor2, Factor3, Value1, Value2)$third
-      ),
-    rdatatable_purrr = toy_data_dt[
-      ,
-      c(&quot;First&quot;, &quot;Second&quot;, &quot;Third&quot;) := 
-        purrr::pmap_df(
-          list(
-            factor1 = toy_data$Factor1, 
-            factor2 = toy_data$Factor2, 
-            factor3 = toy_data$Factor3, 
-            value1 = toy_data$Value1, 
-            value2 = toy_data$Value2
-          ),
-          give_something
-        )[, c(&quot;first&quot;, &quot;second&quot;, &quot;third&quot;)]
-    ],
-    rdatatable = toy_data_dt2[
-      ,
-      c(&quot;First&quot;, &quot;Second&quot;, &quot;Third&quot;) := 
-        give_something(
-          Factor1, Factor2, Factor3, Value1, Value2
-        )[,c(&quot;first&quot;, &quot;second&quot;, &quot;third&quot;)], 
-      ID
-    ],
-    base_purrr = 
-      toy_data_df[, c(&quot;First&quot;, &quot;Second&quot;, &quot;Third&quot;)] &lt;- 
-      purrr::pmap_df(
-        list(
-          factor1 = toy_data$Factor1, 
-          factor2 = toy_data$Factor2, 
-          factor3 = toy_data$Factor3, 
-          value1 = toy_data$Value1, 
-          value2 = toy_data$Value2
-        ),
-        give_something
-      )[, c(&quot;first&quot;, &quot;second&quot;, &quot;third&quot;)]
-  )</code></pre>
-<pre class="r"><code>making_cols_timings %&gt;% 
-  ggplot(aes(expr, time)) + 
-  geom_violin()</code></pre>
-<p><img src="/post/2019-07-31-multiple-columns-to-multiple-colums-at-once_files/figure-html/timings-plot-1.png" width="672" /></p>
+</div>
 </div>
 <div class="footnotes">
 <hr />
 <ol>
 <li id="fn1"><p>Maybe this example does not make sense, but the function I needed to use was more complicated than this and makes a lot more sense.<a href="#fnref1" class="footnote-back">↩</a></p></li>
+<li id="fn2"><p>The original function runs for at least 0.116s. For 7300 rows, one call of the function is about 14 mins and I had to call it three times.<a href="#fnref2" class="footnote-back">↩</a></p></li>
 </ol>
 </div>

@@ -28,10 +28,7 @@ xfun::pkg_attach(
   "DT",
   "data.table",
   "dplyr",
-  "tictoc",
-  "purrr",
-  "microbenchmark",
-  "ggplot2"
+  "purrr"
 )
 
 opts_chunk$set(
@@ -65,7 +62,9 @@ show_datatable <- function(data) {
 
 # Bad First Impression
 
-I learned 
+When I first tried to learn `{data.table}`[@R-data.table] I was turned off by the syntax. Working inside the brackets just did not feel good for my mind back then.
+
+A few years later, `{data.table}` is now an important part of everything I do. Here is the story how I began to love and appreciate `{data.table}`.
 
 # Stuck on a Simulation Problem
 
@@ -116,7 +115,7 @@ I needed to simulate this function over a data like this:
 
 ```{r make-toy-data}
 
-n_sample <- 8000
+n_sample <- 7000
 
 toy_data <- 
   data.frame(
@@ -136,9 +135,11 @@ toy_data$ID <- 1:n_sample
 
 ## `{dplyr}` Attempt
 
-```{r attempt-dplyr}
+My first attempt with such a small data was to use `{dplyr}` [@R-dplyr]. However, the function could not be vectorised over multiple arguments, and `{dplyr}`, as far as I know, can not handle a `data.frame` as an output.
 
-tic()
+My first attempt was to perform this by row.
+
+```{r attempt-dplyr}
 
 toy_data_tbl <- 
   toy_data %>% 
@@ -150,20 +151,65 @@ toy_data_tbl <-
     Third = give_something(Factor1, Factor2, Factor3, Value1, Value2)$third
   )
 
-dplyr_time <- toc()
-
 ```
+
+That works, but inefficient and slow^[The original function runs for at least 0.116s. For 7300 rows, one call of the function is about `r round(7300 * 0.116 / 60)` mins and I had to call it three times.] for my liking.
 
 ## `{dplyr}` with `{purrr}` Attempt
 
+My next attempt was to use `pmap()` from `{purrr}`[@R-purrr]. 
+
 ```{r attempt-dplyr-purrr}
 
-tic()
+toy_data_tbl2 <- toy_data %>% 
+  as_tibble() %>%
+  mutate(
+    First = pmap_df(
+      list(
+        factor1 = Factor1, 
+        factor2 = Factor2, 
+        factor3 = Factor3, 
+        value1 = Value1, 
+        value2 = Value2
+      ), 
+      give_something
+    )$first,
+    Second = pmap_df(
+      list(
+        factor1 = Factor1, 
+        factor2 = Factor2, 
+        factor3 = Factor3, 
+        value1 = Value1, 
+        value2 = Value2
+      ), 
+      give_something
+    )$second,
+    Third = pmap_df(
+      list(
+        factor1 = Factor1, 
+        factor2 = Factor2, 
+        factor3 = Factor3, 
+        value1 = Value1, 
+        value2 = Value2
+      ), 
+      give_something
+    )$third
+  )
 
-toy_data %>% 
+all.equal(toy_data_tbl, toy_data_tbl2)
+
+```
+
+This method is not any better than the rowwise implementation with `{dplyr}` only.
+
+The better use of `pmap()` would have been with `dplyr::bind_cols()`. I did not try this or knew this before, but if I had known this, I might have used this for my 7,000 row data.
+
+```{r better-attempt-dplyr-purrr}
+
+toy_data_tbl3 <- toy_data %>% 
   as_tibble() %>% 
   bind_cols(
-    pmap_df(
+    pmap_dfr(
       list(
         factor1 = toy_data$Factor1, 
         factor2 = toy_data$Factor2, 
@@ -175,12 +221,31 @@ toy_data %>%
     )[, c("first", "second", "third")]
   )
 
-toc()
+all.equal(
+  toy_data_tbl, 
+  # Renaming is necessary because column names are checked.
+  rename(toy_data_tbl3, First = first, Second = second, Third = third)
+)
 
 ```
 
+# Life (in `R`) Changing Conversation
 
-## Life (in `R`) Changing Conversation 
+Since my knowledge that time limited me to the rowwise `{dplyr}` and my improper use of `pmap()`, I asked help from a senior data scientist at work. Our conversation went like this
+
+> **The Amateur Data Scientist**: My dplyr + purrr attempt is taking too long to run
+>
+> **Senior Data Scientist**: You don't need to call the function to three time to make three columns. Call the function once and create the three columns at once
+>
+> **TADS**: I don't know how to do that in dplyr
+>
+> **SDS**: You can try this...It does not work. How do I do this in dplyr. This is simple in data.table
+>
+>**TADS**: (still ignorant of data.table at that time) How do you do it in data.table?
+>
+> **SDS**: `dt[, c("col1", "col2") := fun_outcome[, desired_cols]]`
+>
+> **TADS**: LOL (mindblown deep inside)
 
 ## `{data,table}` with `{purrr}` Attempt
 
@@ -189,36 +254,30 @@ toc()
 toy_data_dt <- 
   as.data.table(toy_data)
 
-tic()
-
 toy_data_dt[
   ,
   c("First", "Second", "Third") := 
-    pmap_df(
+    pmap_dfr(
     list(
-      factor1 = toy_data$Factor1, 
-      factor2 = toy_data$Factor2, 
-      factor3 = toy_data$Factor3, 
-      value1 = toy_data$Value1, 
-      value2 = toy_data$Value2
+      factor1 = Factor1, 
+      factor2 = Factor2, 
+      factor3 = Factor3, 
+      value1 = Value1, 
+      value2 = Value2
     ),
     give_something
   )[, c("first", "second", "third")]
 ]
 
-rdatatable_purrr_time <- toc()
-
 ```
 
 
-## `{data.table}` Solution
+## `{data.table}` Rowwise
 
 ```{r solution-rdatatable}
 
 toy_data_dt2 <- 
   as.data.table(toy_data)
-
-tic()
 
 toy_data_dt2[
   ,
@@ -229,100 +288,33 @@ toy_data_dt2[
   ID
   ]
 
-rdatatable_time <- toc()
-
 ```
 
-## `{base}` `R` with `{purrr}` Alternative
+## `{base}` `R` Alternative
 
 ```{r alternative-baseR-purrr}
 
 toy_data_df <- toy_data
 
-tic()
+something <- Map(
+  give_something, 
+  factor1 = toy_data$Factor1, 
+  factor2 = toy_data$Factor2, 
+  factor3 = toy_data$Factor3, 
+  value1 = toy_data$Value1, 
+  value2 = toy_data$Value2
+)
 
-toy_data_df[, c("First", "Second", "Third")] <- 
-  pmap_df(
-    list(
-      factor1 = toy_data$Factor1, 
-      factor2 = toy_data$Factor2, 
-      factor3 = toy_data$Factor3, 
-      value1 = toy_data$Value1, 
-      value2 = toy_data$Value2
-    ),
-    give_something
-  )[, c("first", "second", "third")]
+# Convert to data.frame
+something <- do.call("rbind", something)
 
-toc()
-
-```
-
-# Timings in Graph
-
-```{r microbenchmark-attempts}
-
-# Recreate the tables
-toy_data_dt <- 
-  as.data.table(toy_data)
-
-toy_data_dt2 <- 
-  as.data.table(toy_data)
-
-toy_data_df <- toy_data
-
-making_cols_timings <- 
-  microbenchmark(
-    dplyr = toy_data %>% 
-      as_tibble() %>% 
-      rowwise() %>% 
-      mutate(
-        First = give_something(Factor1, Factor2, Factor3, Value1, Value2)$first,
-        Second = give_something(Factor1, Factor2, Factor3, Value1, Value2)$second,
-        Third = give_something(Factor1, Factor2, Factor3, Value1, Value2)$third
-      ),
-    rdatatable_purrr = toy_data_dt[
-      ,
-      c("First", "Second", "Third") := 
-        purrr::pmap_df(
-          list(
-            factor1 = toy_data$Factor1, 
-            factor2 = toy_data$Factor2, 
-            factor3 = toy_data$Factor3, 
-            value1 = toy_data$Value1, 
-            value2 = toy_data$Value2
-          ),
-          give_something
-        )[, c("first", "second", "third")]
-    ],
-    rdatatable = toy_data_dt2[
-      ,
-      c("First", "Second", "Third") := 
-        give_something(
-          Factor1, Factor2, Factor3, Value1, Value2
-        )[,c("first", "second", "third")], 
-      ID
-    ],
-    base_purrr = 
-      toy_data_df[, c("First", "Second", "Third")] <- 
-      purrr::pmap_df(
-        list(
-          factor1 = toy_data$Factor1, 
-          factor2 = toy_data$Factor2, 
-          factor3 = toy_data$Factor3, 
-          value1 = toy_data$Value1, 
-          value2 = toy_data$Value2
-        ),
-        give_something
-      )[, c("first", "second", "third")]
-  )
+# Select only the necessary data, convert to numbers, and add to source
+# data.frame
+toy_data_df[, c("First", "Second", "Third")] <- something[
+  ,
+  c("first", "second", "third")
+]
 
 ```
 
-```{r timings-plot}
-
-making_cols_timings %>% 
-  ggplot(aes(expr, time/(1e9))) + 
-  geom_violin()
-
-```
 
