@@ -4,7 +4,7 @@
 <head>
   <meta http-equiv="content-type" content="text/html; charset=utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <meta name="description" content="Why I Learned to Use {data.table}">
+  <meta name="description" content="How I Learned to Use {data.table}">
   <meta name="generator" content="Hugo 0.54.0" />
 
   <title>Multiple Columns to Multiple Colums at Once &middot; The Amateur Data Scientist</title>
@@ -215,7 +215,7 @@
 
 <div class="header">
   <h1>Multiple Columns to Multiple Colums at Once</h1>
-  <h2>Why I Learned to Use {data.table}</h2>
+  <h2>How I Learned to Use {data.table}</h2>
 </div>
 <div class="content">
 
@@ -250,15 +250,18 @@
 <ul>
 <li><a href="#bad-first-impression"><span class="toc-section-number">1</span> Bad First Impression</a></li>
 <li><a href="#stuck-on-a-simulation-problem"><span class="toc-section-number">2</span> Stuck on a Simulation Problem</a></li>
-<li><a href="#ways-and-times"><span class="toc-section-number">3</span> Ways and Times</a><ul>
+<li><a href="#different-ways-to-simulate"><span class="toc-section-number">3</span> Different Ways to Simulate</a><ul>
 <li><a href="#dplyr-attempt"><span class="toc-section-number">3.1</span> <code>{dplyr}</code> Attempt</a></li>
 <li><a href="#dplyr-with-purrr-attempt"><span class="toc-section-number">3.2</span> <code>{dplyr}</code> with <code>{purrr}</code> Attempt</a></li>
 </ul></li>
 <li><a href="#life-in-r-changing-conversation"><span class="toc-section-number">4</span> Life (in <code>R</code>) Changing Conversation</a><ul>
 <li><a href="#datatable-with-purrr-attempt"><span class="toc-section-number">4.1</span> <code>{data,table}</code> with <code>{purrr}</code> Attempt</a></li>
-<li><a href="#data.table-rowwise"><span class="toc-section-number">4.2</span> <code>{data.table}</code> Rowwise</a></li>
+<li><a href="#data.table-row-wise"><span class="toc-section-number">4.2</span> <code>{data.table}</code> Row wise</a></li>
 <li><a href="#base-r-alternative"><span class="toc-section-number">4.3</span> <code>{base}</code> <code>R</code> Alternative</a></li>
 </ul></li>
+<li><a href="#change-of-mindset"><span class="toc-section-number">5</span> Change of Mindset</a></li>
+<li><a href="#code"><span class="toc-section-number">6</span> Code</a></li>
+<li><a href="#references">References</a></li>
 </ul>
 </div>
 
@@ -300,7 +303,8 @@ show_datatable &lt;- function(data) {
 }</code></pre>
 <div id="bad-first-impression" class="section level1">
 <h1><span class="header-section-number">1</span> Bad First Impression</h1>
-<p>I learned</p>
+<p>When I first tried to learn <code>{data.table}</code><span class="citation">(Dowle and Srinivasan 2018)</span> I was turned off by the syntax. Working inside the brackets just did not feel good for my mind back then.</p>
+<p>A few years later, <code>{data.table}</code> is now an important part of everything I do. Here is the story how I began to love and appreciate <code>{data.table}</code>.</p>
 </div>
 <div id="stuck-on-a-simulation-problem" class="section level1">
 <h1><span class="header-section-number">2</span> Stuck on a Simulation Problem</h1>
@@ -356,8 +360,8 @@ toy_data &lt;-
 
 toy_data$ID &lt;- 1:n_sample</code></pre>
 </div>
-<div id="ways-and-times" class="section level1">
-<h1><span class="header-section-number">3</span> Ways and Times</h1>
+<div id="different-ways-to-simulate" class="section level1">
+<h1><span class="header-section-number">3</span> Different Ways to Simulate</h1>
 <div id="dplyr-attempt" class="section level2">
 <h2><span class="header-section-number">3.1</span> <code>{dplyr}</code> Attempt</h2>
 <p>My first attempt with such a small data was to use <code>{dplyr}</code> <span class="citation">(Wickham et al. 2018)</span>. However, the function could not be vectorised over multiple arguments, and <code>{dplyr}</code>, as far as I know, can not handle a <code>data.frame</code> as an output.</p>
@@ -413,7 +417,7 @@ toy_data$ID &lt;- 1:n_sample</code></pre>
 
 all.equal(toy_data_tbl, toy_data_tbl2)</code></pre>
 <pre><code>## [1] TRUE</code></pre>
-<p>This method is not any better than the rowwise implementation with <code>{dplyr}</code> only.</p>
+<p>This method is not any better than the row wise implementation with <code>{dplyr}</code> only.</p>
 <p>The better use of <code>pmap()</code> would have been with <code>dplyr::bind_cols()</code>. I did not try this or knew this before, but if I had known this, I might have used this for my 7,000 row data.</p>
 <pre class="r"><code>toy_data_tbl3 &lt;- toy_data %&gt;% 
   as_tibble() %&gt;% 
@@ -440,7 +444,7 @@ all.equal(
 </div>
 <div id="life-in-r-changing-conversation" class="section level1">
 <h1><span class="header-section-number">4</span> Life (in <code>R</code>) Changing Conversation</h1>
-<p>Since my knowledge that time limited me to the rowwise <code>{dplyr}</code> and my improper use of <code>pmap()</code>, I asked help from a senior data scientist at work. Our conversation went like this</p>
+<p>Since my knowledge that time limited me to the row wise <code>{dplyr}</code> and my improper use of <code>pmap()</code>, I asked help from a senior data scientist at work. Our conversation went like this</p>
 <blockquote>
 <p><strong>The Amateur Data Scientist</strong>: My dplyr + purrr attempt is taking too long to run</p>
 <p><strong>Senior Data Scientist</strong>: You don’t need to call the function to three time to make three columns. Call the function once and create the three columns at once</p>
@@ -452,6 +456,7 @@ all.equal(
 </blockquote>
 <div id="datatable-with-purrr-attempt" class="section level2">
 <h2><span class="header-section-number">4.1</span> <code>{data,table}</code> with <code>{purrr}</code> Attempt</h2>
+<p>This is the solution I went for.</p>
 <pre class="r"><code>toy_data_dt &lt;- 
   as.data.table(toy_data)
 
@@ -469,9 +474,11 @@ toy_data_dt[
     give_something
   )[, c(&quot;first&quot;, &quot;second&quot;, &quot;third&quot;)]
 ]</code></pre>
+<p>This is much faster than row wise <code>dplyr</code> and I felt happy with this.</p>
 </div>
-<div id="data.table-rowwise" class="section level2">
-<h2><span class="header-section-number">4.2</span> <code>{data.table}</code> Rowwise</h2>
+<div id="data.table-row-wise" class="section level2">
+<h2><span class="header-section-number">4.2</span> <code>{data.table}</code> Row wise</h2>
+<p>However, syntax-wise, I think I like this better.</p>
 <pre class="r"><code>toy_data_dt2 &lt;- 
   as.data.table(toy_data)
 
@@ -482,10 +489,12 @@ toy_data_dt2[
       Factor1, Factor2, Factor3, Value1, Value2
     )[,c(&quot;first&quot;, &quot;second&quot;, &quot;third&quot;)], 
   ID
-  ]</code></pre>
+]</code></pre>
+<p>Implementing <code>give_something</code> by <code>ID</code> is similar to row wise function evaluation. The advantage of this method over row wise <code>dplyr</code> is that the function is called once and creates the three desired column, so despite done row wise, I think this is quite efficient already.</p>
 </div>
 <div id="base-r-alternative" class="section level2">
 <h2><span class="header-section-number">4.3</span> <code>{base}</code> <code>R</code> Alternative</h2>
+<p>I also like this base<code>R</code> approach. The use of <code>Map</code> and <code>do.call</code> makes the process clearer to me.</p>
 <pre class="r"><code>toy_data_df &lt;- toy_data
 
 something &lt;- Map(
@@ -506,10 +515,302 @@ toy_data_df[, c(&quot;First&quot;, &quot;Second&quot;, &quot;Third&quot;)] &lt;-
   ,
   c(&quot;first&quot;, &quot;second&quot;, &quot;third&quot;)
 ]</code></pre>
+</div>
+</div>
+<div id="change-of-mindset" class="section level1">
+<h1><span class="header-section-number">5</span> Change of Mindset</h1>
+<p>One of the reasons I think I found <code>data.table</code> difficult to learn at first was because I was stuck with a specific syntax; I did not bother to see the beauty and simplicity of <code>i</code>, <code>j</code>, and <code>by</code>. In my second attempt to learn <code>data.table</code>, I focused on using the <code>data.table</code> mindset, and that made the learning very easy for me.</p>
+<p>For me, the best way to learn something has always been to discover how I can use it to solve a problem. I encountered a problem I could not solve with my current knowledge. Somebody, introduced to me the power of <code>data.table</code>’s <code>:=</code>, and ever since, <code>data.table</code> has been an important part in most of my projects.</p>
+</div>
+<div id="code" class="section level1">
+<h1><span class="header-section-number">6</span> Code</h1>
+<p>The following codes show what I did in this post. I added comments here and there to clarify my thought process.</p>
+<pre class="r"><code># Attach packages and set chunk options
+
+xfun::pkg_attach(
+  &quot;knitr&quot;,
+  &quot;DT&quot;,
+  &quot;data.table&quot;,
+  &quot;dplyr&quot;,
+  &quot;purrr&quot;
+)
+
+opts_chunk$set(
+  message = FALSE,
+  warning = FALSE,
+  echo = TRUE
+)
+
+# create standard datatable function to be used in all tables in this post
+
+show_datatable &lt;- function(data) {
+  data %&gt;% 
+    DT::datatable(
+      rownames = FALSE,
+      extensions = &#39;FixedColumns&#39;,
+      options = list(
+        pageLength = 20,
+        scrollX = TRUE,
+        scrollCollapse = TRUE,
+        columnDefs = list(
+          list(
+            className = &#39;dt-center&#39;,
+            targets = 0:(ncol(data) - 1)
+          )
+        )
+      )
+    )
+}
+
+
+give_something &lt;- function(
+  factor1 = LETTERS[1:5], 
+  factor2 = letters[11:15], 
+  factor3 = letters[21:25], 
+  value1, value2
+) {
+  
+  set.seed(555)
+  
+  reference &lt;- 
+    array(
+      # input values
+      runif(125, min = 0.05, max = 0.95), 
+      # create a 5 x 5 x 5 array
+      dim = c(5,5,5), 
+      # Add names per level of array
+      dimnames = list(LETTERS[1:5], letters[11:15], letters[21:25])
+    )
+  
+  number1 &lt;- sqrt(reference[factor1, factor2, factor3] * value1)
+  
+  number2 &lt;- (reference[factor1, factor2, factor3] * value2)^3 / pi
+  
+  number3 &lt;- (number1 + number2) / 2
+  
+  number4 &lt;- ((number1 - number2) ^ 2) / 2
+  
+  data.frame(
+    name = paste(factor1, factor2, factor3, sep = &quot;-&quot;),
+    first = number1,
+    second = number2,
+    third = number3,
+    fourth = number4,
+    stringsAsFactors = FALSE
+  )
+}
+
+
+n_sample &lt;- 7000
+
+toy_data &lt;- 
+  data.frame(
+    Factor1 = sample(LETTERS[1:5], size = n_sample, replace = TRUE),
+    Factor2 = sample(letters[11:15], size = n_sample, replace = TRUE),
+    Factor3 = sample(letters[21:25], size = n_sample, replace = TRUE),
+    Value1 = runif(n_sample, min = 0.48, max = 0.52),
+    Value2 = runif(n_sample, min = 0.48, max = 0.52),
+    stringsAsFactors = FALSE
+  )
+
+toy_data$ID &lt;- 1:n_sample
+
+
+toy_data_tbl &lt;- 
+  toy_data %&gt;% 
+  as_tibble() %&gt;% 
+  rowwise() %&gt;% 
+  mutate(
+    First = give_something(Factor1, Factor2, Factor3, Value1, Value2)$first,
+    Second = give_something(Factor1, Factor2, Factor3, Value1, Value2)$second,
+    Third = give_something(Factor1, Factor2, Factor3, Value1, Value2)$third
+  )
+
+
+toy_data_tbl2 &lt;- toy_data %&gt;% 
+  as_tibble() %&gt;%
+  mutate(
+    First = pmap_df(
+      list(
+        factor1 = Factor1, 
+        factor2 = Factor2, 
+        factor3 = Factor3, 
+        value1 = Value1, 
+        value2 = Value2
+      ), 
+      give_something
+    )$first,
+    Second = pmap_df(
+      list(
+        factor1 = Factor1, 
+        factor2 = Factor2, 
+        factor3 = Factor3, 
+        value1 = Value1, 
+        value2 = Value2
+      ), 
+      give_something
+    )$second,
+    Third = pmap_df(
+      list(
+        factor1 = Factor1, 
+        factor2 = Factor2, 
+        factor3 = Factor3, 
+        value1 = Value1, 
+        value2 = Value2
+      ), 
+      give_something
+    )$third
+  )
+
+all.equal(toy_data_tbl, toy_data_tbl2)
+
+
+toy_data_tbl3 &lt;- toy_data %&gt;% 
+  as_tibble() %&gt;% 
+  bind_cols(
+    pmap_dfr(
+      list(
+        factor1 = toy_data$Factor1, 
+        factor2 = toy_data$Factor2, 
+        factor3 = toy_data$Factor3, 
+        value1 = toy_data$Value1, 
+        value2 = toy_data$Value2
+      ),
+      give_something
+    )[, c(&quot;first&quot;, &quot;second&quot;, &quot;third&quot;)]
+  )
+
+all.equal(
+  toy_data_tbl, 
+  # Renaming is necessary because column names are checked.
+  rename(toy_data_tbl3, First = first, Second = second, Third = third)
+)
+
+
+toy_data_dt &lt;- 
+  as.data.table(toy_data)
+
+toy_data_dt[
+  ,
+  c(&quot;First&quot;, &quot;Second&quot;, &quot;Third&quot;) := 
+    pmap_dfr(
+    list(
+      factor1 = Factor1, 
+      factor2 = Factor2, 
+      factor3 = Factor3, 
+      value1 = Value1, 
+      value2 = Value2
+    ),
+    give_something
+  )[, c(&quot;first&quot;, &quot;second&quot;, &quot;third&quot;)]
+]
+
+
+toy_data_dt2 &lt;- 
+  as.data.table(toy_data)
+
+toy_data_dt2[
+  ,
+  c(&quot;First&quot;, &quot;Second&quot;, &quot;Third&quot;) := 
+    give_something(
+      Factor1, Factor2, Factor3, Value1, Value2
+    )[,c(&quot;first&quot;, &quot;second&quot;, &quot;third&quot;)], 
+  ID
+]
+
+
+toy_data_df &lt;- toy_data
+
+something &lt;- Map(
+  give_something, 
+  factor1 = toy_data$Factor1, 
+  factor2 = toy_data$Factor2, 
+  factor3 = toy_data$Factor3, 
+  value1 = toy_data$Value1, 
+  value2 = toy_data$Value2
+)
+
+# Convert to data.frame
+something &lt;- do.call(&quot;rbind&quot;, something)
+
+# Select only the necessary data, convert to numbers, and add to source
+# data.frame
+toy_data_df[, c(&quot;First&quot;, &quot;Second&quot;, &quot;Third&quot;)] &lt;- something[
+  ,
+  c(&quot;first&quot;, &quot;second&quot;, &quot;third&quot;)
+]
+
+
+
+sessioninfo::session_info(include_base = TRUE)</code></pre>
+<p>My session info for reproducibility.</p>
+<pre class="r"><code>sessioninfo::session_info(include_base = TRUE)</code></pre>
+<pre><code>## - Session info ----------------------------------------------------------
+##  setting  value                       
+##  version  R version 3.6.1 (2019-07-05)
+##  os       Windows 10 x64              
+##  system   x86_64, mingw32             
+##  ui       RTerm                       
+##  language (EN)                        
+##  collate  English_Philippines.1252    
+##  ctype    English_Philippines.1252    
+##  tz       Asia/Kuala_Lumpur           
+##  date     2019-07-30                  
+## 
+## - Packages --------------------------------------------------------------
+##  ! package     * version date       lib source        
+##    assertthat    0.2.1   2019-03-21 [1] CRAN (R 3.6.0)
+##    base        * 3.6.1   2019-07-05 [?] local         
+##    blogdown      0.14    2019-07-13 [1] CRAN (R 3.6.0)
+##    bookdown      0.12    2019-07-11 [1] CRAN (R 3.6.0)
+##    cli           1.1.0   2019-03-19 [1] CRAN (R 3.6.1)
+##  P compiler      3.6.1   2019-07-05 [1] local         
+##    crayon        1.3.4   2017-09-16 [1] CRAN (R 3.6.1)
+##    data.table  * 1.12.2  2019-04-07 [1] CRAN (R 3.6.0)
+##  P datasets    * 3.6.1   2019-07-05 [1] local         
+##    digest        0.6.20  2019-07-04 [1] CRAN (R 3.6.0)
+##    dplyr       * 0.8.3   2019-07-04 [1] CRAN (R 3.6.0)
+##    DT          * 0.7     2019-06-11 [1] CRAN (R 3.6.0)
+##    evaluate      0.14    2019-05-28 [1] CRAN (R 3.6.0)
+##    glue          1.3.1   2019-03-12 [1] CRAN (R 3.6.1)
+##  P graphics    * 3.6.1   2019-07-05 [1] local         
+##  P grDevices   * 3.6.1   2019-07-05 [1] local         
+##    htmltools     0.3.6   2017-04-28 [1] CRAN (R 3.6.1)
+##    htmlwidgets   1.3     2018-09-30 [1] CRAN (R 3.6.1)
+##    knitr       * 1.23    2019-05-18 [1] CRAN (R 3.6.0)
+##    magrittr      1.5     2014-11-22 [1] CRAN (R 3.6.1)
+##  P methods     * 3.6.1   2019-07-05 [1] local         
+##    pillar        1.4.2   2019-06-29 [1] CRAN (R 3.6.0)
+##    pkgconfig     2.0.2   2018-08-16 [1] CRAN (R 3.6.1)
+##    purrr       * 0.3.2   2019-03-15 [1] CRAN (R 3.6.1)
+##    R6            2.4.0   2019-02-14 [1] CRAN (R 3.6.0)
+##    Rcpp          1.0.2   2019-07-25 [1] CRAN (R 3.6.1)
+##    rlang         0.4.0   2019-06-25 [1] CRAN (R 3.6.0)
+##    rmarkdown     1.14    2019-07-12 [1] CRAN (R 3.6.0)
+##    sessioninfo   1.1.1   2018-11-05 [1] CRAN (R 3.6.1)
+##  P stats       * 3.6.1   2019-07-05 [1] local         
+##    stringi       1.4.3   2019-03-12 [1] CRAN (R 3.6.0)
+##    stringr       1.4.0   2019-02-10 [1] CRAN (R 3.6.1)
+##    tibble        2.1.3   2019-06-06 [1] CRAN (R 3.6.0)
+##    tidyselect    0.2.5   2018-10-11 [1] CRAN (R 3.6.1)
+##  P tools         3.6.1   2019-07-05 [1] local         
+##  P utils       * 3.6.1   2019-07-05 [1] local         
+##    withr         2.1.2   2018-03-15 [1] CRAN (R 3.6.1)
+##    xfun          0.8     2019-06-25 [1] CRAN (R 3.6.0)
+##    yaml          2.2.0   2018-07-25 [1] CRAN (R 3.6.0)
+## 
+## [1] C:/Users/reclev/R/R-3.6.1/library
+## 
+##  P -- Loaded and on-disk path mismatch.</code></pre>
+</div>
+<div id="references" class="section level1 unnumbered">
+<h1>References</h1>
 <div id="refs" class="references">
+<div id="ref-R-data.table">
+<p>Dowle, Matt, and Arun Srinivasan. 2018. <em>Data.table: Extension of ‘Data.frame‘</em>. <a href="https://CRAN.R-project.org/package=data.table">https://CRAN.R-project.org/package=data.table</a>.</p>
+</div>
 <div id="ref-R-dplyr">
 <p>Wickham, Hadley, Romain François, Lionel Henry, and Kirill Müller. 2018. <em>Dplyr: A Grammar of Data Manipulation</em>. <a href="https://CRAN.R-project.org/package=dplyr">https://CRAN.R-project.org/package=dplyr</a>.</p>
-</div>
 </div>
 </div>
 </div>
