@@ -2,20 +2,23 @@
 title: Multiple Columns to Multiple Colums at Once
 author: Recle E. Vibal
 date: '2019-07-31'
-slug: multiple-columns-data-table
 categories:
   - data manipulation
   - data wrangling
   - personal
 tags:
   - data.table
+  - purrr
+  - dplyr
+  - baseR
+slug: multiple-columns-data-table
 description: How I Learned to Use {data.table}
 output:
   blogdown::html_page:
     toc: yes
     number_sections: yes
 bibliography:
-  - references/function-manipulate-plot.bib
+  - references/multiple-columns-data-table.bib
 biblio-style: apalike
 ---
 

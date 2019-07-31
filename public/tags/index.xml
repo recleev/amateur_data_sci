@@ -41,7 +41,7 @@
     <item>
       <title>Baser</title>
       <link>/tags/baser/</link>
-      <pubDate>Sun, 03 Feb 2019 00:00:00 +0000</pubDate>
+      <pubDate>Wed, 31 Jul 2019 00:00:00 +0000</pubDate>
       
       <guid>/tags/baser/</guid>
       <description></description>
@@ -122,7 +122,7 @@
     <item>
       <title>Dplyr</title>
       <link>/tags/dplyr/</link>
-      <pubDate>Wed, 24 Oct 2018 00:00:00 +0000</pubDate>
+      <pubDate>Wed, 31 Jul 2019 00:00:00 +0000</pubDate>
       
       <guid>/tags/dplyr/</guid>
       <description></description>
@@ -296,6 +296,15 @@
       <pubDate>Fri, 20 Jul 2018 00:00:00 +0000</pubDate>
       
       <guid>/tags/psei/</guid>
+      <description></description>
+    </item>
+    
+    <item>
+      <title>Purrr</title>
+      <link>/tags/purrr/</link>
+      <pubDate>Wed, 31 Jul 2019 00:00:00 +0000</pubDate>
+      
+      <guid>/tags/purrr/</guid>
       <description></description>
     </item>
     
