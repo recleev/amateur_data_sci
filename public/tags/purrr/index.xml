@@ -17,7 +17,7 @@
       <pubDate>Wed, 31 Jul 2019 00:00:00 +0000</pubDate>
       
       <guid>/post/multiple-columns-data-table/</guid>
-      <description>1 Bad First Impression2 Stuck on a Simulation Problem3 Different Ways to Simulate3.1 {dplyr} Attempt3.2 {dplyr} with {purrr} Attempt4 Life (in R) Changing Conversation4.1 {data,table} with {purrr} Attempt4.2 {data.table} Row wise4.3 {base} R Alternative5 Change of Mindset6 CodeReferences# Attach packages and set chunk optionsxfun::pkg_attach(&amp;quot;knitr&amp;quot;,&amp;quot;DT&amp;quot;,&amp;quot;data.table&amp;quot;,&amp;quot;dplyr&amp;quot;,&amp;quot;purrr&amp;quot;)opts_chunk$set(message = FALSE,warning = FALSE,echo = TRUE)# create standard datatable function to be used in all tables in this postshow_datatable &amp;lt;- function(data) {data %&amp;gt;% DT::datatable(rownames = FALSE,extensions = &amp;#39;FixedColumns&amp;#39;,options = list(pageLength = 20,scrollX = TRUE,scrollCollapse = TRUE,columnDefs = list(list(className = &amp;#39;dt-center&amp;#39;,targets = 0:(ncol(data) - 1)))))}1 Bad First ImpressionWhen I first tried to learn {data.</description>
+      <description>1 Bad First Impression2 Stuck on a Simulation Problem3 Different Ways to Simulate3.1 {dplyr} Attempt3.2 {dplyr} with {purrr} Attempt4 Life (in R) Changing Conversation4.1 {data,table} with {purrr} Attempt4.2 {data.table} Row wise4.3 {base} R Alternative5 Change of Mindset6 CodeReferences# Attach packages and set chunk optionsxfun::pkg_attach(&amp;quot;knitr&amp;quot;,&amp;quot;DT&amp;quot;,&amp;quot;data.</description>
     </item>
     
   </channel>

@@ -116,7 +116,7 @@ give_something <- function(
 
 I needed to simulate this function over a data like this:
 
-```{r make-toy-data}
+```{r make-toy-data, fig.cap="Data to Simulate"}
 
 n_sample <- 7000
 
@@ -131,6 +131,10 @@ toy_data <-
   )
 
 toy_data$ID <- 1:n_sample
+
+toy_data %>% 
+  mutate_at(vars(Value1, Value2), round, digits = 4) %>% 
+  show_datatable()
 
 ```
 
@@ -274,9 +278,29 @@ toy_data_dt[
   )[, c("first", "second", "third")]
 ]
 
+all.equal(toy_data_tbl, toy_data_dt)
+
 ```
 
 This is much faster than row wise `dplyr` and I felt happy with this.
+
+```{r output-datatable, fig.cap="Simulation of Give Something"}
+
+numeric_cols <- 
+  names(toy_data_dt)[unlist(lapply(toy_data_dt, class))]
+
+toy_data_dt[
+  ,
+  lapply(.SD, round, digits = 4),
+  by = .(Factor1, Factor2, Factor3)
+][
+  ,
+  ID := NULL
+] %>% 
+  show_datatable()
+
+```
+
 
 ## `{data.table}` Row wise
 
@@ -295,6 +319,8 @@ toy_data_dt2[
     )[,c("first", "second", "third")], 
   ID
 ]
+
+all.equal(toy_data_dt, toy_data_dt2)
 
 ```
 
@@ -326,6 +352,8 @@ toy_data_df[, c("First", "Second", "Third")] <- something[
   ,
   c("first", "second", "third")
 ]
+
+all.equal(toy_data_tbl, toy_data_df)
 
 ```
 
