@@ -1,0 +1,117 @@
+---
+title: One Big Block to a Single Row Record
+author: Recle E. Vibal
+date: '2019-09-01'
+categories:
+  - data manipulation
+  - data wrangling
+  - lessons
+tags:
+  - baseR
+  - cdata
+slug: cdata-big-block-to-single-rowrec
+description: A case study in data transformation with {cdata}
+output:
+  blogdown::html_page:
+    toc: yes
+    number_sections: yes
+bibliography:
+  - references/block-to-single-rowrec.bib
+biblio-style: apalike
+---
+
+```{r}
+
+kingdom <- c("North", "South", "East", "West")
+type <- c("Light", "Dark")
+skill <- c("Physical", "Magical")
+combat <- c("Attack", "Defense")
+
+cdata::qchar_frame(
+  SkillColumnName, SkillClass,  CombatColumnName, CombatPoints |
+  "NorthPhysicalLight"
+)
+
+skill_groups <- expand.grid(
+  Kingdom = kingdom,
+  Skill = skill,
+  Type = type,
+  stringsAsFactors = FALSE
+)
+
+combat_groups <- expand.grid(
+  Kingdom = kingdom,
+  Combat = combat,
+  Type = type,
+  stringsAsFactors = FALSE
+)
+
+skill_combat_data <- data.frame(
+  SkillColumnName = paste0(
+    skill_groups$Kingdom, 
+    skill_groups$Skill, 
+    skill_groups$Type
+  ),
+  SkillClass = c(
+    "D", "E", "C", "B", "D", "C", 
+    "D", "E", "S", "E", "D", "E", 
+    "C", "E", "E", "S"
+  ),
+  CombatColumnName = paste0(
+    combat_groups$Kingdom, 
+    combat_groups$Combat, 
+    combat_groups$Type
+  ),
+  CombatPoints = c(
+    25, 14, 47, 86, 25, 47, 
+    25, 14, 107, 14, 25, 14, 
+    47, 14, 14, 107
+  ),
+  stringsAsFactors = FALSE
+)
+
+# A unique identifier or controlTableKey per row of the block
+skill_combat_data$ID <- "1"
+skill_combat_data$KingdomTypeSkillClass <- paste0(
+  skill_combat_data$SkillColumnName,
+  skill_combat_data$CombatColumnName
+)
+
+skill_combat_control_table <- 
+  cdata::qchar_frame(
+    SkillClass          , CombatPoints       , KingdomType , id|
+    "NorthPhysicalLight", "NorthAttackLight" , "NorthLight",  1|
+    "SouthPhysicalLight", "SouthAttackLight" , "SouthLight",  1|
+    "EastPhysicalLight" , "EastAttackLight"  , "EastLight" ,  1|
+    "WestPhysicalLight" , "WestAttackLight"  , "WestLight" ,  1|
+    "NorthMagicalLight" , "NorthDefenseLight", "NorthLight",  1|
+    "SouthMagicalLight" , "SouthDefenseLight", "SouthLight",  1|
+    "EastMagicalLight"  , "EastDefenseLight" , "EastLight" ,  1|
+    "WestMagicalLight"  , "WestDefenseLight" , "WestLight" ,  1|
+    "NorthPhysicalDark" , "NorthAttackDark"  , "NorthDark" ,  1|
+    "SouthPhysicalDark" , "SouthAttackDark"  , "SouthDark" ,  1|
+    "EastPhysicalDark"  , "EastAttackDark"   , "EastDark"  ,  1|
+    "WestPhysicalDark"  , "WestAttackDark"   , "WestDark"  ,  1|
+    "NorthMagicalDark"  , "NorthDefenseDark" , "NorthDark" ,  1|
+    "SouthMagicalDark"  , "SouthDefenseDark" , "SouthDark" ,  1|
+    "EastMagicalDark"   , "EastDefenseDark"  , "EastDark"  ,  1|
+    "WestMagicalDark"   , "WestDefenseDark"  , "WestDark"  ,  1  
+  )
+
+skill_combat_control_table <- 
+  skill_combat_data[
+    ,
+    c("ID", "SkillColumnName", "CombatColumnName", "KingdomTypeSkillClass")
+  ]
+
+names(skill_combat_control_table)[2:3] <- c("SkillClass", "CombatPoints")
+
+cdata::blocks_to_rowrecs(
+  skill_combat_data,
+  keyColumns = "ID",
+  controlTableKeys = "KingdomTypeSkillClass",
+  controlTable = skill_combat_control_table
+)
+
+```
+
