@@ -1,0 +1,168 @@
+---
+title: One Big Block to a Single Row Record
+author: Recle E. Vibal
+date: '2019-09-08'
+categories:
+  - data manipulation
+  - data wrangling
+  - lessons
+tags:
+  - baseR
+  - cdata
+slug: cdata-big-block-to-single-rowrec
+description: A case study in data transformation with {cdata}
+output:
+  blogdown::html_page:
+    toc: yes
+    number_sections: yes
+bibliography:
+  - references/block-to-single-rowrec.bib
+biblio-style: apalike
+---
+
+# On the Job Puzzle
+
+```{r packages-options, message=FALSE, warning=FALSE, include=TRUE}
+
+xfun::pkg_attach(
+  "knitr",
+  "cdata",
+  "tidyr",
+  "dplyr"
+)
+
+opts_chunk$set(
+  message = FALSE,
+  warning = FALSE,
+  echo = TRUE
+)
+
+# create standard datatable function to be used in all tables in this post
+show_datatable <- function(data) {
+  data %>% 
+    DT::datatable(
+      rownames = FALSE,
+      extensions = 'FixedColumns',
+      options = list(
+        pageLength = 20,
+        scrollX = TRUE,
+        scrollCollapse = TRUE,
+        columnDefs = list(
+          list(
+            className = 'dt-center',
+            targets = 0:(ncol(data) - 1)
+          )
+        )
+      )
+    )
+}
+
+```
+
+
+In my current work, I encountered this data transformation problem.
+
+```{r colnames-beside-colvalues}
+
+kingdom <- c("North", "South", "East", "West")
+type <- c("Light", "Dark")
+skill <- c("Physical", "Magical")
+combat <- c("Attack", "Defense")
+
+skill_groups <- expand.grid(
+  Kingdom = kingdom,
+  Skill = skill,
+  Type = type,
+  stringsAsFactors = FALSE
+)
+
+combat_groups <- expand.grid(
+  Kingdom = kingdom,
+  Combat = combat,
+  Type = type,
+  stringsAsFactors = FALSE
+)
+
+skill_combat_data <- data.frame(
+  SkillColumnName = paste0(
+    skill_groups$Kingdom, 
+    skill_groups$Skill, 
+    skill_groups$Type
+  ),
+  SkillClass = c(
+    "D", "E", "C", "B", "D", "C", 
+    "D", "E", "S", "E", "D", "E", 
+    "C", "E", "E", "S"
+  ),
+  CombatColumnName = paste0(
+    combat_groups$Kingdom, 
+    combat_groups$Combat, 
+    combat_groups$Type
+  ),
+  CombatPoints = c(
+    25, 14, 47, 86, 25, 47, 
+    25, 14, 107, 14, 25, 14, 
+    47, 14, 14, 107
+  ),
+  stringsAsFactors = FALSE
+)
+
+skill_combat_data$ID <- "1aAMonJan"
+
+show_datatable(skill_combat_data)
+
+```
+
+The data consists of this 16-row blocks for every `ID`. The goal is to convert this block into a single observation for every `ID`. I "inherited" this problem from a colleague with a solution using `tidyr::spread()`^[I [know](https://amateurdatasci.rbind.io/post/table-another-back-again-cdata/) that `spread()` will be deprecated in favor of `tidyr::pivot_wider()`, so the solution my colleague gave me will need to change. This is one reason why I wanted to adapt a different approach to solve this problem.][@R-tidyr]. The solution looked something like this.
+
+```{r tidyr-spread-solution}
+
+skills <- 
+  skill_combat_data %>% 
+  as_tibble() %>% 
+  select(-CombatColumnName, -CombatPoints) %>% 
+  group_by(ID) %>% 
+  spread(key = SkillColumnName, value = SkillClass)
+
+combat <- 
+  skill_combat_data %>% 
+  as_tibble() %>% 
+  select(-SkillColumnName, -SkillClass) %>% 
+  group_by(ID) %>% 
+  spread(key = CombatColumnName, value = CombatPoints)
+
+skill_combat_spread <- 
+  skills %>% 
+  left_join(combat, by = "ID")
+
+show_datatable(skill_combat_spread)
+
+```
+
+The solution works fine, but I felt uncomfortable using two calls of spread on the data. As the data grows this can be a problem. I wanted a simpler workflow too, as this looks too synthetic. I decided I wanted to use `{cdata}` [@R-cdata].
+
+However, the `{cdata}` workflow did not come to my mind immediately as the data has the column names and the column values side-by-side. It took me some time to find the solution.
+
+# Control Inside the Puzzle
+
+```{r control-table-inside-given}
+
+skill_combat_control_table <- skill_combat_data
+
+# The values of SkillClass and CombatPoints should be converted to row records
+# with column names from SkillColumnName and CombatColumnName
+skill_combat_control_table$SkillClass <- skill_combat_data$SkillColumnName
+skill_combat_control_table$CombatPoints <- skill_combat_data$CombatColumnName
+# ID is not needed in the control table
+skill_combat_control_table$ID <- NULL
+
+skill_combat_rowrec <- cdata::blocks_to_rowrecs(
+  skill_combat_data,
+  keyColumns = "ID",
+  controlTableKeys = c("SkillColumnName", "CombatColumnName"),
+  controlTable = skill_combat_control_table
+)
+
+```
+
+# References

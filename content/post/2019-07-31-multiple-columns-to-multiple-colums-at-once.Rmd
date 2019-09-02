@@ -41,7 +41,6 @@ opts_chunk$set(
 )
 
 # create standard datatable function to be used in all tables in this post
-
 show_datatable <- function(data) {
   data %>% 
     DT::datatable(

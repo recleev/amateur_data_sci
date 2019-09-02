@@ -3,6 +3,11 @@
   xmlns:xhtml="http://www.w3.org/1999/xhtml">
   
   <url>
+    <loc>/post/cdata-big-block-to-single-rowrec/</loc>
+    <lastmod>2019-09-08T00:00:00+00:00</lastmod>
+  </url>
+  
+  <url>
     <loc>/post/multiple-columns-data-table/</loc>
     <lastmod>2019-07-31T00:00:00+00:00</lastmod>
   </url>
@@ -142,7 +147,7 @@
   
   <url>
     <loc>/tags/baser/</loc>
-    <lastmod>2019-07-31T00:00:00+00:00</lastmod>
+    <lastmod>2019-09-08T00:00:00+00:00</lastmod>
     <priority>0</priority>
   </url>
   
@@ -154,7 +159,7 @@
   
   <url>
     <loc>/tags/cdata/</loc>
-    <lastmod>2019-03-25T00:00:00+00:00</lastmod>
+    <lastmod>2019-09-08T00:00:00+00:00</lastmod>
     <priority>0</priority>
   </url>
   
@@ -310,7 +315,7 @@
   
   <url>
     <loc>/post/</loc>
-    <lastmod>2019-07-31T00:00:00+00:00</lastmod>
+    <lastmod>2019-09-08T00:00:00+00:00</lastmod>
     <priority>0</priority>
   </url>
   
@@ -424,7 +429,7 @@
   
   <url>
     <loc>/</loc>
-    <lastmod>2019-07-31T00:00:00+00:00</lastmod>
+    <lastmod>2019-09-08T00:00:00+00:00</lastmod>
     <priority>0</priority>
   </url>
   

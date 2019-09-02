@@ -1,0 +1,476 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta http-equiv="content-type" content="text/html; charset=utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="description" content="A case study in data transformation with {cdata}">
+  <meta name="generator" content="Hugo 0.54.0" />
+
+  <title>One Big Block to a Single Row Record &middot; The Amateur Data Scientist</title>
+
+  
+  
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/pure/1.0.0/pure-min.css">
+
+  <!--[if lte IE 8]>
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/pure/1.0.0/grids-responsive-old-ie-min.css">
+  <![endif]-->
+  <!--[if gt IE 8]><!-->
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/pure/1.0.0/grids-responsive-min.css">
+  <!--<![endif]-->
+
+  <!--[if lte IE 8]>
+  <link rel="stylesheet" href="/css/side-menu-old-ie.css">
+  <![endif]-->
+  <!--[if gt IE 8]><!-->
+  <link rel="stylesheet" href="/css/side-menu.css">
+  <!--<![endif]-->
+
+  <link rel="stylesheet" href="/css/blackburn.css">
+
+  
+  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css">
+
+  
+  <link href="https://fonts.googleapis.com/css?family=Raleway" rel="stylesheet" type="text/css">
+
+  
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.1/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
+
+ 
+  
+
+  
+  <link rel="stylesheet" href="//cdnjs.cloudflare.com/ajax/libs/highlight.js/9.12.0/styles/zenburn.min.css">
+  <script src="//cdnjs.cloudflare.com/ajax/libs/highlight.js/9.12.0/highlight.min.js"></script>
+  
+  <script>hljs.initHighlightingOnLoad();</script>
+  
+
+  <link rel="shortcut icon" href="/img/favicon.ico" type="image/x-icon" />
+
+  
+  
+
+</head>
+
+
+<body>
+<div id="layout">
+
+  
+<a href="#menu" id="menuLink" class="menu-link">
+  
+  <span></span>
+</a>
+<div id="menu">
+
+  
+  <a class="pure-menu-heading brand" href="/">recleev</a>
+
+
+  <div class="pure-menu">
+    <ul class="pure-menu-list">
+      
+      
+        <li class="pure-menu-item">
+          <a class="pure-menu-link" href="/"><i class='fa fa-home fa-fw'></i>Home</a>
+      
+        </li>
+      
+      
+        <li class="pure-menu-item">
+          <a class="pure-menu-link" href="/post/"><i class='fa fa-list fa-fw'></i>Posts</a>
+      
+        </li>
+      
+      
+        <li class="pure-menu-item">
+          <a class="pure-menu-link" href="/about/"><i class='fa fa-user fa-fw'></i>About</a>
+      
+        </li>
+      
+      
+        <li class="pure-menu-item">
+          <a class="pure-menu-link" href="/contact/"><i class='fa fa-phone fa-fw'></i>Contact</a>
+      
+        </li>
+      
+    </ul>
+  </div>
+
+  <div class="pure-menu social">
+  <ul class="pure-menu-list">
+
+    
+
+    
+
+    
+    <li class="pure-menu-item">
+      <a class="pure-menu-link" href="https://twitter.com/recleev" rel="me" target="_blank"><i class="fa fa-twitter-square fa-fw"></i>Twitter</a>
+    </li>
+    
+
+    
+
+    
+    <li class="pure-menu-item">
+      <a class="pure-menu-link" href="https://facebook.com/recleev" rel="me" target="_blank"><i class="fa fa-facebook-square fa-fw"></i>Facebook</a>
+    </li>
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+    <li class="pure-menu-item">
+      <a class="pure-menu-link" href="https://linkedin.com/in/recleev" rel="me" target="_blank"><i class="fa fa-linkedin-square fa-fw"></i>LinkedIn</a>
+    </li>
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+    <li class="pure-menu-item">
+      <a class="pure-menu-link" href="https://github.com/recleev" rel="me" target="_blank"><i class="fa fa-github-square fa-fw"></i>GitHub</a>
+    </li>
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+  </ul>
+</div>
+
+
+  <div>
+  <div class="small-print">
+    <small></small>
+  </div>
+  <div class="small-print">
+    <small>Built with&nbsp;<a href="https://gohugo.io/" target="_blank">Hugo</a></small>
+    <small>Theme&nbsp;<a href="https://github.com/yoshiharuyamashita/blackburn" target="_blank">Blackburn</a></small>
+  </div>
+</div>
+
+</div>
+
+
+  <div id="main">
+
+
+<div class="header">
+  <h1>One Big Block to a Single Row Record</h1>
+  <h2>A case study in data transformation with {cdata}</h2>
+</div>
+<div class="content">
+
+  <div class="post-meta">
+
+  <div>
+    <i class="fa fa-calendar fa-fw"></i>
+    <time>2019 Sep 8</time>
+  </div>
+
+  
+
+  
+
+  
+  
+  
+  <div>
+    <i class="fa fa-tags fa-fw"></i>
+    
+      <a class="post-taxonomy-tag" href="/tags/baser">baseR</a>&nbsp;&#47;
+    
+      <a class="post-taxonomy-tag" href="/tags/cdata">cdata</a>
+    
+  </div>
+  
+  
+
+</div>
+
+  
+<script src="/rmarkdown-libs/htmlwidgets/htmlwidgets.js"></script>
+<script src="/rmarkdown-libs/jquery/jquery.min.js"></script>
+<link href="/rmarkdown-libs/datatables-css/datatables-crosstalk.css" rel="stylesheet" />
+<script src="/rmarkdown-libs/datatables-binding/datatables.js"></script>
+<link href="/rmarkdown-libs/dt-core/css/jquery.dataTables.min.css" rel="stylesheet" />
+<link href="/rmarkdown-libs/dt-core/css/jquery.dataTables.extra.css" rel="stylesheet" />
+<script src="/rmarkdown-libs/dt-core/js/jquery.dataTables.min.js"></script>
+<link href="/rmarkdown-libs/dt-ext-fixedcolumns/css/fixedColumns.dataTables.min.css" rel="stylesheet" />
+<script src="/rmarkdown-libs/dt-ext-fixedcolumns/js/dataTables.fixedColumns.min.js"></script>
+<link href="/rmarkdown-libs/crosstalk/css/crosstalk.css" rel="stylesheet" />
+<script src="/rmarkdown-libs/crosstalk/js/crosstalk.min.js"></script>
+
+<div id="TOC">
+<ul>
+<li><a href="#on-the-job-puzzle"><span class="toc-section-number">1</span> On the Job Puzzle</a></li>
+<li><a href="#control-inside-the-puzzle"><span class="toc-section-number">2</span> Control Inside the Puzzle</a></li>
+<li><a href="#references">References</a></li>
+</ul>
+</div>
+
+<div id="on-the-job-puzzle" class="section level1">
+<h1><span class="header-section-number">1</span> On the Job Puzzle</h1>
+<pre class="r"><code>xfun::pkg_attach(
+  &quot;knitr&quot;,
+  &quot;cdata&quot;,
+  &quot;tidyr&quot;,
+  &quot;dplyr&quot;
+)
+
+opts_chunk$set(
+  message = FALSE,
+  warning = FALSE,
+  echo = TRUE
+)
+
+# create standard datatable function to be used in all tables in this post
+show_datatable &lt;- function(data) {
+  data %&gt;% 
+    DT::datatable(
+      rownames = FALSE,
+      extensions = &#39;FixedColumns&#39;,
+      options = list(
+        pageLength = 20,
+        scrollX = TRUE,
+        scrollCollapse = TRUE,
+        columnDefs = list(
+          list(
+            className = &#39;dt-center&#39;,
+            targets = 0:(ncol(data) - 1)
+          )
+        )
+      )
+    )
+}</code></pre>
+<p>In my current work, I encountered this data transformation problem.</p>
+<pre class="r"><code>kingdom &lt;- c(&quot;North&quot;, &quot;South&quot;, &quot;East&quot;, &quot;West&quot;)
+type &lt;- c(&quot;Light&quot;, &quot;Dark&quot;)
+skill &lt;- c(&quot;Physical&quot;, &quot;Magical&quot;)
+combat &lt;- c(&quot;Attack&quot;, &quot;Defense&quot;)
+
+skill_groups &lt;- expand.grid(
+  Kingdom = kingdom,
+  Skill = skill,
+  Type = type,
+  stringsAsFactors = FALSE
+)
+
+combat_groups &lt;- expand.grid(
+  Kingdom = kingdom,
+  Combat = combat,
+  Type = type,
+  stringsAsFactors = FALSE
+)
+
+skill_combat_data &lt;- data.frame(
+  SkillColumnName = paste0(
+    skill_groups$Kingdom, 
+    skill_groups$Skill, 
+    skill_groups$Type
+  ),
+  SkillClass = c(
+    &quot;D&quot;, &quot;E&quot;, &quot;C&quot;, &quot;B&quot;, &quot;D&quot;, &quot;C&quot;, 
+    &quot;D&quot;, &quot;E&quot;, &quot;S&quot;, &quot;E&quot;, &quot;D&quot;, &quot;E&quot;, 
+    &quot;C&quot;, &quot;E&quot;, &quot;E&quot;, &quot;S&quot;
+  ),
+  CombatColumnName = paste0(
+    combat_groups$Kingdom, 
+    combat_groups$Combat, 
+    combat_groups$Type
+  ),
+  CombatPoints = c(
+    25, 14, 47, 86, 25, 47, 
+    25, 14, 107, 14, 25, 14, 
+    47, 14, 14, 107
+  ),
+  stringsAsFactors = FALSE
+)
+
+skill_combat_data$ID &lt;- &quot;1aAMonJan&quot;
+
+show_datatable(skill_combat_data)</code></pre>
+<div id="htmlwidget-1" style="width:100%;height:auto;" class="datatables html-widget"></div>
+<script type="application/json" data-for="htmlwidget-1">{"x":{"filter":"none","extensions":["FixedColumns"],"data":[["NorthPhysicalLight","SouthPhysicalLight","EastPhysicalLight","WestPhysicalLight","NorthMagicalLight","SouthMagicalLight","EastMagicalLight","WestMagicalLight","NorthPhysicalDark","SouthPhysicalDark","EastPhysicalDark","WestPhysicalDark","NorthMagicalDark","SouthMagicalDark","EastMagicalDark","WestMagicalDark"],["D","E","C","B","D","C","D","E","S","E","D","E","C","E","E","S"],["NorthAttackLight","SouthAttackLight","EastAttackLight","WestAttackLight","NorthDefenseLight","SouthDefenseLight","EastDefenseLight","WestDefenseLight","NorthAttackDark","SouthAttackDark","EastAttackDark","WestAttackDark","NorthDefenseDark","SouthDefenseDark","EastDefenseDark","WestDefenseDark"],[25,14,47,86,25,47,25,14,107,14,25,14,47,14,14,107],["1aAMonJan","1aAMonJan","1aAMonJan","1aAMonJan","1aAMonJan","1aAMonJan","1aAMonJan","1aAMonJan","1aAMonJan","1aAMonJan","1aAMonJan","1aAMonJan","1aAMonJan","1aAMonJan","1aAMonJan","1aAMonJan"]],"container":"<table class=\"display\">\n  <thead>\n    <tr>\n      <th>SkillColumnName<\/th>\n      <th>SkillClass<\/th>\n      <th>CombatColumnName<\/th>\n      <th>CombatPoints<\/th>\n      <th>ID<\/th>\n    <\/tr>\n  <\/thead>\n<\/table>","options":{"pageLength":20,"scrollX":true,"scrollCollapse":true,"columnDefs":[{"className":"dt-center","targets":[0,1,2,3,4]}],"order":[],"autoWidth":false,"orderClasses":false,"lengthMenu":[10,20,25,50,100]}},"evals":[],"jsHooks":[]}</script>
+<p>The data consists of this 16-row blocks for every <code>ID</code>. The goal is to convert this block into a single observation for every <code>ID</code>. I “inherited” this problem from a colleague with a solution using <code>tidyr::spread()</code><a href="#fn1" class="footnote-ref" id="fnref1"><sup>1</sup></a><span class="citation">(Wickham and Henry 2019)</span>. The solution looked something like this.</p>
+<pre class="r"><code>skills &lt;- 
+  skill_combat_data %&gt;% 
+  as_tibble() %&gt;% 
+  select(-CombatColumnName, -CombatPoints) %&gt;% 
+  group_by(ID) %&gt;% 
+  spread(key = SkillColumnName, value = SkillClass)
+
+combat &lt;- 
+  skill_combat_data %&gt;% 
+  as_tibble() %&gt;% 
+  select(-SkillColumnName, -SkillClass) %&gt;% 
+  group_by(ID) %&gt;% 
+  spread(key = CombatColumnName, value = CombatPoints)
+
+skill_combat_spread &lt;- 
+  skills %&gt;% 
+  left_join(combat, by = &quot;ID&quot;)
+
+show_datatable(skill_combat_spread)</code></pre>
+<div id="htmlwidget-2" style="width:100%;height:auto;" class="datatables html-widget"></div>
+<script type="application/json" data-for="htmlwidget-2">{"x":{"filter":"none","extensions":["FixedColumns"],"data":[["1aAMonJan"],["E"],["D"],["D"],["C"],["C"],["D"],["S"],["D"],["E"],["C"],["E"],["E"],["S"],["E"],["E"],["B"],[25],[47],[14],[25],[107],[25],[47],[25],[14],[14],[14],[47],[14],[86],[107],[14]],"container":"<table class=\"display\">\n  <thead>\n    <tr>\n      <th>ID<\/th>\n      <th>EastMagicalDark<\/th>\n      <th>EastMagicalLight<\/th>\n      <th>EastPhysicalDark<\/th>\n      <th>EastPhysicalLight<\/th>\n      <th>NorthMagicalDark<\/th>\n      <th>NorthMagicalLight<\/th>\n      <th>NorthPhysicalDark<\/th>\n      <th>NorthPhysicalLight<\/th>\n      <th>SouthMagicalDark<\/th>\n      <th>SouthMagicalLight<\/th>\n      <th>SouthPhysicalDark<\/th>\n      <th>SouthPhysicalLight<\/th>\n      <th>WestMagicalDark<\/th>\n      <th>WestMagicalLight<\/th>\n      <th>WestPhysicalDark<\/th>\n      <th>WestPhysicalLight<\/th>\n      <th>EastAttackDark<\/th>\n      <th>EastAttackLight<\/th>\n      <th>EastDefenseDark<\/th>\n      <th>EastDefenseLight<\/th>\n      <th>NorthAttackDark<\/th>\n      <th>NorthAttackLight<\/th>\n      <th>NorthDefenseDark<\/th>\n      <th>NorthDefenseLight<\/th>\n      <th>SouthAttackDark<\/th>\n      <th>SouthAttackLight<\/th>\n      <th>SouthDefenseDark<\/th>\n      <th>SouthDefenseLight<\/th>\n      <th>WestAttackDark<\/th>\n      <th>WestAttackLight<\/th>\n      <th>WestDefenseDark<\/th>\n      <th>WestDefenseLight<\/th>\n    <\/tr>\n  <\/thead>\n<\/table>","options":{"pageLength":20,"scrollX":true,"scrollCollapse":true,"columnDefs":[{"className":"dt-center","targets":[0,1,2,3,4,5,6,7,8,9,10,11,12,13,14,15,16,17,18,19,20,21,22,23,24,25,26,27,28,29,30,31,32]}],"order":[],"autoWidth":false,"orderClasses":false,"lengthMenu":[10,20,25,50,100]}},"evals":[],"jsHooks":[]}</script>
+<p>The solution works fine, but I felt uncomfortable using two calls of spread on the data. As the data grows this can be a problem. I wanted a simpler workflow too, as this looks too synthetic. I decided I wanted to use <code>{cdata}</code> <span class="citation">(Mount and Zumel 2019)</span>.</p>
+<p>However, the <code>{cdata}</code> workflow did not come to my mind immediately as the data has the column names and the column values side-by-side. It took me some time to find the solution.</p>
+</div>
+<div id="control-inside-the-puzzle" class="section level1">
+<h1><span class="header-section-number">2</span> Control Inside the Puzzle</h1>
+<pre class="r"><code>skill_combat_control_table &lt;- skill_combat_data
+
+# The values of SkillClass and CombatPoints should be converted to row records
+# with column names from SkillColumnName and CombatColumnName
+skill_combat_control_table$SkillClass &lt;- skill_combat_data$SkillColumnName
+skill_combat_control_table$CombatPoints &lt;- skill_combat_data$CombatColumnName
+# ID is not needed in the control table
+skill_combat_control_table$ID &lt;- NULL
+
+skill_combat_rowrec &lt;- cdata::blocks_to_rowrecs(
+  skill_combat_data,
+  keyColumns = &quot;ID&quot;,
+  controlTableKeys = c(&quot;SkillColumnName&quot;, &quot;CombatColumnName&quot;),
+  controlTable = skill_combat_control_table
+)</code></pre>
+</div>
+<div id="references" class="section level1 unnumbered">
+<h1>References</h1>
+<div id="refs" class="references">
+<div id="ref-R-cdata">
+<p>Mount, John, and Nina Zumel. 2019. <em>Cdata: Fluid Data Transformations</em>. <a href="https://CRAN.R-project.org/package=cdata">https://CRAN.R-project.org/package=cdata</a>.</p>
+</div>
+<div id="ref-R-tidyr">
+<p>Wickham, Hadley, and Lionel Henry. 2019. <em>Tidyr: Easily Tidy Data with ’Spread()’ and ’Gather()’ Functions</em>. <a href="https://CRAN.R-project.org/package=tidyr">https://CRAN.R-project.org/package=tidyr</a>.</p>
+</div>
+</div>
+</div>
+<div class="footnotes">
+<hr />
+<ol>
+<li id="fn1"><p>I <a href="https://amateurdatasci.rbind.io/post/table-another-back-again-cdata/">know</a> that <code>spread()</code> will be deprecated in favor of <code>tidyr::pivot_wider()</code>, so the solution my colleague gave me will need to change. This is one reason why I wanted to adapt a different approach to solve this problem.<a href="#fnref1" class="footnote-back">↩</a></p></li>
+</ol>
+</div>
+
+
+  
+<div class="prev-next-post pure-g">
+  <div class="pure-u-1-24" style="text-align: left;">
+    
+    <a href="/post/multiple-columns-data-table/"><i class="fa fa-chevron-left"></i></a>
+    
+  </div>
+  <div class="pure-u-10-24">
+    
+    <nav class="prev">
+      <a href="/post/multiple-columns-data-table/">Multiple Columns to Multiple Colums at Once</a>
+    </nav>
+    
+  </div>
+  <div class="pure-u-2-24">
+    &nbsp;
+  </div>
+  <div class="pure-u-10-24">
+    
+  </div>
+  <div class="pure-u-1-24" style="text-align: right;">
+    
+  </div>
+</div>
+
+
+
+  
+<div id="disqus_thread"></div>
+<script type="text/javascript">
+
+(function() {
+    
+    
+    if (window.location.hostname == "localhost")
+        return;
+
+    var dsq = document.createElement('script'); dsq.type = 'text/javascript'; dsq.async = true;
+    var disqus_shortname = 'the-amateur-data-scientist';
+    dsq.src = '//' + disqus_shortname + '.disqus.com/embed.js';
+    (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(dsq);
+})();
+</script>
+<noscript>Please enable JavaScript to view the <a href="http://disqus.com/?ref_noscript">comments powered by Disqus.</a></noscript>
+<a href="http://disqus.com/" class="dsq-brlink">comments powered by <span class="logo-disqus">Disqus</span></a>
+
+
+</div>
+
+</div>
+</div>
+<script src="/js/ui.js"></script>
+<script src="/js/menus.js"></script>
+
+
+
+
+
+
+</body>
+</html>
+
