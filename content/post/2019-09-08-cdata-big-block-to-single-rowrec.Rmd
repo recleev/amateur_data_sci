@@ -62,7 +62,7 @@ show_datatable <- function(data) {
 
 In my current work, I encountered this data transformation problem.
 
-```{r colnames-beside-colvalues}
+```{r colnames-beside-colvalues, fig.cap="Given Tall Table"}
 
 kingdom <- c("North", "South", "East", "West")
 type <- c("Light", "Dark")
@@ -115,7 +115,7 @@ show_datatable(skill_combat_data)
 
 The data consists of this 16-row blocks for every `ID`. The goal is to convert this block into a single observation for every `ID`. I "inherited" this problem from a colleague with a solution using `tidyr::spread()`^[I [know](https://amateurdatasci.rbind.io/post/table-another-back-again-cdata/) that `spread()` will be deprecated in favor of `tidyr::pivot_wider()`, so the solution my colleague gave me will need to change. This is one reason why I wanted to adapt a different approach to solve this problem.][@R-tidyr]. The solution looked something like this.
 
-```{r tidyr-spread-solution}
+```{r tidyr-spread-solution, fig.cap="Desired Wide Table"}
 
 skills <- 
   skill_combat_data %>% 
@@ -145,7 +145,13 @@ However, the `{cdata}` workflow did not come to my mind immediately as the data 
 
 # Control Inside the Puzzle
 
-```{r control-table-inside-given}
+The secret to this problem was to realize that the control table was inside the given data.
+
+Remember that in `{cdata}`, converting from blocks to rowrecs, the control table refers to how the table currently looks like. The control table columns then contain the column names of the rowrecs.
+
+The control table then should be a `data.frame` with `SkillClass` containing the values of the `SkillColumnName` and `CombatPoints` containing the values of `CombatColumnName`. Like so,
+
+```{r control-table-inside-given, fig.cap="Control Table from the Tall Table"}
 
 skill_combat_control_table <- skill_combat_data
 
@@ -156,12 +162,40 @@ skill_combat_control_table$CombatPoints <- skill_combat_data$CombatColumnName
 # ID is not needed in the control table
 skill_combat_control_table$ID <- NULL
 
+show_datatable(skill_combat_control_table)
+
+```
+
+Note that `SkillColumnName` and `CombatColumnName` must stay in the control table to be the control table keys. `ID` is not necessary for the control table, as it serves the key column for the given tall table.
+
+With the control table in place, `cdata::blocks_to_rowrecs()` can do what it does best,
+
+```{r cdata-solution, fig.cap="Wide Table with `{cdata}`"}
+
 skill_combat_rowrec <- cdata::blocks_to_rowrecs(
   skill_combat_data,
   keyColumns = "ID",
   controlTableKeys = c("SkillColumnName", "CombatColumnName"),
   controlTable = skill_combat_control_table
 )
+
+show_datatable(skill_combat_rowrec)
+
+```
+
+# Code
+
+The following codes show what I did in this post. I added comments here and there to clarify my thought process.
+
+```{r all-codes, ref.label = knitr::all_labels(), echo=TRUE, eval=FALSE}
+
+```
+
+My session info for reproducibility.
+
+```{r session-info}
+
+sessioninfo::session_info(include_base = TRUE)
 
 ```
 
