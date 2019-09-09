@@ -1,0 +1,344 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta http-equiv="content-type" content="text/html; charset=utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="description" content=".Site.RegularPages for Hugo &gt;0.57 and Theme Blackburn">
+  <meta name="generator" content="Hugo 0.58.1" />
+
+  <title>Fixing a Broken Home Page &middot; The Amateur Data Scientist</title>
+
+  
+  
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/pure/1.0.0/pure-min.css">
+
+  <!--[if lte IE 8]>
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/pure/1.0.0/grids-responsive-old-ie-min.css">
+  <![endif]-->
+  <!--[if gt IE 8]><!-->
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/pure/1.0.0/grids-responsive-min.css">
+  <!--<![endif]-->
+
+  <!--[if lte IE 8]>
+  <link rel="stylesheet" href="/css/side-menu-old-ie.css">
+  <![endif]-->
+  <!--[if gt IE 8]><!-->
+  <link rel="stylesheet" href="/css/side-menu.css">
+  <!--<![endif]-->
+
+  <link rel="stylesheet" href="/css/blackburn.css">
+
+  
+  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css">
+
+  
+  <link href="https://fonts.googleapis.com/css?family=Raleway" rel="stylesheet" type="text/css">
+
+  
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.1/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
+
+ 
+  
+
+  
+  <link rel="stylesheet" href="//cdnjs.cloudflare.com/ajax/libs/highlight.js/9.12.0/styles/zenburn.min.css">
+  <script src="//cdnjs.cloudflare.com/ajax/libs/highlight.js/9.12.0/highlight.min.js"></script>
+  
+  <script>hljs.initHighlightingOnLoad();</script>
+  
+
+  <link rel="shortcut icon" href="/img/favicon.ico" type="image/x-icon" />
+
+  
+  
+
+</head>
+
+
+<body>
+<div id="layout">
+
+  
+<a href="#menu" id="menuLink" class="menu-link">
+  
+  <span></span>
+</a>
+<div id="menu">
+
+  
+  <a class="pure-menu-heading brand" href="/">recleev</a>
+
+
+  <div class="pure-menu">
+    <ul class="pure-menu-list">
+      
+      
+        <li class="pure-menu-item">
+          <a class="pure-menu-link" href="/"><i class='fa fa-home fa-fw'></i>Home</a>
+      
+        </li>
+      
+      
+        <li class="pure-menu-item">
+          <a class="pure-menu-link" href="/post/"><i class='fa fa-list fa-fw'></i>Posts</a>
+      
+        </li>
+      
+      
+        <li class="pure-menu-item">
+          <a class="pure-menu-link" href="/about/"><i class='fa fa-user fa-fw'></i>About</a>
+      
+        </li>
+      
+      
+        <li class="pure-menu-item">
+          <a class="pure-menu-link" href="/contact/"><i class='fa fa-phone fa-fw'></i>Contact</a>
+      
+        </li>
+      
+    </ul>
+  </div>
+
+  <div class="pure-menu social">
+  <ul class="pure-menu-list">
+
+    
+
+    
+
+    
+    <li class="pure-menu-item">
+      <a class="pure-menu-link" href="https://twitter.com/recleev" rel="me" target="_blank"><i class="fa fa-twitter-square fa-fw"></i>Twitter</a>
+    </li>
+    
+
+    
+
+    
+    <li class="pure-menu-item">
+      <a class="pure-menu-link" href="https://facebook.com/recleev" rel="me" target="_blank"><i class="fa fa-facebook-square fa-fw"></i>Facebook</a>
+    </li>
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+    <li class="pure-menu-item">
+      <a class="pure-menu-link" href="https://linkedin.com/in/recleev" rel="me" target="_blank"><i class="fa fa-linkedin-square fa-fw"></i>LinkedIn</a>
+    </li>
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+    <li class="pure-menu-item">
+      <a class="pure-menu-link" href="https://github.com/recleev" rel="me" target="_blank"><i class="fa fa-github-square fa-fw"></i>GitHub</a>
+    </li>
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+  </ul>
+</div>
+
+
+  <div>
+  <div class="small-print">
+    <small></small>
+  </div>
+  <div class="small-print">
+    <small>Built with&nbsp;<a href="https://gohugo.io/" target="_blank">Hugo</a></small>
+    <small>Theme&nbsp;<a href="https://github.com/yoshiharuyamashita/blackburn" target="_blank">Blackburn</a></small>
+  </div>
+</div>
+
+</div>
+
+
+  <div id="main">
+
+
+<div class="header">
+  <h1>Fixing a Broken Home Page</h1>
+  <h2>.Site.RegularPages for Hugo &gt;0.57 and Theme Blackburn</h2>
+</div>
+<div class="content">
+
+  <div class="post-meta">
+
+  <div>
+    <i class="fa fa-calendar fa-fw"></i>
+    <time>2019 Sep 10</time>
+  </div>
+
+  
+
+  
+
+  
+  
+  
+  <div>
+    <i class="fa fa-tags fa-fw"></i>
+    
+      <a class="post-taxonomy-tag" href="/tags/blackburn">blackburn</a>&nbsp;&#47;
+    
+      <a class="post-taxonomy-tag" href="/tags/0.57">&gt;0.57</a>
+    
+  </div>
+  
+  
+
+</div>
+
+  
+
+<div id="TOC">
+<ul>
+<li><a href="#posts-at-home"><span class="toc-section-number">1</span> Posts at Home</a></li>
+<li><a href="#breaking-change"><span class="toc-section-number">2</span> Breaking Change</a></li>
+<li><a href="#tranquilpeak-fix"><span class="toc-section-number">3</span> Tranquilpeak Fix</a></li>
+</ul>
+</div>
+
+<div id="posts-at-home" class="section level1">
+<h1><span class="header-section-number">1</span> Posts at Home</h1>
+<p>I write this blog using [<code>{blogdown}</code>] and the <a href="https://gohugo.io/">Hugo</a> theme <a href="https://themes.gohugo.io/blackburn/">blackburn</a>. For now, I can say my skill is limited to <code>R</code>, so I can handle mostly anything <code>{blogdown}</code>-related. I don’t know Hugo and html.</p>
+<p>I encountered an issue unrelated to <code>{blogdown}</code> recently where the blog could not render the home page properly; it only shows a link to the Posts page. Rendering locally, shows a good site. I always keep the latest <a href="https://gohugo.io/news/">Hugo version</a> in my <a href="https://www.netlify.com/">Netlify</a>, but my local Hugo is not always up to date. Updating my local Hugo proved that the issue was with Hugo and not <code>{blogdown}</code>.</p>
+</div>
+<div id="breaking-change" class="section level1">
+<h1><span class="header-section-number">2</span> Breaking Change</h1>
+<p>The update of <a href="https://gohugo.io/news/0.57.0-relnotes/">Hugo 0.57</a> introduced some changes that caused the some problems with my homepage. I think it is this change:</p>
+<blockquote>
+<p><code>home.Pages</code> now only returns pages in the top level section. Before this release, it included all regular pages in the site. This made it easy to list all the pages on home page, but it also meant that you needed to take special care if you wanted to navigate the page tree from top to bottom. If you need all regular pages, use <code>.Site.RegularPages.</code> Also see <a href="https://github.com/gohugoio/hugo/issues/6153">#6153</a>.</p>
+</blockquote>
+<p>However, I don’t know where to find <code>home.Pages</code> and what I should replace with <code>.Site.RegularPages</code>. I could have posted an issue on <a href="https://github.com/yoshiharuyamashita/blackburn">blackburn’s Github</a>, but I wanted to fix my blog soon and <a href="https://github.com/yoshiharuyamashita/blackburn/commits/master">updates on theme blackburn</a> can take a while.</p>
+</div>
+<div id="tranquilpeak-fix" class="section level1">
+<h1><span class="header-section-number">3</span> Tranquilpeak Fix</h1>
+<p>Fortunately for me, the <a href="https://themes.gohugo.io/hugo-tranquilpeak-theme/">tranquilpeak</a> also had the <a href="https://github.com/kakawait/hugo-tranquilpeak-theme/issues/371">same issue with Hugo &gt; 0.57</a>. The <a href="https://github.com/kakawait/hugo-tranquilpeak-theme/commit/2ebbd3c4f2b98c5aa1d41ee2512fd5396d4de8c2#diff-1578c58a761c0846adb0e788c860a12b">fix</a> implemented in tranquilpeak looked easy enough for me to do.</p>
+<p>The solution to fix the homepage was to edit this line</p>
+<pre><code>{{ range ( .Paginate (where .Data.Pages &quot;Type&quot; &quot;post&quot;)).Pages }}</code></pre>
+<p>in <code>layouts/index.html</code> and change it to</p>
+<pre><code>{{ range ( .Paginate (where .Site.RegularPages &quot;Type&quot; &quot;post&quot;)).Pages }}</code></pre>
+<p>That solved my problem. However, as I am not a Hugo expert, I am not sure if what I did will not break anything. I filed an <a href="https://github.com/yoshiharuyamashita/blackburn/issues/93">issue</a> to make the problem known and make blackburn compatible with the current, and hopefully future, versions of Hugo. I also hope this can help my fellow blackburn users not that versed with Hugo.</p>
+</div>
+
+
+  
+<div class="prev-next-post pure-g">
+  <div class="pure-u-1-24" style="text-align: left;">
+    
+    <a href="/post/cdata-big-block-to-single-rowrec/"><i class="fa fa-chevron-left"></i></a>
+    
+  </div>
+  <div class="pure-u-10-24">
+    
+    <nav class="prev">
+      <a href="/post/cdata-big-block-to-single-rowrec/">One Big Block to a Single Row Record</a>
+    </nav>
+    
+  </div>
+  <div class="pure-u-2-24">
+    &nbsp;
+  </div>
+  <div class="pure-u-10-24">
+    
+  </div>
+  <div class="pure-u-1-24" style="text-align: right;">
+    
+  </div>
+</div>
+
+
+
+  
+<div id="disqus_thread"></div>
+<script type="text/javascript">
+
+(function() {
+    
+    
+    if (window.location.hostname == "localhost")
+        return;
+
+    var dsq = document.createElement('script'); dsq.type = 'text/javascript'; dsq.async = true;
+    var disqus_shortname = 'the-amateur-data-scientist';
+    dsq.src = '//' + disqus_shortname + '.disqus.com/embed.js';
+    (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(dsq);
+})();
+</script>
+<noscript>Please enable JavaScript to view the <a href="http://disqus.com/?ref_noscript">comments powered by Disqus.</a></noscript>
+<a href="http://disqus.com/" class="dsq-brlink">comments powered by <span class="logo-disqus">Disqus</span></a>
+
+
+</div>
+
+</div>
+</div>
+<script src="/js/ui.js"></script>
+<script src="/js/menus.js"></script>
+
+
+
+
+
+
+</body>
+</html>
+

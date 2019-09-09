@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes" ?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>blackburn on The Amateur Data Scientist</title>
+    <link>/tags/blackburn/</link>
+    <description>Recent content in blackburn on The Amateur Data Scientist</description>
+    <generator>Hugo -- gohugo.io</generator>
+    <language>en-us</language>
+    <lastBuildDate>Tue, 10 Sep 2019 00:00:00 +0000</lastBuildDate>
+    
+	<atom:link href="/tags/blackburn/index.xml" rel="self" type="application/rss+xml" />
+    
+    
+    <item>
+      <title>Fixing a Broken Home Page</title>
+      <link>/post/fixing-a-broken-home-page-hugo/</link>
+      <pubDate>Tue, 10 Sep 2019 00:00:00 +0000</pubDate>
+      
+      <guid>/post/fixing-a-broken-home-page-hugo/</guid>
+      <description>1 Posts at Home2 Breaking Change3 Tranquilpeak Fix1 Posts at HomeI write this blog using [{blogdown}] and the Hugo theme blackburn. For now, I can say my skill is limited to R, so I can handle mostly anything {blogdown}-related. I don’t know Hugo and html.
+I encountered an issue unrelated to {blogdown} recently where the blog could not render the home page properly; it only shows a link to the Posts page.</description>
+    </item>
+    
+  </channel>
+</rss>

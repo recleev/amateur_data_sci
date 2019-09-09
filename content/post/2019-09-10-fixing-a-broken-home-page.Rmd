@@ -1,0 +1,48 @@
+---
+title: Fixing a Broken Home Page
+author: Recle E. Vibal
+date: '2019-09-10'
+slug: fixing-a-broken-home-page-hugo
+categories:
+  - hugo
+tags:
+  - blackburn
+  - '>0.57'
+description: '.Site.RegularPages for Hugo >0.57 and Theme Blackburn'
+output:
+  blogdown::html_page:
+    toc: yes
+    number_sections: yes
+---
+
+# Posts at Home
+
+I write this blog using [`{blogdown}`] and the [Hugo](https://gohugo.io/) theme [blackburn](https://themes.gohugo.io/blackburn/). For now, I can say my skill is limited to `R`, so I can handle mostly anything `{blogdown}`-related. I don't know Hugo and html.
+
+I encountered an issue unrelated to `{blogdown}` recently where the blog could not render the home page properly; it only shows a link to the Posts page. Rendering locally, shows a good site. I always keep the latest [Hugo version](https://gohugo.io/news/) in my [Netlify](https://www.netlify.com/), but my local Hugo is not always up to date. Updating my local Hugo proved that the issue was with Hugo and not `{blogdown}`.
+
+# Breaking Change
+
+The update of [Hugo 0.57](https://gohugo.io/news/0.57.0-relnotes/) introduced some changes that caused the some problems with my homepage. I think it is this change:
+
+> `home.Pages` now only returns pages in the top level section. Before this release, it included all regular pages in the site. This made it easy to list all the pages on home page, but it also meant that you needed to take special care if you wanted to navigate the page tree from top to bottom. If you need all regular pages, use `.Site.RegularPages.` Also see [#6153](https://github.com/gohugoio/hugo/issues/6153).
+
+However, I don't know where to find `home.Pages` and what I should replace with `.Site.RegularPages`. I could have posted an issue on [blackburn's Github](https://github.com/yoshiharuyamashita/blackburn), but I wanted to fix my blog soon and [updates on theme blackburn](https://github.com/yoshiharuyamashita/blackburn/commits/master) can take a while.
+
+# Tranquilpeak Fix
+
+Fortunately for me, the [tranquilpeak](https://themes.gohugo.io/hugo-tranquilpeak-theme/) also had the [same issue with Hugo > 0.57](https://github.com/kakawait/hugo-tranquilpeak-theme/issues/371). The [fix](https://github.com/kakawait/hugo-tranquilpeak-theme/commit/2ebbd3c4f2b98c5aa1d41ee2512fd5396d4de8c2#diff-1578c58a761c0846adb0e788c860a12b) implemented in tranquilpeak looked easy enough for me to do.
+
+The solution to fix the homepage was to edit this line
+
+```
+{{ range ( .Paginate (where .Data.Pages "Type" "post")).Pages }}
+```
+
+in `layouts/index.html` and change it to
+
+```
+{{ range ( .Paginate (where .Site.RegularPages "Type" "post")).Pages }}
+```
+
+That solved my problem. However, as I am not a Hugo expert, I am not sure if what I did will not break anything. I filed an [issue](https://github.com/yoshiharuyamashita/blackburn/issues/93) to make the problem known and make blackburn compatible with the current, and hopefully future, versions of Hugo. I also hope this can help my fellow blackburn users not that versed with Hugo.

@@ -6,10 +6,20 @@
     <description>Recent content in Posts on The Amateur Data Scientist</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>en-us</language>
-    <lastBuildDate>Mon, 09 Sep 2019 00:00:00 +0000</lastBuildDate>
+    <lastBuildDate>Tue, 10 Sep 2019 00:00:00 +0000</lastBuildDate>
     
 	<atom:link href="/post/index.xml" rel="self" type="application/rss+xml" />
     
+    
+    <item>
+      <title>Fixing a Broken Home Page</title>
+      <link>/post/fixing-a-broken-home-page-hugo/</link>
+      <pubDate>Tue, 10 Sep 2019 00:00:00 +0000</pubDate>
+      
+      <guid>/post/fixing-a-broken-home-page-hugo/</guid>
+      <description>1 Posts at Home2 Breaking Change3 Tranquilpeak Fix1 Posts at HomeI write this blog using [{blogdown}] and the Hugo theme blackburn. For now, I can say my skill is limited to R, so I can handle mostly anything {blogdown}-related. I don’t know Hugo and html.
+I encountered an issue unrelated to {blogdown} recently where the blog could not render the home page properly; it only shows a link to the Posts page.</description>
+    </item>
     
     <item>
       <title>One Big Block to a Single Row Record</title>
