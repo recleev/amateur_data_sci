@@ -6,40 +6,13 @@
     <description>Recent content in Tags on The Amateur Data Scientist</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>en-us</language>
-    <lastBuildDate>Fri, 21 Sep 2018 00:00:00 +0000</lastBuildDate>
+    <lastBuildDate>Mon, 09 Sep 2019 00:00:00 +0000</lastBuildDate>
     
 	<atom:link href="/tags/index.xml" rel="self" type="application/rss+xml" />
     
     
     <item>
-      <title>Antidifferentation</title>
-      <link>/tags/antidifferentation/</link>
-      <pubDate>Fri, 21 Sep 2018 00:00:00 +0000</pubDate>
-      
-      <guid>/tags/antidifferentation/</guid>
-      <description></description>
-    </item>
-    
-    <item>
-      <title>Applications of Integration</title>
-      <link>/tags/applications-of-integration/</link>
-      <pubDate>Mon, 26 Nov 2018 00:00:00 +0000</pubDate>
-      
-      <guid>/tags/applications-of-integration/</guid>
-      <description></description>
-    </item>
-    
-    <item>
-      <title>Area Under the Curve</title>
-      <link>/tags/area-under-the-curve/</link>
-      <pubDate>Mon, 26 Nov 2018 00:00:00 +0000</pubDate>
-      
-      <guid>/tags/area-under-the-curve/</guid>
-      <description></description>
-    </item>
-    
-    <item>
-      <title>Baser</title>
+      <title>baseR</title>
       <link>/tags/baser/</link>
       <pubDate>Mon, 09 Sep 2019 00:00:00 +0000</pubDate>
       
@@ -48,16 +21,7 @@
     </item>
     
     <item>
-      <title>Bquote</title>
-      <link>/tags/bquote/</link>
-      <pubDate>Sun, 03 Feb 2019 00:00:00 +0000</pubDate>
-      
-      <guid>/tags/bquote/</guid>
-      <description></description>
-    </item>
-    
-    <item>
-      <title>Cdata</title>
+      <title>cdata</title>
       <link>/tags/cdata/</link>
       <pubDate>Mon, 09 Sep 2019 00:00:00 +0000</pubDate>
       
@@ -66,34 +30,7 @@
     </item>
     
     <item>
-      <title>Consumer Price Index</title>
-      <link>/tags/consumer-price-index/</link>
-      <pubDate>Thu, 15 Nov 2018 00:00:00 +0000</pubDate>
-      
-      <guid>/tags/consumer-price-index/</guid>
-      <description></description>
-    </item>
-    
-    <item>
-      <title>Cosine</title>
-      <link>/tags/cosine/</link>
-      <pubDate>Fri, 26 Oct 2018 00:00:00 +0000</pubDate>
-      
-      <guid>/tags/cosine/</guid>
-      <description></description>
-    </item>
-    
-    <item>
-      <title>Cubic Equation</title>
-      <link>/tags/cubic-equation/</link>
-      <pubDate>Tue, 09 Oct 2018 00:00:00 +0000</pubDate>
-      
-      <guid>/tags/cubic-equation/</guid>
-      <description></description>
-    </item>
-    
-    <item>
-      <title>Data.table</title>
+      <title>data.table</title>
       <link>/tags/data.table/</link>
       <pubDate>Wed, 31 Jul 2019 00:00:00 +0000</pubDate>
       
@@ -102,25 +39,7 @@
     </item>
     
     <item>
-      <title>Definite Integral</title>
-      <link>/tags/definite-integral/</link>
-      <pubDate>Mon, 26 Nov 2018 00:00:00 +0000</pubDate>
-      
-      <guid>/tags/definite-integral/</guid>
-      <description></description>
-    </item>
-    
-    <item>
-      <title>Derivatives</title>
-      <link>/tags/derivatives/</link>
-      <pubDate>Tue, 09 Oct 2018 00:00:00 +0000</pubDate>
-      
-      <guid>/tags/derivatives/</guid>
-      <description></description>
-    </item>
-    
-    <item>
-      <title>Dplyr</title>
+      <title>dplyr</title>
       <link>/tags/dplyr/</link>
       <pubDate>Wed, 31 Jul 2019 00:00:00 +0000</pubDate>
       
@@ -129,178 +48,7 @@
     </item>
     
     <item>
-      <title>Frankenstein</title>
-      <link>/tags/frankenstein/</link>
-      <pubDate>Sat, 19 May 2018 00:00:00 +0000</pubDate>
-      
-      <guid>/tags/frankenstein/</guid>
-      <description></description>
-    </item>
-    
-    <item>
-      <title>Function</title>
-      <link>/tags/function/</link>
-      <pubDate>Sun, 03 Feb 2019 00:00:00 +0000</pubDate>
-      
-      <guid>/tags/function/</guid>
-      <description></description>
-    </item>
-    
-    <item>
-      <title>Geniusr</title>
-      <link>/tags/geniusr/</link>
-      <pubDate>Sat, 19 May 2018 00:00:00 +0000</pubDate>
-      
-      <guid>/tags/geniusr/</guid>
-      <description></description>
-    </item>
-    
-    <item>
-      <title>Ggplot2</title>
-      <link>/tags/ggplot2/</link>
-      <pubDate>Sun, 03 Feb 2019 00:00:00 +0000</pubDate>
-      
-      <guid>/tags/ggplot2/</guid>
-      <description></description>
-    </item>
-    
-    <item>
-      <title>Git</title>
-      <link>/tags/git/</link>
-      <pubDate>Thu, 24 May 2018 00:00:00 +0000</pubDate>
-      
-      <guid>/tags/git/</guid>
-      <description></description>
-    </item>
-    
-    <item>
-      <title>Github</title>
-      <link>/tags/github/</link>
-      <pubDate>Thu, 24 May 2018 00:00:00 +0000</pubDate>
-      
-      <guid>/tags/github/</guid>
-      <description></description>
-    </item>
-    
-    <item>
-      <title>Heavy Metal</title>
-      <link>/tags/heavy-metal/</link>
-      <pubDate>Sat, 19 May 2018 00:00:00 +0000</pubDate>
-      
-      <guid>/tags/heavy-metal/</guid>
-      <description></description>
-    </item>
-    
-    <item>
-      <title>Inflection Point</title>
-      <link>/tags/inflection-point/</link>
-      <pubDate>Tue, 09 Oct 2018 00:00:00 +0000</pubDate>
-      
-      <guid>/tags/inflection-point/</guid>
-      <description></description>
-    </item>
-    
-    <item>
-      <title>Integration</title>
-      <link>/tags/integration/</link>
-      <pubDate>Mon, 26 Nov 2018 00:00:00 +0000</pubDate>
-      
-      <guid>/tags/integration/</guid>
-      <description></description>
-    </item>
-    
-    <item>
-      <title>Investment</title>
-      <link>/tags/investment/</link>
-      <pubDate>Fri, 20 Jul 2018 00:00:00 +0000</pubDate>
-      
-      <guid>/tags/investment/</guid>
-      <description></description>
-    </item>
-    
-    <item>
-      <title>Limits</title>
-      <link>/tags/limits/</link>
-      <pubDate>Mon, 06 Aug 2018 00:00:00 +0000</pubDate>
-      
-      <guid>/tags/limits/</guid>
-      <description></description>
-    </item>
-    
-    <item>
-      <title>Literature</title>
-      <link>/tags/literature/</link>
-      <pubDate>Sat, 19 May 2018 00:00:00 +0000</pubDate>
-      
-      <guid>/tags/literature/</guid>
-      <description></description>
-    </item>
-    
-    <item>
-      <title>Lubridate</title>
-      <link>/tags/lubridate/</link>
-      <pubDate>Wed, 03 Oct 2018 00:00:00 +0000</pubDate>
-      
-      <guid>/tags/lubridate/</guid>
-      <description></description>
-    </item>
-    
-    <item>
-      <title>Lyrics</title>
-      <link>/tags/lyrics/</link>
-      <pubDate>Sat, 19 May 2018 00:00:00 +0000</pubDate>
-      
-      <guid>/tags/lyrics/</guid>
-      <description></description>
-    </item>
-    
-    <item>
-      <title>Mathjax</title>
-      <link>/tags/mathjax/</link>
-      <pubDate>Fri, 26 Oct 2018 00:00:00 +0000</pubDate>
-      
-      <guid>/tags/mathjax/</guid>
-      <description></description>
-    </item>
-    
-    <item>
-      <title>Maxima</title>
-      <link>/tags/maxima/</link>
-      <pubDate>Tue, 09 Oct 2018 00:00:00 +0000</pubDate>
-      
-      <guid>/tags/maxima/</guid>
-      <description></description>
-    </item>
-    
-    <item>
-      <title>Minima</title>
-      <link>/tags/minima/</link>
-      <pubDate>Tue, 09 Oct 2018 00:00:00 +0000</pubDate>
-      
-      <guid>/tags/minima/</guid>
-      <description></description>
-    </item>
-    
-    <item>
-      <title>Portfolio</title>
-      <link>/tags/portfolio/</link>
-      <pubDate>Fri, 20 Jul 2018 00:00:00 +0000</pubDate>
-      
-      <guid>/tags/portfolio/</guid>
-      <description></description>
-    </item>
-    
-    <item>
-      <title>Psei</title>
-      <link>/tags/psei/</link>
-      <pubDate>Fri, 20 Jul 2018 00:00:00 +0000</pubDate>
-      
-      <guid>/tags/psei/</guid>
-      <description></description>
-    </item>
-    
-    <item>
-      <title>Purrr</title>
+      <title>purrr</title>
       <link>/tags/purrr/</link>
       <pubDate>Wed, 31 Jul 2019 00:00:00 +0000</pubDate>
       
@@ -309,16 +57,34 @@
     </item>
     
     <item>
-      <title>Quadratic Equation</title>
-      <link>/tags/quadratic-equation/</link>
-      <pubDate>Tue, 09 Oct 2018 00:00:00 +0000</pubDate>
+      <title>bquote</title>
+      <link>/tags/bquote/</link>
+      <pubDate>Sun, 03 Feb 2019 00:00:00 +0000</pubDate>
       
-      <guid>/tags/quadratic-equation/</guid>
+      <guid>/tags/bquote/</guid>
       <description></description>
     </item>
     
     <item>
-      <title>Quasiquotation</title>
+      <title>function</title>
+      <link>/tags/function/</link>
+      <pubDate>Sun, 03 Feb 2019 00:00:00 +0000</pubDate>
+      
+      <guid>/tags/function/</guid>
+      <description></description>
+    </item>
+    
+    <item>
+      <title>ggplot2</title>
+      <link>/tags/ggplot2/</link>
+      <pubDate>Sun, 03 Feb 2019 00:00:00 +0000</pubDate>
+      
+      <guid>/tags/ggplot2/</guid>
+      <description></description>
+    </item>
+    
+    <item>
+      <title>quasiquotation</title>
       <link>/tags/quasiquotation/</link>
       <pubDate>Sun, 03 Feb 2019 00:00:00 +0000</pubDate>
       
@@ -327,16 +93,52 @@
     </item>
     
     <item>
-      <title>Readr</title>
-      <link>/tags/readr/</link>
-      <pubDate>Wed, 24 Oct 2018 00:00:00 +0000</pubDate>
+      <title>applications of integration</title>
+      <link>/tags/applications-of-integration/</link>
+      <pubDate>Mon, 26 Nov 2018 00:00:00 +0000</pubDate>
       
-      <guid>/tags/readr/</guid>
+      <guid>/tags/applications-of-integration/</guid>
       <description></description>
     </item>
     
     <item>
-      <title>Rebus</title>
+      <title>area under the curve</title>
+      <link>/tags/area-under-the-curve/</link>
+      <pubDate>Mon, 26 Nov 2018 00:00:00 +0000</pubDate>
+      
+      <guid>/tags/area-under-the-curve/</guid>
+      <description></description>
+    </item>
+    
+    <item>
+      <title>definite integral</title>
+      <link>/tags/definite-integral/</link>
+      <pubDate>Mon, 26 Nov 2018 00:00:00 +0000</pubDate>
+      
+      <guid>/tags/definite-integral/</guid>
+      <description></description>
+    </item>
+    
+    <item>
+      <title>integration</title>
+      <link>/tags/integration/</link>
+      <pubDate>Mon, 26 Nov 2018 00:00:00 +0000</pubDate>
+      
+      <guid>/tags/integration/</guid>
+      <description></description>
+    </item>
+    
+    <item>
+      <title>consumer price index</title>
+      <link>/tags/consumer-price-index/</link>
+      <pubDate>Thu, 15 Nov 2018 00:00:00 +0000</pubDate>
+      
+      <guid>/tags/consumer-price-index/</guid>
+      <description></description>
+    </item>
+    
+    <item>
+      <title>rebus</title>
       <link>/tags/rebus/</link>
       <pubDate>Thu, 15 Nov 2018 00:00:00 +0000</pubDate>
       
@@ -345,52 +147,25 @@
     </item>
     
     <item>
-      <title>Returns</title>
-      <link>/tags/returns/</link>
-      <pubDate>Fri, 20 Jul 2018 00:00:00 +0000</pubDate>
+      <title>cosine</title>
+      <link>/tags/cosine/</link>
+      <pubDate>Fri, 26 Oct 2018 00:00:00 +0000</pubDate>
       
-      <guid>/tags/returns/</guid>
+      <guid>/tags/cosine/</guid>
       <description></description>
     </item>
     
     <item>
-      <title>Rstudio</title>
-      <link>/tags/rstudio/</link>
-      <pubDate>Thu, 24 May 2018 00:00:00 +0000</pubDate>
+      <title>mathjax</title>
+      <link>/tags/mathjax/</link>
+      <pubDate>Fri, 26 Oct 2018 00:00:00 +0000</pubDate>
       
-      <guid>/tags/rstudio/</guid>
+      <guid>/tags/mathjax/</guid>
       <description></description>
     </item>
     
     <item>
-      <title>Rvest</title>
-      <link>/tags/rvest/</link>
-      <pubDate>Thu, 14 Jun 2018 00:00:00 +0000</pubDate>
-      
-      <guid>/tags/rvest/</guid>
-      <description></description>
-    </item>
-    
-    <item>
-      <title>Sentiment Analysis</title>
-      <link>/tags/sentiment-analysis/</link>
-      <pubDate>Sat, 19 May 2018 00:00:00 +0000</pubDate>
-      
-      <guid>/tags/sentiment-analysis/</guid>
-      <description></description>
-    </item>
-    
-    <item>
-      <title>Simulation</title>
-      <link>/tags/simulation/</link>
-      <pubDate>Tue, 21 Aug 2018 00:00:00 +0000</pubDate>
-      
-      <guid>/tags/simulation/</guid>
-      <description></description>
-    </item>
-    
-    <item>
-      <title>Sine</title>
+      <title>sine</title>
       <link>/tags/sine/</link>
       <pubDate>Fri, 26 Oct 2018 00:00:00 +0000</pubDate>
       
@@ -399,25 +174,7 @@
     </item>
     
     <item>
-      <title>Slopes</title>
-      <link>/tags/slopes/</link>
-      <pubDate>Tue, 21 Aug 2018 00:00:00 +0000</pubDate>
-      
-      <guid>/tags/slopes/</guid>
-      <description></description>
-    </item>
-    
-    <item>
-      <title>Stocks</title>
-      <link>/tags/stocks/</link>
-      <pubDate>Fri, 20 Jul 2018 00:00:00 +0000</pubDate>
-      
-      <guid>/tags/stocks/</guid>
-      <description></description>
-    </item>
-    
-    <item>
-      <title>Summation</title>
+      <title>summation</title>
       <link>/tags/summation/</link>
       <pubDate>Fri, 26 Oct 2018 00:00:00 +0000</pubDate>
       
@@ -426,25 +183,16 @@
     </item>
     
     <item>
-      <title>Symmetry</title>
-      <link>/tags/symmetry/</link>
-      <pubDate>Tue, 09 Oct 2018 00:00:00 +0000</pubDate>
+      <title>readr</title>
+      <link>/tags/readr/</link>
+      <pubDate>Wed, 24 Oct 2018 00:00:00 +0000</pubDate>
       
-      <guid>/tags/symmetry/</guid>
+      <guid>/tags/readr/</guid>
       <description></description>
     </item>
     
     <item>
-      <title>Tangents</title>
-      <link>/tags/tangents/</link>
-      <pubDate>Tue, 21 Aug 2018 00:00:00 +0000</pubDate>
-      
-      <guid>/tags/tangents/</guid>
-      <description></description>
-    </item>
-    
-    <item>
-      <title>Tidyr</title>
+      <title>tidyr</title>
       <link>/tags/tidyr/</link>
       <pubDate>Wed, 24 Oct 2018 00:00:00 +0000</pubDate>
       
@@ -453,16 +201,7 @@
     </item>
     
     <item>
-      <title>Tidytext</title>
-      <link>/tags/tidytext/</link>
-      <pubDate>Thu, 14 Jun 2018 00:00:00 +0000</pubDate>
-      
-      <guid>/tags/tidytext/</guid>
-      <description></description>
-    </item>
-    
-    <item>
-      <title>Trigonometric Identites</title>
+      <title>trigonometric identites</title>
       <link>/tags/trigonometric-identites/</link>
       <pubDate>Wed, 17 Oct 2018 00:00:00 +0000</pubDate>
       
@@ -471,25 +210,187 @@
     </item>
     
     <item>
-      <title>Trivium</title>
-      <link>/tags/trivium/</link>
-      <pubDate>Sat, 19 May 2018 00:00:00 +0000</pubDate>
+      <title>cubic equation</title>
+      <link>/tags/cubic-equation/</link>
+      <pubDate>Tue, 09 Oct 2018 00:00:00 +0000</pubDate>
       
-      <guid>/tags/trivium/</guid>
+      <guid>/tags/cubic-equation/</guid>
       <description></description>
     </item>
     
     <item>
-      <title>Version Control</title>
-      <link>/tags/version-control/</link>
-      <pubDate>Thu, 24 May 2018 00:00:00 +0000</pubDate>
+      <title>derivatives</title>
+      <link>/tags/derivatives/</link>
+      <pubDate>Tue, 09 Oct 2018 00:00:00 +0000</pubDate>
       
-      <guid>/tags/version-control/</guid>
+      <guid>/tags/derivatives/</guid>
       <description></description>
     </item>
     
     <item>
-      <title>Web Scraping</title>
+      <title>inflection point</title>
+      <link>/tags/inflection-point/</link>
+      <pubDate>Tue, 09 Oct 2018 00:00:00 +0000</pubDate>
+      
+      <guid>/tags/inflection-point/</guid>
+      <description></description>
+    </item>
+    
+    <item>
+      <title>maxima</title>
+      <link>/tags/maxima/</link>
+      <pubDate>Tue, 09 Oct 2018 00:00:00 +0000</pubDate>
+      
+      <guid>/tags/maxima/</guid>
+      <description></description>
+    </item>
+    
+    <item>
+      <title>minima</title>
+      <link>/tags/minima/</link>
+      <pubDate>Tue, 09 Oct 2018 00:00:00 +0000</pubDate>
+      
+      <guid>/tags/minima/</guid>
+      <description></description>
+    </item>
+    
+    <item>
+      <title>quadratic equation</title>
+      <link>/tags/quadratic-equation/</link>
+      <pubDate>Tue, 09 Oct 2018 00:00:00 +0000</pubDate>
+      
+      <guid>/tags/quadratic-equation/</guid>
+      <description></description>
+    </item>
+    
+    <item>
+      <title>symmetry</title>
+      <link>/tags/symmetry/</link>
+      <pubDate>Tue, 09 Oct 2018 00:00:00 +0000</pubDate>
+      
+      <guid>/tags/symmetry/</guid>
+      <description></description>
+    </item>
+    
+    <item>
+      <title>lubridate</title>
+      <link>/tags/lubridate/</link>
+      <pubDate>Wed, 03 Oct 2018 00:00:00 +0000</pubDate>
+      
+      <guid>/tags/lubridate/</guid>
+      <description></description>
+    </item>
+    
+    <item>
+      <title>antidifferentation</title>
+      <link>/tags/antidifferentation/</link>
+      <pubDate>Fri, 21 Sep 2018 00:00:00 +0000</pubDate>
+      
+      <guid>/tags/antidifferentation/</guid>
+      <description></description>
+    </item>
+    
+    <item>
+      <title>simulation</title>
+      <link>/tags/simulation/</link>
+      <pubDate>Tue, 21 Aug 2018 00:00:00 +0000</pubDate>
+      
+      <guid>/tags/simulation/</guid>
+      <description></description>
+    </item>
+    
+    <item>
+      <title>slopes</title>
+      <link>/tags/slopes/</link>
+      <pubDate>Tue, 21 Aug 2018 00:00:00 +0000</pubDate>
+      
+      <guid>/tags/slopes/</guid>
+      <description></description>
+    </item>
+    
+    <item>
+      <title>tangents</title>
+      <link>/tags/tangents/</link>
+      <pubDate>Tue, 21 Aug 2018 00:00:00 +0000</pubDate>
+      
+      <guid>/tags/tangents/</guid>
+      <description></description>
+    </item>
+    
+    <item>
+      <title>limits</title>
+      <link>/tags/limits/</link>
+      <pubDate>Mon, 06 Aug 2018 00:00:00 +0000</pubDate>
+      
+      <guid>/tags/limits/</guid>
+      <description></description>
+    </item>
+    
+    <item>
+      <title>investment</title>
+      <link>/tags/investment/</link>
+      <pubDate>Fri, 20 Jul 2018 00:00:00 +0000</pubDate>
+      
+      <guid>/tags/investment/</guid>
+      <description></description>
+    </item>
+    
+    <item>
+      <title>portfolio</title>
+      <link>/tags/portfolio/</link>
+      <pubDate>Fri, 20 Jul 2018 00:00:00 +0000</pubDate>
+      
+      <guid>/tags/portfolio/</guid>
+      <description></description>
+    </item>
+    
+    <item>
+      <title>psei</title>
+      <link>/tags/psei/</link>
+      <pubDate>Fri, 20 Jul 2018 00:00:00 +0000</pubDate>
+      
+      <guid>/tags/psei/</guid>
+      <description></description>
+    </item>
+    
+    <item>
+      <title>returns</title>
+      <link>/tags/returns/</link>
+      <pubDate>Fri, 20 Jul 2018 00:00:00 +0000</pubDate>
+      
+      <guid>/tags/returns/</guid>
+      <description></description>
+    </item>
+    
+    <item>
+      <title>stocks</title>
+      <link>/tags/stocks/</link>
+      <pubDate>Fri, 20 Jul 2018 00:00:00 +0000</pubDate>
+      
+      <guid>/tags/stocks/</guid>
+      <description></description>
+    </item>
+    
+    <item>
+      <title>rvest</title>
+      <link>/tags/rvest/</link>
+      <pubDate>Thu, 14 Jun 2018 00:00:00 +0000</pubDate>
+      
+      <guid>/tags/rvest/</guid>
+      <description></description>
+    </item>
+    
+    <item>
+      <title>tidytext</title>
+      <link>/tags/tidytext/</link>
+      <pubDate>Thu, 14 Jun 2018 00:00:00 +0000</pubDate>
+      
+      <guid>/tags/tidytext/</guid>
+      <description></description>
+    </item>
+    
+    <item>
+      <title>web scraping</title>
       <link>/tags/web-scraping/</link>
       <pubDate>Thu, 14 Jun 2018 00:00:00 +0000</pubDate>
       
@@ -498,11 +399,110 @@
     </item>
     
     <item>
-      <title>World Cup 2018</title>
+      <title>world cup 2018</title>
       <link>/tags/world-cup-2018/</link>
       <pubDate>Thu, 14 Jun 2018 00:00:00 +0000</pubDate>
       
       <guid>/tags/world-cup-2018/</guid>
+      <description></description>
+    </item>
+    
+    <item>
+      <title>git</title>
+      <link>/tags/git/</link>
+      <pubDate>Thu, 24 May 2018 00:00:00 +0000</pubDate>
+      
+      <guid>/tags/git/</guid>
+      <description></description>
+    </item>
+    
+    <item>
+      <title>github</title>
+      <link>/tags/github/</link>
+      <pubDate>Thu, 24 May 2018 00:00:00 +0000</pubDate>
+      
+      <guid>/tags/github/</guid>
+      <description></description>
+    </item>
+    
+    <item>
+      <title>rstudio</title>
+      <link>/tags/rstudio/</link>
+      <pubDate>Thu, 24 May 2018 00:00:00 +0000</pubDate>
+      
+      <guid>/tags/rstudio/</guid>
+      <description></description>
+    </item>
+    
+    <item>
+      <title>version control</title>
+      <link>/tags/version-control/</link>
+      <pubDate>Thu, 24 May 2018 00:00:00 +0000</pubDate>
+      
+      <guid>/tags/version-control/</guid>
+      <description></description>
+    </item>
+    
+    <item>
+      <title>frankenstein</title>
+      <link>/tags/frankenstein/</link>
+      <pubDate>Sat, 19 May 2018 00:00:00 +0000</pubDate>
+      
+      <guid>/tags/frankenstein/</guid>
+      <description></description>
+    </item>
+    
+    <item>
+      <title>geniusR</title>
+      <link>/tags/geniusr/</link>
+      <pubDate>Sat, 19 May 2018 00:00:00 +0000</pubDate>
+      
+      <guid>/tags/geniusr/</guid>
+      <description></description>
+    </item>
+    
+    <item>
+      <title>heavy metal</title>
+      <link>/tags/heavy-metal/</link>
+      <pubDate>Sat, 19 May 2018 00:00:00 +0000</pubDate>
+      
+      <guid>/tags/heavy-metal/</guid>
+      <description></description>
+    </item>
+    
+    <item>
+      <title>literature</title>
+      <link>/tags/literature/</link>
+      <pubDate>Sat, 19 May 2018 00:00:00 +0000</pubDate>
+      
+      <guid>/tags/literature/</guid>
+      <description></description>
+    </item>
+    
+    <item>
+      <title>lyrics</title>
+      <link>/tags/lyrics/</link>
+      <pubDate>Sat, 19 May 2018 00:00:00 +0000</pubDate>
+      
+      <guid>/tags/lyrics/</guid>
+      <description></description>
+    </item>
+    
+    <item>
+      <title>sentiment analysis</title>
+      <link>/tags/sentiment-analysis/</link>
+      <pubDate>Sat, 19 May 2018 00:00:00 +0000</pubDate>
+      
+      <guid>/tags/sentiment-analysis/</guid>
+      <description></description>
+    </item>
+    
+    <item>
+      <title>trivium</title>
+      <link>/tags/trivium/</link>
+      <pubDate>Sat, 19 May 2018 00:00:00 +0000</pubDate>
+      
+      <guid>/tags/trivium/</guid>
       <description></description>
     </item>
     
