@@ -45,4 +45,4 @@ in `layouts/index.html` and change it to
 {{ range ( .Paginate (where .Site.RegularPages "Type" "post")).Pages }}
 ```
 
-That solved my problem. However, as I am not a Hugo expert, I am not sure if what I did will not break anything. I filed an [issue](https://github.com/yoshiharuyamashita/blackburn/issues/93) to make the problem known and make blackburn compatible with the current, and hopefully future, versions of Hugo. I also hope this can help my fellow blackburn users not that versed with Hugo.
+That solved my problem. However, as I am not a Hugo expert, I am not sure if what I did will not break anything. If I did anything wrong, please feel free to correct me. I filed an [issue](https://github.com/yoshiharuyamashita/blackburn/issues/93) to make the problem known and make blackburn compatible with the current, and hopefully future, versions of Hugo. I also hope this can help my fellow blackburn users not that versed with Hugo.

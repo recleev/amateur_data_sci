@@ -44,5 +44,5 @@ output:
 <pre><code>{{ range ( .Paginate (where .Data.Pages &quot;Type&quot; &quot;post&quot;)).Pages }}</code></pre>
 <p>in <code>layouts/index.html</code> and change it to</p>
 <pre><code>{{ range ( .Paginate (where .Site.RegularPages &quot;Type&quot; &quot;post&quot;)).Pages }}</code></pre>
-<p>That solved my problem. However, as I am not a Hugo expert, I am not sure if what I did will not break anything. I filed an <a href="https://github.com/yoshiharuyamashita/blackburn/issues/93">issue</a> to make the problem known and make blackburn compatible with the current, and hopefully future, versions of Hugo. I also hope this can help my fellow blackburn users not that versed with Hugo.</p>
+<p>That solved my problem. However, as I am not a Hugo expert, I am not sure if what I did will not break anything. If I did anything wrong, please feel free to correct me. I filed an <a href="https://github.com/yoshiharuyamashita/blackburn/issues/93">issue</a> to make the problem known and make blackburn compatible with the current, and hopefully future, versions of Hugo. I also hope this can help my fellow blackburn users not that versed with Hugo.</p>
 </div>
