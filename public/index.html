@@ -230,7 +230,7 @@
   
     <article>
   <header>
-    <h2><a href="/post/">Posts</a></h2>
+    <h2><a href="/post/cdata-big-block-to-single-rowrec/">One Big Block to a Single Row Record</a></h2>
 
     <div class="post-meta">
 
@@ -244,21 +244,484 @@
   
 
   
+  
+  
+  <div>
+    <i class="fa fa-tags fa-fw"></i>
+    
+      <a class="post-taxonomy-tag" href="/tags/baser">baseR</a>&nbsp;&#47;
+    
+      <a class="post-taxonomy-tag" href="/tags/cdata">cdata</a>
+    
+  </div>
+  
+  
 
 </div>
 
   </header>
 
   <p>
-  
+  1 On the Job Puzzle2 Control Inside the Puzzle3 CodeReferences1 On the Job Puzzlexfun::pkg_attach(&quot;knitr&quot;,&quot;cdata&quot;,&quot;tidyr&quot;,&quot;dplyr&quot;)opts_chunk$set(message = FALSE,warning = FALSE,echo = TRUE)# create standard datatable function to be used in all tables in this postshow_datatable &lt;- function(data) {data %&gt;% DT::datatable(rownames = FALSE,extensions = &#39;FixedColumns&#39;,options = list(pageLength = 20,scrollX = TRUE,scrollCollapse = TRUE,columnDefs = list(list(className = &#39;dt-center&#39;,targets = 0:(ncol(data) - 1)))))}In my current work, I encountered this data transformation problem.
   </p>
 
+  
+  <footer>
+    <a href="/post/cdata-big-block-to-single-rowrec/">Read more<i class="fa fa-angle-double-right fa-fw"></i></a>
+  </footer>
+  
+</article>
+
+  
+    <article>
+  <header>
+    <h2><a href="/post/multiple-columns-data-table/">Multiple Columns to Multiple Colums at Once</a></h2>
+
+    <div class="post-meta">
+
+  <div>
+    <i class="fa fa-calendar fa-fw"></i>
+    <time>2019 Jul 31</time>
+  </div>
+
+  
+
+  
+
+  
+  
+  
+  <div>
+    <i class="fa fa-tags fa-fw"></i>
+    
+      <a class="post-taxonomy-tag" href="/tags/data.table">data.table</a>&nbsp;&#47;
+    
+      <a class="post-taxonomy-tag" href="/tags/purrr">purrr</a>&nbsp;&#47;
+    
+      <a class="post-taxonomy-tag" href="/tags/dplyr">dplyr</a>&nbsp;&#47;
+    
+      <a class="post-taxonomy-tag" href="/tags/baser">baseR</a>
+    
+  </div>
+  
+  
+
+</div>
+
+  </header>
+
+  <p>
+  1 Bad First Impression2 Stuck on a Simulation Problem3 Different Ways to Simulate3.1 {dplyr} Attempt3.2 {dplyr} with {purrr} Attempt4 Life (in R) Changing Conversation4.1 {data,table} with {purrr} Attempt4.2 {data.table} Row wise4.3 {base} R Alternative5 Change of Mindset6 CodeReferences# Attach packages and set chunk optionsxfun::pkg_attach(&quot;knitr&quot;,&quot;DT&quot;,&quot;data.
+  </p>
+
+  
+  <footer>
+    <a href="/post/multiple-columns-data-table/">Read more<i class="fa fa-angle-double-right fa-fw"></i></a>
+  </footer>
+  
+</article>
+
+  
+    <article>
+  <header>
+    <h2><a href="/post/table-another-back-again-cdata/">From One Table to Another and Back Again</a></h2>
+
+    <div class="post-meta">
+
+  <div>
+    <i class="fa fa-calendar fa-fw"></i>
+    <time>2019 Mar 25</time>
+  </div>
+
+  
+
+  
+
+  
+  
+  
+  <div>
+    <i class="fa fa-tags fa-fw"></i>
+    
+      <a class="post-taxonomy-tag" href="/tags/cdata">cdata</a>&nbsp;&#47;
+    
+      <a class="post-taxonomy-tag" href="/tags/data.table">data.table</a>
+    
+  </div>
+  
+  
+
+</div>
+
+  </header>
+
+  <p>
+  1 Inevitable2 Coordinatized3 One Data to Compare Them All3.1 Gather and Spread3.2 Melt and (D)Cast3.3 Reshape3.4 Rowrecs and Blocks4 For Future Me and Collaborators5 Code6 References# Attach packages and set chunk optionsxfun::pkg_attach(&quot;knitr&quot;,&quot;DT&quot;,&quot;data.table&quot;,&quot;cdata&quot;,&quot;tidyr&quot;,&quot;tibble&quot;)opts_chunk$set(message = FALSE,warning = FALSE,echo = TRUE)# create standard datatable function to be used in all tables in this postshow_datatable &lt;- function(data) {data %&gt;% DT::datatable(rownames = FALSE,extensions = &#39;FixedColumns&#39;,options = list(pageLength = 20,scrollX = TRUE,scrollCollapse = TRUE,columnDefs = list(list(className = &#39;dt-center&#39;,targets = 0:(ncol(data) - 1)))))}1 InevitableWith my current work as a junior data scientist, I have to manipulate a lot of data to get to a desired output or a possible answer to a question.
+  </p>
+
+  
+  <footer>
+    <a href="/post/table-another-back-again-cdata/">Read more<i class="fa fa-angle-double-right fa-fw"></i></a>
+  </footer>
+  
+</article>
+
+  
+    <article>
+  <header>
+    <h2><a href="/post/function-manipulate-plot/">One Function Call to Manipulate and Plot Them All</a></h2>
+
+    <div class="post-meta">
+
+  <div>
+    <i class="fa fa-calendar fa-fw"></i>
+    <time>2019 Feb 3</time>
+  </div>
+
+  
+
+  
+
+  
+  
+  
+  <div>
+    <i class="fa fa-tags fa-fw"></i>
+    
+      <a class="post-taxonomy-tag" href="/tags/baser">baseR</a>&nbsp;&#47;
+    
+      <a class="post-taxonomy-tag" href="/tags/bquote">bquote</a>&nbsp;&#47;
+    
+      <a class="post-taxonomy-tag" href="/tags/data.table">data.table</a>&nbsp;&#47;
+    
+      <a class="post-taxonomy-tag" href="/tags/function">function</a>&nbsp;&#47;
+    
+      <a class="post-taxonomy-tag" href="/tags/ggplot2">ggplot2</a>&nbsp;&#47;
+    
+      <a class="post-taxonomy-tag" href="/tags/quasiquotation">quasiquotation</a>
+    
+  </div>
+  
+  
+
+</div>
+
+  </header>
+
+  <p>
+  1 Motivation to Automation2 Tidy Eval with rlang2.1 Works with dplyr2.2 Fails with data.table3 Quasiquotation in {base}-R4 Manipulate and Plot in One Function Call5 Session InfoReferencesxfun::pkg_attach(&quot;knitr&quot;,&quot;data.table&quot;,&quot;ggplot2&quot;,&quot;rlang&quot;,&quot;dplyr&quot;,&quot;magrittr&quot;,&quot;ggthemes&quot;)opts_chunk$set(message = FALSE,warning = FALSE,echo = TRUE,out.width = &#39;100%&#39;,fig.asp = 1/1.618)# Create a data.table version of the mtcars data set.
+  </p>
+
+  
+  <footer>
+    <a href="/post/function-manipulate-plot/">Read more<i class="fa fa-angle-double-right fa-fw"></i></a>
+  </footer>
+  
+</article>
+
+  
+    <article>
+  <header>
+    <h2><a href="/post/loves-what-he-is-doing/">A Person Who Loves What He is Doing</a></h2>
+
+    <div class="post-meta">
+
+  <div>
+    <i class="fa fa-calendar fa-fw"></i>
+    <time>2018 Dec 17</time>
+  </div>
+
+  
+
+  
+  
+  
+  
+
+  
+  
+  
+  
+
+</div>
+
+  </header>
+
+  <p>
+  More than two years ago, 2016 November, I started learning R as part of a company push to be more data centric in our decision making. I found programming difficult to learn, but the opportunity R and data science offered encouraged me to continue pursuing it. Soon, I was able to apply R and data science to my work.
+Last 2018 December 3, I started a new role as a junior data scientist in the research and development department.
+  </p>
+
+  
+  <footer>
+    <a href="/post/loves-what-he-is-doing/">Read more<i class="fa fa-angle-double-right fa-fw"></i></a>
+  </footer>
+  
+</article>
+
+  
+    <article>
+  <header>
+    <h2><a href="/post/areas-bounded-regions/">Areas of Bounded Regions</a></h2>
+
+    <div class="post-meta">
+
+  <div>
+    <i class="fa fa-calendar fa-fw"></i>
+    <time>2018 Nov 26</time>
+  </div>
+
+  
+
+  
+
+  
+  
+  
+  <div>
+    <i class="fa fa-tags fa-fw"></i>
+    
+      <a class="post-taxonomy-tag" href="/tags/applications-of-integration">applications of integration</a>&nbsp;&#47;
+    
+      <a class="post-taxonomy-tag" href="/tags/area-under-the-curve">area under the curve</a>&nbsp;&#47;
+    
+      <a class="post-taxonomy-tag" href="/tags/definite-integral">definite integral</a>&nbsp;&#47;
+    
+      <a class="post-taxonomy-tag" href="/tags/ggplot2">ggplot2</a>&nbsp;&#47;
+    
+      <a class="post-taxonomy-tag" href="/tags/integration">integration</a>
+    
+  </div>
+  
+  
+
+</div>
+
+  </header>
+
+  <p>
+  1 Problems1.1 Region in the Second Quadrant1.2 Cubic Curve and Tangent2 Solutions2.1 Horizontal Strip2.2 Between the Lines3 Code for Plots4 Reference1 Problems1.1 Region in the Second QuadrantProblem 17, page 255 in Simmons (2016)
+Find the area of the region in the second quadrant bounded by the \(x\)-axis and the parabolas \(y = x^2\) and \(y = \sqrt{x + 18}\).
+  </p>
+
+  
+  <footer>
+    <a href="/post/areas-bounded-regions/">Read more<i class="fa fa-angle-double-right fa-fw"></i></a>
+  </footer>
+  
+</article>
+
+  
+    <article>
+  <header>
+    <h2><a href="/post/wrangling-manipulation-ph-cpi-data-table/">Wrangling and Manipulation of Monthly Philippine Consumer Price Index</a></h2>
+
+    <div class="post-meta">
+
+  <div>
+    <i class="fa fa-calendar fa-fw"></i>
+    <time>2018 Nov 15</time>
+  </div>
+
+  
+
+  
+
+  
+  
+  
+  <div>
+    <i class="fa fa-tags fa-fw"></i>
+    
+      <a class="post-taxonomy-tag" href="/tags/baser">baseR</a>&nbsp;&#47;
+    
+      <a class="post-taxonomy-tag" href="/tags/consumer-price-index">consumer price index</a>&nbsp;&#47;
+    
+      <a class="post-taxonomy-tag" href="/tags/data.table">data.table</a>&nbsp;&#47;
+    
+      <a class="post-taxonomy-tag" href="/tags/rebus">rebus</a>
+    
+  </div>
+  
+  
+
+</div>
+
+  </header>
+
+  <p>
+  1 More Paths, More Knowledge2 Extension of data.frame3 Where | Order By, Select | Update, Group By4 Monthly Philippine Consumer Price Index 1994 Jan to 2018 Jun4.1 Finagler4.2 ISO 8601 Date4.3 Item Category Levels4.4 Geographic Levels5 The Power of Packages6 Code7 References1 More Paths, More KnowledgeIn a series of posts, I discussed how I turned a messy data, the monthly Philippine consumer price index to tidy data, using packages and functions in the tidyverse.
+  </p>
+
+  
+  <footer>
+    <a href="/post/wrangling-manipulation-ph-cpi-data-table/">Read more<i class="fa fa-angle-double-right fa-fw"></i></a>
+  </footer>
+  
+</article>
+
+  
+    <article>
+  <header>
+    <h2><a href="/post/proofs-trigonometric-summations/">Proofs of Trigonometric Summations</a></h2>
+
+    <div class="post-meta">
+
+  <div>
+    <i class="fa fa-calendar fa-fw"></i>
+    <time>2018 Oct 26</time>
+  </div>
+
+  
+
+  
+
+  
+  
+  
+  <div>
+    <i class="fa fa-tags fa-fw"></i>
+    
+      <a class="post-taxonomy-tag" href="/tags/mathjax">mathjax</a>&nbsp;&#47;
+    
+      <a class="post-taxonomy-tag" href="/tags/sine">sine</a>&nbsp;&#47;
+    
+      <a class="post-taxonomy-tag" href="/tags/cosine">cosine</a>&nbsp;&#47;
+    
+      <a class="post-taxonomy-tag" href="/tags/summation">summation</a>
+    
+  </div>
+  
+  
+
+</div>
+
+  </header>
+
+  <p>
+  1 Problems1.1 The Cosine Summation1.1.1 Product1.1.2 Summation1.1.3 Alternate Summation1.2 The Sine Summation2 Solutions and Proofs2.1 Three-Step Proof of the Cosine Summation2.1.1 Simple Substitution2.1.2 Additions and Cancellations2.1.3 Sum, Difference, and Rewrite2.2 Prove, Rinse, Repeat3 Reference1 Problems1.1 The Cosine SummationProblem 9, page 197 in Simmons (2016)
+1.1.1 ProductUse the product formula
+  </p>
+
+  
+  <footer>
+    <a href="/post/proofs-trigonometric-summations/">Read more<i class="fa fa-angle-double-right fa-fw"></i></a>
+  </footer>
+  
+</article>
+
+  
+    <article>
+  <header>
+    <h2><a href="/post/messy-tidy-identify-split-geographic-scope/">From Messy to Tidy: Identify and Split Based on Geographic Scope</a></h2>
+
+    <div class="post-meta">
+
+  <div>
+    <i class="fa fa-calendar fa-fw"></i>
+    <time>2018 Oct 24</time>
+  </div>
+
+  
+
+  
+
+  
+  
+  
+  <div>
+    <i class="fa fa-tags fa-fw"></i>
+    
+      <a class="post-taxonomy-tag" href="/tags/consumer-price-index">consumer price index</a>&nbsp;&#47;
+    
+      <a class="post-taxonomy-tag" href="/tags/dplyr">dplyr</a>&nbsp;&#47;
+    
+      <a class="post-taxonomy-tag" href="/tags/readr">readr</a>&nbsp;&#47;
+    
+      <a class="post-taxonomy-tag" href="/tags/tidyr">tidyr</a>
+    
+  </div>
+  
+  
+
+</div>
+
+  </header>
+
+  <p>
+  1 Partially Tidy Data Sets2 Philippine Geography Crash Course3 Geography Challenge3.1 Location Level3.2 Region Tags3.3 Split and Save4 Up Next5 Code6 References1 Partially Tidy Data SetsSo far, we have converted the messy Philippine Consumer Price Index data to a partially tidy data. We did this by collecting the date columns into one column, adapting the dates into ISO 8601 format, interpreting the code column into more meaningful item descriptions, and separating the data by item level.
+  </p>
+
+  
+  <footer>
+    <a href="/post/messy-tidy-identify-split-geographic-scope/">Read more<i class="fa fa-angle-double-right fa-fw"></i></a>
+  </footer>
+  
+</article>
+
+  
+    <article>
+  <header>
+    <h2><a href="/post/sine-cosine-multiples-angles/">Sine, Cosine, and Multiples of Angles</a></h2>
+
+    <div class="post-meta">
+
+  <div>
+    <i class="fa fa-calendar fa-fw"></i>
+    <time>2018 Oct 17</time>
+  </div>
+
+  
+
+  
+
+  
+  
+  
+  <div>
+    <i class="fa fa-tags fa-fw"></i>
+    
+      <a class="post-taxonomy-tag" href="/tags/sine">sine</a>&nbsp;&#47;
+    
+      <a class="post-taxonomy-tag" href="/tags/cosine">cosine</a>&nbsp;&#47;
+    
+      <a class="post-taxonomy-tag" href="/tags/trigonometric-identites">trigonometric identites</a>
+    
+  </div>
+  
+  
+
+</div>
+
+  </header>
+
+  <p>
+  1 Review of Trigonometric Identities2 Problems2.1 Quadruple Angle2.2 Multiple Angles Sine and Cosine Product3 Solutions3.1 Quadruple is Double Double3.2 Add and Subtract4 Reference1 Review of Trigonometric IdentitiesHere is an overview of some of the most important trigonometric identites. In my opinion, one can derive other trigonometric identities just by knowing these.
+\[\begin{align}\sin \left( - \theta \right) &amp;= - \sin \theta \tag{1.
+  </p>
+
+  
+  <footer>
+    <a href="/post/sine-cosine-multiples-angles/">Read more<i class="fa fa-angle-double-right fa-fw"></i></a>
+  </footer>
   
 </article>
 
   
 
   
+
+
+<nav class="pagination" role="pagination">
+  
+  <i class="fa fa-chevron-left"></i>
+  
+  <span>&nbsp;1 / 3&nbsp;</span>
+  
+  <a href="/page/2/"><i class="fa fa-chevron-right"></i></a>
+  
+</nav>
+
 
 
 </div>
