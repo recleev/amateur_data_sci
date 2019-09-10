@@ -3,17 +3,17 @@
   xmlns:xhtml="http://www.w3.org/1999/xhtml">
   
   <url>
-    <loc>/tags/0.57/</loc>
-    <lastmod>2019-09-10T00:00:00+00:00</lastmod>
-  </url>
-  
-  <url>
     <loc>/tags/blackburn/</loc>
     <lastmod>2019-09-10T00:00:00+00:00</lastmod>
   </url>
   
   <url>
     <loc>/post/fixing-a-broken-home-page-hugo/</loc>
+    <lastmod>2019-09-10T00:00:00+00:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>/tags/hugo-0.57/</loc>
     <lastmod>2019-09-10T00:00:00+00:00</lastmod>
   </url>
   

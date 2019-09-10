@@ -7,7 +7,7 @@ categories:
   - hugo
 tags:
   - blackburn
-  - '>0.57'
+  - 'hugo >0.57'
 description: '.Site.RegularPages for Hugo >0.57 and Theme Blackburn'
 output:
   blogdown::html_page:
@@ -17,7 +17,7 @@ output:
 
 # Posts at Home
 
-I write this blog using [`{blogdown}`] and the [Hugo](https://gohugo.io/) theme [blackburn](https://themes.gohugo.io/blackburn/). For now, I can say my skill is limited to `R`, so I can handle mostly anything `{blogdown}`-related. I don't know Hugo and html.
+I write this blog using [`{blogdown}`](https://cran.r-project.org/web/packages/blogdown/index.html) and the [Hugo](https://gohugo.io/) theme [blackburn](https://themes.gohugo.io/blackburn/). For now, I can say my skill is limited to `R`, so I can handle mostly anything `{blogdown}`-related. I don't know Hugo and html.
 
 I encountered an issue unrelated to `{blogdown}` recently where the blog could not render the home page properly; it only shows a link to the Posts page. Rendering locally, shows a good site. I always keep the latest [Hugo version](https://gohugo.io/news/) in my [Netlify](https://www.netlify.com/), but my local Hugo is not always up to date. Updating my local Hugo proved that the issue was with Hugo and not `{blogdown}`.
 
@@ -31,7 +31,7 @@ However, I don't know where to find `home.Pages` and what I should replace with 
 
 # Tranquilpeak Fix
 
-Fortunately for me, the [tranquilpeak](https://themes.gohugo.io/hugo-tranquilpeak-theme/) also had the [same issue with Hugo > 0.57](https://github.com/kakawait/hugo-tranquilpeak-theme/issues/371). The [fix](https://github.com/kakawait/hugo-tranquilpeak-theme/commit/2ebbd3c4f2b98c5aa1d41ee2512fd5396d4de8c2#diff-1578c58a761c0846adb0e788c860a12b) implemented in tranquilpeak looked easy enough for me to do.
+Fortunately for me, the [tranquilpeak](https://themes.gohugo.io/hugo-tranquilpeak-theme/) theme also had the [same issue with Hugo > 0.57](https://github.com/kakawait/hugo-tranquilpeak-theme/issues/371). The [fix](https://github.com/kakawait/hugo-tranquilpeak-theme/commit/2ebbd3c4f2b98c5aa1d41ee2512fd5396d4de8c2#diff-1578c58a761c0846adb0e788c860a12b) implemented in tranquilpeak looked easy enough for me to do.
 
 The solution to fix the homepage was to edit this line
 

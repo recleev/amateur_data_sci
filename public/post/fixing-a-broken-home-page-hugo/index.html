@@ -238,7 +238,7 @@
     
       <a class="post-taxonomy-tag" href="/tags/blackburn">blackburn</a>&nbsp;&#47;
     
-      <a class="post-taxonomy-tag" href="/tags/0.57">&gt;0.57</a>
+      <a class="post-taxonomy-tag" href="/tags/hugo-0.57">hugo &gt;0.57</a>
     
   </div>
   
@@ -258,7 +258,7 @@
 
 <div id="posts-at-home" class="section level1">
 <h1><span class="header-section-number">1</span> Posts at Home</h1>
-<p>I write this blog using [<code>{blogdown}</code>] and the <a href="https://gohugo.io/">Hugo</a> theme <a href="https://themes.gohugo.io/blackburn/">blackburn</a>. For now, I can say my skill is limited to <code>R</code>, so I can handle mostly anything <code>{blogdown}</code>-related. I don’t know Hugo and html.</p>
+<p>I write this blog using <a href="https://cran.r-project.org/web/packages/blogdown/index.html"><code>{blogdown}</code></a> and the <a href="https://gohugo.io/">Hugo</a> theme <a href="https://themes.gohugo.io/blackburn/">blackburn</a>. For now, I can say my skill is limited to <code>R</code>, so I can handle mostly anything <code>{blogdown}</code>-related. I don’t know Hugo and html.</p>
 <p>I encountered an issue unrelated to <code>{blogdown}</code> recently where the blog could not render the home page properly; it only shows a link to the Posts page. Rendering locally, shows a good site. I always keep the latest <a href="https://gohugo.io/news/">Hugo version</a> in my <a href="https://www.netlify.com/">Netlify</a>, but my local Hugo is not always up to date. Updating my local Hugo proved that the issue was with Hugo and not <code>{blogdown}</code>.</p>
 </div>
 <div id="breaking-change" class="section level1">
@@ -271,7 +271,7 @@
 </div>
 <div id="tranquilpeak-fix" class="section level1">
 <h1><span class="header-section-number">3</span> Tranquilpeak Fix</h1>
-<p>Fortunately for me, the <a href="https://themes.gohugo.io/hugo-tranquilpeak-theme/">tranquilpeak</a> also had the <a href="https://github.com/kakawait/hugo-tranquilpeak-theme/issues/371">same issue with Hugo &gt; 0.57</a>. The <a href="https://github.com/kakawait/hugo-tranquilpeak-theme/commit/2ebbd3c4f2b98c5aa1d41ee2512fd5396d4de8c2#diff-1578c58a761c0846adb0e788c860a12b">fix</a> implemented in tranquilpeak looked easy enough for me to do.</p>
+<p>Fortunately for me, the <a href="https://themes.gohugo.io/hugo-tranquilpeak-theme/">tranquilpeak</a> theme also had the <a href="https://github.com/kakawait/hugo-tranquilpeak-theme/issues/371">same issue with Hugo &gt; 0.57</a>. The <a href="https://github.com/kakawait/hugo-tranquilpeak-theme/commit/2ebbd3c4f2b98c5aa1d41ee2512fd5396d4de8c2#diff-1578c58a761c0846adb0e788c860a12b">fix</a> implemented in tranquilpeak looked easy enough for me to do.</p>
 <p>The solution to fix the homepage was to edit this line</p>
 <pre><code>{{ range ( .Paginate (where .Data.Pages &quot;Type&quot; &quot;post&quot;)).Pages }}</code></pre>
 <p>in <code>layouts/index.html</code> and change it to</p>
