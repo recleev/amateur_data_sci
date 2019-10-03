@@ -17,7 +17,7 @@ paginate = 10
   brand = "recleev"
   disqus = "the-amateur-data-scientist"
   # CSS name for highlight.js
-  highlightjs = "zenburn"
+  highlightjs = "idea"
   dateFormat = "2006 Jan 2"
 
 [menu]
