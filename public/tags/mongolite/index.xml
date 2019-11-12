@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes" ?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>mongolite on The Amateur Data Scientist</title>
+    <link>/tags/mongolite/</link>
+    <description>Recent content in mongolite on The Amateur Data Scientist</description>
+    <generator>Hugo -- gohugo.io</generator>
+    <language>en-us</language>
+    <lastBuildDate>Mon, 18 Nov 2019 00:00:00 +0000</lastBuildDate>
+    
+	<atom:link href="/tags/mongolite/index.xml" rel="self" type="application/rss+xml" />
+    
+    
+    <item>
+      <title>Filtering MongoDB by Date in R</title>
+      <link>/post/mongodb-date-r-mongolite-jsonlite/</link>
+      <pubDate>Mon, 18 Nov 2019 00:00:00 +0000</pubDate>
+      
+      <guid>/post/mongodb-date-r-mongolite-jsonlite/</guid>
+      <description>1 MongoDB at WorkReferences1 MongoDB at WorkSome of the most important data I use at work are stored and access in MongoDB. We also use SQL1, but I often find myself reliant on using MongoDB most of the time since my shift to a data science role.
+In most of the things I do for work, I don’t need all the available data. Filtering is a common task and one of the most common ways to filter data is by date.</description>
+    </item>
+    
+  </channel>
+</rss>

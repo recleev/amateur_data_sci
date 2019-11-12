@@ -1,0 +1,52 @@
+---
+title: Filtering MongoDB by Date in R
+author: Recle E. Vibal
+date: '2019-11-18'
+slug: mongodb-date-r-mongolite-jsonlite
+categories:
+  - data import
+tags:
+  - mongolite
+  - jsonlite
+description: Importing Data into R Using {mongolite} and {jsonlite}
+output:
+  blogdown::html_page:
+    toc: yes
+    number_sections: yes
+bibliography:
+  - references/filtering-mongodb-r.bib
+biblio-style: apalike
+---
+
+
+<div id="TOC">
+<ul>
+<li><a href="#mongodb-at-work"><span class="toc-section-number">1</span> MongoDB at Work</a></li>
+<li><a href="#references">References</a></li>
+</ul>
+</div>
+
+<div id="mongodb-at-work" class="section level1">
+<h1><span class="header-section-number">1</span> MongoDB at Work</h1>
+<p>Some of the most important data I use at work are stored and access in <a href="https://docs.mongodb.com/manual/">MongoDB</a>. We also use SQL<a href="#fn1" class="footnote-ref" id="fnref1"><sup>1</sup></a>, but I often find myself reliant on using MongoDB most of the time since my shift to a data science role.</p>
+<p>In most of the things I do for work, I don’t need all the available data. Filtering is a common task and one of the most common ways to filter data is by date.</p>
+<p><span class="citation">Ooms (2019)</span>
+<span class="citation">Ooms, Temple Lang, and Hilaiel (2018)</span></p>
+</div>
+<div id="references" class="section level1 unnumbered">
+<h1>References</h1>
+<div id="refs" class="references">
+<div id="ref-R-mongolite">
+<p>Ooms, Jeroen. 2019. <em>Mongolite: Fast and Simple ’Mongodb’ Client for R</em>. <a href="https://CRAN.R-project.org/package=mongolite">https://CRAN.R-project.org/package=mongolite</a>.</p>
+</div>
+<div id="ref-R-jsonlite">
+<p>Ooms, Jeroen, Duncan Temple Lang, and Lloyd Hilaiel. 2018. <em>Jsonlite: A Robust, High Performance Json Parser and Generator for R</em>. <a href="https://CRAN.R-project.org/package=jsonlite">https://CRAN.R-project.org/package=jsonlite</a>.</p>
+</div>
+</div>
+</div>
+<div class="footnotes">
+<hr />
+<ol>
+<li id="fn1"><p>I am not familiar of the advantages and disadvantages of MongoDB and SQL as I am only a novice in both database programs. However, I like both, and I aim to be proficient at least in the way I can obtain data from them. SQL and MongoDB are just the few learning opportunities I now face at work.<a href="#fnref1" class="footnote-back">↩</a></p></li>
+</ol>
+</div>

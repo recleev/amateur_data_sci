@@ -1,0 +1,31 @@
+---
+title: Filtering MongoDB by Date in R
+author: Recle E. Vibal
+date: '2019-11-18'
+slug: mongodb-date-r-mongolite-jsonlite
+categories:
+  - data import
+tags:
+  - mongolite
+  - jsonlite
+description: Importing Data into R Using {mongolite} and {jsonlite}
+output:
+  blogdown::html_page:
+    toc: yes
+    number_sections: yes
+bibliography:
+  - references/filtering-mongodb-r.bib
+biblio-style: apalike
+---
+
+# MongoDB at Work
+
+Some of the most important data I use at work are stored and access in [MongoDB](https://docs.mongodb.com/manual/). We also use SQL^[I am not familiar of the advantages and disadvantages of MongoDB and SQL as I am only a novice in both database programs. However, I like both, and I aim to be proficient at least in the way I can obtain data from them. SQL and MongoDB are just the few learning opportunities I now face at work.], but I often find myself reliant on using MongoDB most of the time since my shift to a data science role.
+
+In most of the things I do for work, I don't need all the available data. Filtering is a common task and one of the most common ways to filter data is by date. 
+
+@R-mongolite
+@R-jsonlite
+
+# References
+
