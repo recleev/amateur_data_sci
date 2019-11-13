@@ -33,6 +33,16 @@
   </url>
   
   <url>
+    <loc>/post/floating-point-numbers-precision-rmpfr/</loc>
+    <lastmod>2019-11-13T00:00:00+00:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>/tags/rmpfr/</loc>
+    <lastmod>2019-11-13T00:00:00+00:00</lastmod>
+  </url>
+  
+  <url>
     <loc>/tags/blackburn/</loc>
     <lastmod>2019-09-10T00:00:00+00:00</lastmod>
   </url>

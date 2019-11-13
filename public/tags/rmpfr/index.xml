@@ -1,0 +1,26 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes" ?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>Rmpfr on The Amateur Data Scientist</title>
+    <link>/tags/rmpfr/</link>
+    <description>Recent content in Rmpfr on The Amateur Data Scientist</description>
+    <generator>Hugo -- gohugo.io</generator>
+    <language>en-us</language>
+    <lastBuildDate>Wed, 13 Nov 2019 00:00:00 +0000</lastBuildDate>
+    
+	<atom:link href="/tags/rmpfr/index.xml" rel="self" type="application/rss+xml" />
+    
+    
+    <item>
+      <title>Floating Point Numbers and Lack of Precision</title>
+      <link>/post/floating-point-numbers-precision-rmpfr/</link>
+      <pubDate>Wed, 13 Nov 2019 00:00:00 +0000</pubDate>
+      
+      <guid>/post/floating-point-numbers-precision-rmpfr/</guid>
+      <description>1 Siegfried Rump’s Polynomial2 More Than Sixty-Four Bits3 Multiple Precision Floating-Point Reliable4 Session InfoReference1 Siegfried Rump’s PolynomialI rarely think about floating point numbers until I read John D. Cook’s post about Siegfried Rump’s polynomial.
+\[333.75 y^6 + x^2 (11 x^2 y^2 - y^6 - 121 y^4 - 2) + 5.5 y^8 + \frac{x}{(2y)}\]
+This polynomial looks simple enough for anyone to compute its value for any given value of \(x\) and \(y\) by hand.</description>
+    </item>
+    
+  </channel>
+</rss>

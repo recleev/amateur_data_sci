@@ -1,0 +1,124 @@
+---
+title: Floating Point Numbers and Lack of Precision
+author: Recle E. Vibal
+date: '2019-11-13'
+slug: floating-point-numbers-precision-Rmpfr
+categories:
+  - precision
+  - floating points
+  - Mathematics
+  - Mathjax
+tags:
+  - Rmpfr
+description: 'Increasing the precision of numbers in R'
+output:
+  blogdown::html_page:
+    toc: yes
+    number_sections: yes
+bibliography:
+  - references/Rmpfr.bib
+biblio-style: apalike
+---
+
+
+<div id="TOC">
+<ul>
+<li><a href="#siegfried-rumps-polynomial"><span class="toc-section-number">1</span> Siegfried Rump’s Polynomial</a></li>
+<li><a href="#more-than-sixty-four-bits"><span class="toc-section-number">2</span> More Than Sixty-Four Bits</a></li>
+<li><a href="#multiple-precision-floating-point-reliable"><span class="toc-section-number">3</span> Multiple Precision Floating-Point Reliable</a></li>
+<li><a href="#session-info"><span class="toc-section-number">4</span> Session Info</a></li>
+<li><a href="#reference">Reference</a></li>
+</ul>
+</div>
+
+<div id="siegfried-rumps-polynomial" class="section level1">
+<h1><span class="header-section-number">1</span> Siegfried Rump’s Polynomial</h1>
+<p>I rarely think about floating point numbers until I read <a href="https://www.johndcook.com/blog/2019/11/12/rump-floating-point/">John D. Cook’s post about Siegfried Rump’s polynomial</a>.</p>
+<p><span class="math display">\[
+333.75 y^6 + x^2 (11 x^2 y^2 - y^6 - 121 y^4 - 2) + 5.5 y^8 + \frac{x}{(2y)}
+\]</span></p>
+<p>This polynomial looks simple enough for anyone to compute its value for any given value of <span class="math inline">\(x\)</span> and <span class="math inline">\(y\)</span> by hand. Of course, the bigger the values of <span class="math inline">\(x\)</span> and <span class="math inline">\(y\)</span> are, the more laborious it will be to solve this with pen and paper, so we might prefer a computer to do the solving for us. However, Cook points out that when <span class="math inline">\(x = 77617\)</span> and <span class="math inline">\(y = 33096\)</span> we will get different results depending on the precision we use. Cook tested this on C++ and Python and got the correct answer (<span class="math inline">\(\cfrac{-54767}{66192} = -0.827…\)</span>) after increasing the precision.</p>
+<p>I tested this in <code>R</code> out of curiosity and I did get the wrong answer.</p>
+<pre class="r"><code>evaluate_rump_polynomial &lt;- function(x, y) {
+  
+  333.75*y^6 + (x^2) * (11 * (x^2) * (y^2) - (y^6) - 121 * (y^4) - 2) + 
+    5.5 * (y^8) + x / (2 * y)
+  
+}
+
+x &lt;- 77617
+y &lt;-  33096
+
+evaluate_rump_polynomial(x, y)</code></pre>
+<pre><code># [1] -1.180592e+21</code></pre>
+</div>
+<div id="more-than-sixty-four-bits" class="section level1">
+<h1><span class="header-section-number">2</span> More Than Sixty-Four Bits</h1>
+<p>So <code>R</code> is not precise enough to evaluate Rump’s polynomial for <span class="math inline">\(x = 77617\)</span> and <span class="math inline">\(y = 33096\)</span> correctly. If we want the correct answer, we need to increase the precision.</p>
+<p>I learned in <a href="https://stackoverflow.com/questions/49263169/how-can-i-increase-precision-in-r-when-calculating-with-probabilities-close-to-0">StackOverflow that <code>R</code> works on a 64-bit precision</a> by default. This is consistent with Cook’s values for C++ and Python. Now, how do we increase the precision in <code>R</code>?</p>
+<p>From the same StackOverflow post, I learned about the <code>{Rmpfr}</code><span class="citation">(Maechler 2019)</span>.</p>
+</div>
+<div id="multiple-precision-floating-point-reliable" class="section level1">
+<h1><span class="header-section-number">3</span> Multiple Precision Floating-Point Reliable</h1>
+<p>That is what mpfr stands for in <code>{Rmpfr}</code>. The main function I found useful for my intentions to use higher precision in <code>R</code> is <code>Rmpfr::mpfr()</code>. It takes two main arguments: <code>x</code>, the number or numbers we want to take a certain precision, and <code>precBits</code>, the number of maximal precision we want. According to the documentation (<code>?Rmpfr::mpfr</code>), <code>precBits = 53</code> is double precision, which is <code>R</code>’s default. If we want a long double precision, we might need less than 128, but I still used 128 just to be sure.</p>
+<pre class="r"><code>xy_128bits &lt;- lapply(
+  list(x, y),
+  Rmpfr::mpfr,
+  precBits = 128
+)
+
+evaluate_rump_polynomial(xy_128bits[[1]], xy_128bits[[2]])</code></pre>
+<pre><code># 1 &#39;mpfr&#39; number of precision  128   bits 
+# [1] -0.827396059946821368141165095479816292</code></pre>
+<p>It seems with <code>precBits = 128</code> we get very close to the true answer.</p>
+<p>I am not conscious about floating point numbers most of the time. This is a good reminder that I should be wary of precision. I may still take it for granted most of the time, but I am glad I have a way to increase precision in <code>R</code>.</p>
+</div>
+<div id="session-info" class="section level1">
+<h1><span class="header-section-number">4</span> Session Info</h1>
+<pre class="r"><code>sessioninfo::session_info()</code></pre>
+<pre><code># - Session info ---------------------------------------------------------------
+#  setting  value                       
+#  version  R version 3.6.1 (2019-07-05)
+#  os       Windows 10 x64              
+#  system   x86_64, mingw32             
+#  ui       RTerm                       
+#  language (EN)                        
+#  collate  English_Philippines.1252    
+#  ctype    English_Philippines.1252    
+#  tz       Asia/Kuala_Lumpur           
+#  date     2019-11-13                  
+# 
+# - Packages -------------------------------------------------------------------
+#  package     * version  date       lib source        
+#  assertthat    0.2.1    2019-03-21 [1] CRAN (R 3.6.0)
+#  blogdown      0.16     2019-10-01 [1] CRAN (R 3.6.1)
+#  bookdown      0.15     2019-11-12 [1] CRAN (R 3.6.1)
+#  cli           1.1.0    2019-03-19 [1] CRAN (R 3.6.1)
+#  crayon        1.3.4    2017-09-16 [1] CRAN (R 3.6.1)
+#  digest        0.6.22   2019-10-21 [1] CRAN (R 3.6.1)
+#  evaluate      0.14     2019-05-28 [1] CRAN (R 3.6.0)
+#  gmp           0.5-13.5 2019-03-11 [1] CRAN (R 3.6.1)
+#  htmltools     0.4.0    2019-10-04 [1] CRAN (R 3.6.1)
+#  knitr         1.26     2019-11-12 [1] CRAN (R 3.6.1)
+#  magrittr      1.5      2014-11-22 [1] CRAN (R 3.6.1)
+#  Rcpp          1.0.3    2019-11-08 [1] CRAN (R 3.6.1)
+#  rlang         0.4.1    2019-10-24 [1] CRAN (R 3.6.1)
+#  rmarkdown     1.16     2019-10-01 [1] CRAN (R 3.6.1)
+#  Rmpfr         0.7-2    2019-01-22 [1] CRAN (R 3.6.1)
+#  sessioninfo   1.1.1    2018-11-05 [1] CRAN (R 3.6.1)
+#  stringi       1.4.3    2019-03-12 [1] CRAN (R 3.6.0)
+#  stringr       1.4.0    2019-02-10 [1] CRAN (R 3.6.1)
+#  withr         2.1.2    2018-03-15 [1] CRAN (R 3.6.1)
+#  xfun          0.11     2019-11-12 [1] CRAN (R 3.6.1)
+#  yaml          2.2.0    2018-07-25 [1] CRAN (R 3.6.0)
+# 
+# [1] C:/Users/reclev/R/R-3.6.1/library</code></pre>
+</div>
+<div id="reference" class="section level1 unnumbered">
+<h1>Reference</h1>
+<div id="refs" class="references">
+<div id="ref-R-Rmpfr">
+<p>Maechler, Martin. 2019. <em>Rmpfr: R Mpfr - Multiple Precision Floating-Point Reliable</em>. <a href="https://CRAN.R-project.org/package=Rmpfr">https://CRAN.R-project.org/package=Rmpfr</a>.</p>
+</div>
+</div>
+</div>

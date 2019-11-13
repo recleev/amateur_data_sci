@@ -22,6 +22,17 @@ In most of the things I do for work, I don’t need all the available data. Filt
     </item>
     
     <item>
+      <title>Floating Point Numbers and Lack of Precision</title>
+      <link>/post/floating-point-numbers-precision-rmpfr/</link>
+      <pubDate>Wed, 13 Nov 2019 00:00:00 +0000</pubDate>
+      
+      <guid>/post/floating-point-numbers-precision-rmpfr/</guid>
+      <description>1 Siegfried Rump’s Polynomial2 More Than Sixty-Four Bits3 Multiple Precision Floating-Point Reliable4 Session InfoReference1 Siegfried Rump’s PolynomialI rarely think about floating point numbers until I read John D. Cook’s post about Siegfried Rump’s polynomial.
+\[333.75 y^6 + x^2 (11 x^2 y^2 - y^6 - 121 y^4 - 2) + 5.5 y^8 + \frac{x}{(2y)}\]
+This polynomial looks simple enough for anyone to compute its value for any given value of \(x\) and \(y\) by hand.</description>
+    </item>
+    
+    <item>
       <title>Fixing a Broken Home Page</title>
       <link>/post/fixing-a-broken-home-page-hugo/</link>
       <pubDate>Tue, 10 Sep 2019 00:00:00 +0000</pubDate>

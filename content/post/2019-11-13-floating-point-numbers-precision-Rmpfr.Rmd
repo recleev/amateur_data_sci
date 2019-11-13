@@ -1,0 +1,99 @@
+---
+title: Floating Point Numbers and Lack of Precision
+author: Recle E. Vibal
+date: '2019-11-13'
+slug: floating-point-numbers-precision-Rmpfr
+categories:
+  - precision
+  - floating points
+  - Mathematics
+  - Mathjax
+tags:
+  - Rmpfr
+description: 'Increasing the precision of numbers in R'
+output:
+  blogdown::html_page:
+    toc: yes
+    number_sections: yes
+bibliography:
+  - references/Rmpfr.bib
+biblio-style: apalike
+---
+
+```{r set-options, message=FALSE, warning=FALSE, include=FALSE}
+
+knitr::opts_chunk$set(
+  message = FALSE,
+  warning = FALSE,
+  echo = TRUE,
+  comment = "#"
+)
+
+```
+
+# Siegfried Rump's Polynomial
+
+I rarely think about floating point numbers until I read [John D. Cook's post about Siegfried Rump's polynomial](https://www.johndcook.com/blog/2019/11/12/rump-floating-point/).
+
+$$
+333.75 y^6 + x^2 (11 x^2 y^2 - y^6 - 121 y^4 - 2) + 5.5 y^8 + \frac{x}{(2y)}
+$$
+
+This polynomial looks simple enough for anyone to compute its value for any given value of $x$ and $y$ by hand. Of course, the bigger the values of $x$ and $y$ are, the more laborious it will be to solve this with pen and paper, so we might prefer a computer to do the solving for us. However, Cook points out that when $x = 77617$ and $y = 33096$ we will get different results depending on the precision we use. Cook tested this on C++ and Python and got the correct answer ($\cfrac{-54767}{66192} = -0.827…$) after increasing the precision.
+
+I tested this in `R` out of curiosity and I did get the wrong answer.
+
+```{r evaluate-rump-polynomial}
+
+evaluate_rump_polynomial <- function(x, y) {
+  
+  333.75*y^6 + (x^2) * (11 * (x^2) * (y^2) - (y^6) - 121 * (y^4) - 2) + 
+    5.5 * (y^8) + x / (2 * y)
+  
+}
+
+x <- 77617
+y <-  33096
+
+evaluate_rump_polynomial(x, y)
+
+
+```
+
+# More Than Sixty-Four Bits
+
+So `R` is not precise enough to evaluate Rump's polynomial for $x = 77617$ and $y = 33096$ correctly. If we want the correct answer, we need to increase the precision.
+
+I learned in [StackOverflow that `R` works on a 64-bit precision](https://stackoverflow.com/questions/49263169/how-can-i-increase-precision-in-r-when-calculating-with-probabilities-close-to-0) by default. This is consistent with Cook's values for C++ and Python. Now, how do we increase the precision in `R`?
+
+From the same StackOverflow post, I learned about the `{Rmpfr}`[@R-Rmpfr].
+
+# Multiple Precision Floating-Point Reliable
+
+That is what mpfr stands for in `{Rmpfr}`. The main function I found useful for my intentions to use higher precision in `R` is `Rmpfr::mpfr()`. It takes two main arguments: `x`, the number or numbers we want to take a certain precision, and `precBits`, the number of maximal precision we want. According to the documentation (`?Rmpfr::mpfr`), `precBits = 53` is double precision, which is `R`'s default. If we want a long double precision, we might need less than 128, but I still used 128 just to be sure.
+
+```{r precise-bits}
+
+xy_128bits <- lapply(
+  list(x, y),
+  Rmpfr::mpfr,
+  precBits = 128
+)
+
+evaluate_rump_polynomial(xy_128bits[[1]], xy_128bits[[2]])
+
+```
+
+It seems with `precBits = 128` we get very close to the true answer.
+
+I am not conscious about floating point numbers most of the time. This is a good reminder that I should be wary of precision. I may still take it for granted most of the time, but I am glad I have a way to increase precision in `R`.
+
+# Session Info
+
+```{r session-info}
+
+sessioninfo::session_info()
+
+```
+
+# Reference

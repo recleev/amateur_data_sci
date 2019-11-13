@@ -16,7 +16,7 @@ paginate = 10
   subtitle = "Data science in all aspects of life just for the love of it."
   brand = "recleev"
   # CSS name for highlight.js
-  highlightjs = "idea"
+  highlightjs = "github"
   dateFormat = "2006 Jan 2"
 
 [menu]
