@@ -240,7 +240,9 @@
     
       <a class="post-taxonomy-tag" href="/tags/mongolite">mongolite</a>&nbsp;&#47;
     
-      <a class="post-taxonomy-tag" href="/tags/jsonlite">jsonlite</a>
+      <a class="post-taxonomy-tag" href="/tags/jsonlite">jsonlite</a>&nbsp;&#47;
+    
+      <a class="post-taxonomy-tag" href="/tags/anytime">anytime</a>
     
   </div>
   
@@ -253,6 +255,10 @@
 <div id="TOC">
 <ul>
 <li><a href="#mongodb-at-work"><span class="toc-section-number">1</span> MongoDB at Work</a></li>
+<li><a href="#isodate"><span class="toc-section-number">2</span> ISODate</a></li>
+<li><a href="#unix-epoch-and-numberlong"><span class="toc-section-number">3</span> Unix Epoch and <code>$numberLong</code></a></li>
+<li><a href="#as.posixct-and-posixt-epoch"><span class="toc-section-number">4</span> <code>as.POSIXct()</code> and <code>POSIXt = "epoch"</code></a></li>
+<li><a href="#session-info"><span class="toc-section-number">5</span> Session Info</a></li>
 <li><a href="#references">References</a></li>
 </ul>
 </div>
@@ -260,13 +266,203 @@
 <div id="mongodb-at-work" class="section level1">
 <h1><span class="header-section-number">1</span> MongoDB at Work</h1>
 <p>Some of the most important data I use at work are stored and access in <a href="https://docs.mongodb.com/manual/">MongoDB</a>. We also use SQL<a href="#fn1" class="footnote-ref" id="fnref1"><sup>1</sup></a>, but I often find myself reliant on using MongoDB most of the time since my shift to a data science role.</p>
-<p>In most of the things I do for work, I don’t need all the available data. Filtering is a common task and one of the most common ways to filter data is by date.</p>
-<p><span class="citation">Ooms (2019)</span>
-<span class="citation">Ooms, Temple Lang, and Hilaiel (2018)</span></p>
+<p>In most of the things I do for work, I don’t need all the available data. Usually, I only need data within a given date range. We have internal packages that allow me to filter by date, but some time I need a more customized query to MongoDB.</p>
+<p>I will show in this post two methods on how I query dates in MongoDB using <code>{mongolite}</code><span class="citation">(Ooms 2019)</span> and <code>{jsonlite}</code><span class="citation">(Ooms, Temple Lang, and Hilaiel 2018)</span>. One has worked in the past but is having issues right now<a href="#fn2" class="footnote-ref" id="fnref2"><sup>2</sup></a> and a new way that I find easier and more human readable.</p>
+</div>
+<div id="isodate" class="section level1">
+<h1><span class="header-section-number">2</span> ISODate</h1>
+<p>I am new to MongoDB. I know how to make some basics queries using. My favorite is using <code>ISODate()</code>.</p>
+<pre><code>db.collection.find(
+  {
+    DateField: {
+      $gte: ISODate(&quot;YYYY-MM-DD&quot;),
+      $lte: ISODate(&quot;YYYY-MM-DD&quot;)
+    }
+  }
+)</code></pre>
+<p>The first thing I learned about MongoDB is that everything is a nested list. In <code>R</code>, the query can be translated into something like this</p>
+<pre><code>list(
+  DateField = list(
+    &quot;$gte&quot; = ISODate(&quot;YYYY-MM-DD&quot;), 
+    &quot;$lte&quot; = ISODate(&quot;YYYY-MM-DD&quot;)
+  )
+)</code></pre>
+<p>This kind of list can be converted into a <code>json</code> query using <code>jsonlite::toJSON()</code>. Unfortunately, this will fail because <code>toJSON()</code> cannot translate <code>ISODate</code> in <code>R</code>. Please see <a href="https://stackoverflow.com/questions/34454034/r-mongolite-date-query">this StackOverflow question</a>.</p>
+</div>
+<div id="unix-epoch-and-numberlong" class="section level1">
+<h1><span class="header-section-number">3</span> Unix Epoch and <code>$numberLong</code></h1>
+<p>The next thing I learned about MongoDB is that it <a href="https://docs.mongodb.com/manual/reference/method/Date/">stores dates as Unix epoch time</a>. Without <code>ISODate()</code> in <code>R</code> for my disposal, I have to first convert a date into a Unix epoch, then tell MongoDB it is a date then specify if this date should be an upper or lower limit.</p>
+<p>For converting a date to Unix epoch, I learned this helper function from one of the senior data scientists.</p>
+<pre class="r"><code>convert_time_to_unix &lt;- function(ymd, timezone = &quot;Asia/Manila&quot;) {
+  unix_seconds &lt;- as.integer(anytime::anytime(ymd, tz = timezone))
+  # Convert to milliseconds and character by pasting three zeroes at the end
+  return(paste0(unix_seconds, &quot;000&quot;))
+}
+
+convert_time_to_unix(Sys.Date())</code></pre>
+<pre><code>## [1] &quot;1573776000000&quot;</code></pre>
+<p>I like the use of <code>{anytime}</code><span class="citation">(Eddelbuettel 2019)</span> here, and I prefer it whenever I need to handle dates<a href="#fn3" class="footnote-ref" id="fnref3"><sup>3</sup></a> and time.</p>
+<p>Say I want to filter a dataset from 2019 Jan 19 to 2019 Nov 19, I can write my query as a list then convert it to <code>json</code> before using it to query MongoDB.</p>
+<pre class="r"><code>my_query &lt;- list(
+  # Filter DateField
+  DateField = list(
+    # Such that it is greater than or equal (gte, let for less than or equal)
+    &quot;$gte&quot; = list(
+      # To the date
+      &quot;$date&quot; = list(
+        # Represented by this Unix epoch time
+        &quot;$numberLong&quot; = convert_time_to_unix(&quot;2019-01-19&quot;)
+      )
+    ),
+    &quot;$lte&quot; = list(
+      &quot;$date&quot; = list(
+        &quot;$numberLong&quot; = convert_time_to_unix(&quot;2019-11-19&quot;)
+      )
+    )
+  )
+)
+
+library(jsonlite)
+
+# Autounbox is necessary to maintain the correct braces; pretty is for a more
+# human readble format
+my_query_json &lt;- toJSON(my_query, auto_unbox = TRUE, pretty = TRUE)
+
+my_query_json</code></pre>
+<pre><code>## {
+##   &quot;DateField&quot;: {
+##     &quot;$gte&quot;: {
+##       &quot;$date&quot;: {
+##         &quot;$numberLong&quot;: &quot;1547827200000&quot;
+##       }
+##     },
+##     &quot;$lte&quot;: {
+##       &quot;$date&quot;: {
+##         &quot;$numberLong&quot;: &quot;1574092800000&quot;
+##       }
+##     }
+##   }
+## }</code></pre>
+<p>We can pass this query into MongoDB using <code>{mongolite}</code>.</p>
+<pre class="r"><code>library(mongolite)
+
+my_mong0_connection &lt;- 
+  mongo(collection = &quot;MyCollection&quot;, db = &quot;MyDB&quot;, url = &quot;MyUrl&quot;)
+
+my_mongo_connection$find(query = my_query_json)</code></pre>
+</div>
+<div id="as.posixct-and-posixt-epoch" class="section level1">
+<h1><span class="header-section-number">4</span> <code>as.POSIXct()</code> and <code>POSIXt = "epoch"</code></h1>
+<p>As I have said, the use of <code>$numberLong</code> in <code>R</code> and directly in MongoDB started having issues<a href="#fn4" class="footnote-ref" id="fnref4"><sup>4</sup></a> with it. However, blessing in disguise, I found a more elegant way to query by date using <code>toJSON()</code> and without using a helper function to convert a date to Unix epoch.</p>
+<p>The new method I learned uses <code>as.POSIXct()</code> to convert the date then to use the argument <code>POSIXt = "epoch"</code> to tell <code>{jsonlite}</code> how to encode datetime objects. Looking at the documentation, <code>POSIXt</code> can also take <code>"mongo"</code> as a value<a href="#fn5" class="footnote-ref" id="fnref5"><sup>5</sup></a>.</p>
+<pre class="r"><code>my_query_2 &lt;- list(
+  # Filter DateField
+  DateField = list(
+    # Such that it is greater than or equal (gte, let for less than or equal)
+    &quot;$gte&quot; = list(
+      # To the date
+      &quot;$date&quot; = as.POSIXct(&quot;2019-01-19&quot;)
+    ),
+    &quot;$lte&quot; = list(
+      &quot;$date&quot; = as.POSIXct(&quot;2019-11-19&quot;)
+    )
+  )
+)
+
+my_query_json_2 &lt;- 
+  toJSON(my_query_2, auto_unbox = TRUE, POSIXt = &quot;epoch&quot;, pretty = TRUE)
+
+my_query_json_2</code></pre>
+<pre><code>## {
+##   &quot;DateField&quot;: {
+##     &quot;$gte&quot;: {
+##       &quot;$date&quot;: 1547827200000
+##     },
+##     &quot;$lte&quot;: {
+##       &quot;$date&quot;: 1574092800000
+##     }
+##   }
+## }</code></pre>
+<p>I think the second method looks cleaner and more human readable, and for now, it is the only one that works for me. I don’t feel comfortable using <code>as.POSIXct()</code>, but I am happy to discover that I can also do the same method using <code>{anytime}</code>.</p>
+<pre class="r"><code>library(anytime)
+
+my_query_3 &lt;- list(
+  # Filter DateField
+  DateField = list(
+    # Such that it is greater than or equal (gte, let for less than or equal)
+    &quot;$gte&quot; = list(
+      # To the date
+      &quot;$date&quot; = anytime(&quot;2019-01-19&quot;)
+    ),
+    &quot;$lte&quot; = list(
+      &quot;$date&quot; = anytime(&quot;2019-11-19&quot;)
+    )
+  )
+)
+
+my_query_json_3 &lt;- 
+  toJSON(my_query_3, auto_unbox = TRUE, POSIXt = &quot;epoch&quot;, pretty = TRUE)
+
+my_query_json_3</code></pre>
+<pre><code>## {
+##   &quot;DateField&quot;: {
+##     &quot;$gte&quot;: {
+##       &quot;$date&quot;: 1547827200000
+##     },
+##     &quot;$lte&quot;: {
+##       &quot;$date&quot;: 1574092800000
+##     }
+##   }
+## }</code></pre>
+<p>Learning this stuff is necessary at work. However, I still tend to get confused whenever I have to use them. I wrote this post, so I can refer to myself when I get confused again.</p>
+</div>
+<div id="session-info" class="section level1">
+<h1><span class="header-section-number">5</span> Session Info</h1>
+<pre class="r"><code>sessioninfo::session_info()</code></pre>
+<pre><code>## - Session info ---------------------------------------------------------------
+##  setting  value                       
+##  version  R version 3.6.1 (2019-07-05)
+##  os       Windows 10 x64              
+##  system   x86_64, mingw32             
+##  ui       RTerm                       
+##  language (EN)                        
+##  collate  English_Philippines.1252    
+##  ctype    English_Philippines.1252    
+##  tz       Asia/Kuala_Lumpur           
+##  date     2019-11-15                  
+## 
+## - Packages -------------------------------------------------------------------
+##  package     * version date       lib source        
+##  anytime     * 0.3.6   2019-08-29 [1] CRAN (R 3.6.1)
+##  assertthat    0.2.1   2019-03-21 [1] CRAN (R 3.6.0)
+##  blogdown      0.17    2019-11-13 [1] CRAN (R 3.6.1)
+##  bookdown      0.15    2019-11-12 [1] CRAN (R 3.6.1)
+##  cli           1.1.0   2019-03-19 [1] CRAN (R 3.6.1)
+##  crayon        1.3.4   2017-09-16 [1] CRAN (R 3.6.1)
+##  digest        0.6.22  2019-10-21 [1] CRAN (R 3.6.1)
+##  evaluate      0.14    2019-05-28 [1] CRAN (R 3.6.0)
+##  htmltools     0.4.0   2019-10-04 [1] CRAN (R 3.6.1)
+##  jsonlite    * 1.6     2018-12-07 [1] CRAN (R 3.6.1)
+##  knitr         1.26    2019-11-12 [1] CRAN (R 3.6.1)
+##  magrittr      1.5     2014-11-22 [1] CRAN (R 3.6.1)
+##  Rcpp          1.0.3   2019-11-08 [1] CRAN (R 3.6.1)
+##  rlang         0.4.1   2019-10-24 [1] CRAN (R 3.6.1)
+##  rmarkdown     1.17    2019-11-13 [1] CRAN (R 3.6.1)
+##  sessioninfo   1.1.1   2018-11-05 [1] CRAN (R 3.6.1)
+##  stringi       1.4.3   2019-03-12 [1] CRAN (R 3.6.0)
+##  stringr       1.4.0   2019-02-10 [1] CRAN (R 3.6.1)
+##  withr         2.1.2   2018-03-15 [1] CRAN (R 3.6.1)
+##  xfun          0.11    2019-11-12 [1] CRAN (R 3.6.1)
+##  yaml          2.2.0   2018-07-25 [1] CRAN (R 3.6.0)
+## 
+## [1] C:/Users/reclev/R/R-3.6.1/library</code></pre>
 </div>
 <div id="references" class="section level1 unnumbered">
 <h1>References</h1>
 <div id="refs" class="references">
+<div id="ref-R-anytime">
+<p>Eddelbuettel, Dirk. 2019. <em>Anytime: Anything to ’Posixct’ or ’Date’ Converter</em>. <a href="https://CRAN.R-project.org/package=anytime">https://CRAN.R-project.org/package=anytime</a>.</p>
+</div>
 <div id="ref-R-mongolite">
 <p>Ooms, Jeroen. 2019. <em>Mongolite: Fast and Simple ’Mongodb’ Client for R</em>. <a href="https://CRAN.R-project.org/package=mongolite">https://CRAN.R-project.org/package=mongolite</a>.</p>
 </div>
@@ -279,6 +475,10 @@
 <hr />
 <ol>
 <li id="fn1"><p>I am not familiar of the advantages and disadvantages of MongoDB and SQL as I am only a novice in both database programs. However, I like both, and I aim to be proficient at least in the way I can obtain data from them. SQL and MongoDB are just the few learning opportunities I now face at work.<a href="#fnref1" class="footnote-back">↩</a></p></li>
+<li id="fn2"><p>I am not really sure what the issue is. Maybe a different way of translating dates when writing to MongoDB, but I think this topic is beyond me for now.<a href="#fnref2" class="footnote-back">↩</a></p></li>
+<li id="fn3"><p>I am also an advocate of ISO 8601(<a href="https://en.wikipedia.org/wiki/ISO_8601" class="uri">https://en.wikipedia.org/wiki/ISO_8601</a>), but I prefer to use abbreviated month names instead in writing because it is clearer to the reader.<a href="#fnref3" class="footnote-back">↩</a></p></li>
+<li id="fn4"><p>I had to update a shiny app because the data was no longer getting imported using the <code>$numberLong query</code><a href="#fnref4" class="footnote-back">↩</a></p></li>
+<li id="fn5"><p>I am not sure yet what this means. Just another thing for me to discover.<a href="#fnref5" class="footnote-back">↩</a></p></li>
 </ol>
 </div>
 
@@ -331,6 +531,9 @@
 
 
 
+<script src="/js/math-code.js"></script>
+  <script async src="//cdn.bootcss.com/mathjax/2.7.1/MathJax.js?config=TeX-MML-AM_CHTML"></script>
+  
 
 
 </body>

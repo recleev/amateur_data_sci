@@ -8,6 +8,7 @@ categories:
 tags:
   - mongolite
   - jsonlite
+  - anytime
 description: Importing Data into R Using {mongolite} and {jsonlite}
 output:
   blogdown::html_page:
@@ -22,10 +23,168 @@ biblio-style: apalike
 
 Some of the most important data I use at work are stored and access in [MongoDB](https://docs.mongodb.com/manual/). We also use SQL^[I am not familiar of the advantages and disadvantages of MongoDB and SQL as I am only a novice in both database programs. However, I like both, and I aim to be proficient at least in the way I can obtain data from them. SQL and MongoDB are just the few learning opportunities I now face at work.], but I often find myself reliant on using MongoDB most of the time since my shift to a data science role.
 
-In most of the things I do for work, I don't need all the available data. Filtering is a common task and one of the most common ways to filter data is by date. 
+In most of the things I do for work, I don't need all the available data. Usually, I only need data within a given date range. We have internal packages that allow me to filter by date, but some time I need a more customized query to MongoDB. 
 
-@R-mongolite
-@R-jsonlite
+I will show in this post two methods on how I query dates in MongoDB using `{mongolite}`[@R-mongolite] and `{jsonlite}`[@R-jsonlite]. One has worked in the past but is having issues right now^[I am not really sure what the issue is. Maybe a different way of translating dates when writing to MongoDB, but I think this topic is beyond me for now.] and a new way that I find easier and more human readable.
+
+# ISODate
+
+I am new to MongoDB. I know how to make some basics queries using. My favorite is using `ISODate()`.
+
+```
+db.collection.find(
+  {
+    DateField: {
+      $gte: ISODate("YYYY-MM-DD"),
+      $lte: ISODate("YYYY-MM-DD")
+    }
+  }
+)
+```
+
+The first thing I learned about MongoDB is that everything is a nested list. In `R`, the query can be translated into something like this
+
+```
+list(
+  DateField = list(
+    "$gte" = ISODate("YYYY-MM-DD"), 
+    "$lte" = ISODate("YYYY-MM-DD")
+  )
+)
+```
+
+This kind of list can be converted into a `json` query using `jsonlite::toJSON()`. Unfortunately, this will fail because `toJSON()` cannot translate `ISODate` in `R`. Please see [this StackOverflow question](https://stackoverflow.com/questions/34454034/r-mongolite-date-query).
+
+# Unix Epoch and `$numberLong`
+
+The next thing I learned about MongoDB is that it [stores dates as Unix epoch time](https://docs.mongodb.com/manual/reference/method/Date/). Without `ISODate()` in `R` for my disposal, I have to first convert a date into a Unix epoch, then tell MongoDB it is a date then specify if this date should be an upper or lower limit. 
+
+For converting a date to Unix epoch, I learned this helper function from one of the senior data scientists.
+
+```{r convert-to-epoch}
+
+convert_time_to_unix <- function(ymd, timezone = "Asia/Manila") {
+  unix_seconds <- as.integer(anytime::anytime(ymd, tz = timezone))
+  # Convert to milliseconds and character by pasting three zeroes at the end
+  return(paste0(unix_seconds, "000"))
+}
+
+convert_time_to_unix(Sys.Date())
+
+```
+
+I like the use of `{anytime}`[@R-anytime] here, and I prefer it whenever I need to handle dates^[I am also an advocate of ISO 8601(https://en.wikipedia.org/wiki/ISO_8601), but I prefer to use abbreviated month names instead in writing because it is clearer to the reader.] and time.
+
+Say I want to filter a dataset from  2019 Jan 19 to 2019 Nov 19, I can write my query as a list then convert it to `json` before using it to query MongoDB.
+
+```{r numberLong-query}
+
+my_query <- list(
+  # Filter DateField
+  DateField = list(
+    # Such that it is greater than or equal (gte, let for less than or equal)
+    "$gte" = list(
+      # To the date
+      "$date" = list(
+        # Represented by this Unix epoch time
+        "$numberLong" = convert_time_to_unix("2019-01-19")
+      )
+    ),
+    "$lte" = list(
+      "$date" = list(
+        "$numberLong" = convert_time_to_unix("2019-11-19")
+      )
+    )
+  )
+)
+
+library(jsonlite)
+
+# Autounbox is necessary to maintain the correct braces; pretty is for a more
+# human readble format
+my_query_json <- toJSON(my_query, auto_unbox = TRUE, pretty = TRUE)
+
+my_query_json
+
+```
+
+We can pass this query into MongoDB using `{mongolite}`.
+
+```{r mongolite-example, eval = FALSE}
+library(mongolite)
+
+my_mong0_connection <- 
+  mongo(collection = "MyCollection", db = "MyDB", url = "MyUrl")
+
+my_mongo_connection$find(query = my_query_json)
+
+```
+
+# `as.POSIXct()` and `POSIXt = "epoch"`
+
+As I have said, the use of `$numberLong` in `R` and directly in MongoDB started having issues^[I had to update a shiny app because the data was no longer getting imported using the `$numberLong query`] with it. However, blessing in disguise, I found a more elegant way to query by date using `toJSON()` and without using a helper function to convert a date to Unix epoch.
+
+The new method I learned uses `as.POSIXct()` to convert the date then to use the argument `POSIXt = "epoch"` to tell `{jsonlite}` how to encode datetime objects. Looking at the documentation, `POSIXt` can also take `"mongo"` as a value^[I am not sure yet what this means. Just another thing for me to discover.].
+
+```{r POSIXct-POSIXt-epoch}
+
+my_query_2 <- list(
+  # Filter DateField
+  DateField = list(
+    # Such that it is greater than or equal (gte, let for less than or equal)
+    "$gte" = list(
+      # To the date
+      "$date" = as.POSIXct("2019-01-19")
+    ),
+    "$lte" = list(
+      "$date" = as.POSIXct("2019-11-19")
+    )
+  )
+)
+
+my_query_json_2 <- 
+  toJSON(my_query_2, auto_unbox = TRUE, POSIXt = "epoch", pretty = TRUE)
+
+my_query_json_2
+
+```
+
+I think the second method looks cleaner and more human readable, and for now, it is the only one that works for me. I don't feel comfortable using `as.POSIXct()`, but I am happy to discover that I can also do the same method using `{anytime}`.
+
+```{r anytime-POSIXt-epoch}
+
+library(anytime)
+
+my_query_3 <- list(
+  # Filter DateField
+  DateField = list(
+    # Such that it is greater than or equal (gte, let for less than or equal)
+    "$gte" = list(
+      # To the date
+      "$date" = anytime("2019-01-19")
+    ),
+    "$lte" = list(
+      "$date" = anytime("2019-11-19")
+    )
+  )
+)
+
+my_query_json_3 <- 
+  toJSON(my_query_3, auto_unbox = TRUE, POSIXt = "epoch", pretty = TRUE)
+
+my_query_json_3
+
+```
+
+Learning this stuff is necessary at work. However, I still tend to get confused whenever I have to use them. I wrote this post, so I can refer to myself when I get confused again.
+
+# Session Info
+
+```{r session-info}
+
+sessioninfo::session_info()
+
+```
 
 # References
 
