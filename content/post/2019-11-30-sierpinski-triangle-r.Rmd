@@ -1,0 +1,56 @@
+---
+title: Drawing a Sierpinski Triangle in R
+author: Recle E. Vibal
+date: '2019-11-30'
+slug: sierpinski-triangle-r
+categories:
+  - fractal
+  - Mathematics
+tags: []
+description: ''
+topics: []
+---
+
+# Chaos Game
+
+I learned about this [chaos game](https://www.johndcook.com/blog/2017/07/08/the-chaos-game-and-the-sierpinski-triangle/) to draw a [Sierpinski triangle](https://en.wikipedia.org/wiki/Sierpi%C5%84ski_triangle).
+
+1. Select a random point within a triangle.
+2. Select a random vertex.
+3. Move to the midpoint of that point and the vertex.
+4. From the new point, repeat 1.
+5. Keep doing 1 to 4 until you draw a Sierpinski trianle.
+
+Cook provided the Python code he used to play the game and draw the Siepinski triangle. I became curious how I can replicate this process in `R`.
+
+```{r draw-sierpinski-triangle}
+
+set.seed(1915)
+
+find_midpoint <- function(point1, point2){
+  a <- min(point1[1], point2[1])
+  b <- min(point1[2], point2[2])
+  x <- a + sqrt((point2[1] - point1[1])^2) / 2
+  y <- b + sqrt((point2[2] - point1[2])^2) / 2
+  
+  c(x, y)
+}
+
+triangle_points <- expand.grid(
+  step = 1:10000,
+  # Vertices of the triangle are the origin (0, 0)
+  x1 = 0, 
+  y1 = 0, 
+  # (1, 0) on the x-axis
+  x2 = 1, 
+  y2 = 0, 
+  # next point is between the origin and x = 1 plus the height of the
+  # equilateral triangle. Since for an equilateral triangle, we know the sides
+  # are all equal to one, because the base is one, and the opposite side of the
+  # triangle's height is 60 degrees or pi/2.
+  x3 = 0.5, 
+  y3 = sin(pi/2)
+)
+
+```
+
