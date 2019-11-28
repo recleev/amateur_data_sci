@@ -6,10 +6,20 @@
     <description>Recent content in ggplot2 on The Amateur Data Scientist</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>en-us</language>
-    <lastBuildDate>Sun, 03 Feb 2019 00:00:00 +0000</lastBuildDate>
+    <lastBuildDate>Thu, 28 Nov 2019 00:00:00 +0000</lastBuildDate>
     
 	<atom:link href="/tags/ggplot2/index.xml" rel="self" type="application/rss+xml" />
     
+    
+    <item>
+      <title>Drawing a Sierpinski Triangle in R</title>
+      <link>/post/sierpinski-triangle-r/</link>
+      <pubDate>Thu, 28 Nov 2019 00:00:00 +0000</pubDate>
+      
+      <guid>/post/sierpinski-triangle-r/</guid>
+      <description>knitr::opts_chunk$set(message = FALSE,warning = FALSE,echo = TRUE,fig.align = &amp;quot;center&amp;quot;,gganimate = list(width = 672,height = 480))Chaos GameI learned about this chaos game to draw a Sierpinski triangle.
+Select a random point within a triangle.Select a random vertex.Move to the midpoint of that point and the vertex.From the new point, repeat 1.Keep doing 1 to 4 until you draw a Sierpinski trianle.</description>
+    </item>
     
     <item>
       <title>One Function Call to Manipulate and Plot Them All</title>
