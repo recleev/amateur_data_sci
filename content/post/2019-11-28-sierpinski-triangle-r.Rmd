@@ -36,13 +36,13 @@ I learned about this [chaos game](https://www.johndcook.com/blog/2017/07/08/the-
 2. Select a random vertex.
 3. Move to the midpoint of that point and the vertex.
 4. From the new point, repeat 1.
-5. Keep doing 1 to 4 until you draw a Sierpinski trianle.
+5. Keep doing 1 to 4 until you draw a Sierpinski triangle.
 
 Cook provided the Python code he used to play the game and draw the Siepinski triangle. I became curious how I can replicate this process in `R`.
 
 # For the Win
 
-I wanted to find a way I can do this without using a `for` loop. Unfortuantely, the second point relies on the first, the third on the second, and so on. I guess a `for` loop is indeed the fastest way to get about this. If anyone can tell me how I can do it another way, I welcome you to share the solution in the comments.
+I wanted to find a way I can do this without using a `for` loop. Unfortunately, the second point relies on the first, the third on the second, and so on. I guess a `for` loop is indeed the fastest way to get about this. If anyone can tell me how I can do it another way, I welcome you to share the solution in the comments.
 
 ```{r draw-sierpinski-triangle}
 

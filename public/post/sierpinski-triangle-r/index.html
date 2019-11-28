@@ -271,13 +271,13 @@
 <li>Select a random vertex.</li>
 <li>Move to the midpoint of that point and the vertex.</li>
 <li>From the new point, repeat 1.</li>
-<li>Keep doing 1 to 4 until you draw a Sierpinski trianle.</li>
+<li>Keep doing 1 to 4 until you draw a Sierpinski triangle.</li>
 </ol>
 <p>Cook provided the Python code he used to play the game and draw the Siepinski triangle. I became curious how I can replicate this process in <code>R</code>.</p>
 </div>
 <div id="for-the-win" class="section level1">
 <h1>For the Win</h1>
-<p>I wanted to find a way I can do this without using a <code>for</code> loop. Unfortuantely, the second point relies on the first, the third on the second, and so on. I guess a <code>for</code> loop is indeed the fastest way to get about this. If anyone can tell me how I can do it another way, I welcome you to share the solution in the comments.</p>
+<p>I wanted to find a way I can do this without using a <code>for</code> loop. Unfortunately, the second point relies on the first, the third on the second, and so on. I guess a <code>for</code> loop is indeed the fastest way to get about this. If anyone can tell me how I can do it another way, I welcome you to share the solution in the comments.</p>
 <pre class="r"><code>set.seed(1915)
 
 vertex &lt;- data.frame(
