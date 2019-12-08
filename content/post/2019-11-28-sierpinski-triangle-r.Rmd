@@ -1,5 +1,9 @@
 ---
 title: Drawing a Sierpinski Triangle in R
+output:
+  blogdown::html_page:
+    toc: yes
+    number_sections: yes
 author: Recle E. Vibal
 date: '2019-11-28'
 categories:

@@ -1,0 +1,49 @@
+---
+title: Arms Race
+author: Recle E. Vibal
+output:
+  blogdown::html_page:
+    toc: yes
+    number_sections: yes
+date: '2019-12-16'
+slug: arms-race
+categories:
+  - data visualisation
+  - world statistics
+tags:
+  - ggplot2
+  - gganimate
+description: 'Military Spending of the World'
+topics: []
+---
+
+# Introduction
+
+```{r set-options-attach-packages, message=FALSE, warning=FALSE, include=TRUE}
+
+knitr::opts_chunk$set(
+  message = FALSE,
+  warning = FALSE,
+  echo = TRUE,
+  fig.align = "center",
+  gganimate = list(
+    width = 672,
+    height = 480
+  )
+)
+
+library(data.table)
+library(cdata)
+library(ggplot2)
+library(gganimate)
+
+```
+
+```{r import-data}
+
+"https://www.kaggle.com/nitinsss/military-expenditure-of-countries-19602019"
+
+military_spending <- fread(here::here("data", "military"))
+
+```
+
