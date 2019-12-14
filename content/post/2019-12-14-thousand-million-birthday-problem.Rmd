@@ -1,0 +1,17 @@
+---
+title: A Thousand from a Million and the Birthday Problem
+author: Recle E. Vibal
+date: '2019-12-20'
+categories:
+  - Mathematics
+  - probability
+output:
+  blogdown::html_page:
+    toc: yes
+    number_sections: yes
+slug: thousand-million-birthday-problem
+---
+
+# Introduction
+
+John D. Cook presented another nice [probability problem](https://www.johndcook.com/blog/2019/12/13/random-sample-overlap/).
