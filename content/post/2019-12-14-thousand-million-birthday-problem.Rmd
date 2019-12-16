@@ -69,9 +69,8 @@ ggplot(n_no_overlap, aes(size, no_overlap_prob)) +
     color = pal_d3("category10")(4)[4], 
     linetype = "dashed"
   ) +
-  scale_y_continuous(
-    labels = scales::percent
-  ) +
+  geom_text(aes(10^6, exp(-1) - 0.0005), label = "1/e") + 
+  scale_y_continuous(labels = scales::percent) +
   labs(
     title = latex2exp::TeX("Taking Two $n$ samples from $n^2$"),
     x = "n", 
