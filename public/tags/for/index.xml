@@ -17,8 +17,8 @@
       <pubDate>Thu, 28 Nov 2019 00:00:00 +0000</pubDate>
       
       <guid>/post/sierpinski-triangle-r/</guid>
-      <description>knitr::opts_chunk$set(message = FALSE,warning = FALSE,echo = TRUE,fig.align = &amp;quot;center&amp;quot;,gganimate = list(width = 672,height = 480))Chaos GameI learned about this chaos game to draw a Sierpinski triangle.
-Select a random point within a triangle.Select a random vertex.Move to the midpoint of that point and the vertex.From the new point, repeat 1.Keep doing 1 to 4 until you draw a Sierpinski triangle.</description>
+      <description>1 Chaos Game2 For the Win3 A Point at a Time4 Session Infoknitr::opts_chunk$set(message = FALSE,warning = FALSE,echo = TRUE,fig.align = &amp;quot;center&amp;quot;,gganimate = list(width = 672,height = 480))1 Chaos GameI learned about this chaos game to draw a Sierpinski triangle.
+Select a random point within a triangle.Select a random vertex.Move to the midpoint of that point and the vertex.</description>
     </item>
     
   </channel>

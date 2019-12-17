@@ -40,7 +40,7 @@ Note that the value of $1/e$ is about `r exp(-1)`, so Cook is correct to say tha
 
 I wanted to see how to solve this problem for other values of $n$, so I wrote a code for it and plotted the probabilities for good measure.
 
-```{r two-n-samples-from-n-squared, fig.width=9, fig.height=6}
+```{r two-n-samples-from-n-squared, fig.width=9, fig.height=6, fig.cap="Taking Two $n$ samples from $n^2$"}
 
 compute_no_overlap <- function(n) {
   
@@ -49,11 +49,7 @@ compute_no_overlap <- function(n) {
   prod(numerator/denominator)
 }
 
-n_no_overlap <- data.frame(
-  exponent = 1:9
-)
-
-n_no_overlap <- data.frame(size = 10^(1:9))
+n_no_overlap <- data.frame(size = 10^(1:8))
 
 n_no_overlap$no_overlap_prob <- unlist(lapply(n_no_overlap$size, compute_no_overlap))
 
@@ -72,14 +68,13 @@ ggplot(n_no_overlap, aes(size, no_overlap_prob)) +
   geom_text(aes(10^6, exp(-1) - 0.0005), label = "1/e") + 
   scale_y_continuous(labels = scales::percent) +
   labs(
-    title = latex2exp::TeX("Taking Two $n$ samples from $n^2$"),
     x = "n", 
     y = "Probability of No Overlap Between Samples"
   )
 
 ```
 
-Note that `compute_no_overlap` works for any integer value of $n$, but I would avoid anything higher than $10^9$.
+Note that `compute_no_overlap()` works for any integer value of $n$, but I would avoid anything higher than $10^9$.
 
 ## Combination
 
@@ -92,7 +87,8 @@ $$
 \cfrac{_{n^2 - n}C_n}{_{n^2}C_n} &= \cfrac{\cfrac{(n^2 - n)!}{(n^2 - n - n)! n!}}{\cfrac{n^2!}{(n^2 - n)!n!}} \\
 &= \cfrac{(n^2 - n)!(n^2 - n)!n!}{(n^2 - 2n)!n^2!n!}\\
 &= \cfrac{(n^2 - n)! \times (n^2 - n) \times (n^2 - n - 1) \times (n^2 - n - 2) \times \ldots \times (n^2 - 2n + 1) \times (n^2 - 2n)!}{n^2 \times (n^2 - 1) \times (n^2 - 2) \times \ldots \times (n^2 - n + 1) \times (n^2 - n)! \times (n^2 - 2n)!} \\
-&= \cfrac{(n^2 - n) \times (n^2 - n - 1) \times (n^2 - n - 2) \times \ldots \times (n^2 - 2n + 1)}{n^2 \times (n^2 - 1) \times (n^2 - 2) \times \ldots \times (n^2 - n + 1)}
+&= \cfrac{(n^2 - n) \times (n^2 - n - 1) \times (n^2 - n - 2) \times \ldots \times (n^2 - 2n + 1)}{n^2 \times (n^2 - 1) \times (n^2 - 2) \times \ldots \times (n^2 - n + 1)} \\
+\cfrac{_{n^2 - n}C_n}{_{n^2}C_n} &= \prod_{i = 1}^n \cfrac{n^2 - n - i + 1}{n^2 - i + 1}
 \end{aligned}
 $$
 For $n = 1000$, the probability of no overlap of two 1K samples from 1M is,
@@ -104,4 +100,63 @@ $$
 which is what we solved using `R` code.
 
 # Birthday Problem
+
+Cook compared the problem above to the birthday problem.
+
+> Given $n$ people in a room, what is the probability that two people have the same problem? What is $n$ such that the probability of two people having the same birthday is greater than or equal than 50%?
+
+There are 366 possible birthdays. If there are two people in the room, the probability that they have different birthdays is $\cfrac{365}{366}$. If there are three people in the room, the probability that they have different birthdays is $\cfrac{365}{366} \times \cfrac{364}{366}$. If there are four people in the room, the probability that they have different birthdays is $\cfrac{365}{366} \times \cfrac{364}{366} \times \cfrac{363}{366}$. If there are four people in the room, the probability that they have different birthdays is 
+
+$$
+\cfrac{365}{366} \times \cfrac{364}{366} \times \cfrac{363}{366} \times \ldots \times \cfrac{366 - n + 2}{366} \times \cfrac{366 - n + 1}{366}
+$$ 
+
+or in product notation
+
+$$
+\prod_{n \gt 1} \cfrac{366 - n + 1}{366}
+$$
+In `R` code,
+
+```{r compute-same-birthday-prob}
+
+compute_same_birthday_prob <- function(n){
+  prod(
+    (366:(366 - n + 1)) / 366
+  )
+}
+
+```
+
+We can now plot the birthday problem for $2 \le n \le 367$.
+
+```{r plot-birthday-problem, fig.cap="Birthday Problem"}
+
+birthday_problem <- data.frame(
+  number_of_people = 2:367
+)
+
+birthday_problem$same_birthday_prob <- unlist(
+  lapply(
+    birthday_problem$number_of_people,
+    compute_same_birthday_prob
+  )
+)
+
+ggplot(
+  birthday_problem,
+  aes(number_of_people, same_birthday_prob)
+) +
+  geom_line() +
+  theme_minimal() +
+  labs(
+    x = "Number of People",
+    y = "Probability of No Same Birthday"
+  ) +
+  scale_y_continuous(labels = scales::percent) +
+  geom_hline(yintercept = 0.5, color = "red", linetype = "dashed")
+
+```
+
+From the generated data, we can find find that the number of people needed to have at least a 50% chance of finding a pair with the same birthday is `r birthday_problem[abs(birthday_problem$same_birthday_prob - 0.5) == min(abs(birthday_problem$same_birthday_prob - 0.5)), "number_of_people"]`. If we want to have a 99.99% chance of a pair with the same birthday, we only need `r birthday_problem[abs(birthday_problem$same_birthday_prob - 0.0001) == min(abs(birthday_problem$same_birthday_prob - 0.0001)), "number_of_people"]`.
 

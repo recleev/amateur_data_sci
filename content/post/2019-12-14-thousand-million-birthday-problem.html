@@ -1,0 +1,151 @@
+---
+title: Two One-Thousand Samples from a Million and the Birthday Problem
+author: Recle E. Vibal
+date: '2019-12-20'
+categories:
+  - Mathematics
+  - probability
+output:
+  blogdown::html_page:
+    toc: yes
+    number_sections: yes
+slug: thousand-million-birthday-problem
+---
+
+
+<div id="TOC">
+<ul>
+<li><a href="#no-overlapping-samples"><span class="toc-section-number">1</span> No Overlapping Samples</a><ul>
+<li><a href="#solved-in-r"><span class="toc-section-number">1.1</span> Solved in <code>R</code></a></li>
+<li><a href="#combination"><span class="toc-section-number">1.2</span> Combination</a></li>
+</ul></li>
+<li><a href="#birthday-problem"><span class="toc-section-number">2</span> Birthday Problem</a></li>
+</ul>
+</div>
+
+<div id="no-overlapping-samples" class="section level1">
+<h1><span class="header-section-number">1</span> No Overlapping Samples</h1>
+<p>John D. Cook presented another nice <a href="https://www.johndcook.com/blog/2019/12/13/random-sample-overlap/">probability problem</a>:</p>
+<blockquote>
+<p>Suppose you draw 1,000 serial numbers at random from a set of 1,000,000. Then you make another random sample of 1,000. How likely is it that no numbers will be the same on both lists?</p>
+</blockquote>
+<p>Cook did provide a proof that the probability of two <span class="math inline">\(n\)</span> samples from a set of size <span class="math inline">\(n^2\)</span> not having similar members approaches <span class="math inline">\(1/e\)</span> as <span class="math inline">\(n \to \infty\)</span>. The proof is a little too sophisticated for me, and going from <span class="math inline">\(\lim_ \limits{n \to \infty} \left(\cfrac{n^2 - n}{n^2}\right)^n\)</span> to <span class="math inline">\(1/e\)</span> is still mind boggling. Here is my approach to the problem.</p>
+<div id="solved-in-r" class="section level2">
+<h2><span class="header-section-number">1.1</span> Solved in <code>R</code></h2>
+<p>I planned to find the solution using <code>R</code>, but I did not want to brute force the solution by making multiple runs of two one-thousand samples. I did simplify the problem first and coded it to find the numeric value.</p>
+<p>To avoid similar members between the two samples, we must avoid all the members already in the first sample during every draw of the second sample. Starting with the first member of the second sample, we can only take one of the remaining 999K possible members from a pool of 1M, so the probability of avoiding an overlap in the first draw is <span class="math inline">\(999,000/1,000,000\)</span>. For the second draw, the probability to avoid overlap is <span class="math inline">\(998,999/999,999\)</span> since the first draw reduced the number of the allowable members we can sample to avoid overlap and the overall number of possible members to draw. If we do this for the third, fourth, and fifth draw, by the 1000th draw our probability to avoid overlap will be <span class="math inline">\(998,001/999,001\)</span>. All of these draws must happen to avoid overlap, so draw one must happen, and draw two, and draw three, and until draw 1000.</p>
+<p>I can’t solve this by hand, so I asked <code>R</code> for help.</p>
+<pre class="r"><code>prob_no_overlap_1k_1m &lt;- prod((999000:998001) / (1000000:999001))
+
+prob_no_overlap_1k_1m</code></pre>
+<pre><code>## [1] 0.3675115</code></pre>
+<p>Note that the value of <span class="math inline">\(1/e\)</span> is about 0.3678794, so Cook is correct to say that for <span class="math inline">\(n = 1,000\)</span> the limit <span class="math inline">\(1/e\)</span> is good for the first three decimal places.</p>
+<p>I wanted to see how to solve this problem for other values of <span class="math inline">\(n\)</span>, so I wrote a code for it and plotted the probabilities for good measure.</p>
+<pre class="r"><code>compute_no_overlap &lt;- function(n) {
+  
+  numerator &lt;- (n^2 - n):(n^2 - 2*n + 1)
+  denominator &lt;- (n^2):(n^2 - n + 1)
+  prod(numerator/denominator)
+}
+
+n_no_overlap &lt;- data.frame(size = 10^(1:8))
+
+n_no_overlap$no_overlap_prob &lt;- unlist(lapply(n_no_overlap$size, compute_no_overlap))
+
+library(ggplot2)
+library(ggsci)
+
+ggplot(n_no_overlap, aes(size, no_overlap_prob)) +
+  geom_line(color = pal_d3(&quot;category10&quot;)(2)[2]) +
+  theme_minimal() +
+  scale_x_log10() +
+  geom_hline(
+    yintercept = exp(-1), 
+    color = pal_d3(&quot;category10&quot;)(4)[4], 
+    linetype = &quot;dashed&quot;
+  ) +
+  geom_text(aes(10^6, exp(-1) - 0.0005), label = &quot;1/e&quot;) + 
+  scale_y_continuous(labels = scales::percent) +
+  labs(
+    x = &quot;n&quot;, 
+    y = &quot;Probability of No Overlap Between Samples&quot;
+  )</code></pre>
+<div class="figure"><span id="fig:two-n-samples-from-n-squared"></span>
+<img src="/post/2019-12-14-thousand-million-birthday-problem_files/figure-html/two-n-samples-from-n-squared-1.png" alt="Taking Two $n$ samples from $n^2$" width="864" />
+<p class="caption">
+Figure 1.1: Taking Two <span class="math inline">\(n\)</span> samples from <span class="math inline">\(n^2\)</span>
+</p>
+</div>
+<p>Note that <code>compute_no_overlap()</code> works for any integer value of <span class="math inline">\(n\)</span>, but I would avoid anything higher than <span class="math inline">\(10^9\)</span>.</p>
+</div>
+<div id="combination" class="section level2">
+<h2><span class="header-section-number">1.2</span> Combination</h2>
+<p>Another way to look at the problem is through taking <span class="math inline">\(n\)</span> samples from <span class="math inline">\(n^2\)</span>, which is what Cook did in his proof.</p>
+<p>There are <span class="math inline">\(_{n^2}C_n\)</span> ways to take <span class="math inline">\(n\)</span> samples from <span class="math inline">\(n^2\)</span>. There are <span class="math inline">\(_{n^2 - n}C_n\)</span> to avoid overlap from the first and second sampling. Thus, the probability of avoiding overlap of two <span class="math inline">\(n\)</span> samples from <span class="math inline">\(n^2\)</span> is</p>
+<p><span class="math display">\[
+\begin{aligned}
+\cfrac{_{n^2 - n}C_n}{_{n^2}C_n} &amp;= \cfrac{\cfrac{(n^2 - n)!}{(n^2 - n - n)! n!}}{\cfrac{n^2!}{(n^2 - n)!n!}} \\
+&amp;= \cfrac{(n^2 - n)!(n^2 - n)!n!}{(n^2 - 2n)!n^2!n!}\\
+&amp;= \cfrac{(n^2 - n)! \times (n^2 - n) \times (n^2 - n - 1) \times (n^2 - n - 2) \times \ldots \times (n^2 - 2n + 1) \times (n^2 - 2n)!}{n^2 \times (n^2 - 1) \times (n^2 - 2) \times \ldots \times (n^2 - n + 1) \times (n^2 - n)! \times (n^2 - 2n)!} \\
+&amp;= \cfrac{(n^2 - n) \times (n^2 - n - 1) \times (n^2 - n - 2) \times \ldots \times (n^2 - 2n + 1)}{n^2 \times (n^2 - 1) \times (n^2 - 2) \times \ldots \times (n^2 - n + 1)} \\
+\cfrac{_{n^2 - n}C_n}{_{n^2}C_n} &amp;= \prod_{i = 1}^n \cfrac{n^2 - n - i + 1}{n^2 - i + 1}
+\end{aligned}
+\]</span>
+For <span class="math inline">\(n = 1000\)</span>, the probability of no overlap of two 1K samples from 1M is,</p>
+<p><span class="math display">\[
+\cfrac{999,000 \times 998,999 \times 998,998 \times \ldots \times 998,002 \times 999,8001}{1,000,000 \times 999,999 \times 999,998 \times \ldots \times 999,002 \times 999,001}
+\]</span></p>
+<p>which is what we solved using <code>R</code> code.</p>
+</div>
+</div>
+<div id="birthday-problem" class="section level1">
+<h1><span class="header-section-number">2</span> Birthday Problem</h1>
+<blockquote>
+<p>Given <span class="math inline">\(n\)</span> people in a room, what is the probability that two people have the same problem? What is <span class="math inline">\(n\)</span> such that the probability of two people having the same birthday is greater than or equal than 50%?</p>
+</blockquote>
+<p>There are 366 possible birthdays. If there are two people in the room, the probability that they have different birthdays is <span class="math inline">\(\cfrac{365}{366}\)</span>. If there are three people in the room, the probability that they have different birthdays is <span class="math inline">\(\cfrac{365}{366} \times \cfrac{364}{366}\)</span>. If there are four people in the room, the probability that they have different birthdays is <span class="math inline">\(\cfrac{365}{366} \times \cfrac{364}{366} \times \cfrac{363}{366}\)</span>. If there are four people in the room, the probability that they have different birthdays is</p>
+<p><span class="math display">\[
+\cfrac{365}{366} \times \cfrac{364}{366} \times \cfrac{363}{366} \times \ldots \times \cfrac{366 - n + 2}{366} \times \cfrac{366 - n + 1}{366}
+\]</span></p>
+<p>or in product notation</p>
+<p><span class="math display">\[
+\prod_{n \gt 1} \cfrac{366 - n + 1}{366}
+\]</span>
+In <code>R</code> code,</p>
+<pre class="r"><code>compute_same_birthday_prob &lt;- function(n){
+  prod(
+    (366:(366 - n + 1)) / 366
+  )
+}</code></pre>
+<p>We can now plot the birthday problem for <span class="math inline">\(2 \le n \le 367\)</span>.</p>
+<pre class="r"><code>birthday_problem &lt;- data.frame(
+  number_of_people = 2:367
+)
+
+birthday_problem$same_birthday_prob &lt;- unlist(
+  lapply(
+    birthday_problem$number_of_people,
+    compute_same_birthday_prob
+  )
+)
+
+ggplot(
+  birthday_problem,
+  aes(number_of_people, same_birthday_prob)
+) +
+  geom_line() +
+  theme_minimal() +
+  labs(
+    x = &quot;Number of People&quot;,
+    y = &quot;Probability of No Same Birthday&quot;
+  ) +
+  scale_y_continuous(labels = scales::percent) +
+  geom_hline(yintercept = 0.5, color = &quot;red&quot;, linetype = &quot;dashed&quot;)</code></pre>
+<div class="figure"><span id="fig:plot-birthday-problem"></span>
+<img src="/post/2019-12-14-thousand-million-birthday-problem_files/figure-html/plot-birthday-problem-1.png" alt="Birthday Problem" width="672" />
+<p class="caption">
+Figure 2.1: Birthday Problem
+</p>
+</div>
+<p>From the generated data, it is easy to find that the number of people needed to have at least a 50% chance of finding a pair with the same birthday is 23. If we want to have a 99.99% chance of a pair with the same birthday, we only need 80.</p>
+</div>
