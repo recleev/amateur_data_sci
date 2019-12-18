@@ -17,7 +17,7 @@
       <pubDate>Fri, 20 Dec 2019 00:00:00 +0000</pubDate>
       
       <guid>/post/thousand-million-birthday-problem/</guid>
-      <description>1 No Overlapping Samples1.1 Solved in R1.2 Combination2 Birthday Problem1 No Overlapping SamplesJohn D. Cook presented another nice probability problem:
+      <description>1 No Overlapping Samples1.1 Solved in R1.2 Combination2 Birthday Problem3 Session Info1 No Overlapping SamplesJohn D. Cook presented another nice probability problem:
 Suppose you draw 1,000 serial numbers at random from a set of 1,000,000. Then you make another random sample of 1,000. How likely is it that no numbers will be the same on both lists?
 Cook did provide a proof that the probability of two \(n\) samples from a set of size \(n^2\) not having similar members approaches \(1/e\) as \(n \to \infty\).</description>
     </item>

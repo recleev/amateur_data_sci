@@ -5,6 +5,9 @@ date: '2019-12-20'
 categories:
   - Mathematics
   - probability
+tags:
+  - ggplot2
+  - lapply
 output:
   blogdown::html_page:
     toc: yes
@@ -24,7 +27,7 @@ Cook did provide a proof that the probability of two $n$ samples from a set of s
 
 I planned to find the solution using `R`, but I did not want to brute force the solution by making multiple runs of two one-thousand samples. I did simplify the problem first and coded it to find the numeric value.
 
-To avoid similar members between the two samples, we must avoid all the members already in the first sample during every draw of the second sample. Starting with the first member of the second sample, we can only take one of the remaining 999K possible members from a pool of 1M, so the probability of avoiding an overlap in the first draw is $999,000/1,000,000$. For the second draw, the probability to avoid overlap is $998,999/999,999$ since the first draw reduced the number of the allowable members we can sample to avoid overlap and the overall number of possible members to draw. If we do this for the third, fourth, and fifth draw, by the 1000th draw our probability to avoid overlap will be $998,001/999,001$. All of these draws must happen to avoid overlap, so draw one must happen, and draw two, and draw three, and until draw 1000.
+To avoid similar members between the two samples, we must avoid all the members already in the first sample during every draw of the second sample. Starting with the first member of the second sample, we can only take one of the remaining 999K possible members from a pool of 1M, so the probability of avoiding an overlap in the first draw is $999,000/1,000,000$. For the second draw, the probability to avoid overlap is $998,999/999,999$ since the first draw reduced the number of the allowable members we can sample to avoid overlap and the overall number of possible members to draw, i.e. sampling without replacement. If we do this for the third, fourth, and so on, by the 1000th draw our probability to avoid overlap will be $998,001/999,001$. All of these draws must happen to avoid overlap, so draw one must happen, and draw two, and draw three, until draw 1000.
 
 I can't solve this by hand, so I asked `R` for help.
 
@@ -38,7 +41,7 @@ prob_no_overlap_1k_1m
 
 Note that the value of $1/e$ is about `r exp(-1)`, so Cook is correct to say that for $n = 1,000$ the limit $1/e$ is good for the first three decimal places.
 
-I wanted to see how to solve this problem for other values of $n$, so I wrote a code for it and plotted the probabilities for good measure.
+I wanted to see how to solve this problem for other values of $n$, so I wrote a code for it and plotted the probabilities.
 
 ```{r two-n-samples-from-n-squared, fig.width=9, fig.height=6, fig.cap="Taking Two $n$ samples from $n^2$"}
 
@@ -74,13 +77,13 @@ ggplot(n_no_overlap, aes(size, no_overlap_prob)) +
 
 ```
 
-Note that `compute_no_overlap()` works for any integer value of $n$, but I would avoid anything higher than $10^9$.
+Note that `compute_no_overlap()` works for any integer value of $n$.
 
 ## Combination
 
 Another way to look at the problem is through taking $n$ samples from $n^2$, which is what Cook did in his proof.
 
-There are $_{n^2}C_n$ ways to take $n$ samples from $n^2$. There are $_{n^2 - n}C_n$ to avoid overlap from the first and second sampling. Thus, the probability of avoiding overlap of two $n$ samples from $n^2$ is
+There are $_{n^2}C_n$ ways to take $n$ samples from $n^2$. There are $_{n^2 - n}C_n$ ways to avoid overlap from the first and second sampling. Thus, the probability of avoiding overlap of two $n$ samples from $n^2$ is
 
 $$
 \begin{aligned}
@@ -94,7 +97,7 @@ $$
 For $n = 1000$, the probability of no overlap of two 1K samples from 1M is,
 
 $$
-\cfrac{999,000 \times 998,999 \times 998,998 \times \ldots \times 998,002 \times 999,8001}{1,000,000 \times 999,999 \times 999,998 \times \ldots \times 999,002 \times 999,001}
+\cfrac{999,000 \times 998,999 \times 998,998 \times \ldots \times 998,002 \times 998,001}{1,000,000 \times 999,999 \times 999,998 \times \ldots \times 999,002 \times 999,001}
 $$
 
 which is what we solved using `R` code.
@@ -103,9 +106,9 @@ which is what we solved using `R` code.
 
 Cook compared the problem above to the birthday problem.
 
-> Given $n$ people in a room, what is the probability that two people have the same problem? What is $n$ such that the probability of two people having the same birthday is greater than or equal than 50%?
+> Given $n$ people in a room, what is the probability that two people have the same birthday? What is $n$ such that the probability of two people having the same birthday is greater than or equal to 50%?
 
-There are 366 possible birthdays. If there are two people in the room, the probability that they have different birthdays is $\cfrac{365}{366}$. If there are three people in the room, the probability that they have different birthdays is $\cfrac{365}{366} \times \cfrac{364}{366}$. If there are four people in the room, the probability that they have different birthdays is $\cfrac{365}{366} \times \cfrac{364}{366} \times \cfrac{363}{366}$. If there are four people in the room, the probability that they have different birthdays is 
+There are 366 possible birthdays. If there are two people in the room, the probability that they have different birthdays is $\cfrac{365}{366}$. If there are three people in the room, the probability that they have different birthdays is $\cfrac{365}{366} \times \cfrac{364}{366}$. If there are four people in the room, the probability that they have different birthdays is $\cfrac{365}{366} \times \cfrac{364}{366} \times \cfrac{363}{366}$. If there are $n$ people in the room, the probability that they have different birthdays is 
 
 $$
 \cfrac{365}{366} \times \cfrac{364}{366} \times \cfrac{363}{366} \times \ldots \times \cfrac{366 - n + 2}{366} \times \cfrac{366 - n + 1}{366}
@@ -114,13 +117,15 @@ $$
 or in product notation
 
 $$
-\prod_{n \gt 1} \cfrac{366 - n + 1}{366}
+\prod_{i = 2}^n \cfrac{366 - i + 1}{366}
 $$
+Note that the denominator does not change because we are sampling with replacement the possible birthday of any given person. 
+
 In `R` code,
 
 ```{r compute-same-birthday-prob}
 
-compute_same_birthday_prob <- function(n){
+compute_no_same_birthday_prob <- function(n){
   prod(
     (366:(366 - n + 1)) / 366
   )
@@ -136,12 +141,14 @@ birthday_problem <- data.frame(
   number_of_people = 2:367
 )
 
-birthday_problem$same_birthday_prob <- unlist(
+birthday_problem$no_same_birthday_prob <- unlist(
   lapply(
     birthday_problem$number_of_people,
-    compute_same_birthday_prob
+    compute_no_same_birthday_prob
   )
 )
+
+birthday_problem$same_birthday_prob <- 1 - birthday_problem$no_same_birthday_prob
 
 ggplot(
   birthday_problem,
@@ -151,12 +158,19 @@ ggplot(
   theme_minimal() +
   labs(
     x = "Number of People",
-    y = "Probability of No Same Birthday"
+    y = "Probability of a Pair with Same Birthday"
   ) +
   scale_y_continuous(labels = scales::percent) +
   geom_hline(yintercept = 0.5, color = "red", linetype = "dashed")
 
 ```
 
-From the generated data, we can find find that the number of people needed to have at least a 50% chance of finding a pair with the same birthday is `r birthday_problem[abs(birthday_problem$same_birthday_prob - 0.5) == min(abs(birthday_problem$same_birthday_prob - 0.5)), "number_of_people"]`. If we want to have a 99.99% chance of a pair with the same birthday, we only need `r birthday_problem[abs(birthday_problem$same_birthday_prob - 0.0001) == min(abs(birthday_problem$same_birthday_prob - 0.0001)), "number_of_people"]`.
+From the generated data, we can find that the number of people needed to have at least a 50% chance of a similar birthday is `r birthday_problem[abs(birthday_problem$same_birthday_prob - 0.5) == min(abs(birthday_problem$same_birthday_prob - 0.5)), "number_of_people"]`. If we want to have a 99.99% chance of a pair with the same birthday, we only need `r birthday_problem[abs(birthday_problem$same_birthday_prob - 0.9999) == min(abs(birthday_problem$same_birthday_prob - 0.9999)), "number_of_people"]`.
 
+# Session Info
+
+```{r session-info}
+
+sessioninfo::session_info()
+
+```
