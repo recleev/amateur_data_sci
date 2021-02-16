@@ -1,0 +1,85 @@
+---
+title: Adding Action Buttons to DataTables in Shiny Apps
+author: Recle Vibal
+date: '2021-02-16'
+slug: []
+categories:
+  - apps
+tags:
+  - shiny
+  - DT
+  - datatable
+  - modules
+description: ''
+topics: []
+---
+
+# Introduction
+
+# Action Button Module
+
+## UI
+
+```{r create-module-ui}
+
+button_ui <- function(id){
+
+  ns <- shiny::NS(id)
+  
+  shiny::actionButton(
+    inputId = ns("show_data"),
+    label = id
+  )
+  
+}
+
+```
+
+## Server
+
+```{r create-module-server}
+
+button_server <- function(input, output, session, species){
+  
+  ns <- session$ns
+  
+  shiny::observeEvent(
+    input$show_data,
+    shiny::showModal(
+      shiny::modalDialog(
+        DT::renderDataTable(
+          iris[iris$Species == species,]
+        ),
+        easyClose = TRUE
+      )
+    )
+  )
+}
+
+```
+
+# App
+
+```{r create-app}
+
+ui <- shiny::shinyUI(
+ button_ui(id = "versicolor") 
+)
+
+server <- shiny::shinyServer(
+  function(input, output){
+    callModule(
+      module = button_server,
+      id = "versicolor",
+      species = "versicolor"
+    )
+  }
+)
+
+shiny::shinyApp(
+  ui = ui,
+  server = server
+)
+
+```
+

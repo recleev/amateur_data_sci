@@ -1,0 +1,80 @@
+---
+title: Adding Action Buttons to DataTables in Shiny Apps
+author: Recle Vibal
+date: '2021-02-16'
+slug: []
+categories:
+  - apps
+tags:
+  - shiny
+  - DT
+  - datatable
+  - modules
+description: ''
+topics: []
+---
+
+<script src="{{< blogdown/postref >}}index_files/header-attrs/header-attrs.js"></script>
+
+
+<div id="introduction" class="section level1">
+<h1>Introduction</h1>
+</div>
+<div id="action-button-module" class="section level1">
+<h1>Action Button Module</h1>
+<div id="ui" class="section level2">
+<h2>UI</h2>
+<pre class="r"><code>button_ui &lt;- function(id){
+
+  ns &lt;- shiny::NS(id)
+  
+  shiny::actionButton(
+    inputId = ns(&quot;show_data&quot;),
+    label = id
+  )
+  
+}</code></pre>
+</div>
+<div id="server" class="section level2">
+<h2>Server</h2>
+<pre class="r"><code>button_server &lt;- function(input, output, session, species){
+  
+  ns &lt;- session$ns
+  
+  shiny::observeEvent(
+    input$show_data,
+    shiny::showModal(
+      shiny::modalDialog(
+        DT::renderDataTable(
+          iris[iris$Species == species,]
+        ),
+        easyClose = TRUE
+      )
+    )
+  )
+}</code></pre>
+</div>
+</div>
+<div id="app" class="section level1">
+<h1>App</h1>
+<pre class="r"><code>ui &lt;- shiny::shinyUI(
+ button_ui(id = &quot;versicolor&quot;) 
+)
+
+server &lt;- shiny::shinyServer(
+  function(input, output){
+    callModule(
+      module = button_server,
+      id = &quot;versicolor&quot;,
+      species = &quot;versicolor&quot;
+    )
+  }
+)
+
+shiny::shinyApp(
+  ui = ui,
+  server = server
+)</code></pre>
+<pre><code>## PhantomJS not found. You can install it with webshot::install_phantomjs(). If it is installed, please make sure the phantomjs executable can be found via the PATH variable.</code></pre>
+<p><div style="width: 100% ; height: 400px ; text-align: center; box-sizing: border-box; -moz-box-sizing: border-box; -webkit-box-sizing: border-box;" class="muted well">Shiny applications not supported in static R Markdown documents</div></p>
+</div>
